@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Masha Harness @bizalchemist Portfolio, 21-JAN-24</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="/Users/mashaharness/Desktop/bizalchemist_GitHub/assets/favicon-wiz.ico">
+    <style>
+    body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+    .w3-row-padding img {margin-bottom: 12px}
+    /* Set the width of the sidebar to 120px */
+    .w3-sidebar {width: 120px;background: #222;}
+    /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+    #main {margin-left: 120px}
+    /* Remove margins from "page content" on small screens */
+    @media only screen and (max-width: 600px) {#main {margin-left: 0}}
+    /* !-- My Profile Card --> */
+    body {
+      background-color: black;
+    }
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 255.2);
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
+      font-family: arial;
+    }
+    .title {
+      color: white;
+      font-size: 18px;
+    }
+    button {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      padding: 8px;
+      color: grey;
+      background-color: #FFF;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
+    button:hover, a:hover {
+      opacity: 0.7;
+    }
+    .w3-button a {
+      text-decoration: none;
+    }
+    .portfolio-image-container {
+      position: relative; /* Key for absolute positioning of overlay */
+      width: 100%; 
+    }
+
+    .portfolio-image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8); /* Black with 80% opacity */
+      opacity: 0;          /* Hidden by default */
+      transition: opacity 0.3s ease; /* Smooth fade effect */
+      display: flex;       /* Center the text */
+      align-items: center; 
+      justify-content: center; 
+    }
+
+    .portfolio-image-text {
+      color: white;
+      font-size: 20px;
+      text-align: center; /* Centers the text */
+    }
+
+    .portfolio-image-container:hover .portfolio-image-overlay {
+      opacity: 1;          /* Visible on hover */
+    }
+        
+    </style>
+  </head>
+<body class="w3-black">
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <!-- Avatar image in top left corner -->
+  <img src="/Users/mashaharness/Desktop/bizalchemist_GitHub/assets/images/Masha_explor_bw.png" style="width:100%">
+  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <i class="fa fa-home w3-xxlarge"></i>
+    <p>HOME</p>
+  </a>
+  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-user w3-xxlarge"></i>
+    <p>ABOUT</p>
+  </a>
+  <a href="#portfolio" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i>
+    <p>PORTFOLIO</p>
+  </a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-envelope w3-xxlarge"></i>
+    <p>CONTACT</p>
+  </a>
+</nav>
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+    <a href="#portfolio" class="w3-bar-item w3-button" style="width:25% !important">PORTFOLIO</a>
+    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+    <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> a data wizard<span style="color:red; size:130%"><strong>.</strong></span></h1>
+    <h1 class="w3-xxlarge"><span class="w3-hide-small">Unleash the power of your data,</span> ignite B2B growth!</h1>
+    <p> </p>
+<!-- My Profile Card -->
+<div class="card">
+  <img src="/Users/mashaharness/Desktop/bizalchemist_GitHub/assets/images/Masha_bw.png" alt="Masha Harness" style="width:100%">
+  <h1 class="w3-text-white">Masha Harness</h1>
+  <p class="title">Sr Data Scientist & TPM</p>
+  <p>UC Berkeley</p>
+  <div style="margin: 24px 0;">
+    <a  href="https://www.linkedin.com/in/mashaharness" style="font-size: 24px"><i class="fa fa-linkedin">&nbsp;&nbsp;</i></a> 
+    <a  href="https://dribbble.com/bizalchemist" style="font-size: 24px"><i class="fa fa-dribbble">&nbsp;&nbsp;</i></a> 
+    <a  href="https://github.com/bizalchemist" style="font-size: 24px"><i class="fa fa-github">&nbsp;&nbsp;</i></a>  
+    <a  href="https://facebook.com/mashaharness" style="font-size: 24px"><i class="fa fa-facebook"></i></a> 
+  </div>
+  <a href="#contact"><p><button>Contact</button></p></a>
+</div>  
+  </header>
+  <!-- About Section -->
+  <div class="w3-content w3-justify w3-text-light-grey w3-padding-64" id="about">
+    <h2 class="w3-text-light-grey">About</h2>
+    <hr style="width:200px" class="w3-opacity">
+    <p>I'm a full-stack data scientist/TPM and a game-changer. <br><br>
+    I'm a data wizard, and have a passion for organizing, analyzing, and exposing data in a way that can have a real impact on business decisions and direction, and to solve data insights problem complexity with simplicity and elegance.<br><br>
+I enjoy thinking differently, creating from a blank canvas, and collaborating with a team globally, all while producing useful deliverables.<br><br>
+I'm a master to juggle many competing priorities, enjoy a fast-paced environment, can be strategic but also get into the weeds and execute daily. I'm agile and retrospective, and not afraid to identify what is going wrong so I can fix it, and what is going right so I can improve on it. I judge my success by the success of the team and the growth and happiness of my clients. <br><br>
+I'm an MS in unique 4-dimensional MMORSE: Mathematical Methods, Operations Research, Statistics, and Econometrics.
+    </p>
+    <h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
+    <p class="w3-wide">Full Stack Data Science, BizOpsDev</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
+    </div>
+    <p class="w3-wide">AI/ML, Robotic Process Automation</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:89%"></div>
+    </div>
+    <p class="w3-wide">Business Intelligence Analysis</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
+    </div>
+    <p class="w3-wide">Dashboard Architecture (MS PowerBI, Tableau, DOMO) </p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:93%"></div>
+    </div> 
+    <p class="w3-wide">Global Technical Program Management</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:91%"></div>
+    </div>     
+    <p class="w3-wide">Impartner PRM Optimization & Partner Enablement</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:89%"></div>
+    </div>  
+    <p class="w3-wide">UI/UX Product Design & Development</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:97%"></div>
+    </div><br>
+    <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">70+</span><br>
+        Partners
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">57+</span><br>
+        Projects Done
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">89+</span><br>
+        Happy Clients
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">150+</span><br>
+        Meetings
+      </div>
+    </div>
+    <button class="w3-button w3-light-grey w3-padding-large w3-section">
+       <i class="fa fa-download"></i> 
+       <a href="https://bizalchemist.w3spaces.com/MashaHarness_Resume_BizOpsProgramManager_TechMarketing.pdf" download> Download Resume</a>
+    </button>
+   
+    <!-- Grid for pricing tables -->
+    <!--Commentted to hide this section
+    <h3 class="w3-padding-16 w3-text-light-grey">My Price</h3>
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-half w3-margin-bottom">
+        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
+          <li class="w3-dark-grey w3-xlarge w3-padding-32">Basic</li>
+          <li class="w3-padding-16">Data Science</li>
+          <li class="w3-padding-16">Tech Project Management (TPM)</li>
+          <li class="w3-padding-16">Business Intelligence (BI)</li>
+          <li class="w3-padding-16">Dashboard Architecture</li>
+          <li class="w3-padding-16">Robotic Process Automation (RPA)</li>
+          <li class="w3-padding-16">
+            <h2>$ 220</h2>
+            <span class="w3-opacity">per hour</span>
+          </li>
+          <li class="w3-light-grey w3-padding-24">
+            <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
+          </li>
+        </ul>
+      </div>
+      <div class="w3-half">
+        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
+          <li class="w3-dark-grey w3-xlarge w3-padding-32">Pro</li>
+          <li class="w3-padding-16">Full stack Data Science</li>
+          <li class="w3-padding-16">Tech Project Management (TPM)</li>
+          <li class="w3-padding-16">Business Intelligence (BI)</li>
+          <li class="w3-padding-16">Dashbords Architecture</li>
+          <li class="w3-padding-16">Robotic Process Automation (RPA)</li>
+          <li class="w3-padding-16">
+            <h2>$ 350</h2>
+            <span class="w3-opacity">per hour</span>
+          </li>
+          <li class="w3-light-grey w3-padding-24">
+            <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
+          </li>
+        </ul>
+      </div>
+    -->
+    <!-- End Grid/Pricing tables -->
+   
+    <!-- Testimonials -->
+    <h3 class="w3-padding-24 w3-text-light-grey">My Reputation</h3>  
+    <img src="https://media.licdn.com/dms/image/D4D03AQF4edXA6SdotA/profile-displayphoto-shrink_100_100/0/1675353236751?e=1711584000&v=beta&t=ousz5oUzjU7aG1pvaps2vQqUnHV97AT0PE8RFxnqdTY" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Toby.</span> VP Global Alliances at Keysight Technologies.</p>
+    <p>Masha is a joy to work with and takes the initiative to fix problems / provide solutions to problems. Masha's development background means she is always looking for ways to automate processes to gain efficiencies and repeatability. Masha has been instrumental in implementing our Impartner implementation, finding ways to improve business processes through using the platform as our Partner Portal.</p><br>
+    
+    <img src="https://media.licdn.com/dms/image/C4D03AQFEKbDIYYn8pA/profile-displayphoto-shrink_100_100/0/1516243543106?e=1711584000&v=beta&t=-_rgo7CXs8bwabX351BoE4vbMu9NPpbLFn8QpCDOugk" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Sam.</span>  Exec Engineering Advisor at Five9.</p>    
+    <p>Masha is very knowledgeable and reliable specialist, she comes with my best recommendations.</p><br>
+
+    <img src="https://media.licdn.com/dms/image/C5603AQGfj95Zwruzmg/profile-displayphoto-shrink_100_100/0/1545340318866?e=1711584000&v=beta&t=4nu6cgD8yvc6nMnXsTSFdoQMvk0GL6BPbrEP4L7qYGg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Gail.</span>  Director Worldwide Channels at Keysight Technologies.</p>
+    <p>Masha's background as a data scientist along with understanding our different business processes such as sales and finance, automation of manual tasks, data analysis tools for informed decision-making, tracking and visibility for enhanced operational insight, and compliance and reporting tools for adhering to regulations have been key to her success. Her knowledge in these areas along with her strong customer focus and organizational skills have created a vibrant partner platform for continued success.</p><br>
+
+    <img src="https://media.licdn.com/dms/image/C5603AQEMQBOcllRORg/profile-displayphoto-shrink_100_100/0/1516254646943?e=1711584000&v=beta&t=3AX4hjjsiq4KKUeHT1Bg3BnAw7_QNMD1F5TapTZq2Kk" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Ethan.</span>  Manager, Digital Transformation at Keysight Technologies.</p>
+    <p>Masha has a versatile skillset centered around systems and data analysis, which brings a lot of value to the Knowledge Engineering team. She works tirelessly to improve process efficiency, and takes ownership of problems within her sphere of influence. She's a great member of the broader Digital Transformation organization</p><br>
+
+    <img src="https://media.licdn.com/dms/image/C4E03AQFjFLEDN-iLYw/profile-displayphoto-shrink_100_100/0/1516684444902?e=1711584000&v=beta&t=xtCv9JGlrbeDmNoxhucuYSQVyxXIq_y2NuESH57gjL8" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Akihiko.</span> Director Business Development at Keysight Technologies.</p>
+    <p>Masha is the person who has not only an excellent skillset but passion to team's success. Without her, we could not deliver the result so smooth!</p><br>
+
+    <img src="https://media.licdn.com/dms/image/C5603AQG3vCsIC4ZB5Q/profile-displayphoto-shrink_100_100/0/1614096135140?e=1711584000&v=beta&t=0JTaTiuKfsOv0Q_Hi3mdZ5YnpJEZbd3bKMOAqePKrnU" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Mike.</span>  Technical Writer at Keysight Technologies.</p>
+    <p>Masha was very engaged and passionate about her work and received the best compliments on her abilities, integrity, focus, and hard work. Hiring Masha would be an excellent opportunity for her to offer her breadth of knowledge, strong people skills, and technical expertise to your organization.</p><br>
+
+  <!-- End About Section -->
+  </div>
+
+  <!-- Portfolio Section -->
+  <div class="w3-padding-64 w3-content" id="portfolio">
+    <h2 class="w3-text-light-grey">My Portfolio</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    <!-- Grid for portfolio -->
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-half">
+ 		    <div class="portfolio-image-container">
+    		  <img src="/Users/mashaharness/Desktop/bizalchemist_GitHub/assets/images/ PortalUI_Login_mockup.png" style="width:100%">
+    	  	  <div class="portfolio-image-overlay">
+      			  <p class="portfolio-image-text"><strong> PARTNER ENABLEMENT </strong></br></br> FRONTEND DEVELOPMENT </br> UI/UX DESIGN </p> 
+    		    </div>
+  		  </div>
+  	 
+        <div class="portfolio-image-container">
+         <img src="/Users/mashaharness/Desktop/bizalchemist_GitHub/assets/images/ PortalUI_mockup.png" style="width:100%">
+           <div class="portfolio-image-overlay">
+             <p class="portfolio-image-text"><strong> PARTNER ENABLEMENT </strong></br></br> FRONTEND DEVELOPMENT </br> UI/UX DESIGN </p> 
+           </div>
+       </div>
+       <div class="portfolio-image-container">
+        <img src="/Users/mashaharness/Desktop/bizalchemist_GitHub/assets/images/DealReg_Playbook.png" style="width:100%">
+          <div class="portfolio-image-overlay">
+            <p class="portfolio-image-text"><strong> DEAL REGISTRATION </strong></br></br> PLAYBOOK DEVELOPMENT </br> UI/UX DESIGN </p> 
+          </div>
+      </div>
+
+      </div>
+      <div class="w3-half">
+        <div class="portfolio-image-container">
+         <img src="/Users/mashaharness/Desktop/bizalchemist_GitHub/assets/images/DealReg_eBook_Mockup_NewArrival.png" style="width:100%">
+           <div class="portfolio-image-overlay">
+             <p class="portfolio-image-text"><strong> SALES ENABLEMENT </strong></br></br> SALES PLAYBOOKS</br> eBOOKS DESIGN </p> 
+           </div>
+        </div>
+
+      <div class="portfolio-image-container">
+       <img src="/Users/mashaharness/Desktop/bizalchemist_GitHub/assets/images/eBooks_Mockup.png" style="width:100%">
+         <div class="portfolio-image-overlay">
+           <p class="portfolio-image-text"><strong> MARKETING ENABLEMENT </strong></br></br> ASSET LIBRARY </br> PLAYBOOKS ARCHITECTURE </p> 
+         </div>
+      </div>
+
+      <div class="portfolio-image-container">
+       <img src="/Users/mashaharness/Desktop/bizalchemist_GitHub/assets/images/sales_dashboard_mockup.png" style="width:100%">
+         <div class="portfolio-image-overlay">
+           <p class="portfolio-image-text"><strong> SALES ENABLEMENT </strong></br></br> DASHBOARDS DEVELOPMENT </br> UI/UX DESIGN </p> 
+         </div>
+      </div>
+
+      <div class="portfolio-image-container">
+       <img src="/Users/mashaharness/Desktop/bizalchemist_GitHub/assets/images/playbook_mockup.png" style="width:100%">
+         <div class="portfolio-image-overlay">
+           <p class="portfolio-image-text"><strong> SALES ENABLEMENT </strong></br></br> SALES PROCESS DEVELOPMENT </br> DEAL REGISTRATION WORKFLOW </p> 
+         </div>
+      </div>
+     </div>      
+    <!-- End portfolio grid -->
+    </div>
+  <!-- End Portfolio Section -->
+  </div>
+
+  <!-- Contact Section -->
+  <div class="w3-padding-64 w3-content w3-text-white" id="contact">
+    <h2 class="w3-text-light-grey">Contact Me</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    <div class="w3-section">
+      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> San Francisco Bay Area, California, US</p>
+      <!--<p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: +1 888 000-0000</p>
+      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: m******@gmail.com</p>-->
+    </div><br>
+    <p>Let's get in touch. Send me a message:</p>
+
+    <form style="border:none; padding:0; margin:0;" id="fs-frm" name="simple-contact-form" accept-charset="utf-8" action="https://formspree.io/f/mzbnaqql" method="post">
+      <fieldset style="border:none; padding:0;" id="fs-frm-inputs">
+        <label for="full-name">Full Name</label>
+        <input type="text" name="name" id="full-name" placeholder="First and Last" class="w3-input w3-padding-16" required="">
+        <label for="email-address">Email Address</label>
+        <input type="email" name="_replyto" id="email-address" placeholder="email@domain.tld" class="w3-input w3-padding-16" required="">
+        <label for="message">Message</label>
+        <textarea rows="3" name="message" id="message" placeholder="Enter your message here" class="w3-input w3-padding-16" required=""></textarea>
+        <input type="hidden" name="_subject" id="email-subject" value="Contact Me Form Submission">
+      </fieldset>
+      <p>
+        <button class="w3-button w3-light-grey w3-padding-large" input type="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+        </button>
+      </p>
+    </form>
+    
+  <!-- End Contact Me Section -->
+  </div>
+<!-- Footer -->
+<footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+  <a  href="https://www.linkedin.com/in/mashaharness"><i class="fa fa-linkedin w3-hover-opacity">&nbsp;&nbsp;</i></a>
+  <a  href="https://dribbble.com/bizalchemist"><i class="fa fa-dribbble w3-hover-opacity">&nbsp;&nbsp;</i></a>
+  <a  href="https://github.com/bizalchemist"><i class="fa fa-github w3-hover-opacity">&nbsp;&nbsp;</i></a>
+  <a  href="https://facebook.com/mashaharness"><i class="fa fa-facebook w3-hover-opacity">&nbsp;&nbsp;</i></a>
+  <!-- <i class="fa fa-twitter w3-hover-opacity"></i>
+  <i class="fa fa-instagram w3-hover-opacity"></i>
+  <i class="fa fa-snapchat w3-hover-opacity"></i>
+  <i class="fa fa-pinterest-p w3-hover-opacity"></i>-->
+ <!-- End footer -->
+</footer>
+<!-- END PAGE CONTENT -->
+</div>
+
+</body>
+</html>
