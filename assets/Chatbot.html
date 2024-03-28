@@ -1,0 +1,224 @@
+<div class="container">
+    <p class="quote-style"><q>Everything I need is consistantly just a click away. Thanks!</q></p>
+    
+    <p>— Client name or Logo here</p>
+    </div>
+    
+    <section class="news">
+    <div class="container">
+    <h2 class="news-header text-center">What's New</h2>
+    
+    <p> </p>
+    
+    <div class="row">
+    <div class="col-md-6 text-center">
+    <div id="player-container"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="1" frameborder="0" height="240" id="youtube-player" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-top-navigation" src="https://www.youtube.com/embed/w52MqRfDq8c?autoplay=1&amp;loop=1&amp;playlist=w52MqRfDq8c%2CntvF6gJ0cfw%2CBTTmIa1_c1c%2CHUYhZOueLFY&amp;widget_referrer=https%3A%2F%2Feggplantpartners.keysight.com%2FEnglish%2FXCelerate%2Fhome.aspx%3F__lp%3D1&amp;enablejsapi=1&amp;origin=https%3A%2F%2Feggplantpartners.keysight.com&amp;widgetid=1" title="Test Automation for Mobile Application Testing with Keysight Test" width="100%"></iframe></div>
+    </div>
+    
+    <div class="col-md-6 text-center">
+    <div id="player-container"><iframe allow="encrypted-media" allowtransparency="true" frameborder="0" height="565" scrolling="no" spellcheck="false" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fkeysight&amp;tabs=timeline&amp;width=340&amp;height=565&amp;small_header=true&amp;adapt_container_width=true&amp;hide_cover=true&amp;show_facepile=false&amp;appId" style="border:none;overflow:hidden" width="340"></iframe></div>
+    </div>
+    </div>
+    </div>
+    </section>
+    <style type="text/css">.row {
+      justify-content: center;
+    }
+    </style>
+    <!-- Positioning spotify podcast spotify-player in the middle -->
+    <section>
+    <style type="text/css">.spotify-player {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+    </style>
+    <section class="news">
+    <div class="container">
+    <h2 class="news-header text-center">Source De[Code] New Episode</h2>
+    
+    <p> </p>
+    
+    <div class="row">
+    <div class="spotify-player">
+    <div class="col-md-8 text-center"><iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="352" id="spotify-player" loading="lazy" src="https://open.spotify.com/embed/episode/3VJuBuXtuMSKABqTxaviRE?utm_source=generator&amp;theme=0" width="100%"></iframe></div>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    
+    <section><!-- Testing Eggy Chatbot draft script MH 3-24-23 --></section>
+    <title></title>
+    <style type="text/css">#chatbot-window {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 300px;
+                height: 500px;
+                background-color: #f1f1f1;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                overflow-y: scroll;
+            }
+    
+            #chatbot-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+                background-color: #ddd;
+                border-radius: 5px 5px 0 0;
+            }
+    
+            #chatbot-header h2 {
+                margin: 0;
+                font-size: 18px;
+                font-weight: normal;
+                color: #333;
+            }
+    
+            #chatbot-header img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+    
+            #chat-history {
+                padding: 10px;
+                height: 400px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+    
+            #user-input {
+                display: block;
+                box-sizing: border-box;
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-top: 1px solid #ccc;
+                background-color: #fff;
+                color: #333;
+                font-size: 14px;
+                resize: none;
+                height: 60px;
+            }
+    
+            #user-input:focus {
+                outline: none;
+            }
+    
+            #send-button {
+                display: block;
+                margin: 10px;
+                padding: 10px;
+                background-color: #4CAF50;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: all 0.3s ease-in-out;
+            }
+    
+            #send-button:hover {
+                background-color: #3e8e41;
+            }
+    
+            #send-button:active {
+                transform: translateY(1px);
+            }
+    
+            #send-button:focus {
+                outline: none;
+            }
+    </style>
+    <script type="text/javascript">
+            // Define the possible chatbot responses
+            const responses = [
+                "Hello!",
+                "How can I help you?",
+                "Nice to meet you!",
+                "Sorry, I didn't understand that.",
+                "Please try again."
+            ];
+    
+            // Define a function to get a random response from the responses array
+            function getResponse() {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+    
+            // Define a function to handle the user's input and generate a response
+            function chat() {
+                // Get the user's input from the text input field
+                const userInput = document.getElementById("user-input").value;
+    
+                // Get the chat history element
+                const chatHistory = document.getElementById("chat-history");
+    
+                // Create a new message element for the user's input
+                const userMessage = document.createElement("div");
+                userMessage.innerHTML = "You: " + userInput;
+                chatHistory.appendChild(userMessage);
+    
+                // Generate a 		// response for the user's input
+            const response = getResponse();
+    
+            // Create a new message element for the chatbot's response
+            const chatbotMessage = document.createElement("div");
+            chatbotMessage.innerHTML = "Chatbot: " + response;
+            chatHistory.appendChild(chatbotMessage);
+    
+            // Clear the text input field
+            document.getElementById("user-input").value = "";
+    
+            // Scroll the chat history to the bottom
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+    </script>
+    <div id="chatbot-window">
+    <div id="chatbot-header"><img alt="Eggy Chatbot" src="/images/icons/eggy_icon_50x54.png" />
+    <h2>Eggy Chatbot</h2>
+    <button onclick="document.getElementById('chatbot-window').style.display='none'">Close</button></div>
+    
+    <div id="chat-history"> </div>
+    <textarea id="user-input" placeholder="Type your message here"></textarea><button id="send-button" onclick="chat()">Send</button></div>
+    <script type="text/javascript">
+            // Set the chatbot window to be draggable
+            dragElement(document.getElementById("chatbot-window"));	
+    
+    
+        function dragElement(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            element.onmousedown = dragMouseDown;
+    
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+    
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+    
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+
