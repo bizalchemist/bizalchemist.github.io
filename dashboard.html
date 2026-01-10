@@ -136,6 +136,83 @@
         h2 { font-size: 18px; margin-bottom: 20px; letter-spacing: -0.5px; }
         .badge { border: 1px solid var(--accent-2); color: var(--accent-2); padding: 4px 12px; border-radius: 30px; font-size: 10px; font-weight: bold; white-space: nowrap; }
 
+/* --- Wizard Wand Chatbot Module --- */
+        .chat-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            z-index: 1000;
+            font-size: 24px;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: pulse 2s infinite;
+        }
+
+        .chat-trigger:active { transform: scale(0.9); }
+
+        .chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 320px;
+            height: 400px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1001;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .chat-header {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h4 { margin: 0; font-size: 14px; color: var(--accent-1); }
+
+        .chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text-dim);
+        }
+
+        .bot-msg {
+            background: rgba(56, 189, 248, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--accent-1);
+        }
+
+        @media (max-width: 480px) {
+            .chat-window {
+                width: calc(100% - 40px);
+                right: 20px;
+                bottom: 90px;
+            }
+            .chat-trigger { bottom: 20px; right: 20px; }
+        }
+
         @media (max-width: 480px) {
             header { flex-direction: column; align-items: flex-start; gap: 10px; }
             .grid { grid-template-columns: 1fr; gap: 15px; } /* Only stacks on very narrow portrait screens */
@@ -144,10 +221,39 @@
             .goal-info span { font-size: 9px; }            
             header h1 { font-size: 22px !important; }
         }
+        
         /* This ensures that on Landscape and larger, we always have 3 columns */
         @media (min-width: 481px) {
             .grid { grid-template-columns: repeat(3, 1fr); }
         }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+         .chat-commands {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .cmd-btn {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--accent-1);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cmd-btn:hover, .cmd-btn:active {
+            background: var(--accent-1);
+            color: var(--bg);
+        }
+        
     </style>
 </head>
 <body>
@@ -208,6 +314,24 @@
         <div class="insight-box">
             <strong>Velocity Analysis</strong>
             Telemetry identifies a 2-week lag between certification and deal registration inflection points. By treating Enablement as a <b style="color: var(--text-dim);">Leading Indicator</b>, we can accurately forecast revenue surges 14 days in advance. This "Early Warning System" allows management to optimize sales floor capacity ahead of the revenue curve.
+        </div>
+    </div>
+
+    <div class="chat-trigger" id="chatBtn">🪄</div>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <h4>AI Strategist Bot</h4>
+            <span style="cursor:pointer; opacity:0.5;" id="closeChat">✕</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="bot-msg">
+                Greetings, I am the Nightshade AI. How can I assist with your sales telemetry today?
+                <div class="chat-commands">
+                    <button class="cmd-btn" onclick="botCommand('refresh')">🔄 Refresh Data</button>
+                    <button class="cmd-btn" onclick="botCommand('export')">📄 Export PDF</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -271,6 +395,40 @@
         },
         options: options
     });
+    // Chatbot
+    const chatBtn = document.getElementById('chatBtn');
+        const chatWindow = document.getElementById('chatWindow');
+        const closeChat = document.getElementById('closeChat');
+
+        chatBtn.addEventListener('click', () => {
+            const isVisible = chatWindow.style.display === 'flex';
+            chatWindow.style.display = isVisible ? 'none' : 'flex';
+            
+            // Add a little pulse on click
+            chatBtn.style.transform = 'scale(0.9)';
+            setTimeout(() => chatBtn.style.transform = 'scale(1)', 100);
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatWindow.style.display = 'none';
+    });
+
+    function botCommand(type) {
+        const body = document.getElementById('chatBody');
+        const msg = document.createElement('div');
+        msg.className = 'bot-msg';
+        
+        if(type === 'refresh') {
+            msg.innerHTML = "<strong>System:</strong> Telemetry refreshed. Win Rate and ACV updated to latest real-time sync.";
+            // Here we could trigger a chart update logic later
+        } else {
+            msg.innerHTML = "<strong>System:</strong> Generating PDF report... Your download will begin shortly.";
+        }
+        
+        body.appendChild(msg);
+        body.scrollTop = body.scrollHeight; // Auto-scroll to new message
+    }
+    
 </script>
 
 </body>
