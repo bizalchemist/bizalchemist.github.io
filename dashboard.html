@@ -104,15 +104,18 @@
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .card:hover, .goal-module:hover {
+        /* FIXED: Hover for Laptop + Active Touch for iPhone */
+        .card:hover, .goal-module:hover,
+        .card:active, .goal-module:active {
             transform: translateY(-5px);
             border-color: var(--accent-1);
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+            -webkit-tap-highlight-color: transparent; /* Removes the default gray box on iPhone */
         }
 
-        /* Ensuring the glow matches the Nightshade aesthetic */
-        .card:hover .value {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        /* FIXED: Value Glow for Laptop + iPhone Tap */
+        .card:hover .value, .card:active .value {
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
             transition: text-shadow 0.3s ease;
         }
 
