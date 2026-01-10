@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Masha Harness @bizalchemist Portfolio</title>
+    <title>Masha Harness @bizalchemist Portfolio - Data Scientist & Business Developer, AI integrator</title>
+    <meta name="description" content="Showcasing my projects in software engineering, data science, and machine learning. Explore my portfolio and GitHub repositories.">
+    <meta name="keywords" content="partner channel portal developer, Impartner PRM developer, software engineer, data scientist, AI/ML, Salesforce CPQ, Salesforce CRM, Oracle CPQ, product technical marketing, sales enablement, machine learning, SQL, HTML/CSS, JavaScript, portfolio, GitHub">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -78,13 +80,210 @@
     .portfolio-image-container:hover .portfolio-image-overlay {
       opacity: 1;          /* Visible on hover */
     }
+       
+    /* Chatbot Container */
+    #chatbot-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 320px;
+        height: 400px; 
+        background-color: #fff; 
+        border: 1px solid #333; 
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        font-family: "Montserrat", sans-serif; 
+        z-index: 1000;
+        overflow: hidden; 
+        transform: translateY(150%); 
+        transition: transform 0.3s ease-in-out;
+        opacity: 0; 
+    }
+
+    #chatbot-container.active {
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+
+    /* Chatbot Header */
+    #chatbot-header {
+        background-color: #333;
+        color: #fff;
+        padding: 0 15px; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        height: 50px; 
+    }
+
+    #chatbot-title {
+        font-size: 16px; 
+        white-space: nowrap; 
+        flex-shrink: 0; 
+    }
+
+    #chatbot-close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 28px; 
+        cursor: pointer;
+        padding: 0;
+        margin-left: auto; 
+        width: 30px;
+        height: 100%;
+        display: flex;
+        justify-content: flex-end; 
+        align-items: center;
+    }
+
+    /* Chatbot Messages Area */
+    #chatbot-messages {
+        flex-grow: 1;
+        padding: 15px;
+        overflow-y: auto; 
+        background-color: #f9f9f9; 
+        border-bottom: 1px solid #eee;
+        display: flex;
+        flex-direction: column; 
+    }
+
+    .message {
+        padding: 8px 12px;
+        border-radius: 18px;
+        margin-bottom: 10px;
+        max-width: 80%;
+        word-wrap: break-word; 
+    }
+
+    .bot-message {
+        background-color: #e0e0e0; 
+        color: #333;
+        align-self: flex-start; 
+    }
+
+    .user-message {
+        background-color: #333; 
+        color: #fff; 
+        align-self: flex-end; 
+        margin-left: auto; 
+    }
+
+    /* Chatbot Input and Send Button Wrapper */
+    .chatbot-input-area {
+        display: flex;
+        border-top: 1px solid #ddd;
+    }
+
+    #chatbot-input {
+        flex-grow: 1; 
+        padding: 10px 15px;
+        border: none;
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box; 
+        color: #333;
+        background-color: #fff;
+    }
+
+    #chatbot-send-btn {
+        flex-shrink: 0; 
+        width: 70px; 
+        padding: 10px 0;
+        background-color: #333; 
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+    }
+
+    #chatbot-send-btn:hover {
+        background-color: #555; 
+    }
+
+    /* --- UPDATED PULSING CHATBOT TOGGLE BUTTON --- */
+    #chatbot-toggle-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 60px; 
+        height: 60px;
+        font-size: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        z-index: 1001;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         
+        /* Outer circle breathes normally */
+        animation: magic-pulse 4s ease-in-out infinite; 
+    }
+
+    #chatbot-toggle-btn.hidden {
+        transform: scale(0); 
+        opacity: 0;
+    }
+
+    #chatbot-toggle-btn i {
+        display: inline-block;
+        /* Wizard wand rotates AND surges with glow/size */
+        animation: wizard-spin 4s linear infinite;
+    }
+
+    @keyframes magic-pulse {
+        0% { transform: scale(1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
+        50% { transform: scale(1.2); box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); background-color: #444; }
+        100% { transform: scale(1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
+    }
+
+    /* This animation makes the WIZARD WAND glow and grow independently */
+    @keyframes wizard-spin {
+        0% { 
+            transform: rotate(0deg) scale(1); 
+            filter: drop-shadow(0 0 0px #fff); 
+        }
+        50% { 
+            /* Wand grows larger and gains a bright white glow */
+            transform: rotate(180deg) scale(1.4); 
+            filter: drop-shadow(0 0 15px #fff) brightness(1.8); 
+        }
+        100% { 
+            transform: rotate(360deg) scale(1); 
+            filter: drop-shadow(0 0 0px #fff); 
+        }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        #chatbot-container {
+            width: 90%;
+            height: 70vh; 
+            right: 5%;
+            bottom: 10px;
+        }
+
+        #chatbot-toggle-btn {
+            right: 15px;
+            bottom: 15px;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+        }
+    }
     </style>
   </head>
 <body class="w3-black">
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner -->
   <img src="assets/images/Masha_explor_bw.png" style="width:100%">
   <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
     <i class="fa fa-home w3-xxlarge"></i>
@@ -103,7 +302,6 @@
     <p>CONTACT</p>
   </a>
 </nav>
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
 <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
   <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
     <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
@@ -113,14 +311,11 @@
   </div>
 </div>
 
-<!-- Page Content -->
 <div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 class="w3-jumbo"><span class="w3-hide-small; font-size: 3vw;">I'm a data wizard</span><span style="color:red; size:130%"><strong>.</strong></span></h1>
     <h1 class="w3-xxlarge"><span class="w3-hide-small; font-size: 2.2vw;">Unleash the power of your data,<br/> ignite B2B growth!</span></h1>
     <p> </p>
-<!-- My Profile Card -->
 <div class="card">
   <img src="assets/images/Masha_bw.png" alt="Masha Harness" style="width:100%">
   <h1 class="w3-text-white">Masha Harness</h1>
@@ -135,7 +330,6 @@
   <a href="#contact"><p><button>Contact</button></p></a>
 </div>  
   </header>
-  <!-- About Section -->
   <div class="w3-content w3-justify w3-text-light-grey w3-padding-64" id="about">
     <h2 class="w3-text-light-grey">About</h2>
     <hr style="width:200px" class="w3-opacity">
@@ -143,7 +337,7 @@
     I'm a data wizard, and have a passion for organizing, analyzing, and exposing data in a way that can have a real impact on business decisions and direction, and to solve data insights problem complexity with simplicity and elegance.<br><br>
 I enjoy thinking differently, creating from a blank canvas, and collaborating with a team globally, all while producing useful deliverables.<br><br>
 I'm a master to juggle many competing priorities, enjoy a fast-paced environment, can be strategic but also get into the weeds and execute daily. I'm agile and retrospective, and not afraid to identify what is going wrong so I can fix it, and what is going right so I can improve on it. I judge my success by the success of the team and the growth and happiness of my clients. <br><br>
-I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Research, Statistics, and Econometrics)
+I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Research, Statistics, and Econometrics).
     </p>
     <h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
     <p class="w3-wide">Full Stack Data Science, BizOpsDev</p>
@@ -197,57 +391,15 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
        <a href="assets/MashaHarness_Resume_BizOpsProgramManager_TechMarketing.pdf" download> Download Resume</a>
     </button>
    
-    <!-- Grid for pricing tables -->
-    <!--Commentted to hide this section
-    <h3 class="w3-padding-16 w3-text-light-grey">My Price</h3>
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half w3-margin-bottom">
-        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-dark-grey w3-xlarge w3-padding-32">Basic</li>
-          <li class="w3-padding-16">Data Science</li>
-          <li class="w3-padding-16">Tech Project Management (TPM)</li>
-          <li class="w3-padding-16">Business Intelligence (BI)</li>
-          <li class="w3-padding-16">Dashboard Architecture</li>
-          <li class="w3-padding-16">Robotic Process Automation (RPA)</li>
-          <li class="w3-padding-16">
-            <h2>$ 220</h2>
-            <span class="w3-opacity">per hour</span>
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
-          </li>
-        </ul>
-      </div>
-      <div class="w3-half">
-        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-dark-grey w3-xlarge w3-padding-32">Pro</li>
-          <li class="w3-padding-16">Full stack Data Science</li>
-          <li class="w3-padding-16">Tech Project Management (TPM)</li>
-          <li class="w3-padding-16">Business Intelligence (BI)</li>
-          <li class="w3-padding-16">Dashbords Architecture</li>
-          <li class="w3-padding-16">Robotic Process Automation (RPA)</li>
-          <li class="w3-padding-16">
-            <h2>$ 350</h2>
-            <span class="w3-opacity">per hour</span>
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
-          </li>
-        </ul>
-      </div>
-    -->
-    <!-- End Grid/Pricing tables -->
-   
-    <!-- Testimonials -->
     <h3 class="w3-padding-24 w3-text-light-grey">My Reputation</h3>  
     <img src="assets/images/Toby.png" alt="TobyAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
     <p><span class="w3-large w3-margin-right">Toby.</span> VP Global Alliances at Keysight Technologies.</p>
     <p>Masha is a joy to work with and takes the initiative to fix problems / provide solutions to problems. Masha's development background means she is always looking for ways to automate processes to gain efficiencies and repeatability. Masha has been instrumental in implementing our Impartner implementation, finding ways to improve business processes through using the platform as our Partner Portal.</p><br>
     
-    <img src="assets/images/Gail.png" alt="GailAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+   <img src="assets/images/Gail.png" alt="GailAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
     <p><span class="w3-large w3-margin-right">Gail.</span>  Director Worldwide Channels at Keysight Technologies.</p>
     <p>Masha's background as a data scientist along with understanding our different business processes such as sales and finance, automation of manual tasks, data analysis tools for informed decision-making, tracking and visibility for enhanced operational insight, and compliance and reporting tools for adhering to regulations have been key to her success. Her knowledge in these areas along with her strong customer focus and organizational skills have created a vibrant partner platform for continued success.</p><br>
-
+   
     <img src="assets/images/Sam.png" alt="SamAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
     <p><span class="w3-large w3-margin-right">Sam.</span>  Exec Engineering Advisor at Five9.</p>    
     <p>Masha is very knowledgeable and reliable specialist, she comes with my best recommendations.</p><br>
@@ -264,24 +416,21 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
     <p><span class="w3-large w3-margin-right">Mike.</span>  Technical Writer at Keysight Technologies.</p>
     <p>Masha was very engaged and passionate about her work and received the best compliments on her abilities, integrity, focus, and hard work. Hiring Masha would be an excellent opportunity for her to offer her breadth of knowledge, strong people skills, and technical expertise to your organization.</p><br>
 
-  <!-- End About Section -->
   </div>
 
-  <!-- Portfolio Section -->
   <div class="w3-padding-64 w3-content" id="portfolio">
     <h2 class="w3-text-light-grey">My Portfolio</h2>
     <hr style="width:200px" class="w3-opacity">
 
-    <!-- Grid for portfolio -->
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-half">
- 		    <div class="portfolio-image-container">
-    		  <img src="assets/images/ PortalUI_Login_mockup.png" style="width:100%">
-    	  	  <div class="portfolio-image-overlay">
-      			  <p class="portfolio-image-text"><strong> PARTNER ENABLEMENT </strong></br></br> FRONTEND DEVELOPMENT </br> UI/UX DESIGN </p> 
-    		    </div>
-  		  </div>
-  	 
+        <div class="portfolio-image-container">
+          <img src="assets/images/ PortalUI_Login_mockup.png" style="width:100%">
+            <div class="portfolio-image-overlay">
+              <p class="portfolio-image-text"><strong> PARTNER ENABLEMENT </strong></br></br> FRONTEND DEVELOPMENT </br> UI/UX DESIGN </p> 
+            </div>
+        </div>
+     
         <div class="portfolio-image-container">
          <img src="assets/images/ PortalUI_mockup.png" style="width:100%">
            <div class="portfolio-image-overlay">
@@ -325,12 +474,9 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
          </div>
       </div>
      </div>      
-    <!-- End portfolio grid -->
     </div>
-  <!-- End Portfolio Section -->
   </div>
 
-  <!-- Contact Section -->
   <div class="w3-padding-64 w3-content w3-text-white" id="contact">
     <h2 class="w3-text-light-grey">Contact Me</h2>
     <hr style="width:200px" class="w3-opacity">
@@ -338,8 +484,6 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
     <div class="w3-section">
       <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> San Francisco Bay Area, California, US</p>
       <p><i class="fa fa-globe fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Remote-friendly / Willing to relocate for an exciting opportunity</p>
-      <!--<p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: +1 888 000-0000</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: m******@gmail.com</p>-->
     </div><br>
     <p>Let's get in touch. Send me a message:</p>
 
@@ -360,22 +504,117 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
       </p>
     </form>
     
-  <!-- End Contact Me Section -->
   </div>
-<!-- Footer -->
 <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
   <a  href="https://www.linkedin.com/in/mashaharness"><i class="fa fa-linkedin w3-hover-opacity">&nbsp;&nbsp;</i></a>
   <a  href="https://dribbble.com/bizalchemist"><i class="fa fa-dribbble w3-hover-opacity">&nbsp;&nbsp;</i></a>
   <a  href="https://github.com/bizalchemist"><i class="fa fa-github w3-hover-opacity">&nbsp;&nbsp;</i></a>
   <a  href="https://facebook.com/mashaharness"><i class="fa fa-facebook w3-hover-opacity">&nbsp;&nbsp;</i></a>
-  <!-- <i class="fa fa-twitter w3-hover-opacity"></i>
-  <i class="fa fa-instagram w3-hover-opacity"></i>
-  <i class="fa fa-snapchat w3-hover-opacity"></i>
-  <i class="fa fa-pinterest-p w3-hover-opacity"></i>-->
- <!-- End footer -->
 </footer>
-<!-- END PAGE CONTENT -->
 </div>
 
+<div id="chatbot-container">
+    <div id="chatbot-header">
+        <span id="chatbot-title">Ask Masha's AI</span>
+        <button id="chatbot-close-btn">&times;</button>
+    </div>
+    <div id="chatbot-messages">
+        <div class="message bot-message">Hello! I'm Masha's digital assistant. I can tell you about her Data Science projects, her work at Keysight, or her education at UC Berkeley. What would you like to know?</div>
+    </div>
+    <div class="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Ask about her skills or Berkeley...">
+        <button id="chatbot-send-btn">Send</button>
+    </div>
+</div>
+
+<button id="chatbot-toggle-btn">
+    <i class="fa fa-magic"></i>
+</button> 
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatbotContainer = document.getElementById('chatbot-container');
+        const chatbotToggleBtn = document.getElementById('chatbot-toggle-btn');
+        const chatbotCloseBtn = document.getElementById('chatbot-close-btn');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotSendBtn = document.getElementById('chatbot-send-btn');
+
+        chatbotToggleBtn.addEventListener('click', () => {
+            chatbotContainer.classList.toggle('active');
+            chatbotToggleBtn.classList.toggle('hidden');
+        });
+
+        chatbotCloseBtn.addEventListener('click', () => {
+            chatbotContainer.classList.remove('active');
+            chatbotToggleBtn.classList.remove('hidden');
+        });
+
+        // UPDATED: Function now uses innerHTML to support links
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', `${sender}-message`);
+            messageDiv.innerHTML = text; 
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        const responses = {
+            "services": "Masha is a full-stack Data Scientist and TPM. She specializes in B2B growth, AI/ML integration, and optimizing partner portals (like Impartner PRM).",
+            "keysight": "At Keysight, Masha was instrumental in implementing the Impartner platform, automating manual tasks, and creating vibrant partner platforms that drive global alliances.",
+            "berkeley": "Masha is a proud UC Berkeley alumna with an MS in MMORSE. Her academic background fuels her 'Hard & Smart' approach to complex data problems.",
+            "mmorse": "MMORSE stands for Mathematical Methods, Operations Research, Statistics, and Econometrics. It's the high-level analytical foundation Masha brings to every project!",
+            "portfolio": "Check out the Portfolio section above! It features her work on Partner Enablement UI/UX, Sales Playbooks, and Dashboard Architecture.",
+            // NEW: Added dashboard response with link to dashboard.html
+            "dashboard": "Masha is an expert in Dashboard Architecture using MS PowerBI, Tableau, and DOMO. <br><br><strong><a href='dashboard.html' target='_blank' style='color: #007bff; text-decoration: underline;'>Click here to view her Interactive Dashboard Demo</a></strong>",
+            "powerbi": "Masha has extensive experience building high-impact dashboards in PowerBI. Check out her <a href='dashboard.html' target='_blank'>PowerBI Portfolio Demo</a>.",
+            "tableau": "Masha utilizes Tableau to create interactive visualizations that simplify decision-making for executive leadership.",
+            "domo": "Masha has implemented DOMO solutions to centralize data and provide real-time visibility into global technical programs.",
+            "contact": "You can reach Masha via the contact form on this page or her LinkedIn: linkedin.com/in/mashaharness",
+            "experience": "Masha has completed over 57+ projects with a strong focus on process efficiency and digital transformation.",
+            "hello": "Hi there! I'm here to answer questions about Masha's professional journey. How can I assist you?",
+            "hi": "Hello! Interested in learning about Masha's Data Science or Program Management expertise?",
+            "hard": "Masha's 'Hard & Smart' philosophy means combining deep engineering effort with strategic automation for maximum impact.",
+            "smart": "For Masha, working 'Smart' means automating the mundane so the team can focus on high-value growth and strategy.",
+            "bye": "Goodbye! Feel free to reach out if you have more questions."
+        };
+
+        function getBotResponse(userMessage) {
+            const lowerCaseMessage = userMessage.toLowerCase();
+            for (const keyword in responses) {
+                if (lowerCaseMessage.includes(keyword)) {
+                    return responses[keyword];
+                }
+            }
+            return "That's a great question! While I don't have a specific answer for that, I know Masha's versatile skillset in Data Science and TPM can solve most business challenges. Should I show you her LinkedIn?";
+        }
+
+        function sendMessage() {
+            const userText = chatbotInput.value.trim();
+            if (userText === "") return;
+
+            // Note: User messages use textContent for safety, Bot messages use innerHTML for links
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.classList.add('message', 'user-message');
+            userMessageDiv.textContent = userText; 
+            chatbotMessages.appendChild(userMessageDiv);
+            
+            chatbotInput.value = '';
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+            setTimeout(() => {
+                const botResponse = getBotResponse(userText);
+                addMessage(botResponse, 'bot');
+            }, 600);
+        }
+
+        chatbotSendBtn.addEventListener('click', sendMessage);
+        chatbotInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    });
+</script>
 </body>
 </html>
