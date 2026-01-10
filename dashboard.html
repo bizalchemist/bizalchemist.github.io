@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Enablement Command Center | Masha Harness</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-1: #38bdf8; /* Electric Blue */
+            --accent-2: #e11d48; /* Deep Red (Keysight-esque) */
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+            color: var(--text-main); 
+            margin: 0; padding: 40px; 
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        header { 
+            display: flex; justify-content: space-between; align-items: flex-end; 
+            margin-bottom: 40px; border-bottom: 1px solid #334155; padding-bottom: 20px; 
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 40px; }
+
+        /* Glassmorphism Effect */
+        .card, .chart-container { 
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            position: relative; overflow: hidden;
+        }
+
+        .card { padding: 25px; border-radius: 16px; }
+
+        .card::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+        }
+
+        .card h3 { margin: 0; font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
+        .card .value { font-size: 36px; font-weight: 800; margin: 15px 0; background: linear-gradient(to right, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card .trend { font-size: 13px; color: var(--accent-1); font-family: monospace; }
+
+        .chart-container { 
+            padding: 30px; border-radius: 20px; margin-bottom: 30px; 
+        }
+
+        .insight-box { 
+            background: rgba(56, 189, 248, 0.08); 
+            backdrop-filter: blur(4px);
+            border-radius: 12px; 
+            padding: 20px; margin-top: 20px; 
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            font-size: 14px; line-height: 1.6; color: var(--text-dim);
+        }
+
+        .insight-box strong { color: var(--accent-1); display: block; margin-bottom: 5px; font-size: 15px; }
+
+        h2 { font-size: 20px; margin-bottom: 25px; letter-spacing: -0.5px; }
+        .badge { border: 1px solid var(--accent-2); color: var(--accent-2); padding: 5px 15px; border-radius: 30px; font-size: 11px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1 style="margin:0; font-size: 28px; letter-spacing: -1px;">AI Enablement Command Center</h1>
+            <p style="margin:8px 0 0; color: var(--text-dim);">Project "Nightshade" | Predictive Sales Analytics</p>
+        </div>
+        <div class="badge">MASHA HARNESS | PORTFOLIO SIMULATION</div>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Win Rate Uplift</h3>
+            <div class="value">+191%</div>
+            <div class="trend">Post-Certification Impact</div>
+        </div>
+        <div class="card">
+            <h3>Avg. Deal Size (ACV)</h3>
+            <div class="value">$152K</div>
+            <div class="trend">High-Value Portfolio Focus</div>
+        </div>
+        <div class="card">
+            <h3>Sales Cycle Speed</h3>
+            <div class="value">-50%</div>
+            <div class="trend">Automated Workflow Efficiency</div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Performance Correlation: Certified vs Base Sellers</h2>
+        <canvas id="correlationChart" height="80"></canvas>
+        <div class="insight-box">
+            <strong>The "Alchemist" Insight: Revenue Velocity & Pipeline Multiplier</strong>
+            Data confirms that Certified Specialists don't just "sell"—they accelerate. Our analysis shows that Certified Enablement creates a dual-impact ROI: it reduces the sales cycle (Velocity) while simultaneously expanding the average deal size. This proves that technical fluency in the AI segment is the primary driver of Pipeline Quality and predictable Revenue Growth.
+        </div>
+    </div>
+
+   <div class="chart-container">
+        <h2>Enablement-to-Revenue Velocity</h2>
+        <canvas id="momentumChart" height="80"></canvas>
+        <div class="insight-box">
+            <strong>Velocity Analysis: Predictive Growth Modeling</strong>
+            Our telemetry identifies a high-confidence, 2-week lag between certification peaks and deal registration inflection points. By treating Enablement as a <b style="color: var(--text-dim);">Leading Indicator</b>, we can accurately forecast revenue surges 14 days in advance. This "Early Warning System" allows management to optimize sales floor capacity ahead of the revenue curve.
+        </div>
+    </div>
+
+<script>
+    Chart.defaults.color = '#94a3b8';
+    Chart.defaults.borderColor = 'rgba(51, 65, 85, 0.5)';
+
+    // Chart 1: Bar Chart
+    const ctx1 = document.getElementById('correlationChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['Win Rate %', 'Portfolio Adoption %', 'Qualified Pipeline (M)'],
+            datasets: [{
+                label: 'Certified Sellers (Group A)',
+                data: [35, 78, 12],
+                backgroundColor: '#38bdf8',
+                borderRadius: 6
+            }, {
+                label: 'Base Group (Group B)',
+                data: [12, 22, 4],
+                backgroundColor: '#94a3b8', /* UPDATED: Lighter grey for better visibility */
+                borderRadius: 6
+            }]
+        },
+        options: { 
+            plugins: { legend: { position: 'top' } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+
+    // Chart 2: Line Chart
+    const ctx2 = document.getElementById('momentumChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+            datasets: [{
+                label: 'Certifications Completed',
+                data: [10, 25, 65, 95, 110, 120],
+                borderColor: '#38bdf8',
+                backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                fill: true,
+                borderWidth: 3,
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: '#38bdf8'
+            }, {
+                label: 'Deal Registrations (Cumulative)',
+                data: [5, 12, 28, 55, 82, 115],
+                borderColor: '#e11d48',
+                borderWidth: 3,
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: '#e11d48'
+            }]
+        },
+        options: {
+            plugins: { legend: { position: 'top' } }
+        }
+    });
+</script>
+
+</body>
+</html>
