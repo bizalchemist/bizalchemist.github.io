@@ -23,45 +23,45 @@
     body {
       background-color: black;
     }
-/* Combined Card Style - 3D Tilt Effect + Gradient Card*/
-.card {
-  /* Original properties */
-  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2);
-  max-width: 400px;
-  margin: auto;
-  text-align: center;
-  font-family: arial;
-  
-  /* New properties for effects */
-  position: relative;
-  border-radius: 8px;
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease;
-  cursor: pointer;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 8px;
-  padding: 3px;
-  background: linear-gradient(45deg, 
-    #ff0080, #ff8c00, #40e0d0, 
-    #7928ca, #00d4ff, #ff0080);
-  background-size: 300% 300%;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: gradient-rotate 4s linear infinite;
-  z-index: -1;
-}
-
-@keyframes gradient-rotate {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
+    /* Combined Card Style - 3D Tilt Effect + Gradient Card*/
+    .card {
+      /* Original properties */
+      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2);
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
+      font-family: arial;
+      
+      /* New properties for effects */
+      position: relative;
+      border-radius: 8px;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease;
+      cursor: pointer;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 8px;
+      padding: 3px;
+      background: linear-gradient(45deg, 
+        #ff0080, #ff8c00, #40e0d0, 
+        #7928ca, #00d4ff, #ff0080);
+      background-size: 300% 300%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                    linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: gradient-rotate 4s linear infinite;
+      z-index: -1;
+    }
+    
+    @keyframes gradient-rotate {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
 
     .title {
       color: white;
