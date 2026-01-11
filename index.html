@@ -270,20 +270,22 @@
             height: 70vh; 
             right: 5%;
             bottom: 10px;
-        } /* <--- This bracket was missing! */
+        } 
             
-        /* This targets the skill labels specifically on mobile */
+        /* Clean, fixed mobile layout */
         .w3-wide {
-            white-space: nowrap !important; /* Forces one line */
-            letter-spacing: 0px !important;  /* Squeezes letters */
-            font-size: 10px !important;     /* Adjust size for iPhone */
-            line-height: 1.2;
+            white-space: nowrap !important; 
+            font-size: 13px !important;    /* Solid readable size */
+            letter-spacing: 0.5px !important; /* Minimal spacing to ensure fit */
+            line-height: 1.6;
             display: block;
+            width: 100%;
         }
       
-        /* Makes the bars match the thinner mobile text */
+        /* Standard height for progress bars */
         .w3-white, .w3-dark-grey {
-            height: 14px !important; 
+            height: 22px !important; 
+            margin-bottom: 8px;
         }
     }
 
