@@ -12,215 +12,46 @@
     <link rel="icon" href="assets/images/favicon-wiz.ico">
     <style>
     body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-
-  /* Glassmorphic Sidebar */
-  .w3-sidebar {
-    width: 120px;
-    background: rgba(255, 255, 255, 0.03) !important; /* Highly transparent */
-    backdrop-filter: blur(15px); /* Frosting effect */
-    -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centers items vertically */
-  }
-
-  /* Nav Link Styling */
-  .w3-sidebar .w3-bar-item {
-    color: rgba(255, 255, 255, 0.5) !important; /* Subtle gray until hover */
-    background: transparent !important;
-    transition: all 0.4s ease;
-    padding: 20px 0;
-  }
-
-  /* Hover & Active State: The "Glow" */
-  .w3-sidebar .w3-bar-item:hover, 
-  .w3-sidebar .w3-bar-item.active-link {
-    color: #fff !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-  }
-
-  .w3-sidebar .w3-bar-item i {
-    transition: transform 0.3s ease;
-  }
-
-  .w3-sidebar .w3-bar-item:hover i {
-    transform: scale(1.2) rotate(5deg);
-  }
-
-  /* Mobile Top Navbar - Glass Version */
-  #myNavbar {
-    background: rgba(0, 0, 0, 0.7) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  #myNavbar .w3-bar-item {
-    color: #fff !important;
-  }
-
+    .w3-row-padding img {margin-bottom: 12px}
+    /* Set the width of the sidebar to 120px */
+    .w3-sidebar {width: 120px;background: #222;}
+    /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+    #main {margin-left: 120px}
     /* Remove margins from "page content" on small screens */
     @media only screen and (max-width: 600px) {#main {margin-left: 0}}
     /* !-- My Profile Card --> */
     body {
       background-color: black;
     }
-
-    .w3-button a {
-      text-decoration: none;
-    }
-
-    .wizard-text {
-      background: linear-gradient(
-        to right, 
-        #fff 20%, 
-        #a2a2a2 40%, 
-        #fff 60%, 
-        #fff 80%
-      );
-      background-size: 200% auto;
-      color: #000;
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shine 4s linear infinite;
-      font-weight: 800;
-    }
-
-    @keyframes shine {
-      to { background-position: 200% center; }
-    }
-
-    .ignite-trigger {
-      transition: all 0.4s ease;
-      cursor: pointer;
-      display: inline-block;
-    }
-
-    .ignite-trigger:hover {
-      color: #ff4d4d;
-      text-shadow: 0 0 20px #ff0000;
-      transform: scale(1.1) rotate(-2deg);
-    }
-
-    .particle {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-      pointer-events: none; /* So they don't block clicks on your card */
-      animation: float-up var(--duration) linear infinite;
-      opacity: 0;
-    }
-
-    @keyframes float-up {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0;
-      }
-      20% {
-        opacity: var(--opacity);
-      }
-      80% {
-        opacity: var(--opacity);
-      }
-      100% {
-        transform: translateY(-200px) scale(0.5);
-        opacity: 0;
-      }
-    }
-
-    /* Glass Profile Card */
     .card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 24px;
+      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 255.2);
       max-width: 400px;
       margin: auto;
       text-align: center;
-      padding: 20px;
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-      position: relative;
-      overflow: hidden; /* Clips the shimmer effect */
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      font-family: arial;
     }
-
-    .card:hover {
-      transform: translateY(-10px) scale(1.01);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.1);
+    .title {
+      color: white;
+      font-size: 18px;
     }
-
-    /* Rounded, Glass-Encased Image */
-    .card img {
-      width: 100%;
-      border-radius: 16px;
-      filter: grayscale(100%);
-      transition: filter 0.5s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .card:hover img {
-      filter: grayscale(0%); /* Optional: bring color back on hover for a 'magic' feel */
-    }
-
-    /* Typography on Glass */
-    .card h1 {
-      font-size: 28px;
-      margin-top: 15px;
-      letter-spacing: 1px;
-    }
-
-    .card .title {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 16px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 5px;
-    }
-
-    /* Glassmorphic Contact Button */
-    .glass-btn {
-      border: 1px solid rgba(255, 255, 255, 0.2);
+    button {
+      border: none;
       outline: 0;
       display: inline-block;
-      padding: 12px;
-      color: #fff;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(5px);
+      padding: 8px;
+      color: grey;
+      background-color: #FFF;
       text-align: center;
       cursor: pointer;
       width: 100%;
-      font-size: 16px;
-      border-radius: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      transition: all 0.3s ease;
-      margin-top: 15px;
+      font-size: 18px;
     }
-
-    .glass-btn:hover {
-      background: #fff;
-      color: #000;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    button:hover, a:hover {
+      opacity: 0.7;
     }
-
-    /* Social Icons Glow */
-    .card a {
-      color: rgba(255, 255, 255, 0.6);
-      transition: all 0.3s ease;
+    .w3-button a {
       text-decoration: none;
     }
-
-    .card a:hover {
-      color: #fff;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    }
-
     .portfolio-image-container {
       position: relative; /* Key for absolute positioning of overlay */
       width: 100%; 
@@ -341,299 +172,6 @@
         margin-left: auto; 
     }
 
-    /* Glassmorphism Skill Containers */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px 0;
-    }
-
-    .skill-card {
-      background: rgba(255, 255, 255, 0.05); /* Very subtle white */
-      backdrop-filter: blur(12px); /* The "Glass" effect */
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1); /* Elegant edge */
-      border-radius: 15px;
-      padding: 20px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skill-card:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-5px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-    }
-
-    .skill-card h4 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
-      letter-spacing: 1px;
-      color: #fff;
-    }
-
-    /* Minimalist Skill Level Indicator */
-    .skill-level-bg {
-      background: rgba(255, 255, 255, 0.1);
-      height: 4px;
-      width: 100%;
-      border-radius: 2px;
-    }
-
-    .skill-level-fill {
-      background: #fff; /* Solid white like Apple UI */
-      height: 100%;
-      border-radius: 2px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-
-    /* Container for the long dashboard-style list */
-    .dashboard-skills-container {
-        padding: 30px 0;
-    }
-
-    /* Individual Skill Row with "Frosted Glass" card background */
-    .skill-row {
-        margin-bottom: 30px;
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.03); 
-        /* The core Glassmorphism effect */
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        
-        /* Elegant glass border */
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .skill-row:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        transform: scale(1.02);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    /* The Progress Bar (The "Track") */
-    .dashboard-progress-bar {
-        width: 100%;
-        height: 12px; /* Slightly thicker for better glass effect */
-        background: rgba(0, 0, 0, 0.3); /* Darker "etched" track */
-        border-radius: 20px;
-        overflow: hidden;
-        position: relative;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    /* The Progress Fill (The "White Glow") */
-    .dashboard-progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #fff, #e0e0e0); /* Subtle gradient for depth */
-        border-radius: 20px;
-        
-        /* MULTI-LAYER GLOW: This is what makes it look glassy */
-        box-shadow: 
-            0 0 10px rgba(255, 255, 255, 0.8),  /* Soft inner glow */
-            0 0 20px rgba(255, 255, 255, 0.4),  /* Mid outer glow */
-            0 0 35px rgba(255, 255, 255, 0.2);  /* Large ambient glow */
-        
-        transition: width 2s ease-out;
-    }
-
-    .skill-name {
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        font-size: 13px;
-        color: #ffffff;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        margin-bottom: 10px;
-        display: block;
-    }
-    /* The Progress Bar (The "Track") */
-    .dashboard-progress-bar {
-        width: 100%;
-        height: 6px;
-        background: rgba(255, 255, 255, 0.1); /* Frosted glass track */
-        border-radius: 10px;
-        overflow: hidden;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    /* The Progress Fill (The "Glow") */
-    .dashboard-progress-fill {
-        height: 100%;
-        background: #ffffff; /* Clean Apple white */
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Glowing effect */
-        transition: width 1.5s cubic-bezier(0.1, 0.5, 0.5, 1); /* Smooth expansion */
-    }
-
-    /* The Wizard Aura - Animated glow behind the card */
-    .aura-container {
-      position: relative;
-      display: inline-block; /* Wraps the card */
-      margin-top: 20px;
-    }
-
-    .aura {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 110%;
-      height: 110%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(100, 100, 255, 0.05) 50%, transparent 70%);
-      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Irregular shape */
-      filter: blur(40px);
-      z-index: -1; /* Behind the card */
-      animation: aura-pulse 8s ease-in-out infinite alternate, aura-rotate 15s linear infinite;
-    }
-
-    /* Pulsating light effect */
-    @keyframes aura-pulse {
-      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-      100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.8; }
-    }
-
-    /* Slow rotation to make the glow feel "alive" */
-    @keyframes aura-rotate {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    /* When hovering over the card, the aura intensifies */
-    .aura-container:hover .aura {
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(150, 0, 255, 0.1) 50%, transparent 70%);
-      animation-duration: 3s; /* Speeds up the pulse when you touch it */
-    }
-
-    /* Glassmorphic Stats Container */
-    .stats-container {
-      background: rgba(255, 255, 255, 0.1); /* Light transparency */
-      backdrop-filter: blur(20px) saturate(180%); /* Strong frost and color boost */
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 24px;
-      display: flex;
-      flex-wrap: wrap;
-      padding: 30px 10px;
-      margin: 40px 0;
-      box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    .stat-item {
-      flex: 1;
-      min-width: 150px;
-      text-align: center;
-      padding: 20px;
-      transition: transform 0.3s ease;
-    }
-
-    .stat-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .stat-number {
-      font-size: 36px;
-      font-weight: 800;
-      color: #fff;
-      display: block;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-    }
-
-    .stat-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.7);
-      font-weight: 600;
-    }
-
-    /* Enhanced Download Button - Bright Glass */
-    .download-btn {
-      background: rgba(255, 255, 255, 0.9); /* Solid-ish bright white */
-      color: #000 !important;
-      border: 1px solid #fff;
-      border-radius: 12px;
-      padding: 18px 32px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    }
-
-    .download-btn:hover {
-      background: #fff;
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-    }
-
-    .download-btn a {
-      color: #000;
-      text-decoration: none;
-    }
-
-    /* Glassmorphic Form Inputs */
-    #fs-frm input, #fs-frm textarea {
-      background: rgba(255, 255, 255, 0.05) !important;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      color: #fff !important;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      transition: all 0.3s ease;
-    }
-
-    #fs-frm input:focus, #fs-frm textarea:focus {
-      background: rgba(255, 255, 255, 0.1) !important;
-      border: 1px solid rgba(255, 255, 255, 0.4) !important;
-      outline: none;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-    }
-
-    /* Label Styling */
-    #fs-frm label {
-      display: block;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 8px;
-      margin-left: 5px;
-    }
-
-    /* The Bright White Submit Button (Matches Resume Button) */
-    .submit-btn {
-      background: rgba(255, 255, 255, 0.9); 
-      color: #000 !important;
-      border: 1px solid #fff;
-      border-radius: 12px;
-      padding: 18px 32px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      width: 100%; /* Full width looks great on mobile */
-      text-transform: uppercase;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    }
-
-    .submit-btn:hover {
-      background: #fff;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 25px rgba(255, 255, 255, 0.4);
-    }
-
     /* Chatbot Input and Send Button Wrapper */
     .chatbot-input-area {
         display: flex;
@@ -742,49 +280,12 @@
             font-size: 24px;
         }
     }
-    @media (max-width: 768px) {
-      /* Increase padding on mobile so content doesn't hit the edges */
-      .w3-content {
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-      }
-
-      /* Stack the statistics vertically on small screens */
-      .stats-container {
-        flex-direction: column;
-        padding: 20px;
-      }
-
-      .stat-item {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 15px 0;
-      }
-
-      .stat-item:last-child {
-        border-bottom: none;
-      }
-
-      /* Make sure the glass card doesn't get too wide on mobile */
-      .card {
-        width: 100%;
-        max-width: none;
-      }
-
-      /* Ensure the headline font-size scales down so it doesn't wrap awkwardly */
-      .w3-jumbo {
-        font-size: 12vw !important;
-      }
-    }
     </style>
   </head>
 <body class="w3-black">
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <div style="padding: 5px;">
-    <img src="assets/images/Masha_explor_bw.png" 
-         style="width:100%; border-radius: 10%; border: 1px solid rgba(255,255,255,0.1); filter: grayscale(100%);">
-  </div>
-  
-  <a href="#" class="w3-bar-item w3-button w3-padding-large active-link">
+  <img src="assets/images/Masha_explor_bw.png" style="width:100%">
+  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
     <i class="fa fa-home w3-xxlarge"></i>
     <p>HOME</p>
   </a>
@@ -811,32 +312,24 @@
 </div>
 
 <div class="w3-padding-large" id="main">
- <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-  <h1 class="w3-xxlarge" style="font-weight: 300; color: rgba(255,255,255,0.8);">
-    Unleash the power of your data,<br/> 
-    <span class="ignite-trigger">ignite</span> B2B growth!
-  </h1>
-
-  <div class="aura-container">
-    <div class="aura"></div> <div class="card">
-      <img src="assets/images/Masha_bw.png" alt="Masha Harness">
-      <h1 class="w3-text-white">Masha Harness</h1>
-      <p class="title">Business Systems Architect</p>
-      <p style="color: rgba(255,255,255,0.5); font-size: 14px;">&bull; Technical Operator &bull; UC Berkeley</p>
-      
-      <div style="margin: 20px 0;">
-        <a href="https://www.linkedin.com/in/mashaharness"><i class="fa fa-linkedin">&nbsp;&nbsp;</i></a> 
-        <a href="https://dribbble.com/bizalchemist"><i class="fa fa-dribbble">&nbsp;&nbsp;</i></a> 
-        <a href="https://github.com/bizalchemist"><i class="fa fa-github">&nbsp;&nbsp;</i></a>  
-        <a href="https://facebook.com/mashaharness"><i class="fa fa-facebook"></i></a> 
-      </div>
-
-      <a href="#contact" style="text-decoration: none;">
-        <button class="glass-btn">Get in Touch</button>
-      </a>
-    </div>  
+  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+    <h1 class="w3-jumbo"><span class="w3-hide-small; font-size: 3vw;">I'm a data wizard</span><span style="color:red; size:130%"><strong>.</strong></span></h1>
+    <h1 class="w3-xxlarge"><span class="w3-hide-small; font-size: 2.2vw;">Unleash the power of your data,<br/> ignite B2B growth!</span></h1>
+    <p> </p>
+<div class="card">
+  <img src="assets/images/Masha_bw.png" alt="Masha Harness" style="width:100%">
+  <h1 class="w3-text-white">Masha Harness</h1>
+  <p class="title">Sr Data Scientist & TPM</p>
+  <p>UC Berkeley</p>
+  <div style="margin: 24px 0;">
+    <a  href="https://www.linkedin.com/in/mashaharness" style="font-size: 24px"><i class="fa fa-linkedin">&nbsp;&nbsp;</i></a> 
+    <a  href="https://dribbble.com/bizalchemist" style="font-size: 24px"><i class="fa fa-dribbble">&nbsp;&nbsp;</i></a> 
+    <a  href="https://github.com/bizalchemist" style="font-size: 24px"><i class="fa fa-github">&nbsp;&nbsp;</i></a>  
+    <a  href="https://facebook.com/mashaharness" style="font-size: 24px"><i class="fa fa-facebook"></i></a> 
   </div>
-</header>
+  <a href="#contact"><p><button>Contact</button></p></a>
+</div>  
+  </header>
   <div class="w3-content w3-justify w3-text-light-grey w3-padding-64" id="about">
     <h2 class="w3-text-light-grey">About</h2>
     <hr style="width:200px" class="w3-opacity">
@@ -846,67 +339,59 @@ I enjoy thinking differently, creating from a blank canvas, and collaborating wi
 I'm a master to juggle many competing priorities, enjoy a fast-paced environment, can be strategic but also get into the weeds and execute daily. I'm agile and retrospective, and not afraid to identify what is going wrong so I can fix it, and what is going right so I can improve on it. I judge my success by the success of the team and the growth and happiness of my clients. <br><br>
 I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Research, Statistics, and Econometrics).
     </p>
-    <h3 class="w3-padding-16 w3-text-light-grey">Technical Skill Infrastructure</h3>
-  <div class="dashboard-skills-container">
-    
-    <div class="skill-row">
-        <span class="skill-name">Revenue Systems Architecture (SFDC / CPQ / PRM)</span>
-        <div class="dashboard-progress-bar">
-            <div class="dashboard-progress-fill" style="width: 98%;"></div>
-        </div>
+    <h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
+    <p class="w3-wide">Full Stack Data Science, BizOpsDev</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
     </div>
-
-    <div class="skill-row">
-        <span class="skill-name">Technical Operations & Automation (SQL / RPA / Python)</span>
-        <div class="dashboard-progress-bar">
-            <div class="dashboard-progress-fill" style="width: 95%;"></div>
-        </div>
+    <p class="w3-wide">AI/ML, Robotic Process Automation</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:89%"></div>
     </div>
-
-    <div class="skill-row">
-        <span class="skill-name">Data Science & MMORSE Predictive Modeling</span>
-        <div class="dashboard-progress-bar">
-            <div class="dashboard-progress-fill" style="width: 97%;"></div>
-        </div>
+    <p class="w3-wide">Business Intelligence Analysis</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
     </div>
-
-    <div class="skill-row">
-        <span class="skill-name">GTM Strategy & Global Ecosystem Governance</span>
-        <div class="dashboard-progress-bar">
-            <div class="dashboard-progress-fill" style="width: 92%;"></div>
-        </div>
-    </div>
-   
+    <p class="w3-wide">Dashboard Architecture (MS PowerBI, Tableau, DOMO) </p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:93%"></div>
+    </div> 
+    <p class="w3-wide">Global Technical Program Management</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:91%"></div>
+    </div>     
+    <p class="w3-wide">Impartner PRM Optimization & Partner Enablement</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:89%"></div>
+    </div>  
+    <p class="w3-wide">UI/UX Product Design & Development</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:97%"></div>
     </div><br>
- <div class="stats-container">
-  <div class="stat-item">
-    <span class="stat-number">200+</span>
-    <span class="stat-label">Partners</span>
-  </div>
-  
-  <div class="stat-item">
-    <span class="stat-number">50+</span>
-    <span class="stat-label">Countries</span>
-  </div>
-  
-  <div class="stat-item">
-    <span class="stat-number">250+</span>
-    <span class="stat-label">CPQ Configs</span>
-  </div>
-  
-  <div class="stat-item">
-    <span class="stat-number">150+</span>
-    <span class="stat-label">NPI Launches</span>
-  </div>
-</div>
-
-<div class="w3-center">
-  <a href="assets/MashaHarness_Resume_BizOpsProgramManager_TechMarketing.pdf" download class="download-btn">
-    <i class="fa fa-download w3-margin-right"></i> DOWNLOAD RESUME
-  </a>
-</div>
+    <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">70+</span><br>
+        Partners
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">57+</span><br>
+        Projects Done
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">89+</span><br>
+        Happy Clients
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">150+</span><br>
+        Meetings
+      </div>
+    </div>
+    <button class="w3-button w3-light-grey w3-padding-large w3-section">
+       <i class="fa fa-download"></i> 
+       <a href="assets/MashaHarness_Resume_BizOpsProgramManager_TechMarketing.pdf" download> Download Resume</a>
+    </button>
    
-    <h3 class="w3-padding-24 w3-text-light-grey">Executive Endorsements</h3>  
+    <h3 class="w3-padding-24 w3-text-light-grey">My Reputation</h3>  
     <img src="assets/images/Toby.png" alt="TobyAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
     <p><span class="w3-large w3-margin-right">Toby.</span> VP Global Alliances at Keysight Technologies.</p>
     <p>Masha is a joy to work with and takes the initiative to fix problems / provide solutions to problems. Masha's development background means she is always looking for ways to automate processes to gain efficiencies and repeatability. Masha has been instrumental in implementing our Impartner implementation, finding ways to improve business processes through using the platform as our Partner Portal.</p><br>
@@ -990,36 +475,31 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
   </div>
 
   <div class="w3-padding-64 w3-content w3-text-white" id="contact">
-    <h2 class="w3-text-light-grey">Connect with the Wizard</h2>
+    <h2 class="w3-text-light-grey">Contact Me</h2>
     <hr style="width:200px" class="w3-opacity">
 
     <div class="w3-section">
       <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> San Francisco Bay Area, California, US</p>
       <p><i class="fa fa-globe fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Remote-friendly / Willing to relocate for an exciting opportunity</p>
     </div><br>
+    <p>Let's get in touch. Send me a message:</p>
 
-      <p class="w3-margin-bottom">Let's ignite your next project. Send me a message:</p>
-
-      <form id="fs-frm" name="simple-contact-form" accept-charset="utf-8" action="https://formspree.io/f/mzbnaqql" method="post">
-        <fieldset style="border:none; padding:0;" id="fs-frm-inputs">
-          
-          <label for="full-name">Full Name</label>
-          <input type="text" name="name" id="full-name" placeholder="Masha Harness" class="w3-input w3-padding-16" required="">
-          
-          <label for="email-address">Email Address</label>
-          <input type="email" name="_replyto" id="email-address" placeholder="masha@berkeley.edu" class="w3-input w3-padding-16" required="">
-          
-          <label for="message">Message</label>
-          <textarea rows="4" name="message" id="message" placeholder="How can I help you unleash your data's power?" class="w3-input w3-padding-16" required=""></textarea>
-          
-          <input type="hidden" name="_subject" id="email-subject" value="Contact Me Form Submission">
-        </fieldset>
-        
-        <button class="submit-btn" type="submit">
-          <i class="fa fa-paper-plane w3-margin-right"></i> SEND MESSAGE
+    <form style="border:none; padding:0; margin:0;" id="fs-frm" name="simple-contact-form" accept-charset="utf-8" action="https://formspree.io/f/mzbnaqql" method="post">
+      <fieldset style="border:none; padding:0;" id="fs-frm-inputs">
+        <label for="full-name">Full Name</label>
+        <input type="text" name="name" id="full-name" placeholder="First and Last" class="w3-input w3-padding-16" required="">
+        <label for="email-address">Email Address</label>
+        <input type="email" name="_replyto" id="email-address" placeholder="email@domain.tld" class="w3-input w3-padding-16" required="">
+        <label for="message">Message</label>
+        <textarea rows="3" name="message" id="message" placeholder="Enter your message here" class="w3-input w3-padding-16" required=""></textarea>
+        <input type="hidden" name="_subject" id="email-subject" value="Contact Me Form Submission">
+      </fieldset>
+      <p>
+        <button class="w3-button w3-light-grey w3-padding-large" input type="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
         </button>
-      </form>
-    </div>
+      </p>
+    </form>
     
   </div>
 <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
@@ -1132,38 +612,6 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
             }
         });
     });
-
-document.addEventListener('DOMContentLoaded', () => {
-    const header = document.getElementById('home');
-    const particleCount = 40; // Adjust for more or less "magic"
-
-    for (let i = 0; i < particleCount; i++) {
-        createParticle(header);
-    }
-
-    function createParticle(container) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        // Randomize size, position, and timing
-        const size = Math.random() * 3 + 1 + 'px';
-        const left = Math.random() * 100 + '%';
-        const top = Math.random() * 100 + '%';
-        const duration = Math.random() * 10 + 5 + 's';
-        const delay = Math.random() * 10 + 's';
-        const opacity = Math.random() * 0.5 + 0.2;
-
-        particle.style.width = size;
-        particle.style.height = size;
-        particle.style.left = left;
-        particle.style.top = top;
-        particle.style.setProperty('--duration', duration);
-        particle.style.setProperty('--opacity', opacity);
-        particle.style.animationDelay = delay;
-
-        container.appendChild(particle);
-    }
-});
 </script>
 </body>
 </html>
