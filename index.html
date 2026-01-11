@@ -23,13 +23,46 @@
     body {
       background-color: black;
     }
-    .card {
-      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 255.2);
-      max-width: 400px;
-      margin: auto;
-      text-align: center;
-      font-family: arial;
-    }
+/* Combined Card Style - 3D Tilt Effect + Gradient Card*/
+.card {
+  /* Original properties */
+  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2);
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  
+  /* New properties for effects */
+  position: relative;
+  border-radius: 8px;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease;
+  cursor: pointer;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 8px;
+  padding: 3px;
+  background: linear-gradient(45deg, 
+    #ff0080, #ff8c00, #40e0d0, 
+    #7928ca, #00d4ff, #ff0080);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: gradient-rotate 4s linear infinite;
+  z-index: -1;
+}
+
+@keyframes gradient-rotate {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
     .title {
       color: white;
       font-size: 18px;
@@ -263,33 +296,31 @@
         }
     }
 
-/* Responsive adjustments */
+    /* Responsive adjustments */
     @media (max-width: 600px) {
         #chatbot-container {
             width: 90%;
             height: 70vh; 
             right: 5%;
             bottom: 10px;
-        } 
+        } /* <--- This bracket was missing! */
             
-        /* Clean, fixed mobile layout */
+        /* This targets the skill labels specifically on mobile */
         .w3-wide {
-            white-space: nowrap !important; 
-            font-size: 13px !important;    /* Solid readable size */
-            letter-spacing: 0.5px !important; /* Minimal spacing to ensure fit */
-            line-height: 1.6;
+            white-space: nowrap !important; /* Forces one line */
+            letter-spacing: 0px !important;  /* Squeezes letters */
+            font-size: 10px !important;     /* Adjust size for iPhone */
+            line-height: 1.2;
             display: block;
-            width: 100%;
         }
       
-        /* Standard height for progress bars */
+        /* Makes the bars match the thinner mobile text */
         .w3-white, .w3-dark-grey {
-            height: 22px !important; 
-            margin-bottom: 8px;
+            height: 14px !important; 
         }
     }
 
- /* Semi-transparent glass effect bars that have a soft inner glow */
+    /* Semi-transparent glass effect bars that have a soft inner glow */
     .w3-white {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(16px) saturate(180%);
@@ -324,14 +355,14 @@
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
       letter-spacing: 1px;
     }
-      
+
         #chatbot-toggle-btn {
             right: 15px;
             bottom: 15px;
             width: 50px;
             height: 50px;
             font-size: 24px;
-        }
+    }
     
     </style>
   </head>
@@ -656,6 +687,32 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
                 sendMessage();
             }
         });
+    });
+
+    // 3D Tilt Effect on Mouse Move
+    const card = document.querySelector('.card');
+
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.transform = 
+            `perspective(1000px) 
+            rotateX(${rotateX}deg) 
+            rotateY(${rotateY}deg) 
+            scale(1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 
+            'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
     });
 </script>
 </body>
