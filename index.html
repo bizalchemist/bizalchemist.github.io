@@ -270,7 +270,19 @@
             height: 70vh; 
             right: 5%;
             bottom: 10px;
-        }
+            
+      /* This targets the skill labels specifically on mobile */
+      .w3-wide {
+        letter-spacing: 1px !important; /* Reduce spacing to save horizontal room */
+        font-size: 11px !important;    /* Slightly smaller font to keep it on one line */
+        line-height: 1.2;
+      }
+      
+      /* Optional: Make the progress bars a bit thinner on mobile to match the smaller text */
+      .w3-white, .w3-dark-grey {
+        height: 20px !important; 
+      }
+    }
 
         #chatbot-toggle-btn {
             right: 15px;
