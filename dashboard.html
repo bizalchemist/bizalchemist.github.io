@@ -128,6 +128,7 @@
 
         .insight-box { 
             background: rgba(56, 189, 248, 0.08); border-radius: 12px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.02);
             padding: 15px; margin-top: 20px; border: 1px solid rgba(56, 189, 248, 0.2);
             font-size: 13px; line-height: 1.5; color: var(--text-dim);
         }
@@ -204,6 +205,47 @@
             border-left: 3px solid var(--accent-1);
         }
 
+        /* Custom PLTS Matrix Styling */
+        .plts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .plts-image-box {
+            background: #000;
+            border-radius: 12px;
+            height: 200px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .plts-matrix-viz {
+            display: flex;
+            height: 200px;
+            gap: 8px;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .matrix-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 9px;
+            text-align: center;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .plts-grid { grid-template-columns: 1fr; }
+        }
+
         @media (max-width: 480px) {
             .chat-window {
                 width: calc(100% - 40px);
@@ -277,21 +319,17 @@
         </div>
     </div>
 
-    <div class="grid">
+<div class="grid">
         <div class="card">
             <h3>Win Rate Uplift</h3>
             <div class="value">+191%</div>
-            <div class="trend">Post-Certification Impact</div>
-        </div>
+            <div class="trend">Direct Revenue Impact</div> </div>
         <div class="card">
             <h3>Avg. Deal Size (ACV)</h3>
             <div class="value">$152K</div>
-            <div class="trend">High-Value Portfolio Focus</div>
-        </div>
+            <div class="trend">Strategic Account Growth</div> </div>
         <div class="card">
-            <h3>Sales Cycle Speed</h3>
-            <div class="value">-50%</div>
-            <div class="trend">Automated Efficiency</div>
+            <h3>Sales Velocity</h3> <div class="value">2x Faster</div> <div class="trend">Time-to-Revenue Optimized</div>
         </div>
     </div>
 
@@ -316,6 +354,101 @@
             Telemetry identifies a 2-week lag between certification and deal registration inflection points. By treating Enablement as a <b style="color: var(--text-dim);">Leading Indicator</b>, we can accurately forecast revenue surges 14 days in advance. This "Early Warning System" allows management to optimize sales floor capacity ahead of the revenue curve.
         </div>
     </div>
+
+    <div class="chart-container">
+            <h2>PLTS Ecosystem: N19301B Revenue Flow</h2>
+            <div class="plts-grid">
+                <div class="plts-image-box">
+                    <img src="https://www.keysight.com/content/dam/keysight/en/img/migrated/scene7/products/wn/PROD-3071378-01.png" 
+                        alt="N19301B PLTS" style="width:100%; height:100%; object-fit: cover; opacity: 0.7;">
+                    <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 4px; font-size: 10px;">
+                        <span style="color:var(--accent-1)">●</span> N19301B Base Analysis
+                    </div>
+                </div>
+
+                <div class="plts-matrix-viz">
+                    <div class="matrix-col">
+                        <div style="background: var(--accent-1); flex: 4; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--bg); font-weight: bold;">N19301B</div>
+                        <div style="background: rgba(56, 189, 248, 0.2); flex: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center;">N19303B+</div>
+                    </div>
+                    <div class="matrix-col">
+                        <div style="background: var(--accent-2); flex: 2; border-radius: 4px; display: flex; align-items: center; justify-content: center;">Subscription</div>
+                        <div style="background: #475569; flex: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center;">Perpetual</div>
+                    </div>
+                    <div class="matrix-col" style="flex: 1.5;">
+                        <div style="background: #0ea5e9; flex: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center;">Floating WW</div>
+                        <div style="background: #0284c7; flex: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center;">Node-locked</div>
+                    </div>
+                    <div class="matrix-col">
+                        <div style="background: #be123c; height: 20%; border-radius: 4px; display: flex; align-items: center; justify-content: center;">60mo</div>
+                        <div style="background: #9f1239; height: 80%; border-radius: 4px; display: flex; align-items: center; justify-content: center;">3-36mo</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <strong>Revenue Architecture Analysis</strong>
+                By mapping the <strong>N19301B-N19308B</strong> portfolio against a multi-tier licensing matrix, I identified that <b>Floating Worldwide</b> subscriptions represent the highest growth vector for the 2025-2026 cycle. This visualization helped streamline the $287k+ base-deal conversion rate by highlighting the "Attach Rate" of PAM-4 and N-Port analysis upgrades over 36-60 month durations.
+            </div>
+        </div>
+
+<div class="chart-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin:0;">PLTS Portfolio Architecture (N19301B Ecosystem)</h2>
+        <span style="font-family: monospace; font-size: 11px; color: var(--accent-1); border: 1px solid var(--accent-1); padding: 2px 8px; border-radius: 4px;">SYSTEM ARCHITECT VIEW</span>
+    </div>
+
+    <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; border: 1px solid var(--glass-border);">
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="width: 120px; color: var(--accent-1); font-weight: bold; font-family: monospace;">[ BASE ]</div>
+                <div style="flex: 1; background: var(--accent-1); color: var(--bg); padding: 8px; border-radius: 4px; font-weight: 800; text-align: center;">N19301B PLTS Base Analysis</div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="width: 120px; color: var(--text-dim); font-family: monospace;">↳ [ APPS ]</div>
+                <div style="flex: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 5px;">
+                    <div style="border: 1px solid var(--glass-border); padding: 4px; font-size: 10px; text-align: center;">N19303B</div>
+                    <div style="border: 1px solid var(--glass-border); padding: 4px; font-size: 10px; text-align: center;">N19305B</div>
+                    <div style="border: 1px solid var(--accent-2); padding: 4px; font-size: 10px; text-align: center; color: var(--accent-2);">N19306B</div>
+                    <div style="border: 1px solid var(--glass-border); padding: 4px; font-size: 10px; text-align: center;">N19307B</div>
+                    <div style="border: 1px solid var(--glass-border); padding: 4px; font-size: 10px; text-align: center;">N19308B</div>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="width: 120px; color: var(--text-dim); font-family: monospace;">↳ [ LICENSING ]</div>
+                <div style="flex: 1; display: flex; gap: 10px;">
+                    <div style="flex: 1; background: rgba(255,255,255,0.05); border-left: 3px solid #fff; padding: 10px;">
+                        <span style="font-size: 9px; display: block; color: var(--text-dim);">TERMS</span>
+                        <span style="font-size: 12px; font-weight: bold;">Subscription (3-60mo)</span>
+                    </div>
+                    <div style="flex: 1; background: rgba(255,255,255,0.05); border-left: 3px solid var(--accent-1); padding: 10px;">
+                        <span style="font-size: 9px; display: block; color: var(--text-dim);">TYPE</span>
+                        <span style="font-size: 12px; font-weight: bold;">Floating Worldwide</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="insight-box">
+        <strong>The "Wizard" Strategy:</strong> 
+        Mapping the N19301B dependency chain is not a marketing exercise—it’s a data engineering challenge. I developed a matrix to track how high-speed digital designers transition from <b>Perpetual Node-locked</b> to <b>Floating Worldwide Subscriptions</b>. By isolating <b>N19306B (PAM-4)</b> attach rates, I identified the key revenue drivers for the 2026 fiscal year.
+    </div>
+</div>
+
+<div class="chart-container">
+    <h2>N19301B Ecosystem: Attribute Analysis</h2>
+    <div class="chart-wrapper">
+        <canvas id="pltsRadarChart"></canvas>
+    </div>
+    <div class="insight-box">
+        <strong>Strategic Attach-Rate Analysis</strong>
+        This 4-dimensional view isolates the <b>N19306B (PAM-4)</b> and <b>N19308B (PCB)</b> apps. My analysis identified that while N19301B is the revenue anchor, the highest LTV (Lifetime Value) resides in 60-month Floating Worldwide subscriptions for the N-Port (N19307B) extensions.
+    </div>
+</div>
 
     <div class="chat-trigger" id="chatBtn">🪄</div>
 
@@ -428,7 +561,55 @@
         body.appendChild(msg);
         body.scrollTop = body.scrollHeight; // Auto-scroll to new message
     }
-    
+
+ // Radar Chart for PLTS Portfolio
+new Chart(document.getElementById('pltsRadarChart'), {
+    type: 'radar',
+    data: {
+        labels: ['Attach Rate', 'Subscription LTV', 'Technical Complexity', 'Global Demand', 'Renewal Velocity'],
+        datasets: [{
+            label: 'N19306B (PAM-4)',
+            data: [95, 85, 90, 80, 70],
+            fill: true,
+            backgroundColor: 'rgba(56, 189, 248, 0.2)',
+            borderColor: '#38bdf8',
+            pointBackgroundColor: '#38bdf8',
+        }, {
+            label: 'N19308B (PCB)',
+            data: [60, 95, 75, 65, 90],
+            fill: true,
+            backgroundColor: 'rgba(225, 29, 72, 0.2)',
+            borderColor: '#e11d48',
+            pointBackgroundColor: '#e11d48',
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { 
+                            color: '#94a3b8', 
+                            font: { size: 10, weight: 'bold' } // Makes labels easier to read on iPhone
+                        },
+                        ticks: { 
+                            display: false, // Keeps the numbers hidden for a cleaner look
+                            stepSize: 20    // Defines the "rings" of the web
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+        plugins: {
+            legend: { labels: { color: '#f8fafc', font: { size: 11 } } }
+        }
+    }
+});
+
+
 </script>
 
 </body>
