@@ -236,6 +236,27 @@
         filter: brightness(1.3);
     }
 
+    .w3-quarter:hover {
+      transform: translateY(-5px);
+      transition: 0.3s;
+      color: white !important;
+    }
+
+    /* The Glass Glow Hover Effect */
+    .glass-stats-container:hover {
+        box-shadow: 0 0 30px rgba(56, 189, 248, 0.6) !important; /* Blue glow */
+        border: 1px solid rgba(56, 189, 248, 0.8) !important; /* Border turns blue too */
+        filter: brightness(1.2);
+        transform: translateY(-2px); /* Subtle lift */
+    }
+
+    /* Optional: Make the numbers glow when you hover the box */
+    .glass-stats-container:hover .w3-xlarge {
+        color: #38bdf8 !important; /* Numbers turn sky blue */
+        text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        transition: 0.3s;
+    }
+
    /* Chatbot Container */
     #chatbot-container {
         position: fixed;
@@ -468,10 +489,8 @@
             I'm a data wizard<span style="color: red">.</span>
         </h1>
 
-        <h1 style="font-size: clamp(18px, 2.2vw, 34px); line-height: 1.6; margin-top: 0px; font-weight: 500; letter-spacing: 0.5px;">
-            <span style="color: #94a3b8">Architecting Revenue Velocity</span>
-        </h1>
-            <h1 style="font-size: clamp(14px, 2vw, 32px); line-height: 1.4; margin-top: 5px; font-weight: 500; letter-spacing: 0.5px;">
+        <h1 style="font-size: clamp(14px, 2vw, 32px); line-height: 1.4; margin-top: 5px; font-weight: 500; letter-spacing: 0.5px;">
+            <span style="color: #94a3b8">Architecting Revenue Velocity</span><br/>
             <span style="color: #fff; display: inline-block;">Unleashing AI to ignite B2B growth!</span>
         </h1>
 
@@ -539,25 +558,37 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
           <div class="w3-dark-grey" style="width:93%"></div>
       </div>
   </div>
+  
+  <div class="w3-row w3-center w3-padding-32 w3-section glass-stats-container" 
+     style="background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 20px;
+            transition: all 0.4s ease;">
+          
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">150+</span><br>
+    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">NPI Launches</span>
+  </div>
 
-    <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">200+</span><br>
-        Partners
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">$650+M</span><br>
-        Portfolio
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">250+</span><br>
-        CPQ Configs
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">150+</span><br>
-        NPI Launches
-      </div>
-    </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">$650M+</span><br>
+    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Portfolio</span>
+  </div>
+  
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">250+</span><br>
+    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">CPQ Configs</span>
+  </div>
+  
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">200+</span><br>
+    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Partners</span>
+  </div>
+
+</div>
+
     <button class="w3-button w3-light-grey w3-padding-large w3-section">
        <i class="fa fa-download"></i> 
        <a href="assets/MashaHarness_Resume_BizOpsProgramManager_TechMarketing.pdf" download> Download Resume</a>
