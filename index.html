@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="assets/images/favicon-wiz.ico">
     <style>
+            :root {
+            --bg-deep: #0f172a;
+            --accent-blue: #38bdf8;
+            --accent-red: #e11d48;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
     body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     .w3-row-padding img {margin-bottom: 12px}
     /* Set the width of the sidebar to 120px */
@@ -256,6 +265,27 @@
         text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
         transition: 0.3s;
     }
+
+        /* Buttons */
+        .modern-btn {
+            background: linear-gradient(90deg, var(--accent-blue), #0ea5e9);
+            color: white !important;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .modern-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+        }
 
    /* Chatbot Container */
     #chatbot-container {
@@ -586,14 +616,14 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
     <span class="w3-xlarge" style="font-weight: 800; color: #fff;">200+</span><br>
     <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Partners</span>
   </div>
-
 </div>
-
-    <button class="w3-button w3-light-grey w3-padding-large w3-section">
-       <i class="fa fa-download"></i> 
-       <a href="assets/MashaHarness_Resume_BizOpsProgramManager_TechMarketing.pdf" download> Download Resume</a>
-    </button>
    
+    <div class="w3-center w3-padding-32">
+        <a href="assets/MashaHarness_Resume.pdf" download class="modern-btn" style="background: var(--accent-red);">
+            <i class="fa fa-download"></i> Download Master Resume
+        </a>
+    </div>
+
     <h3 class="w3-padding-24 w3-text-light-grey">Executive Endorsements</h3>  
     <img src="assets/images/Toby.png" alt="TobyAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
     <p><span class="w3-large w3-margin-right">Toby.</span> VP Global Alliances at Keysight Technologies.</p>
