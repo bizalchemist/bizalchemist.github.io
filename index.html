@@ -799,20 +799,29 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
             chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
         }
 
-        const responses = {
-            "dashboard": "Masha specializes in translating complex telemetry into revenue-driving insights. <br><br>🚀 <b><a href='dashboard.html' style='color: #38bdf8; font-weight: bold;'>Launch the Interactive AI Command Center</a></b>",
-            "metrics": "Masha focuses on 'meaningful metrics'—correlating seller certification velocity with top-line revenue outcomes. See her logic here: <a href='dashboard.html' style='color: #38bdf8;'>Interactive Dashboard Demo</a>",
-            "sales": "Masha has managed $650M+ portfolios, using data to optimize sales velocity and win rates. Check out her <b><a href='dashboard.html' style='color: #38bdf8;'>Sales Telemetry Demo</a></b>.",
-            "keysight": "At Keysight, Masha managed the $650M Eggplant portfolio and architected global partner platforms using Impartner PRM, automating manual workflows for thousands of users.",
-            "services": "Masha is a Technical Program Manager and Data Scientist. She bridges the gap between engineering telemetry and business outcomes through high-fidelity dashboarding and AI automation.",
-            "berkeley": "Masha holds an MS in MMORSE from UC Berkeley. This rigorous background in Statistics and Econometrics allows her to build predictive models for sales performance.",
-            "hard": "Masha's 'Hard & Smart' philosophy: Engineering deep, reliable data foundations (Hard) while using AI to automate the decision-making layer (Smart).",
-            "smart": "Working 'Smart' means treating Enablement as a leading indicator for revenue, allowing teams to pivot resources before the quarter ends.",
-            "hello": "Hi! Would you like to see Masha's <b>AI Command Center</b> or hear about her tenure at Keysight?",
-            "hi": "Hello! I can walk you through Masha's Data Science portfolio or her strategic work with Global Alliances. Where should we start?",
-            "contact": "You can connect with Masha via her <a href='https://linkedin.com/in/mashaharness' target='_blank' style='color: #38bdf8;'>LinkedIn</a> or the contact form below.",
-            "portfolio": "Masha's portfolio includes Interactive Command Centers, UI/UX for Partner Portals, and Global Sales Playbooks. <a href='dashboard.html' style='color: #38bdf8;'>View the latest demo here.</a>"
-        };
+ const responses = {
+    "dashboard": "Masha specializes in translating complex telemetry into revenue-driving insights. <br><br>🚀 <b><a href='dashboard.html' style='color: #38bdf8; font-weight: bold;'>Launch the Interactive AI Command Center</a></b>",
+    
+    // UPDATED: Corrected HFM Portfolio & $10M win
+    "keysight": "At Keysight, Masha managed the <b>$650M+ HFM portfolio</b> (including PNA-X and FieldFox). She applied 'Revenue-First' logic to <b>unblock $10M in stalled deals</b> during supply shortages and saved $800K annually via RPA pricing automation.",
+    
+    // UPDATED: Corrected Eggplant Portfolio & $5M+ revenue
+    "eggplant": "While managing the <b>Global Eggplant AI</b> ecosystem, Masha architected a framework that led to a 90% certification rate and generated <b>$5M+ in partner-influenced revenue</b> in Year 1.",
+    
+    // NEW: Success trigger combining both
+    "success": "Masha's track record includes unblocking $10M in HFM deals and generating $5M+ in revenue for the Eggplant AI portfolio. Would you like to see the <b><a href='dashboard.html' style='color: #38bdf8;'>Interactive Dashboard</a></b> behind this logic?",
+    
+    "sales": "Masha optimizes sales velocity by treating enablement as a leading indicator. Her architecture accelerated the Quote-to-Cash cycle by 20% for global portfolios. <b><a href='dashboard.html' style='color: #38bdf8;'>View Sales Telemetry Demo</a></b>.",
+    "metrics": "Masha focuses on 'meaningful metrics'—correlating seller certification velocity with top-line revenue outcomes. See her logic here: <a href='dashboard.html' style='color: #38bdf8;'>Interactive Dashboard Demo</a>",
+    "services": "Masha is a Technical Program Manager and Data Scientist. She bridges the gap between engineering telemetry and business outcomes through high-fidelity dashboarding and AI automation.",
+    "berkeley": "Masha holds an MS in MMORSE from UC Berkeley. This rigorous background in Statistics and Econometrics allows her to build predictive models for sales performance.",
+    "hard": "Masha's 'Hard & Smart' philosophy: Engineering deep, reliable data foundations (Hard) while using AI to automate the decision-making layer (Smart).",
+    "smart": "Working 'Smart' means treating Enablement as a leading indicator for revenue, allowing teams to pivot resources before the quarter ends.",
+    "hello": "Hi! Would you like to see Masha's <b>AI Command Center</b> or hear about her portfolio management at Keysight?",
+    "hi": "Hello! I can walk you through Masha's Data Science portfolio or her strategic work unblocking millions in stalled revenue. Where should we start?",
+    "contact": "You can connect with Masha via her <a href='https://linkedin.com/in/mashaharness' target='_blank' style='color: #38bdf8;'>LinkedIn</a> or the contact form below.",
+    "portfolio": "Masha's portfolio includes Interactive Command Centers, UI/UX for Partner Portals, and Global Sales Playbooks. <a href='dashboard.html' style='color: #38bdf8;'>View the latest demo here.</a>"
+};
 
         function getBotResponse(userMessage) {
             const lowerCaseMessage = userMessage.toLowerCase();
