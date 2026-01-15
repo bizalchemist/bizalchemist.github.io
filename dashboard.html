@@ -408,7 +408,7 @@
 
             <div class="insight-box">
                 <strong>Revenue Architecture Analysis</strong>
-                By mapping the <strong>N19301B-N19308B</strong> portfolio against a multi-tier licensing matrix, I identified that <b>Floating Worldwide</b> subscriptions represent the highest growth vector for the 2025-2026 cycle. This visualization helped streamline the $287k+ base-deal conversion rate by highlighting the "Attach Rate" of PAM-4 and N-Port analysis upgrades over 36-60 month durations.
+                By mapping the <strong>N19301B-N19307B</strong> portfolio against a multi-tier licensing matrix, I identified that <b>Floating Worldwide</b> subscriptions represent the highest growth vector for the 2025-2026 cycle. This visualization helped streamline the $287k+ base-deal conversion rate by highlighting the "Attach Rate" of PAM-4 and N-Port analysis upgrades over 36-60 month durations.
             </div>
         </div>
 
@@ -420,7 +420,7 @@
     </div>
     <div class="insight-box">
         <strong>Strategic Attach-Rate Analysis</strong>
-        This 4-dimensional view isolates the <b>N19306B (PAM-4)</b> and <b>N19308B (PCB)</b> apps. My analysis identified that while N19301B is the revenue anchor, the highest LTV (Lifetime Value) resides in 60-month Floating Worldwide subscriptions for the N-Port (N19307B) extensions.
+        This 4-dimensional view isolates the <b>N19306B (PAM-4)</b> and <b>N19307B (N-Port)</b> apps. My analysis identified that while N19301B is the revenue anchor, the highest LTV (Lifetime Value) resides in 60-month Floating Worldwide subscriptions for the N-Port (N19307B) extensions.
     </div>
 </div>
 
@@ -433,13 +433,15 @@
         </div>
         <div class="chat-body" id="chatBody">
             <div class="bot-msg">
-                Greetings, I am the Nightshade AI. How can I assist with your sales telemetry today?
+                Greetings, I am the Nightshade AI. I bridge the gap between seller proficiency and revenue outcomes. What insight do you require?
                 <div class="chat-commands">
-                    <button class="cmd-btn" onclick="botCommand('refresh')">🔄 Refresh Data</button>
-                    <button class="cmd-btn" onclick="botCommand('export')">📄 Export PDF</button>
+                    <button class="cmd-btn" onclick="botCommand('refresh')">🔄 Sync Telemetry</button>
+                    <button class="cmd-btn" onclick="botCommand('strategy')">💡 Growth Pivot</button>
+                    <button class="cmd-btn" onclick="botCommand('prediction')">📈 14-Day Forecast</button>
+                    <button class="cmd-btn" onclick="botCommand('export')">📄 PDF Report</button>
                 </div>
             </div>
-        </div>
+        </div>    
     </div>
 
     <div class="chart-container">
@@ -483,7 +485,7 @@
 
         <div class="insight-box">
             <strong>Strategic Resource Allocation</strong> 
-            Current telemetry indicates a high correlation between <b>Advanced App Certification</b> and quarterly quota attainment in the Americas. By identifying the 'Developing' status in EMEA, we are shifting enablement resources to prioritize specialized training for the <b>N19306B (PAM-4)</b> and <b>N19308B</b> portfolios to stabilize global performance.
+            Current telemetry indicates a high correlation between <b>Advanced App Certification</b> and quarterly quota attainment in the Americas. By identifying the 'Developing' status in EMEA, we are shifting enablement resources to prioritize specialized training for the <b>N19306B (PAM-4)</b> and <b>N19307B</b> portfolios to stabilize global performance.
         </div>
     </div>
 
@@ -577,21 +579,23 @@
             chatWindow.style.display = 'none';
     });
 
-    function botCommand(type) {
-        const body = document.getElementById('chatBody');
-        const msg = document.createElement('div');
-        msg.className = 'bot-msg';
-        
-        if(type === 'refresh') {
-            msg.innerHTML = "<strong>System:</strong> Telemetry refreshed. Win Rate and ACV updated to latest real-time sync.";
-            // Here we could trigger a chart update logic later
-        } else {
-            msg.innerHTML = "<strong>System:</strong> Generating PDF report... Your download will begin shortly.";
+        function botCommand(type) {
+            const body = document.getElementById('chatBody');
+            const msg = document.createElement('div');
+            msg.className = 'bot-msg';
+            
+            const responses = {
+                'refresh': "<strong>Nightshade AI:</strong> Syncing with Salesforce & LMS telemetry... <br><br>Done. Data reflects Q4 adoption spikes. EMEA certification gap identified as a primary blocker for N19301B renewals.",
+                'export': "<strong>System:</strong> Compiling 'Executive Performance Summary.pdf'... <br><br>Ready. Analyzing the correlation between Sus-Renewal and Seller Proficiency.",
+                'strategy': "<strong>Strategic Insight:</strong> The data suggests that 'Floating Worldwide' license adoption is 2x higher when sellers complete the <b>Advanced App Module</b>. I recommend shifting EMEA resources to this track.",
+                'prediction': "<strong>Revenue Forecast:</strong> Based on current certification velocity in APAC, we expect a 15% uplift in deal registration for the N1930x series within the next 14 days."
+            };
+            
+            msg.innerHTML = responses[type] || "Command received.";
+            
+            body.appendChild(msg);
+            body.scrollTop = body.scrollHeight; 
         }
-        
-        body.appendChild(msg);
-        body.scrollTop = body.scrollHeight; // Auto-scroll to new message
-    }
 
  // Radar Chart for PLTS Portfolio
 new Chart(document.getElementById('pltsRadarChart'), {
@@ -606,7 +610,7 @@ new Chart(document.getElementById('pltsRadarChart'), {
             borderColor: '#38bdf8',
             pointBackgroundColor: '#38bdf8',
         }, {
-            label: 'N19308B (PCB)',
+            label: 'N19307B (N-Port)',
             data: [60, 95, 75, 65, 90],
             fill: true,
             backgroundColor: 'rgba(225, 29, 72, 0.2)',
