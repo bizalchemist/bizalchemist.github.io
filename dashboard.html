@@ -295,7 +295,34 @@
             background: var(--accent-1);
             color: var(--bg);
         }
-        
+      
+        .excel-screenshot {
+            border: 1px solid rgba(56, 189, 248, 0.3); /* Matches your blue accent */
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            filter: brightness(0.95); /* Makes the white slightly less aggressive */
+        }
+
+        /* for Excel heatmap */
+        .heatmap-frame {
+            border: 1px solid var(--accent-1);
+            border-radius: 12px;
+            padding: 8px;
+            background: #000; /* Creates a clean 'frame' for the white excel sheet */
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
+        }
+
+        .heatmap-img {
+            width: 100%;
+            border-radius: 6px;
+            opacity: 0.9; /* Softens the white background of Excel */
+            transition: opacity 0.3s ease;
+        }
+
+        .heatmap-img:hover {
+            opacity: 1; /* Brightens up when they look closer */
+        }
+
     </style>
 </head>
 <body>
@@ -466,6 +493,18 @@
             Current telemetry indicates a high correlation between <b>Advanced App Certification</b> and quarterly quota attainment in the Americas. By identifying the 'Developing' status in EMEA, we are shifting enablement resources to prioritize specialized training for the <b>N19306B (PAM-4)</b> and <b>N19308B</b> portfolios to stabilize global performance.
         </div>
     </div>
+
+    <div class="chart-container">
+        <h2>Product Performance: PLTS N1930xB Ecosystem Heatmap</h2>
+        <div class="heatmap-frame">
+            <img src="assets/images/PLTS_Heatmap_Excel.png" class="heatmap-img" alt="Product Sales Performance">
+        </div>
+        <div class="insight-box">
+            <strong>Performance Telemetry</strong>
+            This heatmap isolates the 12-month performance of the <b>N1930x-series</b> post-launch. By analyzing order density, I identified a 22% performance gap between <b>Node-locked</b> and <b>Floating Worldwide</b> licenses, leading to a strategic pivot in our Q3 enablement focus.
+        </div>
+    </div>
+
 </div>
 <script>
     Chart.defaults.color = '#94a3b8';
