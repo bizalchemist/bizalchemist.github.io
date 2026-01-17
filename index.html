@@ -28,31 +28,30 @@
     #main {margin-left: 120px}
     /* Remove margins from "page content" on small screens */
     @media only screen and (max-width: 600px) {#main {margin-left: 0}}
-    /* Landscape phone fix - hide sidebar */
- /* Landscape phone fix - shrink sidebar proportionally */
-    @media only screen and (max-width: 900px) and (orientation: landscape) {
-        .w3-sidebar {
-            width: 80px !important;
-            font-size: 10px;
-        }
-        
-        .w3-sidebar img {
-            width: 100% !important;
-        }
-        
-        .w3-sidebar .fa {
-            font-size: 18px !important;
-        }
-        
-        .w3-sidebar p {
-            font-size: 8px;
-            margin: 2px 0;
-        }
-        
-        #main {
-            margin-left: 80px !important;
-        }
+/* Landscape phone fix - shrink sidebar proportionally */
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+    .w3-sidebar {
+        width: 100px !important;
+        font-size: 11px;
     }
+    
+    .w3-sidebar img {
+        width: 100% !important;
+    }
+    
+    .w3-sidebar .fa {
+        font-size: 24px !important;
+    }
+    
+    .w3-sidebar p {
+        font-size: 9px;
+        margin: 3px 0;
+    }
+    
+    #main {
+        margin-left: 100px !important;
+    }
+}
     /* !-- My Profile Card --> */
     /* Main background -- DeepBlackBlue Noir Background */
     body {
