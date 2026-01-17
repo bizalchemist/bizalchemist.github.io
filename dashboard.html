@@ -1,651 +1,889 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
+    <title>Masha Harness @bizalchemist Portfolio - Data Scientist & Business Developer, AI integrator</title>
+    <meta name="description" content="Showcasing my projects in software engineering, data science, and machine learning. Explore my portfolio and GitHub repositories.">
+    <meta name="keywords" content="partner channel portal developer, Impartner PRM developer, software engineer, data scientist, AI/ML, Salesforce CPQ, Salesforce CRM, Oracle CPQ, product technical marketing, sales enablement, machine learning, SQL, HTML/CSS, JavaScript, portfolio, GitHub">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Enablement Command Center | Masha Harness</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="assets/images/favicon-wiz.ico">
     <style>
-        :root {
-            --bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --accent-1: #38bdf8;
-            --accent-2: #e11d48;
+            :root {
+            --bg-deep: #0f172a;
+            --accent-blue: #38bdf8;
+            --accent-red: #e11d48;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
-            --glass-border: rgba(255, 255, 255, 0.1);
         }
+    body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+    .w3-row-padding img {margin-bottom: 12px}
+    /* Set the width of the sidebar to 120px */
+    .w3-sidebar {width: 120px;background: #222;}
+    /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+    #main {margin-left: 120px}
+    /* Remove margins from "page content" on small screens */
+    @media only screen and (max-width: 600px) {#main {margin-left: 0}}
+    /* !-- My Profile Card --> */
+    /* Main background -- DeepBlackBlue Noir Background */
+    body {
+        background: radial-gradient(circle at center, #0f172a 0%, #000000 100%);
+        color: #f8fafc;
+        min-height: 100vh;
+    }
+    /* Combined Card Style - 3D Tilt Effect + Gradient Card*/
+    .card {
+      /* Original properties */
+      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2);
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
+      font-family: arial;
+      
+      /* New properties for effects */
+      position: relative;
+      border-radius: 8px;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease;
+      cursor: pointer;
+    }
 
-        body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            background: radial-gradient(circle at top right, #1e293b, #0f172a);
-            color: var(--text-main); 
-            margin: 0; padding: 20px; 
-            min-height: 100vh;
-        }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 8px;
+      padding: 3px;
+      background: linear-gradient(45deg, 
+        #ff0080, #ff8c00, #40e0d0, 
+        #7928ca, #00d4ff, #ff0080);
+      background-size: 300% 300%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                    linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: gradient-rotate 4s linear infinite;
+      z-index: -1;
+    }
 
-        .container { max-width: 1100px; margin: 0 auto; }
+    @keyframes gradient-rotate {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
 
-        header { 
-            display: flex; flex-direction: row; justify-content: space-between; 
-            align-items: flex-end; margin-bottom: 40px; 
-            border-bottom: 1px solid #334155; padding-bottom: 20px; gap: 15px;
-        }
+    .title {
+      color: white;
+      font-size: 18px;
+    }
+    button {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      padding: 8px;
+      color: grey;
+      background-color: #FFF;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+      border-radius: 4px;
+    }
+    button:hover, a:hover {
+      opacity: 0.7;
+    }
+    .w3-button a {
+      text-decoration: none;
+    }
+    .portfolio-image-container {
+      position: relative; /* Key for absolute positioning of overlay */
+      width: 100%; 
+    }
 
-/* --- Strategic Goal Progress Bar Module --- */
-        .goal-module {
-            margin-bottom: 30px;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 20px;
-            border-radius: 16px;
-            border: 1px solid var(--glass-border);
-        }
+    /* Frosted Glass Portfolio Overlays - enhance existing hover overlays with a glassmorphic effect */
+    .portfolio-image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+       background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0;          /* Hidden by default */
+      transition: opacity 0.3s ease; /* Smooth fade effect */
+      display: flex;       /* Center the text */
+      align-items: center; 
+      justify-content: center; 
+    }
 
-        .goal-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
+    .portfolio-image-text {
+      color: white;
+      font-size: 20px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      letter-spacing: 1px;
+      text-align: center; /* Centers the text */
+    }
 
-        .goal-info span {
-            font-size: 11px;
+    .portfolio-image-container:hover .portfolio-image-overlay {
+      opacity: 1;          /* Visible on hover */
+    }
+
+    .w3-row.w3-center.w3-padding-16.w3-section.w3-light-grey {
+      border-radius: 12px;
+    }
+
+    /* Skill Labels (iPhone & Desktop optimized) */
+    .w3-wide {
+        white-space: nowrap !important;
+        letter-spacing: 0px !important;
+        font-size: 10px !important;
+        line-height: 1.2;
+        display: block;
+        color: #94a3b8 !important; /* Steel-grey for the Noir look */
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-top: 15px !important;
+    }
+
+    /* Progress Bar Components - Glassmorphism Track - Dark Noir Style */
+    .w3-white {
+        background: rgba(255, 255, 255, 0.05) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important; /* Safari support */
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 20px !important;
+        height: 14px !important; /* Thinner for elegant look */
+        overflow: hidden !important;
+        margin-top: 8px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+        margin-bottom: 15px !important;
+    }
+
+      /* Progress bar fill with specific relative positioning for the shine effect */
+      .w3-dark-grey {
+          background: linear-gradient(90deg, #38bdf8, #e11d48) !important;
+          box-shadow: 0 0 20px rgba(56, 189, 248, 0.4) !important;
+          height: 100% !important;
+          border-radius: 20px !important;
+          position: relative !important; /* CRITICAL: Allows the glint to anchor here */
+          transition: width 1.5s cubic-bezier(0.1, 0.5, 0.2, 1) !important;
+          overflow: hidden !important; /* Keeps the glint inside the rounded corners */
+          /* Extra inner glow for the "liquid energy" look */
+          box-shadow: 
+              0 0 20px rgba(56, 189, 248, 0.4), /* Outer glow */
+              inset 0 0 8px rgba(255, 255, 255, 0.3) !important; /* Inner light edge */
+      }
+
+      /* The Glass Reflection (Glint) */
+      .w3-dark-grey::after {
+          content: "" !important;
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          height: 50% !important; /* Covers only the top half of the bar */
+          
+          /* Soft white reflection that fades to transparent */
+          background: linear-gradient(
+              to bottom, 
+              rgba(255, 255, 255, 0.25) 0%, 
+              rgba(255, 255, 255, 0.05) 100%
+          ) !important;
+          
+          border-radius: 20px 20px 0 0 !important;
+          pointer-events: none !important; /* EN: Prevents the glint from blocking mouse clicks */
+      }
+
+      @keyframes fillUp {
+          from { width: 0; }
+      }
+      .w3-dark-grey {
+          animation: fillUp 1.5s cubic-bezier(0.1, 0.5, 0.2, 1);
+      }
+
+      /* Unified height for the sleek Glass Tube look */
+      .w3-white, .w3-dark-grey {
+          height: 12px !important; /* Slightly thinner for extra elegance */
+          border-radius: 20px !important; /* Keeps the ends perfectly circular */
+      }
+
+    /* Skill Module Interactive Styling */
+    .skill-module {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05); 
+        background: rgba(30, 41, 59, 0.2);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        cursor: pointer;
+    }
+
+    /* Brighter Neon Border and Glow on Hover */
+    .skill-module:hover {
+        transform: translateY(-5px);
+        background: rgba(56, 189, 248, 0.08);
+        border-color: rgba(56, 189, 248, 0.9) !important; 
+        box-shadow: 
+            0 10px 40px rgba(0, 0, 0, 0.6), 
+            0 0 20px rgba(56, 189, 248, 0.3),
+            inset 0 0 10px rgba(56, 189, 248, 0.1); 
+    }
+
+    .skill-module:hover .w3-wide {
+        color: #fff !important;
+        text-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+    }
+
+    .skill-module:hover .w3-dark-grey {
+        box-shadow: 0 0 30px rgba(56, 189, 248, 1) !important;
+        filter: brightness(1.3);
+    }
+
+    .w3-quarter:hover {
+      transform: translateY(-5px);
+      transition: 0.3s;
+      color: white !important;
+    }
+
+    /* The Glass Glow Hover Effect */
+    .glass-stats-container:hover {
+        box-shadow: 0 0 30px rgba(56, 189, 248, 0.6) !important; /* Blue glow */
+        border: 1px solid rgba(56, 189, 248, 0.8) !important; /* Border turns blue too */
+        filter: brightness(1.2);
+        transform: translateY(-2px); /* Subtle lift */
+    }
+
+    /* Optional: Make the numbers glow when you hover the box */
+    .glass-stats-container:hover .w3-xlarge {
+        color: #38bdf8 !important; /* Numbers turn sky blue */
+        text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        transition: 0.3s;
+    }
+
+        /* Buttons */
+        .modern-btn {
+            background: linear-gradient(90deg, var(--accent-blue), #0ea5e9);
+            color: white !important;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-dim);
-        }
-
-        .goal-info .percentage {
-            color: var(--accent-1);
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .progress-track {
-            background: rgba(255, 255, 255, 0.05);
-            height: 10px;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .progress-fill {
-            width: 74%; /* Set your current progress here */
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-            transition: width 1s ease-in-out;
-        }
-
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
-
-        .card, .chart-container { 
-            background: var(--card-bg); backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border);
-            position: relative; overflow: hidden;
-        }
-
-        .card { padding: 20px; border-radius: 16px; }
-        .card::after {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-        }
-
-        .card h3 { margin: 0; font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
-        .card .value { font-size: 32px; font-weight: 800; margin: 10px 0; background: linear-gradient(to right, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card .trend { font-size: 12px; color: var(--accent-1); font-family: monospace; }
-
-        .chart-container { padding: 25px; border-radius: 20px; margin-bottom: 30px; }
-
-        .card, .goal-module, .chart-container {
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        /* FIXED: Hover for Laptop + Active Touch for iPhone */
-        .card:hover, .goal-module:hover,
-        .card:active, .goal-module:active {
-            transform: translateY(-5px);
-            border-color: var(--accent-1);
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
-            -webkit-tap-highlight-color: transparent; /* Removes the default gray box on iPhone */
-        }
-
-        /* FIXED: Value Glow for Laptop + iPhone Tap */
-        .card:hover .value, .card:active .value {
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
-            transition: text-shadow 0.3s ease;
-        }
-
-        /* THE PROPORTIONAL FIX */
-        .chart-wrapper {
-            position: relative;
-            width: 100%;
-            height: 350px; /* Desktop Height */
-        }
-
-        .insight-box { 
-            background: rgba(56, 189, 248, 0.08); border-radius: 12px; 
-            border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.02);
-            padding: 15px; margin-top: 20px; border: 1px solid rgba(56, 189, 248, 0.2);
-            font-size: 13px; line-height: 1.5; color: var(--text-dim);
-        }
-
-        .insight-box strong { color: var(--accent-1); display: block; margin-bottom: 5px; font-size: 14px; }
-        h2 { font-size: 18px; margin-bottom: 20px; letter-spacing: -0.5px; }
-        .badge { border: 1px solid var(--accent-2); color: var(--accent-2); padding: 4px 12px; border-radius: 30px; font-size: 10px; font-weight: bold; white-space: nowrap; }
-
-/* --- Wizard Wand Chatbot Module --- */
-        .chat-trigger {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-            z-index: 1000;
-            font-size: 24px;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: pulse 2s infinite;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .modern-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
         }
 
-        .chat-trigger:active { transform: scale(0.9); }
+   /* Chatbot Container */
+    #chatbot-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 320px;
+        height: 400px; 
+        background-color: #fff; 
+        border: 1px solid #333; 
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        font-family: "Montserrat", sans-serif; 
+        z-index: 1000;
+        overflow: hidden; 
+        transform: translateY(150%); 
+        transition: transform 0.3s ease-in-out;
+        opacity: 0; 
+    }
 
-        .chat-window {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 320px;
-            height: 400px;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            display: none; /* Hidden by default */
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 1001;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
+    #chatbot-container.active {
+        transform: translateY(0); 
+        opacity: 1; 
+    }
 
-        .chat-header {
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid var(--glass-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* Chatbot Header */
+    #chatbot-header {
+        background-color: #333;
+        color: #fff;
+        padding: 0 15px; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        height: 50px; 
+    }
 
-        .chat-header h4 { margin: 0; font-size: 14px; color: var(--accent-1); }
+    #chatbot-title {
+        font-size: 16px; 
+        white-space: nowrap; 
+        flex-shrink: 0; 
+    }
 
-        .chat-body {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            font-size: 13px;
-            line-height: 1.4;
-            color: var(--text-dim);
-        }
+    #chatbot-close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 28px; 
+        cursor: pointer;
+        padding: 0;
+        margin-left: auto; 
+        width: 30px;
+        height: 100%;
+        display: flex;
+        justify-content: flex-end; 
+        align-items: center;
+    }
 
-        .bot-msg {
-            background: rgba(56, 189, 248, 0.1);
-            padding: 10px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            border-left: 3px solid var(--accent-1);
-        }
+    /* Chatbot Messages Area */
+    #chatbot-messages {
+        flex-grow: 1;
+        padding: 15px;
+        overflow-y: auto; 
+        background-color: #f9f9f9; 
+        border-bottom: 1px solid #eee;
+        display: flex;
+        flex-direction: column; 
+    }
 
-        /* Custom PLTS Matrix Styling */
-        .plts-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
+    .message {
+        padding: 8px 12px;
+        border-radius: 18px;
+        margin-bottom: 10px;
+        max-width: 80%;
+        word-wrap: break-word; 
+    }
 
-        .plts-image-box {
-            background: #000;
-            border-radius: 12px;
-            height: 200px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            position: relative;
-        }
+    .bot-message {
+        background-color: #e0e0e0; 
+        color: #333;
+        align-self: flex-start; 
+    }
 
-        .plts-matrix-viz {
-            display: flex;
-            height: 200px;
-            gap: 8px;
-            background: rgba(0,0,0,0.2);
-            padding: 10px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-        }
+    .user-message {
+        background-color: #333; 
+        color: #fff; 
+        align-self: flex-end; 
+        margin-left: auto; 
+    }
 
-        .matrix-col {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            font-size: 9px;
-            text-align: center;
-            color: white;
-        }
+    /* Chatbot Input and Send Button Wrapper */
+    .chatbot-input-area {
+        display: flex;
+        border-top: 1px solid #ddd;
+    }
 
-        @media (max-width: 768px) {
-            .plts-grid { grid-template-columns: 1fr; }
-        }
+    #chatbot-input {
+        flex-grow: 1; 
+        padding: 10px 15px;
+        border: none;
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box; 
+        color: #333;
+        background-color: #fff;
+    }
 
-        @media (max-width: 480px) {
-            .chat-window {
-                width: calc(100% - 40px);
-                right: 20px;
-                bottom: 90px;
-            }
-            .chat-trigger { bottom: 20px; right: 20px; }
-        }
+    #chatbot-send-btn {
+        flex-shrink: 0; 
+        width: 70px; 
+        padding: 10px 0;
+        background-color: #333; 
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+    }
 
-        @media (max-width: 480px) {
-            header { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .grid { grid-template-columns: 1fr; gap: 15px; } /* Only stacks on very narrow portrait screens */
-            .chart-wrapper { height: 260px; }
-            .goal-module { padding: 15px; margin-bottom: 20px; }
-            .goal-info span { font-size: 9px; }            
-            header h1 { font-size: 22px !important; }
-        }
+    #chatbot-send-btn:hover {
+        background-color: #555; 
+    }
+
+    /* --- UPDATED PULSING CHATBOT TOGGLE BUTTON --- */
+    #chatbot-toggle-btn {
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        background-color: #59c9f9;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 50px; 
+        height: 50px;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(56, 130, 248, 0.9);
+        z-index: 1001;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         
-        /* This ensures that on Landscape and larger, we always have 3 columns */
-        @media (min-width: 481px) {
-            .grid { grid-template-columns: repeat(3, 1fr); }
+        /* Outer circle breathes normally */
+        animation: magic-pulse 4s ease-in-out infinite; 
+    }
+
+    #chatbot-toggle-btn.hidden {
+        transform: scale(0); 
+        opacity: 0;
+    }
+
+    #chatbot-toggle-btn i {
+        display: inline-block;
+        /* Wizard wand rotates AND surges with glow/size */
+        animation: wizard-spin 4s linear infinite;
+    }
+
+    @keyframes magic-pulse {
+        0% { transform: scale(1); box-shadow: 0 4px 12px rgba(56, 130, 248, 0.9);}
+        50% { transform: scale(1.2); box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); background-color: #048aff;}
+        100% { transform: scale(1); box-shadow: 0 4px 12px rgba(56, 130, 248, 0.9);}
+    }
+
+    /* This animation makes the WIZARD WAND glow and grow independently */
+    @keyframes wizard-spin {
+        0% { 
+            transform: rotate(0deg) scale(1); 
+            filter: drop-shadow(0 0 0px #fff); 
         }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        50% { 
+            /* Wand grows larger and gains a bright white glow */
+            transform: rotate(180deg) scale(1.4); 
+            filter: drop-shadow(0 0 15px #fff) brightness(1.8); 
         }
-         .chat-commands {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .cmd-btn {
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            color: var(--accent-1);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .cmd-btn:hover, .cmd-btn:active {
-            background: var(--accent-1);
-            color: var(--bg);
-        }
-
-        /* for Excel heatmap */
-        .heatmap-frame {
-            border: 1px solid var(--accent-1);
-            border-radius: 12px;
-            padding: 8px;
-            background: #000; /* Creates a clean 'frame' for the white excel sheet */
-            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
-        }
-
-        .heatmap-img {
-            width: 100%;
-            border-radius: 6px;
-            opacity: 0.9; /* Softens the white background of Excel */
-            transition: opacity 0.3s ease;
-        }
-
-        .heatmap-img:hover {
-            opacity: 1; /* Brightens up when they look closer */
-        }
-
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <header>
-        <div>
-            <h1 style="margin:0; font-size: 28px; letter-spacing: -1px;">AI Enablement Command Center</h1>
-            <p style="margin:8px 0 0; color: var(--text-dim);">Project "Nightshade" | Predictive Sales Analytics</p>
-        </div>
-        <div class="badge">MASHA HARNESS | ANALYTICS PORTFOLIO</div>
-    </header>
-
-    <div class="goal-module">
-        <div class="goal-info">
-            <span>Quarterly Revenue Enablement Target</span>
-            <span class="percentage">74%</span>
-        </div>
-        <div class="progress-track">
-            <div class="progress-fill"></div>
-        </div>
-    </div>
-
-<div class="grid">
-        <div class="card">
-            <h3>Win Rate Uplift</h3>
-            <div class="value">+191%</div>
-            <div class="trend">Direct Revenue Impact</div> </div>
-        <div class="card">
-            <h3>Avg. Deal Size (ACV)</h3>
-            <div class="value">$152K</div>
-            <div class="trend">Strategic Account Growth</div> </div>
-        <div class="card">
-            <h3>Sales Velocity</h3> <div class="value">2x Faster</div> <div class="trend">Time-to-Revenue Optimized</div>
-        </div>
-    </div>
-
-    <div class="chart-container">
-        <h2>Performance Correlation</h2>
-        <div class="chart-wrapper">
-            <canvas id="correlationChart"></canvas>
-        </div>
-        <div class="insight-box">
-            <strong>The "Alchemist" Insight</strong>
-            Data confirms that <b>Skill-Validated Specialists</b> don't just "sell"—they accelerate. Our analysis shows that when sellers are proficient in the <b>PLTS Entitlement Process</b>, they are 40% more effective at securing <b>SUS (Software Update Service)</b> renewals. This bridge between "Seller Proficiency" and "Subscription Retention" is the primary driver of high-margin recurring revenue.
-        </div>
-    </div>
-
-    <div class="chart-container">
-        <h2>Enablement-to-Revenue Velocity</h2>
-        <div class="chart-wrapper">
-            <canvas id="momentumChart"></canvas>
-        </div>
-        <div class="insight-box">
-            <strong>Velocity Analysis</strong>
-            Telemetry identifies a 2-week lag between certification and deal registration inflection points. By treating Enablement as a <b style="color: var(--text-dim);">Leading Indicator</b>, we can accurately forecast revenue surges 14 days in advance. This "Early Warning System" allows management to optimize sales floor capacity ahead of the revenue curve.
-        </div>
-    </div>
-
-    <div class="chart-container">
-            <h2>PLTS Ecosystem: N1930xB Revenue Flow</h2>
-            <div class="plts-grid">
-                <div class="plts-image-box">
-                    <img src="https://www.keysight.com/content/dam/keysight/en/img/migrated/scene7/products/wn/PROD-3071378-01.png" 
-                        alt="N19301B PLTS" style="width:100%; height:100%; object-fit: cover; opacity: 0.7;">
-                    <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 4px; font-size: 10px;">
-                        <span style="color:var(--accent-1)">●</span> N19301B Base Analysis
-                    </div>
-                </div>
-
-                <div class="plts-matrix-viz">
-                    <div class="matrix-col">
-                        <div style="background: var(--accent-1); flex: 4; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--bg); font-weight: bold;">N19301B</div>
-                        <div style="background: rgba(56, 189, 248, 0.2); flex: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center;">N19303B+</div>
-                    </div>
-                    <div class="matrix-col">
-                        <div style="background: var(--accent-2); flex: 2; border-radius: 4px; display: flex; align-items: center; justify-content: center;">Subscription</div>
-                        <div style="background: #475569; flex: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center;">Perpetual</div>
-                    </div>
-                    <div class="matrix-col" style="flex: 1.5;">
-                        <div style="background: #0ea5e9; flex: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center;">Floating WW</div>
-                        <div style="background: #0284c7; flex: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center;">Node-locked</div>
-                    </div>
-                    <div class="matrix-col">
-                        <div style="background: #be123c; height: 20%; border-radius: 4px; display: flex; align-items: center; justify-content: center;">60mo</div>
-                        <div style="background: #9f1239; height: 80%; border-radius: 4px; display: flex; align-items: center; justify-content: center;">3-36mo</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="insight-box">
-                <strong>Revenue Architecture Analysis</strong>
-                By mapping the <strong>N19301B-N19307B</strong> portfolio against a multi-tier licensing matrix, I identified that <b>Floating Worldwide</b> subscriptions represent the highest growth vector for the 2025-2026 cycle. This visualization helped streamline the $287k+ base-deal conversion rate by highlighting the "Attach Rate" of PAM-4 and N-Port analysis upgrades over 36-60 month durations.
-            </div>
-        </div>
-
-
-<div class="chart-container">
-    <h2>N19301B Ecosystem: Attribute Analysis</h2>
-    <div class="chart-wrapper">
-        <canvas id="pltsRadarChart"></canvas>
-    </div>
-    <div class="insight-box">
-        <strong>Strategic Attach-Rate Analysis</strong>
-        This 4-dimensional view isolates the <b>N19306B (PAM-4)</b> and <b>N19307B (N-Port)</b> apps. My analysis identified that while N19301B is the revenue anchor, the highest LTV (Lifetime Value) resides in 60-month Floating Worldwide subscriptions for the N-Port (N19307B) extensions.
-    </div>
-</div>
-
-    <div class="chat-trigger" id="chatBtn">🪄</div>
-
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <h4>AI Strategist Bot</h4>
-            <span style="cursor:pointer; opacity:0.5;" id="closeChat">✕</span>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="bot-msg">
-                Greetings, I am the Nightshade AI. I bridge the gap between seller proficiency and revenue outcomes. What insight do you require?
-                <div class="chat-commands">
-                    <button class="cmd-btn" onclick="botCommand('refresh')">🔄 Sync Telemetry</button>
-                    <button class="cmd-btn" onclick="botCommand('strategy')">💡 Growth Pivot</button>
-                    <button class="cmd-btn" onclick="botCommand('prediction')">📈 14-Day Forecast</button>
-                    <button class="cmd-btn" onclick="botCommand('export')">📄 PDF Report</button>
-                </div>
-            </div>
-        </div>    
-    </div>
-
-    <div class="chart-container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-            <h2 style="margin:0;">Global Sales Force: Competency Matrix</h2>
-            <span style="font-family: monospace; font-size: 11px; color: var(--accent-1); border: 1px solid var(--accent-1); padding: 2px 8px; border-radius: 4px;">OPERATIONAL TELEMETRY</span>
-        </div>
-
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; font-size: 12px;">
-                <thead>
-                    <tr style="text-align: left; color: var(--text-dim); border-bottom: 1px solid var(--glass-border);">
-                        <th style="padding: 12px;">REGION</th>
-                        <th style="padding: 12px;">CORE PROFICIENCY</th>
-                        <th style="padding: 12px;">ADVANCED APPS</th>
-                        <th style="padding: 12px;">CERTIFICATION RATE</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                        <td style="padding: 12px; color: #fff; font-weight: bold;">AMERICAS</td>
-                        <td style="padding: 12px;"><div style="width: 100%; background: rgba(56, 189, 248, 0.2); height: 8px; border-radius: 4px;"><div style="width: 88%; background: var(--accent-1); height: 100%; border-radius: 4px;"></div></div></td>
-                        <td style="padding: 12px; color: var(--text-dim);">High</td>
-                        <td style="padding: 12px; color: var(--accent-1); font-family: monospace;">82%</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                        <td style="padding: 12px; color: #fff; font-weight: bold;">EMEA</td>
-                        <td style="padding: 12px;"><div style="width: 100%; background: rgba(56, 189, 248, 0.2); height: 8px; border-radius: 4px;"><div style="width: 64%; background: var(--accent-1); height: 100%; border-radius: 4px;"></div></div></td>
-                        <td style="padding: 12px; color: var(--accent-2);">Developing</td>
-                        <td style="padding: 12px; color: var(--accent-1); font-family: monospace;">51%</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                        <td style="padding: 12px; color: #fff; font-weight: bold;">APAC</td>
-                        <td style="padding: 12px;"><div style="width: 100%; background: rgba(56, 189, 248, 0.2); height: 8px; border-radius: 4px;"><div style="width: 75%; background: var(--accent-1); height: 100%; border-radius: 4px;"></div></div></td>
-                        <td style="padding: 12px; color: var(--text-dim);">Moderate</td>
-                        <td style="padding: 12px; color: var(--accent-1); font-family: monospace;">68%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="insight-box">
-            <strong>Strategic Resource Allocation</strong> 
-            Current telemetry indicates a high correlation between <b>Advanced App Certification</b> and quarterly quota attainment in the Americas. By identifying the 'Developing' status in EMEA, we are shifting enablement resources to prioritize specialized training for the <b>N19306B (PAM-4)</b> and <b>N19307B</b> portfolios to stabilize global performance.
-        </div>
-    </div>
-
-    <div class="chart-container">
-        <h2>Product Performance: PLTS N1930xB Ecosystem Heatmap</h2>
-        <div class="heatmap-frame">
-            <img src="assets/images/PLTS_Heatmap_Excel.png" class="heatmap-img" alt="Product Sales Performance">
-        </div>
-    <div class="insight-box">
-        <strong>Regional Market Penetration Analysis</strong>
-        This heatmap visualizes the N1930xB portfolio adoption. 
-        <b>Green zones</b> identify high-velocity regions where the NPI strategy reached full saturation, while <b>Red zones</b> isolate specific software variants—primarily older perpetual licenses—where customer sentiment is shifting toward subscription models. This "Traffic Light" telemetry allowed us to identify underperforming SKUs and reallocate marketing spend toward the high-growth Green sectors.
-    </div>
-    </div>
-
-</div>
-<script>
-    Chart.defaults.color = '#94a3b8';
-    Chart.defaults.borderColor = 'rgba(51, 65, 85, 0.5)';
-
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false, // This allows the chart to use the wrapper's height
-        plugins: {
-            legend: { position: 'top', labels: { boxWidth: 10, font: { size: 10 } } }
-        },
-        scales: {
-            y: { beginAtZero: true, grid: { color: 'rgba(51, 65, 85, 0.3)' } },
-            x: { grid: { display: false } }
-        }
-    };
-
-    // Correlation Bar Chart
-    new Chart(document.getElementById('correlationChart'), {
-        type: 'bar',
-        data: {
-            labels: ['Win Rate %', 'Adoption %', 'Pipeline (M)'],
-            datasets: [{
-                label: 'Certified',
-                data: [35, 78, 12],
-                backgroundColor: '#38bdf8',
-                borderRadius: 4
-            }, {
-                label: 'Base',
-                data: [12, 22, 4],
-                backgroundColor: '#64748b',
-                borderRadius: 4
-            }]
-        },
-        options: options
-    });
-
-    // Momentum Line Chart
-    new Chart(document.getElementById('momentumChart'), {
-        type: 'line',
-        data: {
-            labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6'],
-            datasets: [{
-                label: 'Certs',
-                data: [10, 25, 65, 95, 110, 120],
-                borderColor: '#38bdf8',
-                backgroundColor: 'rgba(56, 189, 248, 0.1)',
-                fill: true,
-                borderWidth: 2,
-                tension: 0.4
-            }, {
-                label: 'Deals',
-                data: [5, 12, 28, 55, 82, 115],
-                borderColor: '#e11d48',
-                borderWidth: 2,
-                tension: 0.4
-            }]
-        },
-        options: options
-    });
-    // Chatbot
-    const chatBtn = document.getElementById('chatBtn');
-        const chatWindow = document.getElementById('chatWindow');
-        const closeChat = document.getElementById('closeChat');
-
-        chatBtn.addEventListener('click', () => {
-            const isVisible = chatWindow.style.display === 'flex';
-            chatWindow.style.display = isVisible ? 'none' : 'flex';
-            
-            // Add a little pulse on click
-            chatBtn.style.transform = 'scale(0.9)';
-            setTimeout(() => chatBtn.style.transform = 'scale(1)', 100);
-        });
-
-        closeChat.addEventListener('click', () => {
-            chatWindow.style.display = 'none';
-    });
-
-        function botCommand(type) {
-            const body = document.getElementById('chatBody');
-            const msg = document.createElement('div');
-            msg.className = 'bot-msg';
-            
-            const responses = {
-                'refresh': "<strong>Nightshade AI:</strong> Syncing with Salesforce & LMS telemetry... <br><br>Done. Data reflects Q4 adoption spikes. EMEA certification gap identified as a primary blocker for N19301B renewals.",
-                'export': "<strong>System:</strong> Compiling 'Executive Performance Summary.pdf'... <br><br>Ready. Analyzing the correlation between Sus-Renewal and Seller Proficiency.",
-                'strategy': "<strong>Strategic Insight:</strong> The data suggests that 'Floating Worldwide' license adoption is 2x higher when sellers complete the <b>Advanced App Module</b>. I recommend shifting EMEA resources to this track.",
-                'prediction': "<strong>Revenue Forecast:</strong> Based on current certification velocity in APAC, we expect a 15% uplift in deal registration for the N1930x series within the next 14 days."
-            };
-            
-            msg.innerHTML = responses[type] || "Command received.";
-            
-            body.appendChild(msg);
-            body.scrollTop = body.scrollHeight; 
-        }
-
- // Radar Chart for PLTS Portfolio
-new Chart(document.getElementById('pltsRadarChart'), {
-    type: 'radar',
-    data: {
-        labels: ['Attach Rate', 'SUS Renewal Rate', 'Technical Complexity', 'Global Demand', 'Entitlement Speed'],
-        datasets: [{
-            label: 'N19306B (PAM-4)',
-            data: [95, 85, 90, 80, 70],
-            fill: true,
-            backgroundColor: 'rgba(56, 189, 248, 0.2)',
-            borderColor: '#38bdf8',
-            pointBackgroundColor: '#38bdf8',
-        }, {
-            label: 'N19307B (N-Port)',
-            data: [60, 95, 75, 65, 90],
-            fill: true,
-            backgroundColor: 'rgba(225, 29, 72, 0.2)',
-            borderColor: '#e11d48',
-            pointBackgroundColor: '#e11d48',
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-
-        scales: {
-                    r: {
-                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                        pointLabels: { 
-                            color: '#94a3b8', 
-                            font: { size: 10, weight: 'bold' } // Makes labels easier to read on iPhone
-                        },
-                        ticks: { 
-                            display: false, // Keeps the numbers hidden for a cleaner look
-                            stepSize: 20    // Defines the "rings" of the web
-                        },
-                        suggestedMin: 0,
-                        suggestedMax: 100
-                    }
-                },
-        plugins: {
-            legend: { labels: { color: '#f8fafc', font: { size: 11 } } }
+        100% { 
+            transform: rotate(360deg) scale(1); 
+            filter: drop-shadow(0 0 0px #fff); 
         }
     }
-});
 
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        #chatbot-container {
+            width: 90%;
+            height: 70vh; 
+            right: 5%;
+            bottom: 10px;
+        }
+      }       
 
+    </style>
+  </head>
+<body class="w3-black">
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <img src="assets/images/Masha_explor_bw.png" style="width:100%">
+  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <i class="fa fa-home w3-xxlarge"></i>
+    <p>HOME</p>
+  </a>
+  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-user w3-xxlarge"></i>
+    <p>ABOUT</p>
+  </a>
+  <a href="#portfolio" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i>
+    <p>PORTFOLIO</p>
+  </a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-envelope w3-xxlarge"></i>
+    <p>CONTACT</p>
+  </a>
+</nav>
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+    <a href="#portfolio" class="w3-bar-item w3-button" style="width:25% !important">PORTFOLIO</a>
+    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+  </div>
+</div>
+
+<div class="w3-padding-large" id="main">
+  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+    
+    <div class="w3-container" style="max-width: 100%; overflow: hidden;">
+        
+        <h1 style="font-size: clamp(28px, 5vw, 72px); font-weight: 800; margin: 0; white-space: nowrap;">
+            I'm a data wizard<span style="color: red">.</span>
+        </h1>
+        <h1 style="font-size: clamp(14px, 2vw, 32px); line-height: 1.4; margin-top: 5px; font-weight: 500; letter-spacing: 0.5px;">
+            <span style="color: #94a3b8; font-size: clamp(16px, 2.2vw, 34px); font-weight: 700;">Architecting Revenue Velocity</span><br/>
+            <span style="color: #fff; display: inline-block;">Unleashing AI to ignite B2B growth!</span>
+        </h1>
+    </div>
+    <p> </p>
+
+<div class="card">
+  <img src="assets/images/Masha_bw.png" alt="Masha Harness" style="width:100%">
+  <h1 class="w3-text-white">Masha Harness</h1>
+  <p class="title">Sr Data Scientist & TPM</p>
+  <p>UC Berkeley</p>
+  <div style="margin: 24px 0;">
+    <a  href="https://www.linkedin.com/in/mashaharness" style="font-size: 24px; color: #00d4ff"><i class="fa fa-linkedin">&nbsp;&nbsp;</i></a> 
+    <a  href="https://dribbble.com/bizalchemist" style="font-size: 24px; color: #00d4ff"><i class="fa fa-dribbble">&nbsp;&nbsp;</i></a> 
+    <a  href="https://github.com/bizalchemist" style="font-size: 24px; color: #00d4ff"><i class="fa fa-github">&nbsp;&nbsp;</i></a>  
+    <a  href="https://facebook.com/mashaharness" style="font-size: 24px; color: #00d4ff"><i class="fa fa-facebook"></i></a> 
+  </div>
+  <a href="#contact"><p><button>Contact</button></p></a>
+</div>  
+
+  </header>
+  <div class="w3-content w3-justify w3-text-light-grey w3-padding-64" id="about">
+    <h2 class="w3-text-light-grey">About</h2>
+    <hr style="width:200px" class="w3-opacity">
+    <p>I'm a full-stack data scientist/TPM and a game-changer. <br><br>
+    I'm a data wizard, and have a passion for organizing, analyzing, and exposing data in a way that can have a real impact on business decisions and direction, and to solve data insights problem complexity with simplicity and elegance.<br><br>
+I enjoy thinking differently, creating from a blank canvas, and collaborating with a team globally, all while producing useful deliverables.<br><br>
+I'm a master to juggle many competing priorities, enjoy a fast-paced environment, can be strategic but also get into the weeds and execute daily. I'm agile and retrospective, and not afraid to identify what is going wrong so I can fix it, and what is going right so I can improve on it. I judge my success by the success of the team and the growth and happiness of my clients. <br><br>
+I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Research, Statistics, and Econometrics).
+    </p>
+    <h3 class="w3-padding-16 w3-text-light-grey">Technical Skill Infrastructure</h3>
+
+  <div class="skill-module">
+      <p class="w3-wide">AI/ML, Robotic Process Automation (SQL / Python)</p>
+      <div class="w3-white">
+          <div class="w3-dark-grey" style="width:89%"></div>
+      </div>
+  </div>
+
+  <div class="skill-module">
+      <p class="w3-wide">Revenue Systems Architecture (SFDC / CPQ / PRM)</p>
+      <div class="w3-white">
+          <div class="w3-dark-grey" style="width:95%"></div>
+      </div>
+  </div>
+
+  <div class="skill-module">
+      <p class="w3-wide">Global Technical Program Management</p>
+      <div class="w3-white">
+          <div class="w3-dark-grey" style="width:91%"></div>
+      </div>
+  </div>
+
+  <div class="skill-module">
+      <p class="w3-wide">Data Science & MMORSE Predictive Modeling</p>
+      <div class="w3-white">
+          <div class="w3-dark-grey" style="width:94%"></div>
+      </div>
+  </div>
+
+  <div class="skill-module">
+      <p class="w3-wide">GTM Strategy & Global Ecosystem Governance</p>
+      <div class="w3-white">
+          <div class="w3-dark-grey" style="width:93%"></div>
+      </div>
+  </div>
+  
+  <div class="w3-row w3-center w3-padding-32 w3-section glass-stats-container" 
+     style="background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 20px;
+            transition: all 0.4s ease;">
+          
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">150+</span><br>
+    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">NPI Launches</span>
+  </div>
+
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">$650M+</span><br>
+    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Portfolio</span>
+  </div>
+  
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">250+</span><br>
+    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">CPQ Configs</span>
+  </div>
+  
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">200+</span><br>
+    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Partners</span>
+  </div>
+</div>
+   
+    <div class="w3-center w3-padding-32">
+        <a href="assets/MashaHarness_Resume.pdf" download class="modern-btn" style="background: var(--accent-red);">
+            <i class="fa fa-download"></i> Download Master Resume
+        </a>
+    </div>
+
+    <h3 class="w3-padding-24 w3-text-light-grey">Executive Endorsements</h3>  
+    <img src="assets/images/Toby.png" alt="TobyAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Toby.</span> VP Global Alliances at Keysight Technologies.</p>
+    <p>Masha is a joy to work with and takes the initiative to fix problems / provide solutions to problems. Masha's development background means she is always looking for ways to automate processes to gain efficiencies and repeatability. Masha has been instrumental in implementing our Impartner implementation, finding ways to improve business processes through using the platform as our Partner Portal.</p><br>
+    
+   <img src="assets/images/Gail.png" alt="GailAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Gail.</span>  Director Worldwide Channels at Keysight Technologies.</p>
+    <p>Masha's background as a data scientist along with understanding our different business processes such as sales and finance, automation of manual tasks, data analysis tools for informed decision-making, tracking and visibility for enhanced operational insight, and compliance and reporting tools for adhering to regulations have been key to her success. Her knowledge in these areas along with her strong customer focus and organizational skills have created a vibrant partner platform for continued success.</p><br>
+   
+    <img src="assets/images/Sam.png" alt="SamAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Sam.</span>  Exec Engineering Advisor at Five9.</p>    
+    <p>Masha is very knowledgeable and reliable specialist, she comes with my best recommendations.</p><br>
+
+    <img src="assets/images/Ethan.png" alt="EthanAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Ethan.</span>  Manager, Digital Transformation at Keysight Technologies.</p>
+    <p>Masha has a versatile skillset centered around systems and data analysis, which brings a lot of value to the Knowledge Engineering team. She works tirelessly to improve process efficiency, and takes ownership of problems within her sphere of influence. She's a great member of the broader Digital Transformation organization</p><br>
+
+    <img src="assets/images/Akihiko.png" alt="AkihikoAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Akihiko.</span> Director Business Development at Keysight Technologies.</p>
+    <p>Masha is the person who has not only an excellent skillset but passion to team's success. Without her, we could not deliver the result so smooth!</p><br>
+
+    <img src="assets/images/Mike.png" alt="MikeAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Mike.</span>  Technical Writer at Keysight Technologies.</p>
+    <p>Masha was very engaged and passionate about her work and received the best compliments on her abilities, integrity, focus, and hard work. Hiring Masha would be an excellent opportunity for her to offer her breadth of knowledge, strong people skills, and technical expertise to your organization.</p><br>
+
+  </div>
+
+   <div class="w3-padding-64 w3-content" id="portfolio">
+     <h2 class="w3-text-light-grey">My Portfolio</h2>
+     <hr style="width:200px" class="w3-opacity">
+
+     <h3 style="margin-top:10px; text-align:center;">AI ENABLEMENT COMMAND CENTER</h3>
+        <div class="w3-center w3-padding-16">
+            <a href="dashboard.html" target="_blank" download class="modern-btn" style="background: var(--accent-blue);">
+                <i class="fa fa-rocket"></i> Launch Live Demo
+            </a>
+        </div>
+    </div>
+
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-half">
+       
+        <div class="portfolio-image-container" onclick="window.open('https://eggplantpartners.keysight.com', '_blank');" style="cursor: pointer;">
+           <img src="assets/images/ PortalUI_Login_mockup.png" style="width:100%" alt="Eggplant Partner Portal">
+             <div class="portfolio-image-overlay">
+                <p class="portfolio-image-text"><strong>PRM CLOUD PORTALS</strong><br><br> PORTAL ARCHITECTURE<br>CHANNEL OPS MANAGEMENT<br><br></p> 
+            </div>
+        </div>
+     
+        <div class="portfolio-image-container" onclick="window.open('assets/Full-StackCMSDevelopment.pdf', '_blank');" style="cursor: pointer;">
+         <img src="assets/images/ PortalUI_mockup.png" style="width:100%" alt="Full-Stack CMS Development">
+           <div class="portfolio-image-overlay">
+             <p class="portfolio-image-text"><strong>PARTNER ENABLEMENT</strong><br><br>PRM SYSTEM ARCHITECTURE<br>FULL-STACK CMS DEVELOPMENT</p>
+           </div>
+       </div>
+       
+       <div class="portfolio-image-container" onclick="window.open('assets/DealRegistrationPlaybook.pdf', '_blank');" style="cursor: pointer;">
+        <img src="assets/images/DealReg_Playbook.png" style="width:100%" alt="Deal Registration Playbook">
+          <div class="portfolio-image-overlay">
+            <p class="portfolio-image-text"><strong> DEAL REGISTRATION </strong></br></br> PLAYBOOK DEVELOPMENT </br> UI/UX DESIGN </p> 
+          </div>
+      </div>
+
+      </div>
+      <div class="w3-half">
+      <div class="portfolio-image-container" onclick="window.location.href='dashboard.html';" style="cursor: pointer;">
+       <img src="assets/images/sales_dashboard_mockup.png" style="width:100%">
+         <div class="portfolio-image-overlay">
+           <p class="portfolio-image-text"><strong> SALES ENABLEMENT </strong></br></br> DASHBOARDS DEVELOPMENT </br> UI/UX DESIGN </p> 
+         </div>
+      </div>
+      <div class="portfolio-image-container" onclick="window.open('assets/FinTech_Drip_Campaign.pdf', '_blank');" style="cursor: pointer;">
+          <img src="assets/images/DealReg_eBook_Mockup_NewArrival.png" style="width:100%">
+          <div class="portfolio-image-overlay">
+              <p class="portfolio-image-text">
+                  <strong>DIGITAL CAMPAIGNS</strong><br><br>END-TO-END EXECUTION<br>NURTURE FLOW ARCHITECTURE</p> 
+          </div>
+      </div>
+        <div class="portfolio-image-container" onclick="window.open('assets/FinTech_Asset.pdf', '_blank');" style="cursor: pointer;">
+             <img src="assets/images/eBooks_Mockup.png" style="width:100%" alt="Marketing Playbook">
+          <div class="portfolio-image-overlay">
+            <p class="portfolio-image-text"><strong>MARKETING ENABLEMENT</strong><br><br> ASSET LIBRARY <br> PLAYBOOK ARCHITECTURE <br><br></p> 
+          </div>
+        </div>    
+
+      <div class="portfolio-image-container" onclick="window.open('assets/images/DevOps-Impartner_DealRegOpsProcessFlow.png', '_blank');" style="cursor: pointer;">
+          <img src="assets/images/playbook_mockup.png" style="width:100%">
+          <div class="portfolio-image-overlay">
+              <p class="portfolio-image-text">
+                  <strong>SALES OPERATIONS</strong><br><br>MULTI-LAYERED WORKFLOWS<br>DEAL REGISTRATION LOGIC</p> 
+          </div>
+      </div>
+        
+      <div class="portfolio-image-container" onclick="window.location.href='FinTech_LandingPage_index.html';" style="cursor: pointer;">
+       <img src="assets/images/MarketingCampaign.png" style="width:100%">
+         <div class="portfolio-image-overlay">
+           <p class="portfolio-image-text"><strong> MARKETING CAMPAIGNS </strong></br></br> STRATEGY & CONTENT DESIGN </br> AUTOMATION ARCHITECTURE </p> 
+         </div>
+      </div>     
+     </div>      
+    </div>
+  </div>
+
+  <div class="w3-padding-64 w3-content w3-text-white" id="contact">
+    <h2 class="w3-text-light-grey">Contact Me</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    <div class="w3-section">
+      <p style="white-space: nowrap;"><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>San Francisco Bay Area, California, US</p>
+      <p><i class="fa fa-globe fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>Remote-friendly / Willing to relocate for an exciting opportunity</p>
+    </div><br>
+    <p>Let's get in touch. Send me a message:</p>
+
+    <form style="border:none; padding:0; margin:0;" id="fs-frm" name="simple-contact-form" accept-charset="utf-8" action="https://formspree.io/f/mzbnaqql" method="post">
+      <fieldset style="border:none; padding:0;" id="fs-frm-inputs">
+        <label for="full-name">Full Name</label>
+        <input type="text" name="name" id="full-name" placeholder="First and Last" class="w3-input w3-padding-16" required="">
+        <label for="email-address">Email Address</label>
+        <input type="email" name="_replyto" id="email-address" placeholder="email@domain.tld" class="w3-input w3-padding-16" required="">
+        <label for="message">Message</label>
+        <textarea rows="3" name="message" id="message" placeholder="Enter your message here" class="w3-input w3-padding-16" required=""></textarea>
+        <input type="hidden" name="_subject" id="email-subject" value="Contact Me Form Submission">
+      </fieldset>
+      <p>
+        <button class="w3-button w3-light-grey w3-padding-large" input type="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+        </button>
+      </p>
+    </form>
+    
+  </div>
+<footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+  <a  href="https://www.linkedin.com/in/mashaharness"><i class="fa fa-linkedin w3-hover-opacity">&nbsp;&nbsp;</i></a>
+  <a  href="https://dribbble.com/bizalchemist"><i class="fa fa-dribbble w3-hover-opacity">&nbsp;&nbsp;</i></a>
+  <a  href="https://github.com/bizalchemist"><i class="fa fa-github w3-hover-opacity">&nbsp;&nbsp;</i></a>
+  <a  href="https://facebook.com/mashaharness"><i class="fa fa-facebook w3-hover-opacity">&nbsp;&nbsp;</i></a>
+</footer>
+</div>
+
+<div id="chatbot-container">
+    <div id="chatbot-header">
+        <span id="chatbot-title">Ask Masha's AI</span>
+        <button id="chatbot-close-btn">&times;</button>
+    </div>
+    <div id="chatbot-messages">
+        <div class="message bot-message">Hello! I'm Masha's digital assistant. I can showcase her <b>AI Enablement Command Center</b>, discuss her 57+ projects at Keysight, or explain her MMORSE background. What would you like to see?</div>
+    </div>
+    
+    <div class="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Ask about her skills or Berkeley...">
+        <button id="chatbot-send-btn">Send</button>
+    </div>
+</div>
+
+<button id="chatbot-toggle-btn">
+    <i class="fa fa-magic"></i>
+</button> 
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatbotContainer = document.getElementById('chatbot-container');
+        const chatbotToggleBtn = document.getElementById('chatbot-toggle-btn');
+        const chatbotCloseBtn = document.getElementById('chatbot-close-btn');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotSendBtn = document.getElementById('chatbot-send-btn');
+
+        chatbotToggleBtn.addEventListener('click', () => {
+            chatbotContainer.classList.toggle('active');
+            chatbotToggleBtn.classList.toggle('hidden');
+        });
+
+        chatbotCloseBtn.addEventListener('click', () => {
+            chatbotContainer.classList.remove('active');
+            chatbotToggleBtn.classList.remove('hidden');
+        });
+
+        // Function to render messages (supports HTML for links)
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', `${sender}-message`);
+            messageDiv.innerHTML = text; 
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+ const responses = {
+    "dashboard": "Masha specializes in translating complex telemetry into revenue-driving insights. <br><br>🚀 <b><a href='dashboard.html' style='color: #38bdf8; font-weight: bold;'>Launch the Interactive AI Command Center</a></b>",
+    
+    // UPDATED: Corrected HFM Portfolio & $10M win
+    "keysight": "At Keysight, Masha managed the <b>$650M+ HFM portfolio</b> (including PNA-X and FieldFox). She applied 'Revenue-First' logic to <b>unblock $10M in stalled deals</b> during supply shortages and saved $800K annually via RPA pricing automation.",
+    
+    // UPDATED: Corrected Eggplant Portfolio & $5M+ revenue
+    "eggplant": "While managing the <b>Global Eggplant AI</b> ecosystem, Masha architected a framework that led to a 90% certification rate and generated <b>$5M+ in partner-influenced revenue</b> in Year 1.",
+    
+    // NEW: Success trigger combining both
+    "success": "Masha's track record includes unblocking $10M in HFM deals and generating $5M+ in revenue for the Eggplant AI portfolio. Would you like to see the <b><a href='dashboard.html' style='color: #38bdf8;'>Interactive Dashboard</a></b> behind this logic?",
+    
+    "sales": "Masha optimizes sales velocity by treating enablement as a leading indicator. Her architecture accelerated the Quote-to-Cash cycle by 20% for global portfolios. <b><a href='dashboard.html' style='color: #38bdf8;'>View Sales Telemetry Demo</a></b>.",
+    "metrics": "Masha focuses on 'meaningful metrics'—correlating seller certification velocity with top-line revenue outcomes. See her logic here: <a href='dashboard.html' style='color: #38bdf8;'>Interactive Dashboard Demo</a>",
+    "services": "Masha is a Technical Program Manager and Data Scientist. She bridges the gap between engineering telemetry and business outcomes through high-fidelity dashboarding and AI automation.",
+    "berkeley": "Masha holds an MS in MMORSE from UC Berkeley. This rigorous background in Statistics and Econometrics allows her to build predictive models for sales performance.",
+    "hard": "Masha's 'Hard & Smart' philosophy: Engineering deep, reliable data foundations (Hard) while using AI to automate the decision-making layer (Smart).",
+    "smart": "Working 'Smart' means treating Enablement as a leading indicator for revenue, allowing teams to pivot resources before the quarter ends.",
+    "hello": "Hi! Would you like to see Masha's <b>AI Command Center</b> or hear about her portfolio management at Keysight?",
+    "hi": "Hello! I can walk you through Masha's Data Science portfolio or her strategic work unblocking millions in stalled revenue. Where should we start?",
+    "contact": "You can connect with Masha via her <a href='https://linkedin.com/in/mashaharness' target='_blank' style='color: #38bdf8;'>LinkedIn</a> or the contact form below.",
+    "portfolio": "Masha's portfolio includes Interactive Command Centers, UI/UX for Partner Portals, and Global Sales Playbooks. <a href='dashboard.html' style='color: #38bdf8;'>View the latest demo here.</a>"
+};
+
+        function getBotResponse(userMessage) {
+            const lowerCaseMessage = userMessage.toLowerCase();
+            for (const keyword in responses) {
+                if (lowerCaseMessage.includes(keyword)) {
+                    return responses[keyword];
+                }
+            }
+            // Fallback that pushes to the high-value dashboard
+            return "That's a great question! Masha can dive deeper into that during an interview. In the meantime, would you like to see her <b><a href='dashboard.html' style='color: #38bdf8;'>Interactive AI Command Center</a></b>?";
+        }
+
+        function sendMessage() {
+            const userText = chatbotInput.value.trim();
+            if (userText === "") return;
+
+            // Add user message
+            addMessage(userText, 'user');
+            chatbotInput.value = '';
+
+            // Simulate "thinking" delay
+            setTimeout(() => {
+                const botResponse = getBotResponse(userText);
+                addMessage(botResponse, 'bot');
+            }, 600);
+        }
+
+        chatbotSendBtn.addEventListener('click', sendMessage);
+        chatbotInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    });
+
+    // 3D Tilt Effect for Hero Card
+    const card = document.querySelector('.card');
+    if (card) {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 15; // Adjusted sensitivity
+            const rotateY = (centerX - x) / 15;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+    }
 </script>
-
 </body>
 </html>
