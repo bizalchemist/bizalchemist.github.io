@@ -316,6 +316,28 @@
             opacity: 1; /* Brightens up when they look closer */
         }
 
+        /* Optimized flip for iPhone Portrait */
+        .implementation-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .implementation-grid {
+                grid-template-columns: 1fr; /* Stacks the screenshot and text */
+                gap: 20px;
+            }
+            
+            /* Makes the title and badge look better on small screens */
+            .impl-header {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 10px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -424,26 +446,6 @@
     </div>
 </div>
 
-    <div class="chat-trigger" id="chatBtn">🪄</div>
-
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <h4>AI Strategist Bot</h4>
-            <span style="cursor:pointer; opacity:0.5;" id="closeChat">✕</span>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="bot-msg">
-                Greetings, I am the Nightshade AI. I bridge the gap between seller proficiency and revenue outcomes. What insight do you require?
-                <div class="chat-commands">
-                    <button class="cmd-btn" onclick="botCommand('plts')">🎯 PLTS Analysis</button>
-                    <button class="cmd-btn" onclick="botCommand('methodology')">⚙️ How It Works</button>
-                    <button class="cmd-btn" onclick="botCommand('roi')">💰 ROI Proof</button>
-                    <button class="cmd-btn" onclick="botCommand('nightshade')">🌙 Why "Nightshade"?</button>
-                </div>
-            </div>
-        </div>    
-    </div>
-
     <div class="chart-container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
             <h2 style="margin:0;">Global Sales Force: Competency Matrix</h2>
@@ -501,16 +503,15 @@
     </div>
     </div>
 
-
 <div class="chart-container" style="border: 2px solid var(--accent-1); background: rgba(15, 23, 42, 0.9);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+    <div class="impl-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
         <h2 style="margin:0; color: var(--accent-1); text-transform: uppercase; letter-spacing: 2px;">
             Implementation: PLTS "Quick-Buy" Logic
         </h2>
         <span class="badge" style="background: var(--accent-1); color: var(--bg); border:none;">LIVE ON KEYSIGHT.COM</span>
     </div>
 
-    <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 30px;">
+    <div class="grid" style="margin-bottom: 30px;">
         <div class="card" style="background: rgba(56, 189, 248, 0.05); text-align: center; border-color: rgba(56, 189, 248, 0.2);">
             <h3 style="font-size: 10px;">Data Integrity</h3>
             <div class="value" style="font-size: 28px;">100%</div>
@@ -528,7 +529,7 @@
         </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 25px; align-items: start;">
+    <div class="implementation-grid">
         
         <div class="heatmap-frame" style="border-color: #334155;">
             <div style="padding: 10px; background: #1e293b; border-bottom: 1px solid #334155; font-size: 11px; color: var(--accent-1); font-family: monospace;">
@@ -568,8 +569,25 @@
     </div>
 </div>
 
+    <div class="chat-trigger" id="chatBtn">🪄</div>
 
-
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <h4>AI Strategist Bot</h4>
+            <span style="cursor:pointer; opacity:0.5;" id="closeChat">✕</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="bot-msg">
+                Greetings, I am the Nightshade AI. I bridge the gap between seller proficiency and revenue outcomes. What insight do you require?
+                <div class="chat-commands">
+                    <button class="cmd-btn" onclick="botCommand('plts')">🎯 PLTS Analysis</button>
+                    <button class="cmd-btn" onclick="botCommand('methodology')">⚙️ How It Works</button>
+                    <button class="cmd-btn" onclick="botCommand('roi')">💰 ROI Proof</button>
+                    <button class="cmd-btn" onclick="botCommand('nightshade')">🌙 Why "Nightshade"?</button>
+                </div>
+            </div>
+        </div>    
+    </div>
 
 </div>
 <script>
