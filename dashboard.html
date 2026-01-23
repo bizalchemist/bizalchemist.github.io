@@ -501,6 +501,76 @@
     </div>
     </div>
 
+
+<div class="chart-container" style="border: 2px solid var(--accent-1); background: rgba(15, 23, 42, 0.9);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <h2 style="margin:0; color: var(--accent-1); text-transform: uppercase; letter-spacing: 2px;">
+            Implementation: PLTS "Quick-Buy" Logic
+        </h2>
+        <span class="badge" style="background: var(--accent-1); color: var(--bg); border:none;">LIVE ON KEYSIGHT.COM</span>
+    </div>
+
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 30px;">
+        <div class="card" style="background: rgba(56, 189, 248, 0.05); text-align: center; border-color: rgba(56, 189, 248, 0.2);">
+            <h3 style="font-size: 10px;">Data Integrity</h3>
+            <div class="value" style="font-size: 28px;">100%</div>
+            <p style="font-size: 9px; color: var(--text-dim);">SFDC Pricing Accuracy</p>
+        </div>
+        <div class="card" style="background: rgba(56, 189, 248, 0.05); text-align: center; border-color: rgba(56, 189, 248, 0.2);">
+            <h3 style="font-size: 10px;">Sales Velocity</h3>
+            <div class="value" style="font-size: 28px;">+40%</div>
+            <p style="font-size: 9px; color: var(--text-dim);">Lead-to-Quote Acceleration</p>
+        </div>
+        <div class="card" style="background: rgba(56, 189, 248, 0.05); text-align: center; border-color: rgba(56, 189, 248, 0.2);">
+            <h3 style="font-size: 10px;">Digital Enablement</h3>
+            <div class="value" style="font-size: 28px;">100%</div>
+            <p style="font-size: 9px; color: var(--text-dim);">Self-Service Path Adoption</p>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 25px; align-items: start;">
+        
+        <div class="heatmap-frame" style="border-color: #334155;">
+            <div style="padding: 10px; background: #1e293b; border-bottom: 1px solid #334155; font-size: 11px; color: var(--accent-1); font-family: monospace;">
+                // Production Environment: N19301B_Config_UI
+            </div>
+            <img src="assets/images/kcom_plts_screenshot.png" class="heatmap-img" alt="N19301B Quick-Buy UI" style="border-radius: 0 0 6px 6px;">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div class="insight-box" style="margin-top:0; border-left: 3px solid var(--accent-1);">
+                <strong>21-Currency Global Sync</strong>
+                <p style="font-size: 11px; margin: 5px 0; line-height: 1.4;">
+                    Hardwired 21 Master Price Lists to ensure instant local quoting for:
+                </p>
+                <div style="font-family: monospace; color: var(--accent-1); font-size: 11px; letter-spacing: 1px;">
+                    USD, EUR, GBP, JPY, CNY, TWD, MYR...
+                </div>
+            </div>
+
+            <div class="insight-box" style="margin-top:0; border-left: 3px solid var(--accent-2);">
+                <strong>Strategic Logic Pruning</strong>
+                <p style="font-size: 11px; line-height: 1.4;">
+                    Transformed 360+ configuration hurdles into 3 distinct paths:
+                </p>
+                <ul style="margin: 5px 0; padding-left: 15px; font-size: 10px; color: var(--text-main);">
+                    <li><b>Subscription:</b> 12-mo Node-locked (High Velocity)</li>
+                    <li><b>Perpetual:</b> Standard Node-locked (Capital Asset)</li>
+                    <li><b>Custom:</b> Full Configuration (Expert Niche)</li>
+                </ul>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px dashed #334155; text-align: center;">
+                <span style="font-size: 10px; color: var(--text-dim); text-transform: uppercase;">System Outcome</span>
+                <p style="font-size: 12px; margin: 5px 0; color: var(--accent-1);">Validated Lead-to-SFDC Automation</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 </div>
 <script>
     Chart.defaults.color = '#94a3b8';
@@ -647,7 +717,6 @@ new Chart(document.getElementById('pltsRadarChart'), {
         }
     }
 });
-
 
 </script>
 
