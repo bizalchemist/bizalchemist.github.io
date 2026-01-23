@@ -667,27 +667,26 @@
             chatWindow.style.display = 'none';
     });
 
-        function botCommand(type) {
-            const body = document.getElementById('chatBody');
-            const msg = document.createElement('div');
-            msg.className = 'bot-msg';
-            
-            const responses = {
-                'refresh': "<strong>Nightshade AI:</strong> Syncing with Salesforce & LMS telemetry... <br><br>Done. Data reflects Q4 adoption spikes. EMEA certification gap identified as a primary blocker for N19301B renewals.",
-                'export': "<strong>System:</strong> Compiling 'Executive Performance Summary.pdf'... <br><br>Ready. Analyzing the correlation between Sus-Renewal and Seller Proficiency.",
-                'strategy': "<strong>Strategic Insight:</strong> The data suggests that 'Floating Worldwide' license adoption is 2x higher when sellers complete the <b>Advanced App Module</b>. I recommend shifting EMEA resources to this track.",
-                'prediction': "<strong>Revenue Forecast:</strong> Based on current certification velocity in APAC, we expect a 15% uplift in deal registration for the N1930x series within the next 14 days.",
-                'plts': "<strong>PLTS Deep Dive:</strong> The N1930xB ecosystem represents a $287K+ base deal with high attach-rate potential. My analysis identified that <b>Floating Worldwide licenses</b> generate 3x higher LTV over 60-month subscriptions compared to perpetual node-locked variants. The key unlock was mapping seller proficiency to SUS renewal rates.",
-                'methodology': "<strong>Data Pipeline:</strong> This dashboard ingests live telemetry from Salesforce (deal velocity), LMS (certification data), and CPQ (pricing optimization). The 14-day forecast model uses polynomial regression with a 92% confidence interval. All metrics auto-refresh every 6 hours.",
-                'roi': "<strong>Business Impact:</strong> By correlating seller certification with win rates, we reduced sales cycle time by 40% and increased average deal size from $94K to $152K. The 191% win rate uplift translated to $10M+ in unblocked revenue during supply chain constraints.",
-                'nightshade': "<strong>Project Codename:</strong> 'Nightshade' refers to our predictive analytics initiative that treats enablement as a <b>leading indicator</b> rather than lagging metric. The name symbolizes extracting value from hidden data—turning 'poisonous' complexity into strategic medicine."
-            };
-            
-            msg.innerHTML = responses[type] || "Command received.";
-            
-            body.appendChild(msg);
-            body.scrollTop = body.scrollHeight; 
-        }
+    function botCommand(type) {
+    const body = document.getElementById('chatBody');
+    const msg = document.createElement('div');
+    msg.className = 'bot-msg';
+    
+    const responses = {
+        'plts': "<strong>Architecture Insight:</strong> My analysis of the N1930xB ecosystem revealed that while the <b>Base Analysis (N19301B)</b> is the primary entry point, the real 'Revenue Engine' is the <b>60-month Floating Worldwide</b> subscription. I mapped these technical attributes to the 'Quick-Buy' logic to ensure high-margin renewals are the path of least resistance for the customer.",
+        
+        'methodology': "<strong>The 'Alchemy' Process:</strong> We ingest raw telemetry from <b>Salesforce</b> (deal velocity) and <b>Skilljar</b> (certification). By identifying the 14-day lag between a seller's 'Technical Mastery' and their first 'Deal Registration,' we can treat enablement as a <b>Predictive Leading Indicator</b> for revenue, rather than a lagging cost center.",
+        
+        'roi': "<strong>Financial Impact:</strong> The transition to the 'Quick-Buy' logic didn't just improve UX—it secured <b>100% Pricing Accuracy</b> across 21 global currencies. This eliminated manual entry friction, reduced Lead-to-Quote time by <b>40%</b>, and unblocked approximately <b>$5M in partner-influenced revenue</b> in Year 1.",
+        
+        'nightshade': "<strong>Project Codename:</strong> 'Nightshade' represents the philosophy of extracting value from hidden, complex data. Much like the plant, data can be 'toxic' if mismanaged. My goal was to synthesize that complexity into a 'strategic medicine' that accelerates the sales cycle and provides 100% self-service configuration logic."
+    };
+    
+    msg.innerHTML = responses[type] || "Telemetry signal received. Standing by for strategic command.";
+    
+    body.appendChild(msg);
+    body.scrollTop = body.scrollHeight; 
+}
 
  // Radar Chart for PLTS Portfolio
 new Chart(document.getElementById('pltsRadarChart'), {
