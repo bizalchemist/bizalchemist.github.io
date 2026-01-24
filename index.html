@@ -23,7 +23,60 @@
     body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     .w3-row-padding img {margin-bottom: 12px}
     /* Set the width of the sidebar to 120px */
-    .w3-sidebar {width: 120px;background: #222;}
+
+/* Glassmorphic Sidebar - Desktop Only */
+.w3-sidebar {
+    width: 120px;
+    background: rgba(15, 23, 42, 0.4) !important; /* Deep blue-black tint */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-right: 1px solid rgba(56, 189, 248, 0.3); /* Brighter blue border */
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Nav Link Styling */
+.w3-sidebar .w3-bar-item {
+    color: rgba(148, 163, 184, 0.7) !important; /* Steel gray */
+    background: transparent !important;
+    transition: all 0.4s ease;
+    padding: 20px 0;
+}
+
+/* Hover & Active State: Brighter Glow */
+.w3-sidebar .w3-bar-item:hover {
+    color: #fff !important;
+    background: rgba(56, 189, 248, 0.15) !important; /* Brighter glow background */
+    text-shadow: 0 0 15px rgba(56, 189, 248, 1), 
+                 0 0 25px rgba(56, 189, 248, 0.6); /* Double glow - much brighter */
+    border-left: 3px solid #38bdf8; /* Solid bright blue accent */
+}
+
+.w3-sidebar .w3-bar-item i {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.w3-sidebar .w3-bar-item:hover i {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 1)) 
+            brightness(1.3); /* Brighter icon glow */
+}
+
+/* Sidebar image glow on hover */
+.w3-sidebar img {
+    transition: filter 0.3s ease;
+}
+
+.w3-sidebar:hover img {
+    filter: brightness(1.3) drop-shadow(0 0 15px rgba(56, 189, 248, 0.5));
+}
+
+
+
+
+
+
+
+
     /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
     #main {margin-left: 120px}
     /* Remove margins from "page content" on small screens */
@@ -480,6 +533,18 @@
         }
       }       
 
+    /* Makes the dashboard links in the chat pop out */
+    .bot-msg a {
+        text-decoration: none;
+        border-bottom: 1px dashed var(--accent-1);
+        transition: all 0.3s ease;
+    }
+
+    .bot-msg a:hover {
+        color: var(--accent-2) !important;
+        border-bottom: 1px solid var(--accent-2);
+    }
+
     </style>
   </head>
 <body class="w3-black">
@@ -820,7 +885,8 @@ I'm a Master of Science (MS) in MMORSE (Mathematical Methods, Operations Researc
     "sales": "Masha optimizes sales velocity by treating enablement as a leading indicator. Her architecture accelerated the Quote-to-Cash cycle by 20% for global portfolios. <b><a href='dashboard.html' style='color: #38bdf8;'>View Sales Telemetry Demo</a></b>.",
     "metrics": "Masha focuses on 'meaningful metrics'—correlating seller certification velocity with top-line revenue outcomes. See her logic here: <a href='dashboard.html' style='color: #38bdf8;'>Interactive Dashboard Demo</a>",
     "services": "Masha is a Technical Program Manager and Data Scientist. She bridges the gap between engineering telemetry and business outcomes through high-fidelity dashboarding and AI automation.",
-    "berkeley": "Masha holds an MS in MMORSE from UC Berkeley. This rigorous background in Statistics and Econometrics allows her to build predictive models for sales performance.",
+    "MMORSE": "Masha holds an <b>MS in MMORSE</b> (Mathematical Methods, Operations Research, Statistics & Econometrics), with a focus on Computer Science & Management. This rigorous quantitative foundation allows her to architect predictive models that transform raw sales telemetry into actionable growth strategy.",
+    "berkeley": "Masha is a <b>UC Berkeley-certified</b> Technical Program Manager (TPM). She specializes in bridging the gap between deep-tech engineering teams and executive business outcomes.",
     "hard": "Masha's 'Hard & Smart' philosophy: Engineering deep, reliable data foundations (Hard) while using AI to automate the decision-making layer (Smart).",
     "smart": "Working 'Smart' means treating Enablement as a leading indicator for revenue, allowing teams to pivot resources before the quarter ends.",
     "hello": "Hi! Would you like to see Masha's <b>AI Command Center</b> or hear about her portfolio management at Keysight?",
