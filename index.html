@@ -540,6 +540,20 @@
     html {
     scroll-behavior: smooth;
     }
+    /* Responsive Button Fix */
+    @media (max-width: 600px) {
+    .modern-btn {
+        display: block !important; /* Stack buttons on top of each other */
+        width: 100% !important;    /* Make them full width */
+        margin: 10px 0 !important; /* Space them out vertically */
+        font-size: 14px !important; /* Slightly smaller font for mobile */
+        padding: 12px 8px !important; /* Adjust padding to keep height clean */
+        white-space: nowrap;        /* Prevent text from wrapping to 2nd row */
+        overflow: hidden;
+        text-overflow: ellipsis;    /* If it's still too long, it will cut off gracefully */
+    }
+    }
+
     </style>
   </head>
 <body class="w3-black">
@@ -909,6 +923,12 @@ I enjoy thinking differently, creating from a blank canvas, and collaborating wi
     "ai": "Masha leverages <b>PaLM LLM</b> for strategic logic and <b>Murf.io</b> for executive communication. She doesn't just use AI—she architects ecosystems where AI drives revenue. <b><a href='assets/videos/hackathon_pitch.mp4' target='_blank' style='color: #38bdf8;'>See AI in Action</a></b>",
 
 };
+
+    // ADD THE ALIASES HERE (Right after the closing bracket of responses)
+    responses["award"] = responses["hackathon"];
+    responses["win"] = responses["hackathon"];
+    responses["pitch"] = responses["hackathon"]; // Optional: good to have if they just type 'pitch'
+
 
         function getBotResponse(userMessage) {
             const lowerCaseMessage = userMessage.toLowerCase();
