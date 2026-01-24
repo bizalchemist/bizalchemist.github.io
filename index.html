@@ -313,7 +313,7 @@
         transition: 0.3s;
     }
 
-        /* Buttons */
+        /* Buttons -- Base Desktop Style */
         .modern-btn {
             background: linear-gradient(90deg, var(--accent-blue), #0ea5e9);
             color: white !important;
@@ -329,6 +329,17 @@
             text-decoration: none;
             display: inline-block;
         }
+
+        /* iPhone Fix -- Buttons */
+    @media (max-width: 600px) {
+        .modern-btn {
+            display: flex !important;      /* Overrides inline-block */
+            width: 100% !important;        /* Overrides auto-width */
+            white-space: nowrap !important; /* Prevents the 2nd row text slide */
+            font-size: 13px !important;
+        }
+    }
+        
         .modern-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
@@ -541,26 +552,11 @@
     scroll-behavior: smooth;
     }
 
-    /* Refined Responsive Button Fix */
-    @media (max-width: 600px) {
-        .modern-btn {
-            display: flex !important;      /* Use flex to center icon + text */
-            align-items: center;
-            justify-content: center;
-            width: 100% !important;        /* Full width on iPhone */
-            margin: 10px 0 !important;     /* Vertical spacing */
-            font-size: 13px !important;    /* Slightly smaller to fit "Strategy" */
-            padding: 14px 10px !important;
-            white-space: nowrap !important; /* Force single line */
-            box-sizing: border-box;        /* Include padding in width */
-        }
-        
         /* Shorten the text specifically for very small screens if needed */
         #ai-pitch-video::after {
             content: ""; /* Placeholder for logic if text is still too long */
         }
-    }
-
+    
     </style>
   </head>
 <body class="w3-black">
