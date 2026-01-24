@@ -540,18 +540,25 @@
     html {
     scroll-behavior: smooth;
     }
-    /* Responsive Button Fix */
+
+    /* Refined Responsive Button Fix */
     @media (max-width: 600px) {
-    .modern-btn {
-        display: block !important; /* Stack buttons on top of each other */
-        width: 100% !important;    /* Make them full width */
-        margin: 10px 0 !important; /* Space them out vertically */
-        font-size: 14px !important; /* Slightly smaller font for mobile */
-        padding: 12px 8px !important; /* Adjust padding to keep height clean */
-        white-space: nowrap;        /* Prevent text from wrapping to 2nd row */
-        overflow: hidden;
-        text-overflow: ellipsis;    /* If it's still too long, it will cut off gracefully */
-    }
+        .modern-btn {
+            display: flex !important;      /* Use flex to center icon + text */
+            align-items: center;
+            justify-content: center;
+            width: 100% !important;        /* Full width on iPhone */
+            margin: 10px 0 !important;     /* Vertical spacing */
+            font-size: 13px !important;    /* Slightly smaller to fit "Strategy" */
+            padding: 14px 10px !important;
+            white-space: nowrap !important; /* Force single line */
+            box-sizing: border-box;        /* Include padding in width */
+        }
+        
+        /* Shorten the text specifically for very small screens if needed */
+        #ai-pitch-video::after {
+            content: ""; /* Placeholder for logic if text is still too long */
+        }
     }
 
     </style>
@@ -864,7 +871,7 @@ I enjoy thinking differently, creating from a blank canvas, and collaborating wi
 <button id="chatbot-toggle-btn">
     <i class="fa fa-magic"></i>
 </button> 
-  
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const chatbotContainer = document.getElementById('chatbot-container');
