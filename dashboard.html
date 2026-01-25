@@ -257,15 +257,15 @@
     header h1 { font-size: 22px !important; }
     .chat-trigger { bottom: 20px; right: 20px; }
 
-    /* 2. Portrait-specific Chat Window Fix */
-    @media (orientation: portrait) {
-        .chat-window {
-            width: calc(100% - 40px);
-            right: 20px;
-            bottom: 90px;
-            height: 68vh !important;
-        }
+    /* 2. Portrait-specific Chat Window Fix (MATCHES MAIN PAGE) */
+@media (orientation: portrait) {
+    .chat-window {
+        width: 82vw !important; /* Changed from 100% to match your Main Page */
+        right: 15px !important;
+        bottom: 90px;
+        height: 68vh !important;
     }
+}
 }
 
 /* 3. iPhone Landscape - THE HEADER VISIBILITY FIX */
