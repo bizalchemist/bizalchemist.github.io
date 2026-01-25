@@ -386,7 +386,6 @@
 
 
 
-
 /* Chatbot Container Base - Deep Shadow & Glass */
 #chatbot-container {
     position: fixed;
@@ -428,9 +427,10 @@
     #chatbot-container { width: 82vw !important; right: 15px !important; height: 68vh !important; }
 }
 @media (max-height: 500px) and (orientation: landscape) {
-    #chatbot-container { height: 85vh !important; width: 350px !important; }
+    #chatbot-container { height: 85vh !important; width: 350px !important; bottom: 10px !important; /* Kept at 10px to ensure top is visible */
+    }
 }
-   
+
 #chatbot-container.active {
     transform: translateY(0); 
     opacity: 1; 
@@ -556,15 +556,6 @@
     transform: scale(1.15);
     text-shadow: 0 0 10px rgba(95, 201, 248, 0.8);
 }
-
-
-
-
-
-
-
-
-
 
 
 
