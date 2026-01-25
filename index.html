@@ -351,16 +351,29 @@
             }
         }
  
-            /* Landscape Mode Fix (iPhone turned sideways) */
-            @media (max-width: 900px) and (orientation: landscape) {
-                .modern-btn {
-                    display: inline-block !important;
-                    width: auto !important;
-                    margin: 5px 10px !important; /* Side-by-side spacing */
-                    font-size: 12px !important; /* Shorter text for short screens */
-                }
-            }
+/* iPhone Landscape Fix */
+@media (max-width: 900px) and (orientation: landscape) {
+    .button-container {
+        display: flex !important;
+        flex-direction: column !important; /* Forces stacking if side-by-side fails */
+        align-items: center !important;
+        padding: 20px 0 !important;
+    }
 
+    .modern-btn {
+        display: flex !important;
+        width: 80% !important;        /* Not quite full width, looks better in landscape */
+        max-width: 400px;             /* Keeps it from looking like a long noodle */
+        margin-bottom: 20px !important; /* THE SPACE: Clear gap between buttons */
+        justify-content: center;
+        padding: 12px 20px !important;
+        font-size: 13px !important;
+    }
+
+    .modern-btn:last-child {
+        margin-bottom: 0 !important;   /* Clean finish */
+    }
+}     
         .modern-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
