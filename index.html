@@ -315,6 +315,8 @@
 
         /* Buttons -- Base Desktop Style */
         .modern-btn {
+            margin: 10px 15px; /* 10px top/bottom, 15px left/right */
+            display: inline-block;
             background: linear-gradient(90deg, var(--accent-blue), #0ea5e9);
             color: white !important;
             border: none;
@@ -327,16 +329,15 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
             text-decoration: none;
-            display: inline-block;
         }
-
+      
         /* Responsive Button iPhone Fix */
-        @media (max-width: 600px) {
+      @media (max-width: 600px) and (orientation: portrait) {
             /* Portrait Mode (Buttons Stacked) */
             .modern-btn {
                 display: flex !important;  /* Overrides inline-block */
                 width: 100% !important;  /* Overrides auto-width */
-                margin: 0 0 15px 0 !important; /* Adds 15px space BELOW each button */
+                margin: 0 0 20px 0 !important; /* Forces 20px space BETWEEN stacked buttons */
                 font-size: 13px !important;
                 padding: 14px 10px !important;
                 white-space: nowrap !important; /* Prevents the 2nd row text slide */
@@ -344,16 +345,22 @@
                 box-sizing: border-box;
             }
 
+            /* Remove margin from the very last button so it doesn't push the section down too much */
+            .modern-btn:last-child {
+                margin-bottom: 0 !important;
+            }
+        }
+ 
             /* Landscape Mode Fix (iPhone turned sideways) */
-            @media (orientation: landscape) {
+            @media (max-width: 900px) and (orientation: landscape) {
                 .modern-btn {
                     display: inline-block !important;
                     width: auto !important;
-                    margin: 0 10px !important; /* Space between buttons side-by-side */
+                    margin: 5px 10px !important; /* Side-by-side spacing */
+                    font-size: 12px !important; /* Shorter text for short screens */
                 }
             }
-        }
-        
+
         .modern-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
@@ -736,11 +743,11 @@ I enjoy thinking differently, creating from a blank canvas, and collaborating wi
   </div>
 </div>
 
-<div class="w3-center w3-padding-32">
-    <a href="assets/MashaHarness_Resume.pdf" download class="modern-btn" style="background: var(--accent-red); margin: 10px;">
+<div class="w3-center w3-padding-32 button-container">
+    <a href="assets/MashaHarness_Resume.pdf" download class="modern-btn btn-resume">
         <i class="fa fa-download"></i> Download Master Resume
     </a>
-    <a id="ai-pitch-video" href="assets/videos/hackathon_pitch.mp4" target="_blank" class="modern-btn" style="background: var(--accent-blue); margin: 10px;">
+    <a id="ai-pitch-video" href="assets/videos/hackathon_pitch.mp4" target="_blank" class="modern-btn btn-pitch">
         <i class="fa fa-play-circle"></i> Watch 2023 AI Strategy Pitch
     </a>
 </div>
