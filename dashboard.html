@@ -160,22 +160,26 @@
         .chat-trigger:active { transform: scale(0.9); }
 
         .chat-window {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 320px;
-            height: 400px;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            display: none; /* Hidden by default */
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 1001;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
+        position: fixed;
+        bottom: 100px;
+        right: 30px;
+        width: 320px;
+        height: 400px;
+        
+        /* SURGICAL CHANGES START HERE */
+        background: rgba(15, 23, 42, 0.7) !important; /* Dropped from 0.95 to 0.7 for more transparency */
+        backdrop-filter: blur(30px) saturate(150%); /* Doubled blur, added saturation for pop */
+        -webkit-backdrop-filter: blur(30px) saturate(150%);
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Slightly brighter edge to catch light */
+        /* SURGICAL CHANGES END HERE */
+        
+        border-radius: 20px;
+        display: none; 
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 1001;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
 
         .chat-header {
             padding: 15px;
