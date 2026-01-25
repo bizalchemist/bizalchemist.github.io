@@ -246,34 +246,31 @@
             .plts-grid { grid-template-columns: 1fr; }
         }
 
- /* --- MERGED MOBILE & ORIENTATION MODULE --- */
+/* --- FINAL ALIGNED MOBILE MODULE --- */
 @media (max-width: 480px) {
-    /* 1. Your existing Layout & Header fixes */
+    /* Your original dashboard layout fixes */
     header { flex-direction: column; align-items: flex-start; gap: 10px; }
     .grid { grid-template-columns: 1fr; gap: 15px; } 
     .chart-wrapper { height: 260px; }
     .goal-module { padding: 15px; margin-bottom: 20px; }
-    .goal-info span { font-size: 9px; }            
     header h1 { font-size: 22px !important; }
     .chat-trigger { bottom: 20px; right: 20px; }
 
-    /* 2. Portrait-specific Chat Window Fix (MATCHES MAIN PAGE) */
-@media (orientation: portrait) {
+    /* FIXED: Matches Main Page Chatbot Size exactly */
     .chat-window {
-        width: 82vw !important; /* Changed from 100% to match your Main Page */
+        width: 82vw !important; 
         right: 15px !important;
-        bottom: 90px;
         height: 68vh !important;
+        bottom: 90px !important;
     }
 }
-}
 
-/* 3. iPhone Landscape - THE HEADER VISIBILITY FIX */
+/* FIXED: Matches Main Page Landscape Fix exactly */
 @media (max-height: 500px) and (orientation: landscape) {
     .chat-window {
-        height: 85vh !important; /* Room at top so header isn't cut off */
+        height: 85vh !important;
         width: 350px !important;
-        bottom: 10px !important; /* Forces it down so the top shows */
+        bottom: 10px !important; 
         right: 20px !important;
     }
 }
