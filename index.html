@@ -410,13 +410,12 @@
 /* 2. iPhone Landscape: wider and maximized height */
 @media (max-height: 500px) and (orientation: landscape) {
     #chatbot-container {
-        width: 65vw !important;  /* Wider to fit more text per line */
-        height: 82vh !important; /* Uses almost all vertical space */
-        bottom: 50px !important; /* Tucked closer to the bottom button */
-        right: 20px !important;
+        height: 85vh !important; /* Maximize the height */
+        width: 350px !important; /* Keep width consistent for reading */
+        bottom: 10px !important; /* Sit lower to the edge */
     }
 }
-      
+   
 #chatbot-container.active {
     transform: translateY(0); 
     opacity: 1; 
