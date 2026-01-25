@@ -359,44 +359,50 @@
             box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
         }
 
-   /* Chatbot Container */
-   #chatbot-container {
-        position: fixed;
-        bottom: 80px; /* Space for the toggle button */
+/* Chatbot Container Base */
+#chatbot-container {
+    position: fixed;
+    bottom: 80px; 
+    right: 20px;
+    width: 320px; /* Standard Desktop width */
+    height: 480px; 
+    background-color: #fff;
+    border: 1px solid #333;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+    transform: translateY(150%);
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+/* 1. iPhone Portrait (Narrower & Taller) */
+@media (max-width: 480px) and (orientation: portrait) {
+    #chatbot-container {
+        width: 280px;     /* Fixed width so it doesn't hit screen edges */
+        right: 15px;      /* Tucked closer to the side */
+        height: 60vh;     /* Proportional height */
+        max-height: 500px;
+    }
+}
+
+/* 2. iPhone Landscape (Wider & Shorter) */
+@media (max-height: 500px) and (orientation: landscape) {
+    #chatbot-container {
+        width: 450px;      /* Make it wider to fit text on short screen */
+        max-width: 80vw;
+        height: 75vh;      /* Use more of the available height */
+        bottom: 65px;      /* Move it down slightly */
         right: 20px;
-        width: 320px;
-        max-width: 90vw; 
-        
-        /* HEIGHT FIX: */
-        height: 480px; 
-        max-height: 70vh; /* Never takes more than 70% of the screen height */
-        
-        background-color: #fff;
-        border: 1px solid #333;
-        border-radius: 12px;
-        display: flex;
-        flex-direction: column;
-        z-index: 1000;
-        overflow: hidden;
-        
-        /* Animation settings */
-        transform: translateY(150%);
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        opacity: 0;
     }
+}
 
-    /* Adjust for very short screens (like iPhone Landscape) */
-    @media (max-height: 500px) {
-        #chatbot-container {
-            height: 300px;
-            bottom: 70px;
-        }
-    }
-
-    #chatbot-container.active {
-        transform: translateY(0); 
-        opacity: 1; 
-    }
+#chatbot-container.active {
+    transform: translateY(0); 
+    opacity: 1; 
+}
 
     /* Chatbot Header */
     #chatbot-header {
