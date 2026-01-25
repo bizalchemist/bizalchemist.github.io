@@ -330,15 +330,29 @@
             display: inline-block;
         }
 
-        /* iPhone Fix -- Buttons */
-    @media (max-width: 600px) {
-        .modern-btn {
-            display: flex !important;      /* Overrides inline-block */
-            width: 100% !important;        /* Overrides auto-width */
-            white-space: nowrap !important; /* Prevents the 2nd row text slide */
-            font-size: 13px !important;
+        /* Responsive Button iPhone Fix */
+        @media (max-width: 600px) {
+            /* Portrait Mode (Buttons Stacked) */
+            .modern-btn {
+                display: flex !important;  /* Overrides inline-block */
+                width: 100% !important;  /* Overrides auto-width */
+                margin: 0 0 15px 0 !important; /* Adds 15px space BELOW each button */
+                font-size: 13px !important;
+                padding: 14px 10px !important;
+                white-space: nowrap !important; /* Prevents the 2nd row text slide */
+                justify-content: center;
+                box-sizing: border-box;
+            }
+
+            /* Landscape Mode Fix (iPhone turned sideways) */
+            @media (orientation: landscape) {
+                .modern-btn {
+                    display: inline-block !important;
+                    width: auto !important;
+                    margin: 0 10px !important; /* Space between buttons side-by-side */
+                }
+            }
         }
-    }
         
         .modern-btn:hover {
             transform: scale(1.05);
@@ -346,24 +360,38 @@
         }
 
    /* Chatbot Container */
+
     #chatbot-container {
         position: fixed;
-        bottom: 20px;
+        bottom: 80px; /* Space for the toggle button */
         right: 20px;
         width: 320px;
-        height: 400px; 
-        background-color: #fff; 
-        border: 1px solid #333; 
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        max-width: 90vw; 
+        
+        /* HEIGHT FIX: */
+        height: 450px; 
+        max-height: 65vh; /* Never takes more than 65% of the screen height */
+        
+        background-color: #fff;
+        border: 1px solid #333;
+        border-radius: 12px;
         display: flex;
         flex-direction: column;
-        font-family: "Montserrat", sans-serif; 
         z-index: 1000;
-        overflow: hidden; 
-        transform: translateY(150%); 
-        transition: transform 0.3s ease-in-out;
-        opacity: 0; 
+        overflow: hidden;
+        
+        /* Animation settings */
+        transform: translateY(150%);
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        opacity: 0;
+    }
+
+    /* Adjust for very short screens (like iPhone Landscape) */
+    @media (max-height: 500px) {
+        #chatbot-container {
+            height: 250px;
+            bottom: 70px;
+        }
     }
 
     #chatbot-container.active {
