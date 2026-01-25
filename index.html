@@ -385,27 +385,25 @@
     opacity: 0;
 }
 
-/* 1. iPhone Portrait (Narrower & Taller) */
+/* 1. iPhone Portrait: Narrower so it doesn't hit the screen edges */
 @media (max-width: 480px) and (orientation: portrait) {
     #chatbot-container {
-        width: 280px;     /* Fixed width so it doesn't hit screen edges */
-        right: 15px;      /* Tucked closer to the side */
-        height: 60vh;     /* Proportional height */
-        max-height: 500px;
+        width: 75vw !important;  /* Much cleaner than 90vw */
+        right: 15px !important;
+        height: 65vh !important; /* Taller for easier reading */
     }
 }
 
-/* 2. iPhone Landscape (Wider & Shorter) */
+/* 2. iPhone Landscape: wider and maximized height */
 @media (max-height: 500px) and (orientation: landscape) {
     #chatbot-container {
-        width: 450px;      /* Make it wider to fit text on short screen */
-        max-width: 80vw;
-        height: 75vh;      /* Use more of the available height */
-        bottom: 65px;      /* Move it down slightly */
-        right: 20px;
+        width: 70vw !important;  /* Wider to fit more text per line */
+        height: 80vh !important; /* Uses almost all vertical space */
+        bottom: 60px !important; /* Tucked closer to the bottom button */
+        right: 20px !important;
     }
 }
-
+   
 #chatbot-container.active {
     transform: translateY(0); 
     opacity: 1; 
