@@ -8,168 +8,164 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-   
-   /* --- ROOT & CORE STYLES --- */
-        :root {
-            --ks-red: #E90029;
-            --ks-border: #e0e0e0;
-            --ks-gray: #666;
-            --ks-bg-light: #f9f9f9;
-            --primary: #d8b4fe; 
-            --primary-dark: #a855f7;
-            --glass-border: rgba(255, 255, 255, 0.35);
-        }
-
-        body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; color: #333; }
-        .top-bar { background-color: var(--ks-red); height: 45px; display: flex; justify-content: flex-end; align-items: center; padding: 0 10%; }
-        .icon-circle { background-color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; margin-left: 15px;}
-        .icon-circle i { color: var(--ks-red); font-size: 14px; }
-        
-        /* --- NAVBAR & RESPONSIVE NAV FIX --- */
-        .navbar { background-color: #ffffff; height: 90px; border-bottom: 1px solid var(--ks-border); display: flex; align-items: center; padding: 0 10%; justify-content: space-between; transition: all 0.3s ease; }
-        .navbar-brand img { height: 52.5px; } 
-        .nav-navbar { display: flex; list-style: none; margin: 0; padding: 0; gap: 40px; }
-        .nav-navbar li { font-weight: 400; font-size: 14px; color: #333; cursor: pointer; text-transform: uppercase; letter-spacing: 0.8px; transition: color 0.2s ease; }
-        .nav-navbar li.active { font-weight: 700; color: var(--ks-red); }
-        .nav-navbar li:hover { color: var(--ks-red); }
-
-        /* Navigation Menu Fix for iPhone Portrait */
-        @media (max-width: 850px) {
-            .navbar { height: auto; padding: 20px 5%; flex-direction: column; gap: 20px; text-align: center; }
-            .nav-navbar { gap: 15px; flex-wrap: wrap; justify-content: center; }
-            .nav-navbar li { font-size: 12px; letter-spacing: 0.5px; }
-        }
-
-        /* --- PAGE CONTENT & FORM --- */
-        .page-content { padding: 40px 10%; max-width: 1200px; margin: 0 auto; }
-        h1 { font-size: 26px; margin-top: 30px; margin-bottom: 10px; font-weight: bold; }
-        .instruction-text { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.6; }
-        
-        .form-row { display: flex; gap: 30px; margin-bottom: 30px; }
-
-        /* iPhone Form Stacking Fix */
-        @media (max-width: 600px) { 
-            .form-row { flex-direction: column; gap: 25px; margin-bottom: 25px; } 
-            .page-content { padding: 20px 5%; }
-        }
-
-        .col-1 { flex: 1; position: relative; }
-        .col-2 { flex: 2; position: relative; }
-        .field-wrapper { position: relative; width: 100%; }
-        input, select, textarea { width: 100%; padding: 22px 12px 6px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; background: white; box-sizing: border-box; outline: none; }
-        label { position: absolute; left: 12px; top: 16px; color: var(--ks-gray); font-size: 14px; transition: all 0.2s ease-out; pointer-events: none; background: white; padding: 0 4px; }
-        input:focus + label, input:not(:placeholder-shown) + label, 
-        textarea:focus + label, textarea:not(:placeholder-shown) + label,
-        select:focus + label, select:not([data-value=""]) + label { top: -10px; left: 10px; font-size: 11px; color: var(--ks-red); font-weight: bold; }
-        
-        .prob-container { display: flex; border: 1px solid #ccc; background: white; border-radius: 4px; overflow: hidden; }
-        .prob-container input { border: none; flex: 1; border-radius: 0; }
-        .suffix { padding: 22px 10px 6px; background: #f4f4f4; border-left: 1px solid #ccc; color: #666; }
-        .required { color: var(--ks-red); position: absolute; right: -15px; top: 16px; font-weight: bold; }
-        
-        #referral-upload-container { display: none; margin-bottom: 30px; padding: 40px; border: 2px dashed #ccc; background: #fafafa; text-align: center; transition: all 0.3s ease; opacity: 0; max-height: 0; overflow: hidden; border-radius: 12px; cursor: pointer; }
-        #referral-upload-container.show { display: block; opacity: 1; max-height: 200px; }
-        .btn-submit { background-color: var(--ks-red); color: white; padding: 15px 80px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 4px; }
-        @media (max-width: 600px) { .btn-submit { width: 100%; } }
-
-        /* --- FOOTER --- */
-        footer { margin-top: 60px; padding: 40px 10%; border-top: 1px solid var(--ks-border); background-color: #f9f9f9; display: flex; justify-content: space-between; align-items: flex-start; line-height: 1.5; font-size: 14px; }
-        @media (max-width: 768px) { 
-            footer { flex-direction: column; gap: 30px; align-items: center; text-align: center; padding: 40px 5%; }
-            .footer-right { text-align: center; }
-            .social-links { justify-content: center; }
-        }
-        .footer-left p { margin: 2px 0; }
-        .footer-right strong { display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .social-links { display: flex; gap: 15px; }
-        .social-links a { color: #333; font-size: 20px; transition: color 0.2s; }
-        .social-links a:hover { color: var(--ks-red); }
-
-        /* --- CHATBOT MOBILE OPTIMIZED --- */
-        #chatbot-launcher {
-            position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px;
-            background: white; border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center;
-            border: 2.5px solid var(--primary); transition: all 0.3s ease;
-        }
-        @media (max-width: 480px) { #chatbot-launcher { width: 65px; height: 65px; bottom: 20px; right: 20px; } }
-        
-        #chatbot-launcher img { width: 48px; height: 48px; object-fit: contain; }
-        .notif-badge { position: absolute; top: 0; right: 0; background: var(--ks-red); color: white; width: 22px; height: 22px; border-radius: 50%; font-size: 12px; font-weight: bold; display: none; align-items: center; justify-content: center; border: 2px solid white; }
-
-        @keyframes eggy-wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
-        .wave-animate { animation: eggy-wave 0.5s ease-in-out 3; }
-
-        .chat-container {
-            position: fixed; bottom: 115px; right: 30px; width: 420px; height: 75vh;
-            background: rgba(15, 23, 42, 0.7) !important; 
-            backdrop-filter: blur(50px) saturate(210%); 
-            -webkit-backdrop-filter: blur(50px) saturate(210%);
-            border-radius: 32px;
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 40px 80px rgba(0, 0, 0, 0.6); 
-            border: 0.5px solid var(--glass-border);
-            display: none; flex-direction: column; overflow: hidden; z-index: 10000;
-        }
-
-        /* Full Screen iPhone Portrait/Landscape Fix */
-        @media (max-width: 480px) {
-            .chat-container {
-                width: 100% !important; height: 100% !important;
-                bottom: 0 !important; right: 0 !important;
-                border-radius: 0 !important;
-            }
-        }
-
-        .chat-header { padding: 0 1.5rem; background: linear-gradient(180deg, #d8b4fe 0%, #a855f7 100%); color: #ffffff; display: flex; justify-content: space-between; align-items: center; height: 55px; }
-        .status { display: flex; align-items: center; gap: 0.8rem; }
-        .status-indicator { width: 10px; height: 10px; background: #00ff00; border-radius: 50%; animation: blink-neon 2s infinite; box-shadow: 0 0 12px #00ff00; margin-left: 5px; }
-        @keyframes blink-neon { 0%, 100% { opacity: 1; filter: brightness(1.2); } 50% { opacity: 0.4; filter: brightness(0.8); } }
-        .status-text { font-family: 'Space Mono', monospace; font-size: 0.85rem; color: #ffffff; font-weight: 700; display: flex; align-items: center; }
-        .close-chat { cursor: pointer; font-size: 1.2rem; color: white; transition: 0.2s; }
-        .close-chat:hover { transform: rotate(90deg); }
-
-        .quick-actions { padding: 1rem; display: flex; gap: 0.6rem; flex-wrap: wrap; background: rgba(255, 255, 255, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .quick-btn { padding: 0.5rem 1rem; background: rgba(255, 255, 255, 0.85); border: none; border-radius: 20px; color: #000; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        
-        .messages { flex: 1; padding: 2rem; overflow-y: auto; color: white; }
-        .input-area { padding: 20px; background: rgba(255, 255, 255, 0.05); }
-        .input-wrapper { display: flex; gap: 12px; background: white; padding: 8px 15px; border-radius: 30px; align-items: center; }
-        #messageInput { flex: 1; border: none; outline: none; font-size: 1rem; padding: 8px; color: #333 !important; }
-        #sendButton { background: var(--primary-dark); color: white; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
-   
-/* SURGICAL FIX: Keep Eggy logo small in the header */
-        .header-logo { 
-            width: 35px !important; 
-            height: 35px !important; 
-            object-fit: contain; 
-            flex-shrink: 0; /* Prevents it from being squished or enlarged by flex */
-        }
-
-        .status { 
-            display: flex; 
-            align-items: center; 
-            gap: 0.8rem;
-            max-height: 55px; /* Matches your .chat-header height */
-        }
-    /* SURGICAL FIX: Force Brief Description label to stay up if placeholder is present */
-    textarea:focus + label, 
-    textarea:not(:placeholder-shown) + label,
-    textarea + label { 
-        top: -10px; 
-        left: 10px; 
-        font-size: 11px; 
-        color: var(--ks-red); 
-        font-weight: bold; 
-        background: white;
+   <style>
+    /* --- ROOT & CORE STYLES --- */
+    :root {
+        --ks-red: #E90029;
+        --ks-border: #e0e0e0;
+        --ks-gray: #666;
+        --ks-bg-light: #f9f9f9;
+        --primary: #d8b4fe; 
+        --primary-dark: #a855f7;
+        --glass-border: rgba(255, 255, 255, 0.35);
     }
 
-    /* Ensure the textarea itself has enough room at the top for the label */
-    textarea {
-        margin-top: 10px;
+    body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; color: #333; }
+    .top-bar { background-color: var(--ks-red); height: 45px; display: flex; justify-content: flex-end; align-items: center; padding: 0 10%; }
+    .icon-circle { background-color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; margin-left: 15px;}
+    .icon-circle i { color: var(--ks-red); font-size: 14px; }
+    
+    /* --- NAVBAR & RESPONSIVE NAV FIX --- */
+    .navbar { background-color: #ffffff; height: 90px; border-bottom: 1px solid var(--ks-border); display: flex; align-items: center; padding: 0 10%; justify-content: space-between; transition: all 0.3s ease; }
+    .navbar-brand img { height: 52.5px; } 
+    .nav-navbar { display: flex; list-style: none; margin: 0; padding: 0; gap: 40px; }
+    .nav-navbar li { font-weight: 400; font-size: 14px; color: #333; cursor: pointer; text-transform: uppercase; letter-spacing: 0.8px; transition: color 0.2s ease; }
+    .nav-navbar li.active { font-weight: 700; color: var(--ks-red); }
+    .nav-navbar li:hover { color: var(--ks-red); }
+
+    @media (max-width: 850px) {
+        .navbar { height: auto; padding: 20px 5%; flex-direction: column; gap: 20px; text-align: center; }
+        .nav-navbar { gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .nav-navbar li { font-size: 12px; letter-spacing: 0.5px; }
     }
 
-   </style>
+    /* --- PAGE CONTENT & FORM --- */
+    .page-content { padding: 40px 10%; max-width: 1200px; margin: 0 auto; }
+    h1 { font-size: 26px; margin-top: 30px; margin-bottom: 10px; font-weight: bold; }
+    .instruction-text { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.6; }
+    
+    .form-row { display: flex; gap: 30px; margin-bottom: 30px; }
+
+    @media (max-width: 600px) { 
+        .form-row { flex-direction: column; gap: 25px; margin-bottom: 25px; } 
+        .page-content { padding: 20px 5%; }
+    }
+
+    .col-1 { flex: 1; position: relative; }
+    .col-2 { flex: 2; position: relative; }
+    .field-wrapper { position: relative; width: 100%; }
+    input, select, textarea { width: 100%; padding: 22px 12px 6px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; background: white; box-sizing: border-box; outline: none; }
+    label { position: absolute; left: 12px; top: 16px; color: var(--ks-gray); font-size: 14px; transition: all 0.2s ease-out; pointer-events: none; background: white; padding: 0 4px; }
+    
+    input:focus + label, input:not(:placeholder-shown) + label, 
+    select:focus + label, select:not([data-value=""]) + label { top: -10px; left: 10px; font-size: 11px; color: var(--ks-red); font-weight: bold; }
+    
+    /* Textarea Specific Label Fix - No Overlap */
+    textarea { margin-top: 10px; }
+    textarea + label { top: -10px; left: 10px; font-size: 11px; color: var(--ks-red); font-weight: bold; background: white; }
+
+    .prob-container { display: flex; border: 1px solid #ccc; background: white; border-radius: 4px; overflow: hidden; }
+    .prob-container input { border: none; flex: 1; border-radius: 0; }
+    .suffix { padding: 22px 10px 6px; background: #f4f4f4; border-left: 1px solid #ccc; color: #666; }
+    .required { color: var(--ks-red); position: absolute; right: -15px; top: 16px; font-weight: bold; }
+    
+    #referral-upload-container { display: none; margin-bottom: 30px; padding: 40px; border: 2px dashed #ccc; background: #fafafa; text-align: center; transition: all 0.3s ease; opacity: 0; max-height: 0; overflow: hidden; border-radius: 12px; cursor: pointer; }
+    #referral-upload-container.show { display: block; opacity: 1; max-height: 200px; }
+    .btn-submit { background-color: var(--ks-red); color: white; padding: 15px 80px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 4px; }
+    @media (max-width: 600px) { .btn-submit { width: 100%; } }
+
+    /* --- FOOTER --- */
+    footer { margin-top: 60px; padding: 40px 10%; border-top: 1px solid var(--ks-border); background-color: #f9f9f9; display: flex; justify-content: space-between; align-items: flex-start; line-height: 1.5; font-size: 14px; }
+    @media (max-width: 768px) { 
+        footer { flex-direction: column; gap: 30px; align-items: center; text-align: center; padding: 40px 5%; }
+        .footer-right { text-align: center; }
+        .social-links { justify-content: center; }
+    }
+    .footer-left p { margin: 2px 0; }
+    .footer-right strong { display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    .social-links { display: flex; gap: 15px; }
+    .social-links a { color: #333; font-size: 20px; transition: color 0.2s; }
+    .social-links a:hover { color: var(--ks-red); }
+
+    /* --- CHATBOT MOBILE OPTIMIZED --- */
+    #chatbot-launcher {
+        position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px;
+        background: white; border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center;
+        border: 2.5px solid var(--primary); transition: all 0.3s ease;
+    }
+    @media (max-width: 480px) { #chatbot-launcher { width: 65px; height: 65px; bottom: 20px; right: 20px; } }
+    
+    #chatbot-launcher img { width: 48px; height: 48px; object-fit: contain; }
+    .notif-badge { position: absolute; top: 0; right: 0; background: var(--ks-red); color: white; width: 22px; height: 22px; border-radius: 50%; font-size: 12px; font-weight: bold; display: none; align-items: center; justify-content: center; border: 2px solid white; }
+
+    @keyframes eggy-wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
+    .wave-animate { animation: eggy-wave 0.5s ease-in-out 3; }
+
+    .chat-container {
+        position: fixed; bottom: 115px; right: 30px; width: 420px; height: 75vh;
+        background: rgba(15, 23, 42, 0.7) !important; 
+        backdrop-filter: blur(50px) saturate(210%); 
+        -webkit-backdrop-filter: blur(50px) saturate(210%);
+        border-radius: 32px;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 40px 80px rgba(0, 0, 0, 0.6); 
+        border: 0.5px solid var(--glass-border);
+        display: none; flex-direction: column; overflow: hidden; z-index: 10000;
+    }
+
+    /* EXACT INDEX00 RESPONSIVE LOGIC */
+    @media (max-width: 480px) and (orientation: portrait) {
+        .chat-container { 
+            width: 82vw !important; 
+            right: 15px !important; 
+            height: 68vh !important; 
+            bottom: 110px !important;
+            border-radius: 24px !important;
+        }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+        .chat-container { 
+            height: 85vh !important; 
+            width: 350px !important; 
+            bottom: 10px !important; 
+            right: 15px !important;
+        }
+    }
+
+    .chat-header { padding: 0 1.5rem; background: linear-gradient(180deg, #d8b4fe 0%, #a855f7 100%); color: #ffffff; display: flex; justify-content: space-between; align-items: center; height: 55px; }
+    
+    /* Header Logo & Status Transparency Fix */
+    .header-logo { 
+        width: 35px !important; 
+        height: 35px !important; 
+        object-fit: contain; 
+        background: transparent !important; 
+        flex-shrink: 0; 
+    }
+
+    .status { 
+        display: flex; 
+        align-items: center; 
+        gap: 0.8rem;
+        max-height: 55px;
+    }
+
+    .status-indicator { width: 10px; height: 10px; background: #00ff00; border-radius: 50%; animation: blink-neon 2s infinite; box-shadow: 0 0 12px #00ff00; margin-left: 5px; }
+    @keyframes blink-neon { 0%, 100% { opacity: 1; filter: brightness(1.2); } 50% { opacity: 0.4; filter: brightness(0.8); } }
+    .status-text { font-family: 'Space Mono', monospace; font-size: 0.85rem; color: #ffffff; font-weight: 700; display: flex; align-items: center; }
+    .close-chat { cursor: pointer; font-size: 1.2rem; color: white; transition: 0.2s; }
+    .close-chat:hover { transform: rotate(90deg); }
+
+    .quick-actions { padding: 1rem; display: flex; gap: 0.6rem; flex-wrap: wrap; background: rgba(255, 255, 255, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .quick-btn { padding: 0.5rem 1rem; background: rgba(255, 255, 255, 0.85); border: none; border-radius: 20px; color: #000; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
+    
+    .messages { flex: 1; padding: 2rem; overflow-y: auto; color: white; }
+    .input-area { padding: 20px; background: rgba(255, 255, 255, 0.05); }
+    .input-wrapper { display: flex; gap: 12px; background: white; padding: 8px 15px; border-radius: 30px; align-items: center; }
+    #messageInput { flex: 1; border: none; outline: none; font-size: 1rem; padding: 8px; color: #333 !important; }
+    #sendButton { background: var(--primary-dark); color: white; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+</style>
 </head>
 <body>
 
