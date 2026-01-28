@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keysight Eggplant Partner Portal Deal Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- ORIGINAL PAGE STYLES (NO CHANGES) --- */
+        :root {
+            --ks-red: #E90029;
+            --ks-border: #e0e0e0;
+            --ks-gray: #666;
+            --ks-bg-light: #f9f9f9;
+            --primary: #d8b4fe; 
+            --primary-dark: #a855f7;
+            --glass-border: rgba(255, 255, 255, 0.35);
+        }
+
+        body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; color: #333; }
+        .top-bar { background-color: var(--ks-red); height: 45px; display: flex; justify-content: flex-end; align-items: center; padding: 0 10%; }
+        .icon-circle { background-color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; margin-left: 15px;}
+        .icon-circle i { color: var(--ks-red); font-size: 14px; }
+        .navbar { background-color: #ffffff; height: 90px; border-bottom: 1px solid var(--ks-border); display: flex; align-items: center; padding: 0 10%; justify-content: space-between; }
+        .navbar-brand img { height: 52.5px; } 
+        .nav-navbar { display: flex; list-style: none; margin: 0; padding: 0; gap: 40px; }
+        .nav-navbar li { font-weight: 400; font-size: 14px; color: #333; cursor: pointer; text-transform: uppercase; letter-spacing: 0.8px; transition: color 0.2s ease; }
+        .nav-navbar li.active { font-weight: 700; color: var(--ks-red); }
+        .nav-navbar li:hover { color: var(--ks-red); }
+        .page-content { padding: 40px 10%; max-width: 1200px; margin: 0 auto; }
+        h1 { font-size: 26px; margin-top: 30px; margin-bottom: 10px; font-weight: bold; }
+        .instruction-text { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.6; }
+        .form-row { display: flex; gap: 30px; margin-bottom: 30px; }
+        .col-1 { flex: 1; position: relative; }
+        .col-2 { flex: 2; position: relative; }
+        .field-wrapper { position: relative; width: 100%; }
+        input, select, textarea { width: 100%; padding: 22px 12px 6px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; background: white; box-sizing: border-box; outline: none; }
+        label { position: absolute; left: 12px; top: 16px; color: var(--ks-gray); font-size: 14px; transition: all 0.2s ease-out; pointer-events: none; background: white; padding: 0 4px; }
+        input:focus + label, input:not(:placeholder-shown) + label, 
+        textarea:focus + label, textarea:not(:placeholder-shown) + label,
+        select:focus + label, select:not([data-value=""]) + label { top: -10px; left: 10px; font-size: 11px; color: var(--ks-red); font-weight: bold; }
+        input::placeholder, textarea::placeholder { color: transparent; }
+        input:focus::placeholder, textarea:focus::placeholder { color: #aaa; }
+        .prob-container { display: flex; border: 1px solid #ccc; background: white; border-radius: 4px; overflow: hidden; }
+        .prob-container input { border: none; flex: 1; border-radius: 0; }
+        .suffix { padding: 22px 10px 6px; background: #f4f4f4; border-left: 1px solid #ccc; color: #666; }
+        .required { color: var(--ks-red); position: absolute; right: -15px; top: 16px; font-weight: bold; }
+        #referral-upload-container { display: none; margin-bottom: 30px; padding: 40px; border: 2px dashed #ccc; background: #fafafa; text-align: center; transition: all 0.3s ease; opacity: 0; max-height: 0; overflow: hidden; border-radius: 12px; cursor: pointer; }
+        #referral-upload-container.show { display: block; opacity: 1; max-height: 200px; }
+        .btn-submit { background-color: var(--ks-red); color: white; padding: 15px 80px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 4px; }
+        footer { margin-top: 60px; padding: 40px 10%; border-top: 1px solid var(--ks-border); background-color: #f9f9f9; display: flex; justify-content: space-between; align-items: flex-start; line-height: 1.5; font-size: 14px; }
+        .footer-left p { margin: 2px 0; }
+        .footer-right { text-align: right; }
+        .footer-right strong { display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .social-links { display: flex; gap: 15px; justify-content: flex-end; }
+        .social-links a { color: #333; font-size: 20px; transition: color 0.2s; }
+        .social-links a:hover { color: var(--ks-red); }
+
+        /* --- SURGICAL CHATBOT INTEGRATION --- */
+        #chatbot-launcher {
+            position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px;
+            background: white; border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center;
+            border: 2.5px solid var(--primary); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #chatbot-launcher img { width: 48px; height: 48px; object-fit: contain; }
+        
+        /* Notification Bubble */
+        .notif-badge {
+            position: absolute; top: 0; right: 0; background: var(--ks-red); color: white;
+            width: 22px; height: 22px; border-radius: 50%; font-size: 12px; font-weight: bold;
+            display: none; align-items: center; justify-content: center; border: 2px solid white;
+        }
+
+        /* Waving Animation */
+        @keyframes eggy-wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg); }
+            75% { transform: rotate(15deg); }
+        }
+        .wave-animate { animation: eggy-wave 0.5s ease-in-out 3; }
+
+        #chatbot-launcher::after {
+            content: ''; position: absolute; width: 100%; height: 100%; border-radius: 50%;
+            background: var(--primary); opacity: 0.4; z-index: -1; animation: launcher-pulse 2s infinite;
+        }
+        @keyframes launcher-pulse { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(1.6); opacity: 0; } }
+
+        .chat-container {
+            position: fixed; bottom: 115px; right: 30px; width: 420px; height: 75vh;
+            background: rgba(15, 23, 42, 0.7) !important; 
+            backdrop-filter: blur(50px) saturate(210%); 
+            -webkit-backdrop-filter: blur(50px) saturate(210%);
+            border-radius: 32px;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 40px 80px rgba(0, 0, 0, 0.6); 
+            border: 0.5px solid var(--glass-border);
+            display: none; flex-direction: column; overflow: hidden; z-index: 10000;
+            animation: chatSlideIn 0.5s ease-out;
+        }
+        @keyframes chatSlideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chat-header {
+            padding: 0 1.5rem; background: linear-gradient(180deg, #d8b4fe 0%, #a855f7 100%);
+            color: #ffffff; display: flex; justify-content: space-between; align-items: center; height: 55px;
+        }
+        .status { display: flex; align-items: center; gap: 0.8rem; }
+        .header-logo { width: 35px; height: 35px; object-fit: contain; }
+        
+        /* SURGICAL CHANGE: Neon Green Indicator AFTER text */
+        .status-indicator { width: 10px; height: 10px; background: #00ff00; border-radius: 50%; animation: blink-neon 2s infinite; box-shadow: 0 0 12px #00ff00; margin-left: 5px; }
+        @keyframes blink-neon { 0%, 100% { opacity: 1; filter: brightness(1.2); } 50% { opacity: 0.4; filter: brightness(0.8); } }
+        
+        .status-text { font-family: 'Space Mono', monospace; font-size: 0.85rem; color: #ffffff; font-weight: 700; display: flex; align-items: center; }
+        .close-chat { cursor: pointer; font-size: 1.2rem; opacity: 0.8; transition: 0.2s; color: white; }
+        .close-chat:hover { opacity: 1; transform: rotate(90deg); }
+
+        .quick-actions { padding: 1rem; display: flex; gap: 0.6rem; flex-wrap: wrap; background: rgba(255, 255, 255, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .quick-btn { padding: 0.5rem 1rem; background: rgba(255, 255, 255, 0.85); border: none; border-radius: 20px; color: #000; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .quick-btn:hover { background: #ffffff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(216, 180, 254, 0.4); }
+
+        .messages { flex: 1; padding: 2rem; overflow-y: auto; color: white; background: rgba(255, 255, 255, 0.03); }
+        .welcome-message { text-align: center; padding-top: 15%; }
+        .welcome-message h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .welcome-message p { font-size: 1rem; opacity: 0.85; line-height: 1.4; }
+
+        .input-area { padding: 20px; background: rgba(255, 255, 255, 0.05); }
+        .input-wrapper { display: flex; gap: 12px; background: white; padding: 8px 15px; border-radius: 30px; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        #messageInput { flex: 1; border: none; outline: none; font-size: 1rem; padding: 8px; font-family: 'DM Sans', sans-serif; color: #333 !important; }
+        #sendButton { background: var(--primary-dark); color: white; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="top-bar">
+        <a href="#" class="icon-circle"><i class="fas fa-bell"></i></a>
+        <a href="#" class="icon-circle"><i class="fas fa-user"></i></a>
+    </div>
+    <nav class="navbar">
+        <div class="navbar-brand"><img src="https://eggplantpartners.keysight.com/images/logos/logo.png" alt="Keysight"></div>
+        <ul class="nav-navbar">
+            <li>Home</li><li>Asset Library</li><li class="active">Deals</li><li>Journey</li><li>Training</li><li>Events</li><li>Insignias</li>
+        </ul>
+    </nav>
+</header>
+
+<section class="page-content">
+
+    <h1>Register New Deal</h1>
+    <p class="instruction-text">To register a new deal, fill out the form below. Fields with an asterisk (<span style="color:var(--ks-red)">*</span>) are required.</p>
+
+    <h1>Deal Information</h1>
+    <p class="instruction-text">
+        Please enter the information required for this deal. For a deal referral, it is mandatory to attach an invoice with the final referral fee after the closed won stage. This invoice must include the final referral fee amount, contact First and Last name, contact email, and should be uploaded in a timely manner.
+    </p>
+
+    <div class="form-container">
+        <form id="dealForm">
+            <div class="form-row">
+                <div class="col-1 field-wrapper"><input type="text" id="dealName" placeholder=" " required><label>Deal Name</label><span class="required">*</span></div>
+                <div class="col-2 field-wrapper">
+                    <input type="text" id="customer" list="customer-list" placeholder=" " required>
+                    <label>End Customer (Select Company, Country, Website)</label><span class="required">*</span>
+                    <datalist id="customer-list">
+                        <option value="New_AwesomeCompany | Estonia | www.newawesomecompany.com">
+                        <option value="Quantum Dynamics | Finland | www.quantum-dyn.fi">
+                        <option value="Baltic Logistics | Latvia | www.baltic-log.lv">
+                        <option value="Helsinki Systems | Finland | www.helsinkisys.com">
+                        <option value="Tallinn Tech | Estonia | www.tallinntech.ee">
+                    </datalist>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-1 field-wrapper"><input type="text" id="amount" placeholder=" " required><label>Amount (if unknown, default $25,000)</label><span class="required">*</span></div>
+                <div class="col-1 field-wrapper">
+                    <select id="currency" required data-value="">
+                        <option value="" disabled selected hidden></option>
+                        <option value="USD">USD - US Dollar</option><option value="EUR">EUR - Euro</option>
+                        <option value="GBP">GBP - British Pound</option><option value="JPY">JPY - Japanese Yen</option>
+                        <option value="AUD">AUD - Australian Dollar</option><option value="CAD">CAD - Canadian Dollar</option>
+                        <option value="CHF">CHF - Swiss Franc</option><option value="CNY">CNY - Chinese Yuan</option>
+                        <option value="INR">INR - Indian Rupee</option><option value="SGD">SGD - Singapore Dollar</option>
+                        <option value="AED">AED - UAE Dirham</option><option value="SAR">SAR - Saudi Riyal</option>
+                        <option value="TRY">TRY - Turkish Lira</option><option value="MXN">MXN - Mexican Peso</option>
+                        <option value="BRL">BRL - Brazilian Real</option>
+                    </select>
+                    <label>Currency</label><span class="required">*</span>
+                </div>
+                <div class="col-1 field-wrapper">
+                    <select id="type" required data-value="">
+                        <option value="" disabled selected hidden></option>
+                        <option value="Deal">Deal</option><option value="Referral">Referral</option>
+                    </select>
+                    <label>Type</label><span class="required">*</span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-1 field-wrapper">
+                    <select id="stage" required data-value="">
+                        <option value="" disabled selected hidden></option>
+                        <option>New Deal</option><option>Prospecting</option><option>Discovery</option>
+                        <option>Evaluating</option><option>Negotiation</option><option>Closed Won</option>
+                        <option>Denied</option><option>Closed Lost</option>
+                    </select>
+                    <label>Stage</label><span class="required">*</span>
+                </div>
+                <div class="col-1 field-wrapper">
+                    <div class="prob-container"><input type="text" id="prob" placeholder=" " required><label>Probability</label><div class="suffix">%</div></div><span class="required">*</span>
+                </div>
+                <div class="col-1 field-wrapper"><input type="text" id="date" placeholder=" " required maxlength="10"><label>Close Date (mm/dd/yyyy)</label><span class="required">*</span></div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-2 field-wrapper">
+                    <textarea id="briefDesc" placeholder="Please add additional details: project's overview, key decision makers, use case, key competitors and primary drivers to win the deal, new or existing end customer, etc." style="resize: vertical; min-height: 120px;" required></textarea>
+                    <label>Brief Description</label><span class="required">*</span>
+                </div>
+                <div class="col-1 field-wrapper">
+                    <select id="source" required data-value="">
+                        <option value="" disabled selected hidden></option>
+                        <option value="Deal Registration">Deal Registration</option>
+                        <option value="Referral">Referral</option>
+                        <option value="Email Campaign">Email Campaign</option>
+                        <option value="Partner Locator">Partner Locator</option>
+                        <option value="Social Campaign">Social Campaign</option>
+                        <option value="Trade Show">Trade Show</option>
+                        <option value="Web Syndication">Web Syndication</option>
+                    </select>
+                    <label>Source</label><span class="required">*</span>
+                </div>
+            </div>
+
+            <div id="referral-upload-container" onclick="document.getElementById('file-input').click()">
+                <input type="file" id="file-input" style="display:none" multiple>
+                <div class="upload-content"><i class="fas fa-download"></i><span class="upload-link">Attach Invoice</span> or drag and drop up to 10 files (Max 23.8 MB)</div>
+            </div>
+
+            <button type="submit" class="btn-submit">Submit</button>
+        </form>
+    </div>
+</section>
+
+<div id="chatbot-launcher" onclick="toggleChat()">
+    <div class="notif-badge" id="chat-notif">1</div>
+    <img src="assets/images/EggySmall.png" alt="Eggy" id="eggy-img">
+</div>
+
+<div class="chat-container" id="chatbot-window">
+    <div class="chat-header">
+        <div class="status">
+            <img src="assets/images/EggySmall.png" alt="Eggy" class="header-logo">
+            <span class="status-text">Eggy is Online <div class="status-indicator"></div></span>
+        </div>
+        <div class="close-chat" onclick="toggleChat()"><i class="fas fa-times"></i></div>
+    </div>
+
+    <div class="quick-actions">
+        <button class="quick-btn">New Deal Help</button>
+        <button class="quick-btn">Requirements</button>
+        <button class="quick-btn">Extensions</button>
+        <button class="quick-btn">Portal Guide</button>
+    </div>
+
+    <div class="messages" id="messages">
+        <div class="welcome-message">
+            <h2>Hi! I'm Eggy!</h2>
+            <p>Your friendly AI-powered assistant with a deal registration at Keysight Eggplant Partner Portal.</p>
+        </div>
+    </div>
+
+    <div class="input-area">
+        <div class="input-wrapper">
+            <input type="text" id="messageInput" placeholder="How can I help you today?">
+            <button id="sendButton">SEND</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-left">
+        <strong>Contact Us</strong>
+        <p>1400 Fountaingrove Parkway</p>
+        <p>Santa Rosa, CA 95403-1738</p>
+        <p>United States</p>
+        <p>+1 800-829-4444</p>
+        <p>ep-partners@keysight.com</p>
+        <br>
+        <p>© Keysight Technologies 2026</p>
+    </div>
+    <div class="footer-right">
+        <strong>FOLLOW US</strong>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/company/keysight-technologies" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://twitter.com/Keysight" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.facebook.com/Keysight" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.youtube.com/user/keysight" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-weixin"></i></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    /* --- PART 1: DEAL REGISTRATION PAGE LOGIC (No Changes) --- */
+    const typeSelect = document.getElementById('type');
+    const uploadBox = document.getElementById('referral-upload-container');
+    const allSelects = document.querySelectorAll('select');
+    if (typeSelect) {
+        typeSelect.addEventListener('change', function() {
+            if (this.value === 'Referral') { uploadBox.classList.add('show'); } 
+            else { uploadBox.classList.remove('show'); }
+        });
+    }
+    allSelects.forEach(s => {
+        s.addEventListener('change', function() { this.setAttribute('data-value', this.value); });
+    });
+
+    /* --- PART 2: CHATBOT UI & STATE --- */
+    let chatOpened = false;
+    function toggleChat() {
+        const chat = document.getElementById('chatbot-window');
+        const notif = document.getElementById('chat-notif');
+        const eggy = document.getElementById('eggy-img');
+        chatOpened = true;
+        if (chat) chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+        if (notif) notif.style.display = 'none';
+        if (eggy) eggy.classList.remove('wave-animate');
+    }
+
+    /* --- PART 3: CHATBOT MESSAGING LOGIC --- */
+    function addMessage(content, isUser) {
+        const messagesContainer = document.getElementById('messages');
+        if (!messagesContainer) return;
+        const welcomeMessage = messagesContainer.querySelector('.welcome-message');
+        if (welcomeMessage) welcomeMessage.remove();
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
+        const avatarContent = isUser ? '<i class="fas fa-user"></i>' : '<img src="assets/images/EggySmall.png" alt="Eggy" style="width:30px;">';
+        const author = isUser ? 'You' : 'Eggy';
+        messageDiv.style.marginBottom = "15px";
+        messageDiv.style.display = "flex";
+        messageDiv.style.flexDirection = "column";
+        messageDiv.style.alignItems = isUser ? "flex-end" : "flex-start";
+        messageDiv.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; opacity: 0.8; font-size: 0.75rem; font-family: 'Space Mono', monospace;">
+                ${!isUser ? avatarContent : ''} <span>${author} • ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span> ${isUser ? avatarContent : ''}
+            </div>
+            <div style="background: ${isUser ? 'rgba(216, 180, 254, 0.2)' : 'rgba(255, 255, 255, 0.1)'}; 
+                        padding: 12px 16px; border-radius: 18px; max-width: 85%; line-height: 1.5; 
+                        border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); color: white;">
+                ${content}
+            </div>
+        `;
+        messagesContainer.appendChild(messageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    async function getAIResponse(userMessage) {
+        const msg = userMessage.toLowerCase();
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+
+        // 1. Portal Guide & Playbook Link
+        if (msg.includes('portal guide') || msg.includes('playbook') || msg.includes('pdf')) {
+            return `📖 <strong>Keysight Eggplant Playbook:</strong><br><br>
+            You can download the full <strong>2023-24 Deal Registration Guide</strong> here:<br>
+            <a href="DealRegistrationPlaybook.pdf" target="_blank" style="color: #d8b4fe; font-weight: bold;">📥 Download Playbook PDF</a><br><br>
+            <strong>Quick Portal Tips:</strong><br>
+            • <strong>Edit Deals:</strong> Go to 'Deal Dashboard' to update info.<br>
+            • <strong>Referrals:</strong> Upload your fee invoice (PDF) once the stage is 'Closed Won'.<br>
+            • <strong>PAM:</strong> Your Partner Account Manager is your main contact for extensions!`;
+        }
+
+        // 2. Rejection & Termination
+        if (msg.includes('reject') || msg.includes('denied') || msg.includes('lose') || msg.includes('remove')) {
+            return `🧐 <strong>Why deals get rejected:</strong><br><br>
+            • <strong>Legal:</strong> Keysight may be obligated to bid directly.<br>
+            • <strong>Inattentiveness:</strong> Not actively working the deal.<br>
+            • <strong>First-Come:</strong> Another partner was faster.<br>
+            • <strong>Competing:</strong> Offering other products for the same deal.`;
+        }
+
+        // 3. RFP & Renewal
+        if (msg.includes('rfp') || msg.includes('bid') || msg.includes('renewal')) {
+            return `⚠️ <strong>Rules:</strong><br>• <strong>No RFPs:</strong> Standard reg doesn't cover RFPs.<br>• <strong>New Business Only:</strong> No maintenance renewals.`;
+        }
+
+        // 4. Extension & 90-Day Eval
+        if (msg.includes('time') || msg.includes('extension') || msg.includes('expire')) {
+            return `⏳ <strong>90-Day Warning:</strong> You MUST conduct a <strong>customer evaluation within the first 90 days</strong> to qualify for a 180-day extension.`;
+        }
+
+        // 5. Registration & Referrals
+        if (msg.includes('how') || msg.includes('start') || msg.includes('new deal help')) {
+            return `🚀 <strong>Starting:</strong> Click the 'Deals' tab -> 'New Deal'. Remember the <strong>$25k minimum</strong> and accurate end-customer data!`;
+        }
+
+        return `I'm here! ✨ I can provide the <strong>Portal Guide/PDF</strong>, explain <strong>Rejection reasons</strong>, or check <strong>Eligibility</strong>. What's on your mind?`;
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('messageInput');
+        if (!input || !input.value.trim()) return;
+        const message = input.value.trim();
+        input.disabled = true;
+        addMessage(message, true);
+        input.value = '';
+        const response = await getAIResponse(message);
+        addMessage(response, false);
+        input.disabled = false;
+        input.focus();
+    }
+
+    /* --- PART 4: EVENT LISTENERS --- */
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.quick-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const query = btn.innerText;
+                addMessage(query, true);
+                getAIResponse(query).then(res => addMessage(res, false));
+            });
+        });
+        const msgInput = document.getElementById('messageInput');
+        if (msgInput) msgInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
+        const sendBtn = document.getElementById('sendButton');
+        if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+
+        setTimeout(() => {
+            if (!chatOpened) {
+                const notif = document.getElementById('chat-notif');
+                const eggy = document.getElementById('eggy-img');
+                if (notif) notif.style.display = 'flex';
+                if (eggy) eggy.classList.add('wave-animate');
+            }
+        }, 5000);
+    });
+</script>
+
+</body>
+</html>
