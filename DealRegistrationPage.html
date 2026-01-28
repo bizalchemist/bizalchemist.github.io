@@ -152,6 +152,22 @@
             gap: 0.8rem;
             max-height: 55px; /* Matches your .chat-header height */
         }
+    /* SURGICAL FIX: Force Brief Description label to stay up if placeholder is present */
+    textarea:focus + label, 
+    textarea:not(:placeholder-shown) + label,
+    textarea + label { 
+        top: -10px; 
+        left: 10px; 
+        font-size: 11px; 
+        color: var(--ks-red); 
+        font-weight: bold; 
+        background: white;
+    }
+
+    /* Ensure the textarea itself has enough room at the top for the label */
+    textarea {
+        margin-top: 10px;
+    }
 
    </style>
 </head>
@@ -292,7 +308,7 @@
     <div class="messages" id="messages">
         <div class="welcome-message">
             <h2>Hi! I'm Eggy!</h2>
-            <p>Your friendly AI-powered assistant with a deal registration at Keysight Eggplant Partner Portal.</p>
+            <p>Your AI assistant for seamless deal registration on the Keysight Eggplant Partner Portal.</p>
         </div>
     </div>
 
