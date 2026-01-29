@@ -126,7 +126,7 @@
 
     @media (max-height: 500px) and (orientation: landscape) {
         .chat-container { 
-            height: 95vh !important; 
+            height: 85vh !important; 
             width: 350px !important; 
             bottom: 10px !important; 
             right: 15px !important;
@@ -165,6 +165,45 @@
     .input-wrapper { display: flex; gap: 12px; background: white; padding: 8px 15px; border-radius: 30px; align-items: center; }
     #messageInput { flex: 1; border: none; outline: none; font-size: 1rem; padding: 8px; color: #333 !important; }
     #sendButton { background: var(--primary-dark); color: white; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+
+/* SURGICAL FIX: Landscape Optimization for Text and Buttons */
+@media (max-height: 500px) and (orientation: landscape) {
+    /* Shrink the Welcome Greeting */
+    .chat-container h2 { 
+        font-size: 1.1rem !important; 
+        margin: 5px 0 !important; 
+    }
+    .chat-container p { 
+        font-size: 0.85rem !important; 
+        line-height: 1.2 !important; 
+        margin-bottom: 8px !important;
+    }
+
+    /* Shrink Quick Action Buttons */
+    .quick-actions {
+        padding: 0.5rem !important;
+        gap: 0.4rem !important;
+    }
+    .quick-btn {
+        padding: 0.3rem 0.7rem !important;
+        font-size: 0.75rem !important;
+        border-radius: 12px !important;
+    }
+
+    /* Reduce message area padding to save vertical space */
+    .messages { 
+        padding: 1rem !important; 
+    }
+
+    /* Shrink the input area slightly */
+    .input-area {
+        padding: 10px 15px !important;
+    }
+    .input-wrapper {
+        padding: 4px 12px !important;
+    }
+}
+
 </style>
 </head>
 <body>
