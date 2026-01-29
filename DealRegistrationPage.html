@@ -61,8 +61,21 @@
     select:focus + label, select:not([data-value=""]) + label { top: -10px; left: 10px; font-size: 11px; color: var(--ks-red); font-weight: bold; }
     
     /* Textarea Specific Label Fix - No Overlap */
-    textarea { margin-top: 10px; }
-    textarea + label { top: -10px; left: 10px; font-size: 11px; color: var(--ks-red); font-weight: bold; background: white; }
+    /* SURGICAL FIX for DealRegistrationPage.html */
+    textarea {
+        margin-top: 10px !important;
+    }
+
+    textarea + label { 
+        top: -13px !important; /* This pulls the label up to sit exactly on the border line */
+        left: 10px !important; 
+        font-size: 11px !important; 
+        color: #E90029 !important; /* Using your Keysight Red */
+        font-weight: bold !important; 
+        background: white !important; 
+        padding: 0 4px !important;
+        z-index: 10 !important;
+    }
 
     .prob-container { display: flex; border: 1px solid #ccc; background: white; border-radius: 4px; overflow: hidden; }
     .prob-container input { border: none; flex: 1; border-radius: 0; }
