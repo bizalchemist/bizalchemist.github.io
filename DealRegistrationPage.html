@@ -476,11 +476,23 @@
         // 1. Portal Guide & Playbook Link
         if (msg.includes('portal guide') || msg.includes('playbook') || msg.includes('pdf')) {
             return `📖 <strong>Keysight Eggplant Playbook:</strong><br><br>
-            I've found the <strong>2023-24 Deal Registration Playbook</strong>. How would you like to access it?<br><br>
-            📄 <b><a href="assets/DealRegistrationPlaybook.pdf" target="_blank" style="color: #d8b4fe; font-weight: bold;">Review in Browser</a></b>
-            <p></p>
-            📥 <b><a href="assets/DealRegistrationPlaybook.pdf" download style="color: #d8b4fe; font-weight: bold;">Download PDF</a></b> (Save for later)<br><br>
-            <strong>Quick Tip:</strong> Most partners prefer the 'Review' option for a fast check of the <b>Eligibility Requirements (Page 5)</b>.`;
+            I've found the <strong>2023-24 Deal Registration Playbook</strong>.<br><br>
+            
+            <div style="margin-top: 10px;">
+                <a href="assets/DealRegistrationPlaybook.pdf" target="_blank" 
+                   style="display: inline-block; padding: 8px 12px; background: rgba(216, 180, 254, 0.3); 
+                          color: #d8b4fe; border-radius: 8px; text-decoration: none; font-weight: bold; margin-bottom: 8px;">
+                   📄 Review in Browser
+                </a><br>
+                <p> </p>
+                <a href="assets/DealRegistrationPlaybook.pdf" download 
+                   style="display: inline-block; padding: 8px 12px; background: rgba(255, 255, 255, 0.1); 
+                          color: #ffffff; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">
+                   📥 Download PDF
+                </a>
+            </div>
+            <br>
+            <strong>Quick Tip:</strong> Check <b>Eligibility Requirements (Page 5)</b> for the $25k minimum rule.`;
         }
 
         // 2. Rejection & Termination
