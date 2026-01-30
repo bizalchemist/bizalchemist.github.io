@@ -476,12 +476,10 @@
         // 1. Portal Guide & Playbook Link
         if (msg.includes('portal guide') || msg.includes('playbook') || msg.includes('pdf')) {
             return `📖 <strong>Keysight Eggplant Playbook:</strong><br><br>
-            You can download the full <strong>2023-24 Deal Registration Guide</strong> here:<br>
-            <a href="DealRegistrationPlaybook.pdf" target="_blank" style="color: #d8b4fe; font-weight: bold;">📥 Download Playbook PDF</a><br><br>
-            <strong>Quick Portal Tips:</strong><br>
-            • <strong>Edit Deals:</strong> Go to 'Deal Dashboard' to update info.<br>
-            • <strong>Referrals:</strong> Upload your fee invoice (PDF) once the stage is 'Closed Won'.<br>
-            • <strong>PAM:</strong> Your Partner Account Manager is your main contact for extensions!`;
+            I've found the <strong>2023-24 Deal Registration Guide</strong>. How would you like to access it?<br><br>
+            📄 <b><a href="DealRegistrationPlaybook.pdf" target="_blank" style="color: #d8b4fe; font-weight: bold;">Review in Browser</a></b> (Live View)<br>
+            📥 <b><a href="DealRegistrationPlaybook.pdf" download style="color: #d8b4fe; font-weight: bold;">Download PDF</a></b> (Save for later)<br><br>
+            <strong>Quick Tip:</strong> Most partners prefer the 'Review' option for a fast check of the <b>Evaluation Requirements (Page 4)</b>.`;
         }
 
         // 2. Rejection & Termination
@@ -508,17 +506,40 @@
             return `🚀 <strong>Starting:</strong> Click the 'Deals' tab -> 'New Deal'. Remember the <strong>$25k minimum</strong> and accurate end-customer data!`;
         }
 
-        return `I'm here! ✨ I can provide the <strong>Portal Guide/PDF</strong>, explain <strong>Rejection reasons</strong>, or check <strong>Eligibility</strong>. What's on your mind?`;
+       // NEW: Requirements & Eligibility Logic
+        if (msg.includes('requirements') || msg.includes('qualify') || msg.includes('criteria')) {
+            return `📋 <strong>Deal Requirements:</strong><br><br>
+            To qualify for registration, your deal must meet these standards:<br>
+            • <strong>New Business:</strong> Must be a new opportunity, not a renewal.<br>
+            • <strong>Minimum Value:</strong> Minimum deal size is <strong>$25,000 USD</strong>.<br>
+            • <strong>Engagement:</strong> You must have a customer meeting scheduled within 14 days.<br>
+            • <strong>Exclusivity:</strong> You cannot be promoting competing products for this specific opportunity.`;
+        }
+          
+        return `I'm here! ✨ I can explain <strong>Requirements</strong>, provide the <strong>Portal Guide/PDF</strong>, or explain <strong>Rejection reasons</strong>. What's on your mind?`;
+        
     }
 
-    async function sendMessage() {
+        async function sendMessage() {
         const input = document.getElementById('messageInput');
         if (!input || !input.value.trim()) return;
         const message = input.value.trim();
         input.disabled = true;
         addMessage(message, true);
         input.value = '';
+
+        // Add "typing" placeholder
+        const messagesContainer = document.getElementById('messages');
+        const typingDiv = document.createElement('div');
+        typingDiv.id = 'typing-indicator';
+        typingDiv.innerHTML = `<div style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-bottom:15px; padding-left:10px;">Eggy is thinking...</div>`;
+        messagesContainer.appendChild(typingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
         const response = await getAIResponse(message);
+        
+        // Remove typing indicator and show response
+        document.getElementById('typing-indicator').remove();
         addMessage(response, false);
         input.disabled = false;
         input.focus();
