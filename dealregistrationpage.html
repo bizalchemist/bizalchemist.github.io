@@ -252,6 +252,13 @@
     transition: all 0.3s ease;
 }
 
+      /* Update this specific section in CSS */
+.message div {
+    word-wrap: break-word;       /* Older browsers */
+    overflow-wrap: break-word;   /* Modern browsers */
+    word-break: break-word;      /* Forces the URL to snap to a new line */
+}
+      
 .message a:hover {
     color: #FFFFFF;
     background-color: #FF0000; /* Inverts colors when hovered */
@@ -264,7 +271,7 @@
     font-weight: bold;
     text-decoration: underline;
 }
-
+      
 /* Fix for lists that might lose their bullets */
 .assistant ul {
     margin-left: 20px;
