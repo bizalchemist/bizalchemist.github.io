@@ -476,169 +476,46 @@
         // 1. Portal Guide & Playbook Link
         if (msg.includes('portal guide') || msg.includes('playbook') || msg.includes('pdf')) {
             return `📖 <strong>Keysight Eggplant Playbook:</strong><br><br>
-            I've found the <strong>2023-24 Deal Registration Playbook</strong>.<br><br>
-            
-            <div style="margin-top: 10px;">
-                <a href="assets/DealRegistrationPlaybook.pdf" target="_blank" 
-                   style="display: inline-block; padding: 8px 12px; background: rgba(216, 180, 254, 0.3); 
-                          color: #d8b4fe; border-radius: 8px; text-decoration: none; font-weight: bold; margin-bottom: 8px;">
-                   📄 Review in Browser
-                </a><br>
-                <p> </p>
-                <a href="assets/DealRegistrationPlaybook.pdf" download 
-                   style="display: inline-block; padding: 8px 12px; background: rgba(255, 255, 255, 0.1); 
-                          color: #ffffff; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">
-                   📥 Download PDF
-                </a>
-            </div>
-            <br>
-            <strong>Quick Tip:</strong> Check <b>Eligibility Requirements (Page 5)</b> for the $25k minimum rule.`;
+            I've found the <strong>2023-24 Deal Registration Guide</strong>. How would you like to access it?<br><br>
+            📄 <b><a href="DealRegistrationPlaybook.pdf" target="_blank" style="color: #d8b4fe; font-weight: bold;">Review in Browser</a></b> (Live View)<br>
+            📥 <b><a href="DealRegistrationPlaybook.pdf" download style="color: #d8b4fe; font-weight: bold;">Download PDF</a></b> (Save for later)<br><br>
+            <strong>Quick Tip:</strong> Most partners prefer the 'Review' option for a fast check of the <b>Evaluation Requirements (Page 4)</b>.`;
         }
 
         // 2. Rejection & Termination
         if (msg.includes('reject') || msg.includes('denied') || msg.includes('lose') || msg.includes('remove')) {
             return `🧐 <strong>Why deals get rejected:</strong><br><br>
             • <strong>Legal:</strong> Keysight may be obligated to bid directly.<br>
-            • <strong>Inactivity:</strong> Not actively working the deal.<br>
+            • <strong>Inattentiveness:</strong> Not actively working the deal.<br>
             • <strong>First-Come:</strong> Another partner was faster.<br>
-            • <strong>Competing Products:</strong> Offering other products for the same deal.<br>
-            • <strong>Below Minimum:</strong> Deal value under $25,000 USD.<br>
-            • <strong>Renewals/RFPs:</strong> Not eligible for standard registration.`;
-        }
-        
-       // 3. RFP & Renewal
-        if (msg.includes('rfp') || msg.includes('bid') || msg.includes('renewal') || msg.includes('government')) {
-            return `⚠️ <strong>Special Rules for RFPs & Renewals:</strong><br><br>
-            <strong>❌ NOT Eligible:</strong><br>
-            • Maintenance renewals<br>
-            • Standard government RFPs<br><br>
-            
-            <strong>✅ Government Bids Exception:</strong><br>
-            If you're bidding on a government contract:<br>
-            • You CAN receive special non-registered discounts during bidding<br>
-            • If you WIN, you can register for full deal protection benefits<br>
-            • Contact your PAM for government bid support`;
+            • <strong>Competing:</strong> Offering other products for the same deal.`;
         }
 
-      // 4. Extension & 90-Day Eval
-        if (msg.includes('time') || msg.includes('extension') || msg.includes('expire') || msg.includes('180') || msg.includes('90')) {
-            return `⏳ <strong>Deal Timeline & Extensions:</strong><br><br>
-            <strong>Standard Registration Period:</strong> 180 days<br><br>
-            
-            <strong>🚨 90-Day Evaluation Rule:</strong><br>
-            You MUST conduct a <strong>customer evaluation within the first 90 days</strong> to qualify for extensions.<br><br>
-            
-            <strong>Extension Process:</strong><br>
-            • Contact your Partner Account Manager (PAM)<br>
-            • Extensions granted in 90-day increments<br>
-            • Proof of active customer engagement required<br>
-            • Maximum total protection period varies by deal size`;
-        }
-        
-        // 5. Registration & How to Start
-        if (msg.includes('how') || msg.includes('start') || msg.includes('new deal help') || msg.includes('register')) {
-            return `🚀 <strong>How to Register a New Deal:</strong><br><br>
-            <strong>Step 1:</strong> Click the 'Deals' tab in the navigation<br>
-            <strong>Step 2:</strong> Click 'Register New Deal' button<br>
-            <strong>Step 3:</strong> Fill out required fields (*)<br>
-            <strong>Step 4:</strong> Choose Type: <strong>Deal</strong> or <strong>Referral</strong><br>
-            <strong>Step 5:</strong> Submit for approval<br><br>
-            
-            <strong>⚠️ Remember:</strong><br>
-            • Minimum deal value: <strong>$25,000 USD</strong><br>
-            • Accurate end-customer information required<br>
-            • First-to-register priority system<br>
-            • Response within 2 business days`;
+        // 3. RFP & Renewal
+        if (msg.includes('rfp') || msg.includes('bid') || msg.includes('renewal')) {
+            return `⚠️ <strong>Rules:</strong><br>• <strong>No RFPs:</strong> Standard reg doesn't cover RFPs.<br>• <strong>New Business Only:</strong> No maintenance renewals.`;
         }
 
-        // 6. Requirements & Eligibility
-        if (msg.includes('requirements') || msg.includes('qualify') || msg.includes('criteria') || msg.includes('eligible')) {
-            return `📋 <strong>Deal Registration Requirements:</strong><br><br>
-            <strong>✅ Must Have:</strong><br>
-            • <strong>$25,000 USD minimum</strong> deal value<br>
-            • New business opportunity (not renewal)<br>
-            • Valid end-customer information<br>
-            • Presales documentation ready<br>
-            • No competing products for this opportunity<br>
-            • Customer meeting scheduled within 14 days<br><br>
-            
-            <strong>❌ NOT Eligible:</strong><br>
-            • Maintenance renewals<br>
-            • Government RFPs (see special rules)<br>
-            • Deals already in Keysight pipeline<br>
-            • Opportunities below $25k threshold`;
+        // 4. Extension & 90-Day Eval
+        if (msg.includes('time') || msg.includes('extension') || msg.includes('expire')) {
+            return `⏳ <strong>90-Day Warning:</strong> You MUST conduct a <strong>customer evaluation within the first 90 days</strong> to qualify for a 180-day extension.`;
         }
 
-        // 7. REFERRAL DEALS - ENHANCED LOGIC
-        if (msg.includes('referral') || msg.includes('invoice')) {
-            return `💼 <strong>Referral Deals Process:</strong><br><br>
-            <strong>What is a Referral Deal?</strong><br>
-            When you identify an opportunity but prefer Keysight to handle the sales cycle, you can register it as a <strong>Referral</strong> instead of a standard Deal.<br><br>
-            
-            <strong>📋 Referral Requirements:</strong><br>
-            • Register the opportunity in the portal<br>
-            • Select "Referral" as the Type<br>
-            • Keysight takes over the sales process<br>
-            • You receive a referral fee upon closed-won<br><br>
-            
-            <strong>📄 Invoice Upload (MANDATORY):</strong><br>
-            After the deal closes, you <strong>MUST</strong> upload an invoice PDF containing:<br>
-            • Final referral fee amount<br>
-            • Contact first & last name<br>
-            • Contact email address<br>
-            • Company name and date<br>
-            • Authorized signature<br><br>
-            
-            <strong>💡 Pro Tip:</strong> Upload your invoice promptly after "Closed Won" status to ensure fast payment processing!`;
+        // 5. Registration & Referrals
+        if (msg.includes('how') || msg.includes('start') || msg.includes('new deal help')) {
+            return `🚀 <strong>Starting:</strong> Click the 'Deals' tab -> 'New Deal'. Remember the <strong>$25k minimum</strong> and accurate end-customer data!`;
         }
 
-      // 8. Approval Process
-        if (msg.includes('approval') || msg.includes('approve') || msg.includes('pending')) {
-            return `✅ <strong>Deal Approval Process:</strong><br><br>
-            <strong>First-Come, First-Served:</strong><br>
-            The first partner to register gets priority!<br><br>
-            
-            <strong>Timeline:</strong><br>
-            • Submission: Instant<br>
-            • Review: Within 2 business days<br>
-            • Email notification: Approved or Rejected<br><br>
-            
-            <strong>After Approval:</strong><br>
-            • 180-day active protection period begins<br>
-            • Must conduct customer eval within 90 days<br>
-            • Update deal progress regularly in portal`;
+       // NEW: Requirements & Eligibility Logic
+        if (msg.includes('requirements') || msg.includes('qualify') || msg.includes('criteria')) {
+            return `📋 <strong>Deal Requirements:</strong><br><br>
+            To qualify for registration, your deal must meet these standards:<br>
+            • <strong>New Business:</strong> Must be a new opportunity, not a renewal.<br>
+            • <strong>Minimum Value:</strong> Minimum deal size is <strong>$25,000 USD</strong>.<br>
+            • <strong>Engagement:</strong> You must have a customer meeting scheduled within 14 days.<br>
+            • <strong>Exclusivity:</strong> You cannot be promoting competing products for this specific opportunity.`;
         }
-
-
-        // 9. Contact & Support
-        if (msg.includes('contact') || msg.includes('help') || msg.includes('support') || msg.includes('pam')) {
-            return `📞 <strong>Need Human Help?</strong><br><br>
-            <strong>Partner Account Manager (PAM):</strong><br>
-            Your dedicated contact for deal support, extensions, and strategic guidance.<br><br>
-            
-            <strong>Portal Support:</strong><br>
-            📧 ep-partners@keysight.com<br>
-            📞 +1 800-829-4444<br>
-            🏢 1400 Fountaingrove Parkway, Santa Rosa, CA 95403<br><br>
-            
-            <strong>Portal Access:</strong><br>
-            🌐 eggplantpartners.keysight.com`;
-        }
-
-       // Default fallback with all options
-        return `Hi there! I'm Eggy, I can help with:<br><br>
-            • <strong>Referrals</strong> - Invoice & referral process<br>
-            • <strong>Requirements</strong> - Eligibility criteria<br>
-            • <strong>Portal Guide/PDF</strong> - Full playbook<br>
-            • <strong>Extensions</strong> - Timeline & 90-day rule<br>
-            • <strong>Rejections</strong> - Why deals get denied<br>
-            • <strong>How to Start</strong> - Registration steps<br>
-            • <strong>Approval</strong> - Review process<br>
-            • <strong>Contact</strong> - Get human support<br><br>
-            What would you like to know? `;
-    }
-   
-        
+          
         return `I'm here! ✨ I can explain <strong>Requirements</strong>, provide the <strong>Portal Guide/PDF</strong>, or explain <strong>Rejection reasons</strong>. What's on your mind?`;
         
     }
