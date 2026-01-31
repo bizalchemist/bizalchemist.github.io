@@ -528,7 +528,31 @@
             • <strong>Engagement:</strong> You must have a customer meeting scheduled within 14 days.<br>
             • <strong>Exclusivity:</strong> You cannot be promoting competing products for this specific opportunity.`;
         }
-          
+
+
+        // 7. REFERRAL DEALS - ENHANCED LOGIC
+        if (msg.includes('referral') || msg.includes('invoice')) {
+            return `💼 <strong>Referral Deals Process:</strong><br><br>
+            <strong>What is a Referral Deal?</strong><br>
+            When you identify an opportunity but prefer Keysight to handle the sales cycle, you can register it as a <strong>Referral</strong> instead of a standard Deal.<br><br>
+            
+            <strong>📋 Referral Requirements:</strong><br>
+            • Register the opportunity in the portal<br>
+            • Select "Referral" as the Type<br>
+            • Keysight takes over the sales process<br>
+            • You receive a referral fee upon closed-won<br><br>
+            
+            <strong>📄 Invoice Upload (MANDATORY):</strong><br>
+            After the deal closes, you <strong>MUST</strong> upload an invoice PDF containing:<br>
+            • Final referral fee amount<br>
+            • Contact first & last name<br>
+            • Contact email address<br>
+            • Company name and date<br>
+            • Authorized signature<br><br>
+            
+            <strong>💡 Pro Tip:</strong> Upload your invoice promptly after "Closed Won" status to ensure fast payment processing!`;
+        }
+        
         return `I'm here! ✨ I can explain <strong>Requirements</strong>, provide the <strong>Portal Guide/PDF</strong>, or explain <strong>Rejection reasons</strong>. What's on your mind?`;
         
     }
