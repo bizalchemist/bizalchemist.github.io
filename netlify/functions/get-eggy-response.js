@@ -1,36 +1,41 @@
 exports.handler = async (event) => {
-    // 1. Security check
-    if (event.httpMethod !== "POST") {
-        return { statusCode: 405, body: "Method Not Allowed" };
-    }
+    if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method Not Allowed" };
 
     try {
         const { message } = JSON.parse(event.body);
         const API_KEY = process.env.GEMINI_API_KEY;
 
-        // 2. We bypass the library and go straight to the STABLE v1 endpoint
-    const API_URL = https://www.google.com/search?q=https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-8b:generateContent%3Fkey%3D${API_KEY};
+        // Using BACKTICKS ( ` ) below to ensure the API_KEY is injected correctly
+        const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-8b:generateContent?key=${API_KEY}`;
+
+        // Re-inserting your BizOps personality and compliance rules
+        const promptWithContext = `
+            You are Eggy v2.0, the specialized AI Deal Registration Assistant for the Keysight Eggplant Ecosystem.
+            PERSONALITY: Professional and direct.
+            RULES: 
+            1. Minimum deal: $25,000. 
+            2. No RFPs allowed.
+            3. Guide users through 'Sales Readiness' and 'Technical Mastery'.
+            
+            User Question: ${message}`;
+
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                contents: [{
-                    parts: [{ text: message }]
-                }]
+                contents: [{ parts: [{ text: promptWithContext }] }]
             })
         });
 
         const data = await response.json();
 
-        // 3. Handle Quota or API errors gracefully
         if (data.error) {
             return {
-                statusCode: data.error.code || 500,
+                statusCode: 200,
                 body: JSON.stringify({ reply: `Eggy's Brain says: ${data.error.message}` })
             };
         }
 
-        // 4. Extract the text safely
         const replyText = data.candidates[0].content.parts[0].text;
 
         return {
@@ -43,10 +48,6 @@ exports.handler = async (event) => {
         };
 
     } catch (error) {
-        console.error("Function Error:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ reply: "Connection failed. Eggy is taking a nap!" })
-        };
+        return { statusCode: 500, body: JSON.stringify({ reply: "Connection failed!" }) };
     }
 };
