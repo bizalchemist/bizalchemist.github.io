@@ -21,12 +21,12 @@ exports.handler = async (event) => {
             4. Whenever you share a link, please use Markdown format like this: [Link Text](URL). This keeps the chat clean and professional.
             
             RESOURCES TO MENTION:
-            - Technical Mastery Portal: https://support.eggplantsoftware.com/training-and-certifications
+            - Technical Mastery Portal: [Access Training & Certification](https://support.eggplantsoftware.com/training-and-certifications)
             - Access Code: eggplantelearning
-            - Deal Registration Guide: [Download Deal Registration Playbook](assets/DealRegistrationPlaybook.pdf)
+            - Deal Registration Guide: [View Deal Registration Playbook](assets/DealRegistrationPlaybook.pdf)
             
             SPECIFIC INSTRUCTION:
-            When the user asks for the Deal Guide or clicks the "Deal Guide" button, always provide the link to 'assets/DealRegistrationPlaybook.pdf'. This specific filename is required to trigger the correct visual styling.
+            When the user asks for the Deal Guide or clicks the "Deal Guide" button, always provide the link to 'assets/DealRegistrationPlaybook.pdf'. Use the text "View Deal Registration Playbook" so the user knows they can preview it immediately.
 
             User Question: ${message}`;
 
