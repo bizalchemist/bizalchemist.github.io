@@ -1,34 +1,53 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-
 exports.handler = async (event) => {
-    if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method Not Allowed" };
+    // 1. Security check
+    if (event.httpMethod !== "POST") {
+        return { statusCode: 405, body: "Method Not Allowed" };
+    }
 
     try {
-        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        // Using 'gemini-1.5-flash' without specific versioning sometimes 
-        // helps the SDK find the correct path automatically.
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest",});
-        
-        const requestBody = JSON.parse(event.body);
-        const userMessage = requestBody.message;
+        const { message } = JSON.parse(event.body);
+        const API_KEY = process.env.GEMINI_API_KEY;
 
-        const result = await model.generateContent(userMessage);
-        const responseText = result.response.text();
+        // 2. We bypass the library and go straight to the STABLE v1 endpoint
+        const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{ text: message }]
+                }]
+            })
+        });
+
+        const data = await response.json();
+
+        // 3. Handle Quota or API errors gracefully
+        if (data.error) {
+            return {
+                statusCode: data.error.code || 500,
+                body: JSON.stringify({ reply: `Eggy's Brain says: ${data.error.message}` })
+            };
+        }
+
+        // 4. Extract the text safely
+        const replyText = data.candidates[0].content.parts[0].text;
 
         return {
             statusCode: 200,
-            headers: { 
+            headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*" 
+                "Access-Control-Allow-Origin": "*"
             },
-            body: JSON.stringify({ reply: responseText }),
+            body: JSON.stringify({ reply: replyText })
         };
 
     } catch (error) {
-        console.error("AI Proxy Error:", error);
+        console.error("Function Error:", error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: error.message }),
+            body: JSON.stringify({ reply: "Connection failed. Eggy is taking a nap!" })
         };
     }
 };
