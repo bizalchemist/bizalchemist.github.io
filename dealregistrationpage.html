@@ -573,18 +573,25 @@ async function getAIResponse(userMessage) {
 
     /* --- PART 4: EVENT LISTENERS --- */
     document.addEventListener('DOMContentLoaded', () => {
+        // FIXED QUICK BUTTONS LOGIC
         document.querySelectorAll('.quick-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', async () => {
                 const query = btn.innerText;
-                addMessage(query, true);
-                getAIResponse(query).then(res => addMessage(res, false));
+                const input = document.getElementById('messageInput');
+                
+                // Put the text in the input and trigger the existing sendMessage function
+                input.value = query;
+                sendMessage();
             });
         });
+    
         const msgInput = document.getElementById('messageInput');
         if (msgInput) msgInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
+        
         const sendBtn = document.getElementById('sendButton');
         if (sendBtn) sendBtn.addEventListener('click', sendMessage);
-
+    
+        // Notification Logic
         setTimeout(() => {
             if (!chatOpened) {
                 const notif = document.getElementById('chat-notif');
@@ -594,6 +601,7 @@ async function getAIResponse(userMessage) {
             }
         }, 5000);
     });
+        
 </script>
 
 </body>
