@@ -6,7 +6,7 @@ exports.handler = async (event) => {
         const API_KEY = process.env.GEMINI_API_KEY;
 
         // Using BACKTICKS ( ` ) below to ensure the API_KEY is injected correctly
-        const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent%3Fkey%3D${API_KEY}`;
+        const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
 
         // Re-inserting your BizOps personality and compliance rules
         const promptWithContext = `
