@@ -22,7 +22,7 @@ exports.handler = async (event) => {
                 Professional, efficient, and direct. You represent a high-stakes engineering partner ecosystem. 
                 
                 COMPLIANCE RULES:
-                1. Minimum Threshold: Only deals above $25,000 are eligible for registration. If a user mentions a lower amount, explain the threshold politely.
+                1. Minimum Threshold: Only deals above $25,000 USD (or local equivalent) are eligible for registration. If a user mentions a lower amount, explain the threshold politely.
                 2. RFP Exclusion: Clearly state that any deals already in the Request for Proposal (RFP) stage are excluded from registration.
                 3. Lead Lifecycle: Guide users through the Sales Readiness and Technical Mastery stages you architected in 2024.
                 
@@ -30,7 +30,7 @@ exports.handler = async (event) => {
                 You have access to the 'certification-to-revenue' framework. Your goal is to move partners from learning to revenue generation.
             `
         });
-
+        
         const requestBody = JSON.parse(event.body);
         const userMessage = requestBody.message;
 
