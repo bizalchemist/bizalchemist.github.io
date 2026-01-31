@@ -12,7 +12,7 @@ exports.handler = async (event) => {
         
         // 2026 Model Version
         const model = genAI.getGenerativeModel({ 
-            model: "gemini-1.5-flash", // or "gemini-2.0-flash-exp"
+            model: "gemini-1.5-flash-latest", // or "gemini-2.0-flash-exp"
             
             // --- YOUR CRITICAL SYSTEM INSTRUCTIONS GO HERE ---
             systemInstruction: `
