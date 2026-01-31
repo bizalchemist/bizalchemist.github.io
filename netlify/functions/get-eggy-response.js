@@ -7,7 +7,7 @@ exports.handler = async (event) => {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         // Using 'gemini-1.5-flash' without specific versioning sometimes 
         // helps the SDK find the correct path automatically.
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro", });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest",});
         
         const requestBody = JSON.parse(event.body);
         const userMessage = requestBody.message;
