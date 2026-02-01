@@ -666,7 +666,15 @@
                 "Keysight may audit these records at any time to verify compliance.";
         }
 
-        // 10. Eggy's Greetings
+        // 10. Confirmation & Post-Submission Support
+        if (input.includes("notification") || input.includes("after") || input.includes("next steps") || input.includes("wait")) {
+            return "Once submitted, here is the timeline:\n\n" +
+                "* **Response:** You will receive an email notification within **two business days** (Accepted or Declined).\n" +
+                "* **Support Team:** If accepted, Keysight assigns a **dedicated Sales Executive and Solution Architect** to help your team close the deal.\n\n" +
+                "This ensures you have full technical and commercial alignment to win!";
+        }
+
+        // 11. Eggy's Greetings
         if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
             return "Hi! I'm **Eggy**. I helped design the Keysight Eggplant partner rules. I'm here to make sure your deal registration is perfect so it gets approved fast!";
         }
