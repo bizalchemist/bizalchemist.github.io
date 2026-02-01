@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     /* --- ROOT & CORE STYLES --- */
     :root {
@@ -321,6 +322,18 @@
     width: 100%;
 }
 
+/* Highlights the field if the year is invalid or before 2026 */
+#date:invalid {
+    border-bottom: 2px solid #E11A22;
+    color: #E11A22;
+}
+
+/* Optional: Subtle glow to grab attention on error */
+#date:invalid:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(225, 26, 34, 0.3);
+}
+
 </style>
 </head>
 <body>
@@ -422,7 +435,14 @@
                 </div>
 
                 <div class="col-1 field-wrapper">
-                    <div class="prob-container"><input type="number" id="prob" placeholder=" " required min="0" max="100">
+                    <div class="prob-container">
+                        <input type="number" 
+                               id="prob" 
+                               placeholder=" " 
+                               required 
+                               min="1" 
+                               max="100" 
+                               oninput="this.value = Math.round(this.value)">
                         <label>Probability</label>
                         <div class="suffix">%</div>
                     </div>
@@ -430,10 +450,16 @@
                 </div>
 
                 <div class="col-1 field-wrapper">
-                    <input type="date" id="date" placeholder=" " required>
+                    <input type="date" 
+                        id="date" 
+                        placeholder=" " 
+                        required 
+                        min="2026-01-01" 
+                        max="2035-12-31">
                     <label>Close Date</label>
                     <span class="required">*</span>
                 </div>
+
             </div>    
 
             <div class="form-row">
@@ -463,9 +489,17 @@
                     <span class="upload-link"> Upload invoice file in pdf format</span> or drag and drop up to 10 files (Max 23.8 MB)
                 </div>
             </div>
-                <button type="submit" class="btn-submit">Submit</button>
-
+             <button type="submit" class="btn-submit">Submit</button>
+ 
         </form>
+
+            <div id="success-message" style="display:none; text-align:center; padding:80px 20px;">
+                <i class="fas fa-check-circle" style="color:green; font-size:60px;"></i>
+                <h2 style="font-size: 28px; margin-top:20px;">Congratulations!</h2>
+                <p style="font-size: 18px; color: #555;">The deal registration request has been submitted successfully.</p>
+             <p>Your Keysight Regional Partner Account Manager will review the request within <strong>two business days</strong>.</p>
+            </div>
+   
     </div>
 </section>
 
@@ -502,12 +536,6 @@
             <input type="text" id="messageInput" placeholder="How can I help you today?">
             <button id="sendButton">SEND</button>
         </div>
-    </div>
-
-    <div id="success-message" style="display:none; text-align:center; padding:50px;">
-       <i class="fas fa-check-circle" style="color:green; font-size:50px;"></i>
-       <h2>Deal Registered Successfully!</h2>
-       <p>Eggy has sent your details to the regional manager.</p>
     </div>
 
 </div>
@@ -747,6 +775,37 @@
         }, 5000);
     });
         
+document.getElementById('date').addEventListener('blur', function() {
+    const year = new Date(this.value).getFullYear();
+    if (year < 2026) {
+        alert("Please enter a valid future year (2026 or later).");
+        this.value = ''; // Clear the invalid date
+    }
+});
+
+document.querySelector('.btn-submit').addEventListener('click', function(e) {
+    const form = this.closest('form') || document.querySelector('form');
+    const successDiv = document.getElementById('success-message');
+
+    if (form.checkValidity()) {
+        e.preventDefault(); 
+        
+        form.style.display = 'none';
+        successDiv.style.display = 'block';
+        window.scrollTo(0, 0);
+
+        // --- SURGICAL CONFETTI ADDITION ---
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#E11A22', '#000000', '#ffffff'] // Keysight Red, Black, White
+        });
+        // ----------------------------------
+        
+    }
+});
+
 </script>
 
 </body>
