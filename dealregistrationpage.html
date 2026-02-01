@@ -674,7 +674,16 @@
                 "This ensures you have full technical and commercial alignment to win!";
         }
 
-        // 11. Eggy's Greetings
+        // 11. Audits & Ethical Conduct
+            if (input.includes("audit") || input.includes("compliance") || input.includes("integrity") || input.includes("violation") || input.includes("rules")) {
+                return "Keysight maintains program integrity through strict compliance rules:\n\n" +
+                    "* **Audits:** Keysight may audit deals at any time to verify any documents or info submitted.\n" +
+                    "* **Denial/Removal:** Registrations can be rescinded if a partner is inattentive, offers competitive products, or provides inaccurate/fraudulent info.\n" +
+                    "* **Non-Disclosure:** Partners must **not** discuss Deal Registration details with customers or use them to influence choice between partners.\n" +
+                    "* **Final Authority:** Keysight’s interpretation of these guidelines is non-negotiable and final.";
+            }
+
+        // 12. Eggy's Greetings
         if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
             return "Hi! I'm **Eggy**. I helped design the Keysight Eggplant partner rules. I'm here to make sure your deal registration is perfect so it gets approved fast!";
         }
