@@ -8,7 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-   <style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
     /* --- ROOT & CORE STYLES --- */
     :root {
         --ks-red: #E90029;
@@ -240,6 +241,71 @@
         box-shadow: none !important;
     }
 
+/* Styling the links inside Eggy's responses */
+.message a {
+    color: #FF0000; /* Keysight Red */
+    text-decoration: underline;
+    font-weight: bold;
+    padding: 2px 4px;
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle highlight */
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+      /* Update this specific section in CSS */
+.message div {
+    word-wrap: break-word;       /* Older browsers */
+    overflow-wrap: break-word;   /* Modern browsers */
+    word-break: break-word;      /* Forces the URL to snap to a new line */
+}
+      
+.message a:hover {
+    color: #FFFFFF;
+    background-color: #FF0000; /* Inverts colors when hovered */
+    text-decoration: none;
+}
+
+/* Style for links inside Eggy's bubbles */
+.assistant a {
+    color: #FF0000; /* Keysight Red */
+    font-weight: bold;
+    text-decoration: underline;
+}
+      
+/* Fix for lists that might lose their bullets */
+.assistant ul {
+    margin-left: 20px;
+    padding-bottom: 10px;
+}
+
+/* Style for the Red Playbook Button */
+.assistant a[href*="DealRegistrationPlaybook.pdf"] {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #E11A22 !important; /* Force Keysight Red */
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: 'Space Mono', monospace;
+    transition: all 0.3s ease; /* Smooth transition for color and movement */
+}
+
+/* Hover effect: Now forcing the color change */
+.assistant a[href*="DealRegistrationPlaybook.pdf"]:hover {
+    background-color: #000000 !important; /* Changes to Black or Darker Red */
+    color: #FFFFFF !important;
+    transform: translateY(-3px); /* The movement you already see */
+    box-shadow: 0 5px 15px rgba(225, 26, 34, 0.4); /* Glow effect */
+}
+
+.quick-btn:active {
+    transform: scale(0.95);
+    background-color: var(--primary);
+    color: white;
+}
+      
 </style>
 </head>
 <body>
@@ -286,6 +352,7 @@
 
             <div class="form-row">
                 <div class="col-1 field-wrapper"><input type="text" id="amount" placeholder=" " required><label>Min: $25k USD equiv.</label><span class="required">*</span></div>
+                
                 <div class="col-1 field-wrapper">
                     <select id="currency" required data-value="">
                         <option value="" disabled selected hidden></option>
@@ -376,7 +443,7 @@
         <button class="quick-btn">New Deal Help</button>
         <button class="quick-btn">Requirements</button>
         <button class="quick-btn">Extensions</button>
-        <button class="quick-btn">Portal Guide</button>
+        <button class="quick-btn">Deal Reg Guide</button>
     </div>
 
     <div class="messages" id="messages">
@@ -392,6 +459,13 @@
             <button id="sendButton">SEND</button>
         </div>
     </div>
+
+    <div id="success-message" style="display:none; text-align:center; padding:50px;">
+       <i class="fas fa-check-circle" style="color:green; font-size:50px;"></i>
+       <h2>Deal Registered Successfully!</h2>
+       <p>Eggy has sent your details to the regional manager.</p>
+    </div>
+
 </div>
 
 <footer>
@@ -465,65 +539,82 @@
             <div style="background: ${isUser ? 'rgba(216, 180, 254, 0.2)' : 'rgba(255, 255, 255, 0.1)'}; 
                         padding: 12px 16px; border-radius: 18px; max-width: 85%; line-height: 1.5; 
                         border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); color: white;">
-                ${content}
+                ${!isUser ? marked.parse(content) : content}
             </div>
         `;
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    async function getAIResponse(userMessage) {
-        const msg = userMessage.toLowerCase();
-        await new Promise(resolve => setTimeout(resolve, 1000)); 
 
-        // 1. Portal Guide & Playbook Link
-        if (msg.includes('portal guide') || msg.includes('playbook') || msg.includes('pdf')) {
-            return `📖 <strong>Keysight Eggplant Playbook:</strong><br><br>
-            I've found the <strong>2023-24 Deal Registration Guide</strong>. How would you like to access it?<br><br>
-            📄 <b><a href="assets/DealRegistrationPlaybook.pdf" target="_blank" style="color: #d8b4fe; font-weight: bold;">Review in Browser</a></b> (Live View)<br>
-            <p> </p>
-            📥 <b><a href="assets/DealRegistrationPlaybook.pdf" download style="color: #d8b4fe; font-weight: bold;">Download PDF</a></b> (Save for later)<br><br>
-            <strong>Quick Tip:</strong> Most partners prefer the 'Review' option for a fast check of the <b>Evaluation Requirements (Page 5)</b>.`;
-        }
+        /* --- EMERGENCY MODULE: SMART PRE-BUILT RESPONSES --- */
+        async function getAIResponse(userMessage) {
+        // Artificial delay to make Eggy look like he's "thinking"
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // 2. Rejection & Termination
-        if (msg.includes('reject') || msg.includes('denied') || msg.includes('lose') || msg.includes('remove')) {
-            return `🧐 <strong>Why deals get rejected:</strong><br><br>
-            • <strong>Legal:</strong> Keysight may be obligated to bid directly.<br>
-            • <strong>Inattentiveness:</strong> Not actively working the deal.<br>
-            • <strong>First-Come:</strong> Another partner was faster.<br>
-            • <strong>Competing:</strong> Offering other products for the same deal.`;
-        }
-
-        // 3. RFP & Renewal
-        if (msg.includes('rfp') || msg.includes('bid') || msg.includes('renewal')) {
-            return `⚠️ <strong>Rules:</strong><br>• <strong>No RFPs:</strong> Standard reg doesn't cover RFPs.<br>• <strong>New Business Only:</strong> No maintenance renewals.`;
-        }
-
-        // 4. Extension & 90-Day Eval
-        if (msg.includes('time') || msg.includes('extension') || msg.includes('expire')) {
-            return `⏳ <strong>90-Day Warning:</strong> You MUST conduct a <strong>customer evaluation within the first 90 days</strong> to qualify for a 180-day extension.`;
-        }
-
-        // 5. Registration & Referrals
-        if (msg.includes('how') || msg.includes('start') || msg.includes('new deal help')) {
-            return `🚀 <strong>Starting:</strong> Click the 'Deals' tab -> 'New Deal'. Remember the <strong>$25k minimum</strong> and accurate end-customer data!`;
-        }
-
-       // NEW: Requirements & Eligibility Logic
-        if (msg.includes('requirements') || msg.includes('qualify') || msg.includes('criteria')) {
-            return `📋 <strong>Deal Requirements:</strong><br><br>
-            To qualify for registration, your deal must meet these standards:<br>
-            • <strong>New Business:</strong> Must be a new opportunity, not a renewal.<br>
-            • <strong>Minimum Deal Size:</strong> <strong>$25,000 USD</strong> (Global currency equivalents apply).<br>
-            • <strong>Engagement:</strong> You must have a customer meeting scheduled within 14 days.<br>
-            • <strong>Exclusivity:</strong> You cannot be promoting competing products for this specific opportunity.`;
-        }
-          
-        return `I'm here! ✨ I can explain <strong>Requirements</strong>, provide the <strong>Portal Guide/PDF</strong>, or explain <strong>Rejection reasons</strong>. What's on your mind?`;
+        const input = userMessage.toLowerCase();
         
-    }
+        // 1. Playbook & Rules (High Priority)
+        if (input.includes("rule") || input.includes("playbook") || input.includes("guide")) {
+            return "As the Program Manager who architected the **Deal Registration Playbook**, I've ensured our rules are built for partner success: \n\n" +
+                "* **Threshold:** Minimum deal size is **$25,000 USD** equivalent.\n" +
+                "* **Timing:** Register at least **14 days** before the expected close.\n" +
+                "* **Exclusions:** Renewals and RFPs are not eligible for registration protection.\n\n" +
+                "Would you like to **preview the full strategy** to ensure compliance: <br/> " +
+                "📄 <b><a href='assets/DealRegistrationPlaybook.pdf' target='_blank' style='display: inline !important; background: none !important; color: #d8b4fe !important; padding: 0 !important; border: none !important; font-weight: bold;'>Review in Browser</a></b> (Live View)\n\n" +
+                "You can download it below:\n\n" +
+               "<a href='https://bizalchemist.github.io/assets/DealRegistrationPlaybook.pdf' target='_blank' " +
+               "style='display: inline-block; width: auto; padding: 10px 20px; background-color: #E11A22; color: white; " +
+               "text-decoration: none; border-radius: 5px; font-weight: bold; font-family: sans-serif;'>PDF Playbook Guide</a>";
+        }
 
+        // 2. Threshold & Currency (Contextual)
+        if (input.includes("limit") || input.includes("amount") || input.includes("25") || input.includes("money")) {
+            return "The **$25,000 USD threshold** is a hard rule from our Playbook. Use the currency dropdown in the form to check the real-time conversion. If the deal is smaller, it won't qualify for registration benefits.";
+        }
+
+        // 3. Extensions (Quick Action Support)
+        if (input.includes("extension") || input.includes("expire") || input.includes("long")) {
+            return "Deals are protected for **180 days**. If you need an extension, you must show significant progress (like an active Evaluation) before the 90-day midpoint check!";
+        }
+
+        // 4. Requirements & Steps
+        if (input.includes("requirement") || input.includes("need") || input.includes("step")) {
+            return "To successfully register, you need: \n1. **End Customer details** (Legal name & Website).\n2. **Project overview** and key drivers to win.\n3. **Technical discovery** confirmation.\n\nI'll check these as you fill out the form!";
+        }
+
+        // 5. Help with New Deal (Quick Action Support)
+        if (input.includes("new deal") || input.includes("start")) {
+            return "I'm ready! Start by entering the **Deal Name** and selecting the **End Customer**. I recommend using a descriptive name like 'Project Quantum - Eggplant AI Enablement'.";
+        }
+
+        // 6. Rejection & Termination (new logic)
+        if (input.includes("reject") || input.includes("denied") || input.includes("lose") || input.includes("remove")) {
+            return "🧐 **Why deals get rejected:**\n\n" +
+                "* **Legal:** Keysight may be obligated to bid directly.\n" +
+                "* **Inattentiveness:** Not actively working the deal.\n" +
+                "* **First-Come:** Another partner was faster.\n" +
+                "* **Competing:** Offering other products for the same deal.";
+        }
+
+        // 7. Referral vs Deal Registration
+            if (input.includes("referral") || input.includes("refer") || input.includes("hand-off")) {
+                return "As part of the **Eggplant AI Enablement** strategy, we distinguish between two paths:\n\n" +
+                    "* **Deal Registration:** You lead the sales cycle. Requires a **$25k minimum** and offers full margin protection.\n" +
+                    "* **Referral:** You identify the opportunity and 'hand-off' to our internal sales team.\n\n" +
+                    "**Note on Fees:** Specific Referral Fee amounts are outlined in your individual **Partner Sales Agreement (PSA)** rather than the Playbook, as they are tier-dependent. \n\n" +
+                    "Would you like to review the **Referral Submission process** instead?";
+            }
+
+        // 8. Greetings
+        if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
+            return "Hi! I'm **Eggy**. I helped design the Keysight Eggplant partner rules. I'm here to make sure your deal registration is perfect so it gets approved fast!";
+        }
+
+        // Default "Smart" Fallback
+        return "That's a good question. While I'm in 'Demo Mode', I'm focused on the **Deal Registration Playbook** rules. Try asking me about 'Requirements', 'Extensions', or the '$25k Threshold'!";
+    }   
+    
         async function sendMessage() {
         const input = document.getElementById('messageInput');
         if (!input || !input.value.trim()) return;
@@ -551,18 +642,25 @@
 
     /* --- PART 4: EVENT LISTENERS --- */
     document.addEventListener('DOMContentLoaded', () => {
+        // FIXED QUICK BUTTONS LOGIC
         document.querySelectorAll('.quick-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', async () => {
                 const query = btn.innerText;
-                addMessage(query, true);
-                getAIResponse(query).then(res => addMessage(res, false));
+                const input = document.getElementById('messageInput');
+                
+                // Put the text in the input and trigger the existing sendMessage function
+                input.value = query;
+                sendMessage();
             });
         });
+    
         const msgInput = document.getElementById('messageInput');
         if (msgInput) msgInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
+        
         const sendBtn = document.getElementById('sendButton');
         if (sendBtn) sendBtn.addEventListener('click', sendMessage);
-
+    
+        // Notification Logic
         setTimeout(() => {
             if (!chatOpened) {
                 const notif = document.getElementById('chat-notif');
@@ -572,6 +670,7 @@
             }
         }, 5000);
     });
+        
 </script>
 
 </body>
