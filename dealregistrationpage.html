@@ -306,10 +306,19 @@
     color: white;
 }
     
-/* Target the calendar icon in the date input */
+/* Target the calendar icon and move it to the left to prevent overflow */
 #date::-webkit-calendar-picker-indicator {
     filter: invert(18%) sepia(88%) saturate(7467%) hue-rotate(352deg) brightness(91%) contrast(92%);
     cursor: pointer;
+    position: absolute;
+    left: 8px; /* Simple: keeps the icon safe from the right edge */
+}
+
+/* Ensure text doesn't overlap the icon */
+#date {
+    padding-left: 35px !important; 
+    box-sizing: border-box;
+    width: 100%;
 }
 
 </style>
@@ -357,29 +366,45 @@
             </div>
 
             <div class="form-row">
-                <div class="col-1 field-wrapper"><input type="text" id="amount" placeholder=" " required><label>Min: $25k USD equiv.</label><span class="required">*</span></div>
+                <div class="col-1 field-wrapper">
+                    <input type="number" id="amount" placeholder=" " required min="25000">
+                    <label>Min: $25k USD equiv.</label>
+                    <span class="required">*</span>
+                </div>
                 
                 <div class="col-1 field-wrapper">
                     <select id="currency" required data-value="">
                         <option value="" disabled selected hidden></option>
-                        <option value="USD">USD - US Dollar</option><option value="EUR">EUR - Euro</option>
-                        <option value="GBP">GBP - British Pound</option><option value="JPY">JPY - Japanese Yen</option>
-                        <option value="AUD">AUD - Australian Dollar</option><option value="CAD">CAD - Canadian Dollar</option>
-                        <option value="CHF">CHF - Swiss Franc</option><option value="CNY">CNY - Chinese Yuan</option>
-                        <option value="INR">INR - Indian Rupee</option><option value="SGD">SGD - Singapore Dollar</option>
-                        <option value="TWD">TWD - Taiwan New Dollar</option><option value="KRW">KRW - Koria (South) Won</option>
-                        <option value="MYR">MYR - Malaysian Ringgit</option><option value="MXN">MXN - Mexican Peso</option>
-                        <option value="BRL">BRL - Brazilian Real</option><option value="VND">VND - Vietnamese Dong</option>
-                        <option value="THB">THB - Thai Baht</option><option value="ILS">ILS - Israeli New Shekel</option>
-                        <option value="HKD">HKD - Hong Kong Dollar</option><option value="DKK">DKK - Danish Krone</option>
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="GBP">GBP - British Pound</option>
+                        <option value="JPY">JPY - Japanese Yen</option>
+                        <option value="AUD">AUD - Australian Dollar</option>
+                        <option value="CAD">CAD - Canadian Dollar</option>
+                        <option value="CHF">CHF - Swiss Franc</option>
+                        <option value="CNY">CNY - Chinese Yuan</option>
+                        <option value="INR">INR - Indian Rupee</option>
+                        <option value="SGD">SGD - Singapore Dollar</option>
+                        <option value="TWD">TWD - Taiwan New Dollar</option>
+                        <option value="KRW">KRW - Korea (South) Won</option>
+                        <option value="MYR">MYR - Malaysian Ringgit</option>
+                        <option value="MXN">MXN - Mexican Peso</option>
+                        <option value="BRL">BRL - Brazilian Real</option>
+                        <option value="VND">VND - Vietnamese Dong</option>
+                        <option value="THB">THB - Thai Baht</option>
+                        <option value="ILS">ILS - Israeli New Shekel</option>
+                        <option value="HKD">HKD - Hong Kong Dollar</option>
+                        <option value="DKK">DKK - Danish Krone</option>
                         <option value="SEK">SEK - Swedish Krone</option>
                     </select>
                     <label>Currency</label><span class="required">*</span>
                 </div>
+                
                 <div class="col-1 field-wrapper">
                     <select id="type" required data-value="">
                         <option value="" disabled selected hidden></option>
-                        <option value="Deal">Deal</option><option value="Referral">Referral</option>
+                        <option value="Deal">Deal</option>
+                        <option value="Referral">Referral</option>
                     </select>
                     <label>Type</label><span class="required">*</span>
                 </div>
@@ -438,8 +463,7 @@
                     <span class="upload-link"> Upload invoice file in pdf format</span> or drag and drop up to 10 files (Max 23.8 MB)
                 </div>
             </div>
-
-            <button type="submit" class="btn-submit">Submit</button>
+                <button type="submit" class="btn-submit">Submit</button>
 
         </form>
     </div>
