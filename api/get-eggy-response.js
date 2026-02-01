@@ -3,7 +3,7 @@ module.exports = async (req, res) => {
 
     try {
         const { message } = req.body;
-        const API_KEY = process.env.GEMINI_API_KEY;
+        const API_KEY = process.env.GOOGLE_API_KEY;
 
         // UPDATED FOR 2026: Using the stable 2.5 Flash model
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
