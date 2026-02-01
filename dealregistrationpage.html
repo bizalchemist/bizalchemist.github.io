@@ -307,21 +307,6 @@
     color: white;
 }
     
-/* Target the calendar icon and move it to the left to prevent overflow */
-#date::-webkit-calendar-picker-indicator {
-    filter: invert(18%) sepia(88%) saturate(7467%) hue-rotate(352deg) brightness(91%) contrast(92%);
-    cursor: pointer;
-    position: absolute;
-    left: 8px; /* Simple: keeps the icon safe from the right edge */
-}
-
-/* Ensure text doesn't overlap the icon */
-#date {
-    padding-left: 35px !important; 
-    box-sizing: border-box;
-    width: 100%;
-}
-
 /* Highlights the field if the year is invalid or before 2026 */
 #date:invalid {
     border-bottom: 2px solid #E11A22;
@@ -332,6 +317,23 @@
 #date:invalid:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(225, 26, 34, 0.3);
+}
+
+#date {
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box; /* This is the "Magic Fix" for the overflow */
+    padding: 12px 10px;    /* Balanced padding for touch-friendly mobile use */
+    display: block;
+    border: 1px solid #ccc; /* Or your specific border style */
+}
+
+/* Style the icon without moving its position */
+#date::-webkit-calendar-picker-indicator {
+    filter: invert(18%) sepia(88%) saturate(7467%) hue-rotate(352deg) brightness(91%) contrast(92%);
+    cursor: pointer;
+    margin: 0; /* Prevents the "extra few px" push on iPhone */
+    padding: 0;
 }
 
 </style>
