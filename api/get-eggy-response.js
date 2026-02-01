@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
         const { message } = req.body; // Vercel parses this for us automatically
         const API_KEY = process.env.GEMINI_API_KEY;
 
-     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=${API_KEY}`;
+     const API_URL = `https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText?key=${API_KEY}`;
 
         
         // THIS IS YOUR EXACT LOGIC - UNCHANGED
