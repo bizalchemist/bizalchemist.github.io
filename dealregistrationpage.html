@@ -548,8 +548,8 @@
 
 async function getAIResponse(userMessage) {
     try {
-        // We point to your Netlify function path
-        const response = await fetch('/.netlify/functions/get-eggy-response', {
+        // We point to your Vercel function path
+        const response = await fetch('/api/get-eggy-response', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: userMessage })
