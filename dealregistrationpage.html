@@ -792,21 +792,27 @@ document.querySelector('.btn-submit').addEventListener('click', function(e) {
     if (form.checkValidity()) {
         e.preventDefault(); 
         
+        // 1. Hide the form
         form.style.display = 'none';
+        
+        // 2. Hide the headers so the Congratulations message is the star of the show
+        document.querySelectorAll('.page-content h1, .page-content .instruction-text').forEach(el => el.style.display = 'none');
+        
+        // 3. Show Success Message
         successDiv.style.display = 'block';
         window.scrollTo(0, 0);
 
-        // --- MODERN TECH CONFETTI ---
+        // 4. Modern Tech Confetti with Keysight Red
         confetti({
             particleCount: 150,
             spread: 70,
             origin: { y: 0.6 },
             colors: [
-                '#E11A22', // Keysight Red (keep the core brand)
+                '#E11A22', // Keysight Red (Keeping it for brand pop!)
+                '#22c55e', // Success Green
                 '#6366f1', // Electric Indigo
                 '#a855f7', // Cyber Purple
-                '#ec4899', // Hot Pink
-                '#06b6d4'  /* Digital Cyan */
+                '#fcd34d'  // Golden Sparkle
             ]
         });
     }
