@@ -6,8 +6,9 @@ module.exports = async (req, res) => {
         const { message } = req.body; // Vercel parses this for us automatically
         const API_KEY = process.env.GEMINI_API_KEY;
 
-        const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
+        
         // THIS IS YOUR EXACT LOGIC - UNCHANGED
         const promptWithContext = `
             You are Eggy v2.0, the specialized AI Deal Registration Assistant for the Keysight Eggplant Ecosystem.
