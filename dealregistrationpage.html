@@ -305,7 +305,13 @@
     background-color: var(--primary);
     color: white;
 }
-      
+    
+/* Target the calendar icon in the date input */
+#date::-webkit-calendar-picker-indicator {
+    filter: invert(18%) sepia(88%) saturate(7467%) hue-rotate(352deg) brightness(91%) contrast(92%);
+    cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -389,11 +395,21 @@
                     </select>
                     <label>Stage</label><span class="required">*</span>
                 </div>
+
                 <div class="col-1 field-wrapper">
-                    <div class="prob-container"><input type="text" id="prob" placeholder=" " required><label>Probability</label><div class="suffix">%</div></div><span class="required">*</span>
+                    <div class="prob-container"><input type="number" id="prob" placeholder=" " required min="0" max="100">
+                        <label>Probability</label>
+                        <div class="suffix">%</div>
+                    </div>
+                    <span class="required">*</span>
                 </div>
-                <div class="col-1 field-wrapper"><input type="text" id="date" placeholder=" " required maxlength="10"><label>Close Date (mm/dd/yyyy)</label><span class="required">*</span></div>
-            </div>
+
+                <div class="col-1 field-wrapper">
+                    <input type="date" id="date" placeholder=" " required>
+                    <label>Close Date</label>
+                    <span class="required">*</span>
+                </div>
+            </div>    
 
             <div class="form-row">
                 <div class="col-2 field-wrapper">
