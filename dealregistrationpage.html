@@ -574,8 +574,8 @@
         }
 
         // 3. Extensions (Quick Action Support)
-        if (input.includes("extension") || input.includes("expire") || input.includes("long")) {
-            return "Deals are protected for **180 days**. If you need an extension, you must show significant progress (like an active Evaluation) before the 90-day midpoint check!";
+        if (input.includes("extension") || input.includes("expire") || input.includes("long") || input.includes("90") || input.includes("midpoint") || input.includes("check")) {
+            return "Deals are protected for **180 days**. However, the **90-day midpoint check** is mandatory: you must conduct a customer evaluation and demonstrate progress to keep protection active. Failing to show progress leads to the deal being 'unregistered'.";
         }
 
         // 4. Requirements & Steps
@@ -606,7 +606,23 @@
                     "Would you like to review the **Referral Submission process** instead?";
             }
 
-        // 8. Greetings
+        // 8. New Section Government/Bids
+        if (input.includes("government") || input.includes("bid") || input.includes("rfp")) {
+            return "For **Open Bids/Government contracts**: \n\n" +
+                "* **RFPs:** Standard deal registration is not eligible.\n" +
+                "* **Bids:** A non-registered discount may be given to all resellers, but the full protected discount is awarded to the partner who **wins the contract award**.";
+        }
+
+        // 9. New Section Presales Effort
+        if (input.includes("effort") || input.includes("proof") || input.includes("work")) {
+            return "To qualify for protection, you must document **significant presales efforts**, such as: \n\n" +
+                "* Meeting with decision-makers.\n" +
+                "* Quantifying project budgets.\n" +
+                "* Qualifying technical requirements.\n\n" +
+                "Keysight may audit these records at any time to verify compliance.";
+        }
+
+        // 10. Eggy's Greetings
         if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
             return "Hi! I'm **Eggy**. I helped design the Keysight Eggplant partner rules. I'm here to make sure your deal registration is perfect so it gets approved fast!";
         }
