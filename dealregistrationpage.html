@@ -590,11 +590,10 @@
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-
         /* --- EMERGENCY MODULE: SMART PRE-BUILT RESPONSES --- */
         async function getAIResponse(userMessage) {
-        // Artificial delay to make Eggy look like he's "thinking"
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Increased to 1.5 seconds for a more "analytical" feel
+        await new Promise(resolve => setTimeout(resolve, 1500));
 
         const input = userMessage.toLowerCase();
         
