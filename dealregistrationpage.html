@@ -602,13 +602,13 @@
         }
 
         // 7. Referral vs Deal Registration
-            if (input.includes("referral") || input.includes("refer") || input.includes("hand-off")) {
-                return "As part of the **Eggplant AI Enablement** strategy, we distinguish between two paths:\n\n" +
-                    "* **Deal Registration:** You lead the sales cycle. Requires a **$25k minimum** and offers full margin protection.\n" +
-                    "* **Referral:** You identify the opportunity and 'hand-off' to our internal sales team.\n\n" +
-                    "**Note on Fees:** Specific Referral Fee amounts are outlined in your individual **Partner Sales Agreement (PSA)** rather than the Playbook, as they are tier-dependent. \n\n" +
-                    "Would you like to review the **Referral Submission process** instead?";
-            }
+        if (input.includes("referral") || input.includes("refer") || input.includes("hand-off")) {
+            return "As part of the **Eggplant AI Enablement** strategy, we distinguish between two paths:\n\n" +
+                "* **Deal Registration:** You lead the sales cycle. Requires a **$25k minimum**.\n" +
+                "* **Referral:** You identify the opportunity and 'hand-off' to our team. You can track progress via the **'Deal Stage'** dropdown in the portal.\n\n" +
+                "**Mandatory Invoice:** If the deal reaches **'Closed Won'**, you must upload a PDF invoice including the company name, closing date, fee amount, and authorizing contact.\n\n" +
+                "**Note on Fees:** Specific amounts are outlined in your individual **Partner Sales Agreement (PSA)** rather than the Playbook, as they are tier-dependent.";
+        }
 
         // 8. New Section Government/Bids
         if (input.includes("government") || input.includes("bid") || input.includes("rfp")) {
