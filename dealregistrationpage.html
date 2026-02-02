@@ -307,25 +307,25 @@
     color: white;
 }
     
-/* Highlights the field if the year is invalid or before 2026 */
-#date:invalid {
-    border-bottom: 2px solid #E11A22;
-    color: #E11A22;
-}
+        /* Keep this: it flags the year 2025 or earlier as an error */
+        #date:invalid {
+            border-bottom: 2px solid #E11A22;
+            color: #E11A22;
+        }
 
-/* Optional: Subtle glow to grab attention on error */
-#date:invalid:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(225, 26, 34, 0.3);
-}
+        /* Keep this: subtle glow for better UX */
+        #date:invalid:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(225, 26, 34, 0.3);
+        }
 
-    /* Keeps the icon looking sharp without pushing the width */
-    #date::-webkit-calendar-picker-indicator {
-        filter: invert(18%) sepia(88%) saturate(7467%) hue-rotate(352deg) brightness(91%) contrast(92%);
-        cursor: pointer;
-        margin: 0;
-        padding: 0;
-    }
+        /* Keep this: colors the icon red and fixes the iPhone spacing */
+        #date::-webkit-calendar-picker-indicator {
+            filter: invert(18%) sepia(88%) saturate(7467%) hue-rotate(352deg) brightness(91%) contrast(92%);
+            cursor: pointer;
+            margin-right: 2px; /* Surgical Fix: gives the icon a tiny bit of breathing room from the edge */
+            padding: 0;
+        }
 
 </style>
 </head>
@@ -442,16 +442,18 @@
                     <span class="required">*</span>
                 </div>
 
-            <div class="col-1 field-wrapper" style="position: relative;">
-                <input type="date" 
-                    id="date" 
-                    placeholder=" " 
-                    required 
-                    min="2026-01-01" 
-                    max="2035-12-31"
-                    style="width: 95% !important; padding: 22px 12px 6px 12px !important; box-sizing: border-box !important;">
-                <label>Close Date</label>
-                <span class="required" style="position: absolute; right: 0; top: 16px; width: auto;">*</span>
+            <div class="col-1" style="display: flex; align-items: center; position: relative; gap: 5px;">
+                <div class="field-wrapper" style="flex: 1;">
+                    <input type="date" 
+                        id="date" 
+                        placeholder=" " 
+                        required 
+                        min="2026-01-01" 
+                        max="2035-12-31"
+                        style="width: 100% !important; padding: 22px 12px 6px 12px !important; box-sizing: border-box !important; display: block;">
+                    <label>Close Date</label>
+                </div>
+                <span class="required" style="position: static; color: var(--ks-red); font-weight: bold; margin-top: 5px;">*</span>
             </div>
 
             </div>    
