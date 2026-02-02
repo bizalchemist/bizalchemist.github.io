@@ -442,20 +442,18 @@
                     <span class="required">*</span>
                 </div>
 
-                <div class="col-1" style="display: flex; align-items: center; position: relative; width: 100%;">
-                    <div class="field-wrapper" style="flex: 1;">
-                        <input type="date" 
-                            id="date" 
-                            placeholder=" " 
-                            required 
-                            min="2026-01-01" 
-                            max="2035-12-31"
-                            style="width: 100% !important; padding: 22px 12px 6px 12px !important; box-sizing: border-box !important; display: block;">
-                        <label>Close Date</label>
-                    </div>
-                    <span class="required" style="position: relative; right: auto; top: auto; margin-left: 8px; flex-shrink: 0; color: var(--ks-red); font-weight: bold;">*</span>
-                </div>   
-            </div>
+                <div class="col-1 field-wrapper" style="position: relative; display: block;">
+                    <input type="date" 
+                        id="date" 
+                        placeholder=" " 
+                        required 
+                        min="2026-01-01" 
+                        max="2035-12-31"
+                        style="width: 100% !important; padding: 22px 30px 6px 12px !important; box-sizing: border-box !important;">
+                    <label>Close Date</label>
+                    <span class="required" style="position: absolute; right: 35px; top: 22px; pointer-events: none; color: var(--ks-red); font-weight: bold; font-size: 18px;">*</span>
+                </div>  
+        </div>
             <div class="form-row">
                 <div class="col-2 field-wrapper">
                     <textarea id="briefDesc" placeholder="Please add additional details: project's overview, key decision makers, use case, key competitors and primary drivers to win the deal, new or existing end customer, etc." style="resize: vertical; min-height: 120px;" required></textarea>
