@@ -623,7 +623,7 @@
                 "* **Threshold:** Minimum deal size is **$25,000 USD** equivalent.\n" +
                 "* **Timing:** Register at least **14 days** before the expected close.\n" +
                 "* **Exclusions:** Renewals and RFPs are not eligible for registration protection.\n\n" +
-                "Would you like to **preview the strategy** now, or save it for later?\n\n" +
+                "Would you like to **preview the strategy** now, or save it for later?\n\n\n" +
                 "📄 <b><a href='assets/DealRegistrationPlaybook.pdf' target='_blank' style='display: inline !important; background: none !important; color: #d8b4fe !important; padding: 0 !important; border: none !important; font-weight: bold;'>Review in Browser</a></b> (Live View)\n\n" +
                 "You can download it below:\n\n" +
                 "<a href='assets/DealRegistrationPlaybook.pdf' download='DealRegistrationPlaybook.pdf' " +
@@ -662,7 +662,7 @@
         }
 
         // 7. Referral vs Deal Registration
-        if (input.includes("referral") || input.includes("refer") || input.includes("hand-off")) {
+        if (input.includes("referral") || input.includes("refer") || input.includes("invoice") || input.includes("hand-off")) {
             return "As part of the **Eggplant AI Enablement** strategy, we distinguish between two paths:\n\n" +
                 "* **Deal Registration:** You lead the sales cycle. Requires a **$25k minimum**.\n" +
                 "* **Referral:** You identify the opportunity and 'hand-off' to our team. You can track progress via the **'Deal Stage'** dropdown in the portal.\n\n" +
@@ -704,7 +704,7 @@
             }
 
         // 12. Eggy's Greetings
-        if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
+        if (input.includes("hello") || input.includes("hi") || input.includes("ho") || input.includes("hey")) {
             return "Hi! I'm **Eggy**. I helped design the Keysight Eggplant partner rules. I'm here to make sure your deal registration is perfect so it gets approved fast!";
         }
 
