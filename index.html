@@ -886,10 +886,11 @@
             <a href="dealregistrationpage.html" target="_blank" class="modern-btn" style="background: var(--accent-blue);">
                 <i class="fa fa-magic"></i> AI Deal Assistant
             </a>
-      
+            
             <a href="dashboard.html" target="_blank" class="modern-btn" style="background: var(--accent-blue);">
                 <i class="fa fa-rocket"></i> Launch Live Demo
             </a>
+
     </div>
     
     <p> </p>
@@ -1082,30 +1083,46 @@
     responses["help"] = responses["deal"];
     responses["form"] = responses["deal"];
 
-        function getBotResponse(userMessage) {
-            const lowerCaseMessage = userMessage.toLowerCase();
+function getBotResponse(userMessage) {
+            const msg = userMessage.toLowerCase();
+            
+            // 1. Contextual Greeting Logic
+            const hours = new Date().getHours();
+            const timeGreeting = hours < 12 ? "Good morning!" : hours < 17 ? "Good afternoon!" : "Good evening!";
+
+            // 2. High-Priority Multi-Match Logic (The "Revenue" Question)
+            if (msg.includes("eggplant") && (msg.includes("revenue") || msg.includes("money"))) {
+                return `${timeGreeting} Masha's architecture for <b>Eggplant AI</b> generated <b>$5M+ in revenue</b> in Year 1 alone. Would you like to see the <a href='dashboard.html' style='color: #38bdf8;'>Telemetry Dashboard</a>?`;
+            }
+            
+            if (msg.includes("keysight") && (msg.includes("deals") || msg.includes("win"))) {
+                return `Impressive catch! Masha unblocked <b>$10M in stalled deals</b> for the HFM portfolio. Her "Revenue-First" strategy is her signature move.`;
+            }
+
+            // 3. Smart Search through your existing response map
             for (const keyword in responses) {
-                if (lowerCaseMessage.includes(keyword)) {
+                if (msg.includes(keyword)) {
                     return responses[keyword];
                 }
             }
-            // Fallback that pushes to the high-value dashboard
-            return "That is a strategic inquiry. While I synthesize that data, you should explore the <b><a href='dashboard.html' style='color: #38bdf8;'>Interactive AI Command Center</a></b> to see her logic in action. Or, would you like to <b><a href='https://linkedin.com/in/mashaharness' target='_blank' style='color: #38bdf8;'>Connect with Masha</a></b> directly?";
+
+            // 4. The "Sophisticated Fallback"
+            return `That's a great question about Masha's strategy. While I process the specifics, I recommend launching the <b><a href='dashboard.html' style='color: #38bdf8;'>AI Command Center</a></b>—it visualizes exactly how she connects data to $15M+ in revenue outcomes.`;
         }
 
-        function sendMessage() {
+function sendMessage() {
             const userText = chatbotInput.value.trim();
-            if (userText === "") return;
-
+            if (userText === "") return;         
+         
             // Add user message
             addMessage(userText, 'user');
             chatbotInput.value = '';
 
-            // Simulate "thinking" delay
+            // Add a "Thinking..." indicator or just a slightly longer delay
             setTimeout(() => {
                 const botResponse = getBotResponse(userText);
                 addMessage(botResponse, 'bot');
-            }, 600);
+            }, 1200); // 1.2 seconds is the "human-like" sweet spot
         }
 
         chatbotSendBtn.addEventListener('click', sendMessage);
