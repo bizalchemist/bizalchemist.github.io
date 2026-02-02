@@ -319,14 +319,6 @@
     box-shadow: 0 0 5px rgba(225, 26, 34, 0.3);
 }
 
-    #date {
-        width: 97% !important;   /* The width fix you requested */
-        max-width: 97% !important;
-        padding: 22px 12px 6px 12px !important; /* Forces the height back to match the others */
-        box-sizing: border-box; 
-        display: block;
-    }
-
     /* Keeps the icon looking sharp without pushing the width */
     #date::-webkit-calendar-picker-indicator {
         filter: invert(18%) sepia(88%) saturate(7467%) hue-rotate(352deg) brightness(91%) contrast(92%);
@@ -450,16 +442,17 @@
                     <span class="required">*</span>
                 </div>
 
-                <div class="col-1 field-wrapper">
-                    <input type="date" 
-                        id="date" 
-                        placeholder=" " 
-                        required 
-                        min="2026-01-01" 
-                        max="2035-12-31">
-                    <label>Close Date</label>
-                    <span class="required">*</span>
-                </div>
+            <div class="col-1 field-wrapper">
+                <input type="date" 
+                    id="date" 
+                    style="width: 97% !important; padding: 22px 12px 6px 12px !important;" 
+                    placeholder=" " 
+                    required 
+                    min="2026-01-01" 
+                    max="2035-12-31">
+                <label>Close Date</label>
+                <span class="required" style="right: -8px;">*</span>
+            </div>
 
             </div>    
 
