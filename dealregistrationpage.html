@@ -442,17 +442,17 @@
                     <span class="required">*</span>
                 </div>
 
-                <div class="col-1 field-wrapper" style="position: relative; display: block;">
-                    <input type="date" 
-                        id="date" 
-                        placeholder=" " 
-                        required 
-                        min="2026-01-01" 
-                        max="2035-12-31"
-                        style="width: 100% !important; padding: 22px 30px 6px 12px !important; box-sizing: border-box !important;">
-                    <label>Close Date</label>
-                    <span class="required" style="position: absolute; right: 35px; top: 22px; pointer-events: none; color: var(--ks-red); font-weight: bold; font-size: 18px;">*</span>
-                </div>  
+            <div class="col-1 field-wrapper">
+                <input type="date" 
+                    id="date" 
+                    style="width: calc(100% - 20px) !important; padding: 22px 12px 6px 12px !important; display: inline-block;" 
+                    placeholder=" " 
+                    required 
+                    min="2026-01-01" 
+                    max="2035-12-31">
+                <label>Close Date</label>
+                <span class="required" style="position: relative; right: auto; top: -35px; float: right; margin-right: 5px;">*</span>
+            </div>
         </div>
             <div class="form-row">
                 <div class="col-2 field-wrapper">
