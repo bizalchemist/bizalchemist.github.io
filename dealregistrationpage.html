@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keysight Eggplant Global Partner Portal Deal Registration</title>
+    <title>Keysight Eggplant Partner Portal Deal Registration</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -121,7 +121,8 @@
     @keyframes eggy-wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
     .wave-animate { animation: eggy-wave 0.5s ease-in-out 3; }
 
-    .chat-container {
+    #chatbot-window.chat-container {
+        display: none; /* Keep this hidden by default so toggleChat() can work */
         position: fixed; bottom: 115px; right: 30px; width: 420px; height: 75vh;
         background: rgba(15, 23, 42, 0.7) !important; 
         backdrop-filter: blur(50px) saturate(210%); 
@@ -327,10 +328,15 @@
             padding: 0;
         }
 
-.bot-message {
-    white-space: pre-wrap; /* This tells the browser to respect your \n breaks */
-}
-      
+    .bot-message b {
+        color: #E11A22; /* Keysight Red for the tip title */
+    }
+
+    /* Make sure the chatbot doesn't jump around when new tips arrive */
+    #chatbot-messages {
+        scroll-behavior: smooth;
+    }
+
 </style>
 </head>
 <body>
@@ -627,7 +633,7 @@
                 "* **Threshold:** Minimum deal size is **$25,000 USD** equivalent.\n" +
                 "* **Timing:** Register at least **14 days** before the expected close.\n" +
                 "* **Exclusions:** Renewals and RFPs are not eligible for registration protection.\n\n" +
-                "Would you like to **preview the strategy** now, or save it for later?\n\n\n" +
+                "Would you like to **preview the strategy** now, or save it for later?\n\n" +
                 "📄 <b><a href='assets/DealRegistrationPlaybook.pdf' target='_blank' style='display: inline !important; background: none !important; color: #d8b4fe !important; padding: 0 !important; border: none !important; font-weight: bold;'>Review in Browser</a></b> (Live View)\n\n" +
                 "You can download it below:\n\n" +
                 "<a href='assets/DealRegistrationPlaybook.pdf' download='DealRegistrationPlaybook.pdf' " +
@@ -637,7 +643,7 @@
         }
 
         // 2. Threshold & Currency (Contextual)
-        if (input.includes("limit") || input.includes("amount") || input.includes("25") || input.includes("usd") || input.includes("money")) {
+        if (input.includes("limit") || input.includes("amount") || input.includes("25") || input.includes("money")) {
             return "The **$25,000 USD threshold** is a hard rule from our Playbook. Use the currency dropdown in the form to check the real-time conversion. If the deal is smaller, it won't qualify for registration benefits.";
         }
 
@@ -666,7 +672,7 @@
         }
 
         // 7. Referral vs Deal Registration
-        if (input.includes("referral") || input.includes("refer") || input.includes("invoice") || input.includes("hand-off")) {
+        if (input.includes("referral") || input.includes("refer") || input.includes("hand-off")) {
             return "As part of the **Eggplant AI Enablement** strategy, we distinguish between two paths:\n\n" +
                 "* **Deal Registration:** You lead the sales cycle. Requires a **$25k minimum**.\n" +
                 "* **Referral:** You identify the opportunity and 'hand-off' to our team. You can track progress via the **'Deal Stage'** dropdown in the portal.\n\n" +
@@ -708,7 +714,7 @@
             }
 
         // 12. Eggy's Greetings
-        if (input.includes("hello") || input.includes("hi") || input.includes("ho") || input.includes("hey")) {
+        if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
             return "Hi! I'm **Eggy**. I helped design the Keysight Eggplant partner rules. I'm here to make sure your deal registration is perfect so it gets approved fast!";
         }
 
@@ -772,46 +778,112 @@
         }, 5000);
     });
         
-document.getElementById('date').addEventListener('blur', function() {
-    const year = new Date(this.value).getFullYear();
-    if (year < 2026) {
-        alert("Please enter a valid future year (2026 or later).");
-        this.value = ''; // Clear the invalid date
-    }
-});
 
-document.querySelector('.btn-submit').addEventListener('click', function(e) {
-    const form = this.closest('form') || document.querySelector('form');
-    const successDiv = document.getElementById('success-message');
+    /* --- PART 6: AGENTIC FIELD OBSERVER --- */
+    document.addEventListener('DOMContentLoaded', () => {
+        // Map your Form Field IDs to the specific keyword in your getAIResponse logic
+        const fieldTips = {
+            'deal-name': 'new deal',
+            'customer-name': 'requirement',
+            'deal-amount': 'limit',
+            'deal-type': 'referral',
+            'closing-date': 'extension'
+        };
 
-    if (form.checkValidity()) {
-        e.preventDefault(); 
-        
-        // 1. Hide the form
-        form.style.display = 'none';
-        
-        // 2. Hide the headers so the Congratulations message is the star of the show
-        document.querySelectorAll('.page-content h1, .page-content .instruction-text').forEach(el => el.style.display = 'none');
-        
-        // 3. Show Success Message
-        successDiv.style.display = 'block';
-        window.scrollTo(0, 0);
-
-        // 4. Modern Tech Confetti with Keysight Red
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: [
-                '#E11A22', // Keysight Red (Keeping it for brand pop!)
-                '#22c55e', // Success Green
-                '#6366f1', // Electric Indigo
-                '#a855f7', // Cyber Purple
-                '#fcd34d'  // Golden Sparkle
-            ]
+        // Attach listeners to each field
+        Object.keys(fieldTips).forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('focus', async () => {
+                    // Only trigger if the chatbot container is open (active)
+                    const chatbotContainer = document.getElementById('chatbot-container');
+                    if (chatbotContainer.classList.contains('active')) {
+                        
+                        const triggerKeyword = fieldTips[fieldId];
+                        const tipResponse = await getAIResponse(triggerKeyword);
+                        
+                        // Add a special 'agent-tip' class so it looks different from a regular chat
+                        addMessage("<b>Eggy's Pro-Tip:</b> " + tipResponse, 'bot');
+                    }
+                });
+            }
         });
-    }
+    });
+
+/* --- REFINED PART 7: ACTIVE GOVERNANCE MODULE --- */
+document.querySelectorAll('input, select').forEach(field => {
+    field.addEventListener('blur', async (e) => {
+        const value = e.target.value;
+        const fieldId = e.target.id;
+        const chatWindow = document.getElementById('chatbot-window');
+        let alertMessage = "";
+        
+        // SMART LOGIC 1: Threshold Validation
+        if (fieldId === 'amount' && value !== "" && parseFloat(value) < 25000) {
+            alertMessage = "Hey! 👋 Just a heads up - the minimum deal size is <strong>$25,000 USD</strong>. You entered <strong>$" + value + "</strong>. Want to double-check that amount?";
+        }
+        
+        // SMART LOGIC 2: Timing Validation
+        if (fieldId === 'date' && value !== "") {
+            const daysToClose = (new Date(value) - new Date()) / (1000 * 60 * 60 * 24);
+            if (daysToClose < 14 && daysToClose > 0) {
+                alertMessage = "⏰ Close date is in <strong>" + Math.floor(daysToClose) + " days</strong> - we need <strong>14+ days</strong> to process. Adjust the date, or contact your PAM if urgent!";
+            } 
+        }
+        
+        // ACTION: If an alert exists, FORCE the chat to open and speak
+        if (alertMessage) {
+            chatWindow.style.display = 'flex';
+            chatOpened = true;
+            const notif = document.getElementById('chat-notif');
+            if (notif) notif.style.display = 'none';
+            addMessage(alertMessage, false);
+            const eggy = document.getElementById('eggy-img');
+            if (eggy) eggy.classList.add('wave-animate');
+        }
+    });
 });
+
+    document.getElementById('date').addEventListener('blur', function() {
+        const year = new Date(this.value).getFullYear();
+        if (year < 2026) {
+            alert("Please enter a valid future year (2026 or later).");
+            this.value = ''; // Clear the invalid date
+        }
+    });
+
+    document.querySelector('.btn-submit').addEventListener('click', function(e) {
+        const form = this.closest('form') || document.querySelector('form');
+        const successDiv = document.getElementById('success-message');
+
+        if (form.checkValidity()) {
+            e.preventDefault(); 
+            
+            // 1. Hide the form
+            form.style.display = 'none';
+            
+            // 2. Hide the headers so the Congratulations message is the star of the show
+            document.querySelectorAll('.page-content h1, .page-content .instruction-text').forEach(el => el.style.display = 'none');
+            
+            // 3. Show Success Message
+            successDiv.style.display = 'block';
+            window.scrollTo(0, 0);
+
+            // 4. Modern Tech Confetti with Keysight Red
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: [
+                    '#E11A22', // Keysight Red (Keeping it for brand pop!)
+                    '#22c55e', // Success Green
+                    '#6366f1', // Electric Indigo
+                    '#a855f7', // Cyber Purple
+                    '#fcd34d'  // Golden Sparkle
+                ]
+            });
+        }
+    });
 
 </script>
 
