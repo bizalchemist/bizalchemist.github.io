@@ -106,16 +106,140 @@
     .social-links a { color: #333; font-size: 20px; transition: color 0.2s; }
     .social-links a:hover { color: var(--ks-red); }
 
-    /* --- CHATBOT MOBILE OPTIMIZED --- */
+    /* ============================================== */
+    /* 🆕 CHANGE #1: ENHANCED CHATBOT LAUNCHER CSS  */
+    /* ============================================== */
     #chatbot-launcher {
-        position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px;
-        background: white; border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center;
-        border: 2.5px solid var(--primary); transition: all 0.3s ease;
+        position: fixed; 
+        bottom: 20px; 
+        right: 20px; 
+        width: 90px;  /* 🆕 BIGGER! Was 75px */
+        height: 90px; /* 🆕 BIGGER! Was 75px */
+        background: white; 
+        border-radius: 50%; 
+        box-shadow: 0 15px 40px rgba(168, 85, 247, 0.5); /* 🆕 STRONGER SHADOW */
+        cursor: pointer; 
+        z-index: 9999; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        border: 3px solid var(--primary); /* 🆕 THICKER BORDER */
+        transition: all 0.3s ease;
+        animation: launcher-breathe 3s ease-in-out infinite; /* 🆕 BREATHING ANIMATION */
     }
-    @media (max-width: 480px) { #chatbot-launcher { width: 65px; height: 65px; bottom: 20px; right: 20px; } }
+
+    /* 🆕 NEW: Breathing animation */
+    @keyframes launcher-breathe {
+        0%, 100% { 
+            transform: scale(1); 
+            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.5);
+        }
+        50% { 
+            transform: scale(1.1); 
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.8);
+        }
+    }
+
+    /* 🆕 NEW: "ASK EGGY" label below launcher */
+    #chatbot-launcher::after {
+        content: "ASK EGGY";
+        position: absolute;
+        bottom: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #a855f7;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    @media (max-width: 480px) { 
+        #chatbot-launcher { 
+            width: 75px; 
+            height: 75px; 
+            bottom: 20px; 
+            right: 20px; 
+        } 
+        #chatbot-launcher::after {
+            font-size: 9px;
+            padding: 3px 8px;
+        }
+    }
     
-    #chatbot-launcher img { width: 48px; height: 48px; object-fit: contain; }
+    #chatbot-launcher img { width: 52px; height: 52px; object-fit: contain; } /* 🆕 BIGGER IMAGE */
+
+    /* 🆕 CHANGE #2: NEW TOOLTIP STYLES */
+    /* ============================================== */
+    #eggy-tooltip {
+        position: fixed;
+        bottom: 125px;
+        right: 30px;
+        background: linear-gradient(135deg, #a855f7, #d8b4fe);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+        z-index: 9998;
+        animation: pulse-tooltip 2s infinite;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    @keyframes pulse-tooltip {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); box-shadow: 0 10px 40px rgba(168, 85, 247, 0.6); }
+    }
+
+    @media (max-width: 480px) {
+        #eggy-tooltip {
+            bottom: 110px;
+            right: 20px;
+            font-size: 12px;
+            padding: 10px 16px;
+        }
+    }
+
+    /* 🆕 CHANGE #3: NEW HELP BANNER STYLES */
+    /* ============================================== */
+    .eggy-help-banner {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(216, 180, 254, 0.1)); 
+        border-left: 4px solid #a855f7; 
+        padding: 15px 20px; 
+        border-radius: 8px; 
+        margin-bottom: 30px;
+    }
+
+    .eggy-help-banner p {
+        margin: 0; 
+        display: flex; 
+        align-items: center; 
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .eggy-help-banner .eggy-badge {
+        background: #a855f7; 
+        color: white; 
+        padding: 2px 8px; 
+        border-radius: 12px; 
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    /* ============================================== */
+    /* END OF NEW STYLES - REST IS UNCHANGED        */
+    /* ============================================== */
+
     .notif-badge { position: absolute; top: 0; right: 0; background: var(--ks-red); color: white; width: 22px; height: 22px; border-radius: 50%; font-size: 12px; font-weight: bold; display: none; align-items: center; justify-content: center; border: 2px solid white; }
 
     @keyframes eggy-wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
@@ -396,6 +520,21 @@
         Please enter the information required for this deal. For a deal referral, it is mandatory to attach an invoice with the final referral fee after the closed won stage. This invoice must include the final referral fee amount, contact First and Last name, contact email, and should be uploaded in a timely manner.
     </p>
 
+    <!-- ============================================== -->
+    <!-- 🆕 CHANGE #4: NEW HELP BANNER (INSERTED HERE) -->
+    <!-- ============================================== -->
+    <div class="eggy-help-banner">
+        <p>
+            <img src="assets/images/EggySmall.png" alt="Eggy" style="width: 32px; height: 32px; vertical-align: middle; margin-right: 8px;">
+            <strong>Need help?</strong> Click the purple Eggy icon 
+            <span class="eggy-badge">bottom right →</span>
+            to ask questions about requirements, timelines, or approval process!
+        </p>
+    </div>
+    <!-- ============================================== -->
+    <!-- END OF NEW HELP BANNER                        -->
+    <!-- ============================================== -->
+
     <div class="form-container">
         <form id="dealForm">
             <div class="form-row">
@@ -537,6 +676,16 @@
     </div>
 </section>
 
+<!-- ============================================== -->
+<!-- 🆕 CHANGE #5: NEW TOOLTIP (INSERTED HERE)    -->
+<!-- ============================================== -->
+<div id="eggy-tooltip" onclick="toggleChat(); this.style.display='none';">
+    <span>Try Eggy! AI Deal Assistant →</span>
+</div>
+<!-- ============================================== -->
+<!-- END OF NEW TOOLTIP                            -->
+<!-- ============================================== -->
+
 <div id="chatbot-launcher" onclick="toggleChat()">
     <div class="notif-badge" id="chat-notif">1</div>
     <img src="assets/images/EggySmall.png" alt="Eggy" id="eggy-img">
@@ -581,7 +730,7 @@
         <p>Santa Rosa, CA 95403-1738</p>
         <p>United States</p>
         <p>+1 800-829-4444</p>
-        <p>ep-partners@keysight.com</p>
+        <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="385d481548594a4c565d4a4b78535d414b515f504c165b5755">[email&#160;protected]</a></p>
         <br>
         <p>© Keysight Technologies 2024</p>
     </div>
@@ -597,7 +746,7 @@
     </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* --- PART 1: DEAL REGISTRATION PAGE LOGIC (No Changes) --- */
     const typeSelect = document.getElementById('type');
     const uploadBox = document.getElementById('referral-upload-container');
@@ -742,7 +891,7 @@
                     "* **Audits:** Keysight may audit deals at any time to verify any documents or info submitted.\n" +
                     "* **Denial/Removal:** Registrations can be rescinded if a partner is inattentive, offers competitive products, or provides inaccurate/fraudulent info.\n" +
                     "* **Non-Disclosure:** Partners must **not** discuss Deal Registration details with customers or use them to influence choice between partners.\n" +
-                    "* **Final Authority:** Keysight’s interpretation of these guidelines is non-negotiable and final.";
+                    "* **Final Authority:** Keysight's interpretation of these guidelines is non-negotiable and final.";
             }
 
         // 12. Eggy's Greetings
@@ -799,15 +948,23 @@
         const sendBtn = document.getElementById('sendButton');
         if (sendBtn) sendBtn.addEventListener('click', sendMessage);
     
-        // Notification Logic
+        /* ============================================== */
+        /* 🆕 CHANGE #6: AUTO-OPEN CHATBOT AFTER 3 SEC  */
+        /* ============================================== */
         setTimeout(() => {
             if (!chatOpened) {
-                const notif = document.getElementById('chat-notif');
-                const eggy = document.getElementById('eggy-img');
-                if (notif) notif.style.display = 'flex';
-                if (eggy) eggy.classList.add('wave-animate');
+                // Auto-hide tooltip after 10 seconds
+                const tooltip = document.getElementById('eggy-tooltip');
+                if (tooltip) tooltip.style.display = 'none';
+                
+                // 🆕 AUTO-OPEN THE CHAT (instead of just showing notification)
+                toggleChat();
+                addMessage("Hi! I'm Eggy, your AI deal assistant. I can help with requirements, timelines, and approval questions. What would you like to know?", false);
             }
-        }, 5000);
+        }, 3000); // 🆕 Changed from 5000 to 3000 (3 seconds)
+        /* ============================================== */
+        /* END OF AUTO-OPEN CHANGE                       */
+        /* ============================================== */
     });
         
 
@@ -930,9 +1087,9 @@ if (stageSelect) {
 
         if (eggyResponse) {
             chatWindow.style.display = 'flex';
-            chatOpened = true; // ← Add this
-            const notif = document.getElementById('chat-notif'); // ← Add this
-            if (notif) notif.style.display = 'none'; // ← Add this
+            chatOpened = true;
+            const notif = document.getElementById('chat-notif');
+            if (notif) notif.style.display = 'none';
             addMessage(eggyResponse, false);
             const eggyImg = document.getElementById('eggy-img');
             if (eggyImg) eggyImg.classList.add('wave-animate');
@@ -952,7 +1109,7 @@ function updateSubmitState(isViolated) {
     if (hasCriticalViolation) {
         submitBtn.style.opacity = "0.5";
         submitBtn.style.cursor = "not-allowed";
-        submitBtn.innerText = "Check Eggy's Feedback";
+        submitBtn.innerText = "Fix Errors First";
     } else {
         submitBtn.style.opacity = "1";
         submitBtn.style.cursor = "pointer";
@@ -967,8 +1124,10 @@ function updateSubmitState(isViolated) {
     document.getElementById('date').addEventListener('blur', function() {
         const year = new Date(this.value).getFullYear();
         if (year < 2026) {
-            alert("Please enter a valid future year (2026 or later).");
-            this.value = ''; // Clear the invalid date
+            const chatWindow = document.getElementById('chatbot-window');
+            chatWindow.style.display = 'flex';
+            addMessage("⏰ Oops! The close date shows <strong>" + year + "</strong>. Deals must close in <strong>2026 or later</strong>. Can you update that date?", false);
+            this.value = '';
         }
     });
 
@@ -984,6 +1143,10 @@ function updateSubmitState(isViolated) {
             
             // 2. Hide the headers so the Congratulations message is the star of the show
             document.querySelectorAll('.page-content h1, .page-content .instruction-text').forEach(el => el.style.display = 'none');
+            
+            // 🆕 HIDE THE HELP BANNER TOO
+            const helpBanner = document.querySelector('.eggy-help-banner');
+            if (helpBanner) helpBanner.style.display = 'none';
             
             // 3. Show Success Message
             successDiv.style.display = 'block';
