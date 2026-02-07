@@ -823,27 +823,32 @@
                 "<i class='fas fa-download' style='margin-right: 8px;'></i> Download PDF Playbook</a>";  
         }
 
-        // 2. Threshold & Currency (Contextual)
+        // 2. Threshold
         if (input.includes("limit") || input.includes("amount") || input.includes("25") || input.includes("money")) {
             return "The **$25,000 USD threshold** is a hard rule from our Playbook. Use the currency dropdown in the form to check the real-time conversion. If the deal is smaller, it won't qualify for registration benefits.";
         }
-
-        // 3. Extensions (Quick Action Support)
+        // 3. Currency
+        if (input.includes("currency") || input.includes("convert") || input.includes("euro") || input.includes("gbp")) {
+            return "🌍 **Global Deal?** Since we require a **$25,000 USD minimum**, I recommend using the **U.S. Treasury's Official Converter** to ensure accuracy: \n\n" +
+           "<a href='https://fiscaldata.treasury.gov/currency-exchange-rates-converter/' target='_blank' class='eggy-btn-alt'>🏦 Open Treasury Converter</a>";
+        }       
+        
+        // 4. Extensions (Quick Action Support)
         if (input.includes("extension") || input.includes("expire") || input.includes("long") || input.includes("90") || input.includes("midpoint") || input.includes("check")) {
             return "Deals are protected for **180 days**. However, the **90-day midpoint check** is mandatory: you must conduct a customer evaluation and demonstrate progress to keep protection active. Failing to show progress leads to the deal being 'unregistered'.";
         }
 
-        // 4. Requirements & Steps
+        // 5. Requirements & Steps
         if (input.includes("requirement") || input.includes("need") || input.includes("step")) {
             return "To successfully register, you need: \n1. **End Customer details** (Legal name & Website).\n2. **Project overview** and key drivers to win.\n3. **Technical discovery** confirmation.\n\nI'll check these as you fill out the form!";
         }
 
-        // 5. Help with New Deal (Quick Action Support)
+        // 6. Help with New Deal (Quick Action Support)
         if (input.includes("new deal") || input.includes("start")) {
             return "I'm ready! Start by entering the **Deal Name** and selecting the **End Customer**. I recommend using a descriptive name like 'Project Quantum - Eggplant AI Enablement'.";
         }
 
-        // 6. Rejection & Termination (new logic)
+        // 7. Rejection & Termination (new logic)
         if (input.includes("reject") || input.includes("denied") || input.includes("lose") || input.includes("remove")) {
             return "🧐 **Why deals get rejected:**\n\n" +
                 "* **Legal:** Keysight may be obligated to bid directly.\n" +
@@ -852,7 +857,7 @@
                 "* **Competing:** Offering other products for the same deal.";
         }
 
-        // 7. Referral vs Deal Registration
+        // 8. Referral vs Deal Registration
         if (input.includes("referral") || input.includes("refer") || input.includes("hand-off")) {
             return "As part of the **Eggplant AI Enablement** strategy, we distinguish between two paths:\n\n" +
                 "* **Deal Registration:** You lead the sales cycle. Requires a **$25k minimum**.\n" +
@@ -861,14 +866,14 @@
                 "**Note on Fees:** Specific amounts are outlined in your individual **Partner Sales Agreement (PSA)** rather than the Playbook, as they are tier-dependent.";
         }
 
-        // 8. New Section Government/Bids
+        // 9. New Section Government/Bids
         if (input.includes("government") || input.includes("bid") || input.includes("rfp")) {
             return "For **Open Bids/Government contracts**: \n\n" +
                 "* **RFPs:** Standard deal registration is not eligible.\n" +
                 "* **Bids:** A non-registered discount may be given to all resellers, but the full protected discount is awarded to the partner who **wins the contract award**.";
         }
 
-        // 9. New Section Presales Effort
+        // 10. New Section Presales Effort
         if (input.includes("effort") || input.includes("proof") || input.includes("work")) {
             return "To qualify for protection, you must document **significant presales efforts**, such as: \n\n" +
                 "* Meeting with decision-makers.\n" +
@@ -877,7 +882,7 @@
                 "Keysight may audit these records at any time to verify compliance.";
         }
 
-        // 10. Confirmation & Post-Submission Support
+        // 11. Confirmation & Post-Submission Support
         if (input.includes("notification") || input.includes("after") || input.includes("next steps") || input.includes("wait")) {
             return "Once submitted, here is the timeline:\n\n" +
                 "* **Response:** You will receive an email notification within **two business days** (Accepted or Declined).\n" +
@@ -885,7 +890,7 @@
                 "This ensures you have full technical and commercial alignment to win!";
         }
 
-        // 11. Audits & Ethical Conduct
+        // 12. Audits & Ethical Conduct
             if (input.includes("audit") || input.includes("compliance") || input.includes("integrity") || input.includes("violation") || input.includes("rules")) {
                 return "Keysight maintains program integrity through strict compliance rules:\n\n" +
                     "* **Audits:** Keysight may audit deals at any time to verify any documents or info submitted.\n" +
@@ -894,7 +899,7 @@
                     "* **Final Authority:** Keysight's interpretation of these guidelines is non-negotiable and final.";
             }
 
-        // 12. Eggy's Greetings
+        // 13. Eggy's Greetings
         if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
             return "Hi! I'm **Eggy**. I helped design the Keysight Eggplant partner rules. I'm here to make sure your deal registration is perfect so it gets approved fast!";
         }
