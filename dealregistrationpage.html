@@ -854,38 +854,43 @@ if (stageSelect) {
         let eggyResponse = "";
 
         switch(stage) {
-            case "Prospecting":
-                eggyResponse = "🚀 **Ready to Pitch?** To move this lead to Discovery, your team needs to know the 'Big 4' Eggplant solutions. \n\n" +
-                               "I've pulled the **Presales Training** modules for our core product suite. Get your team up to speed here: \n\n" +
-                               "<a href='https://eggplantpartners.keysight.com/prm/English/s/training-user/trainings' target='_blank' " +
-                               "style='display: inline-block; padding: 10px 15px; border: 2px solid #E11A22; color: #ffffff; background: #E11A22; border-radius: 5px; text-decoration: none; font-weight: bold;'>" +
-                               "📑 Access Presales Training</a>";
+            case "New Deal":
+                eggyResponse = "🌟 **Let's get started!** Registering a new deal is the first step to securing your **Margin Protection** and unlocking technical support. \n\n" +
+                               "**Pro-Tip:** Make sure your 'Estimated Value' is realistic. Deals over **$25k** qualify for our 'Gold-Tier' discount. Need a refresher on the rules? \n\n" +
+                               "<a href='#' class='eggy-btn'>📖 View Quick-Start Guide</a>";
                 break;
+
+            case "Prospecting":
+                eggyResponse = "🚀 **Ready to Pitch?** To move this lead to Discovery, get your team up to speed on the 'Big 4' Eggplant solutions: \n\n" +
+                               "<a href='https://eggplantpartners.keysight.com/prm/English/s/training-user/trainings' target='_blank' class='eggy-btn'>📑 Access Presales Training</a>";
+                break;
+
             case "Discovery":
-                eggyResponse = "🎖️ **Technical Mastery:** Strong discovery is the foundation of a $25k+ win. \n\n" +
-                               "Have your technical leads completed their **Eggplant Mastery**? I recommend these 4 core certification courses on **Skilljar** to ensure your team is ready for deep-dive sessions: \n\n" +
-                               "<a href='https://support.eggplantsoftware.com/training-and-certifications' target='_blank' " +
-                               "style='display: inline-block; padding: 10px 15px; border: 2px solid #a855f7; color: #d8b4fe; border-radius: 5px; text-decoration: none; font-weight: bold;'>" +
-                               "🎓 Open Skilljar LMS</a>";
+                eggyResponse = "🎖️ **Technical Mastery:** Strong discovery starts with certified expertise. I recommend these 4 core courses on **Skilljar** for your technical leads: \n\n" +
+                               "<a href='https://support.eggplantsoftware.com/training-and-certifications' target='_blank' class='eggy-btn-alt'>🎓 Open Skilljar LMS</a>";
                 break;
 
             case "Evaluating":
-                eggyResponse = "🔍 **Technical Deep Dive!** To give you the best resources, which sector is this customer focused on? \n\n" +
-                               "* **Core Test & Measurement?** [View Asset Library A](#)\n" +
-                               "* **AI/Software Automation?** [View Asset Library B](#)\n\n" +
-                               "Knowing the sector helps me align the right Solution Architect to your deal!";
+                eggyResponse = "🔍 **Technical Deep Dive!** To provide the right assets, which sector is this customer focused on? \n\n" +
+                               "* **Core Test & Measurement?** [Asset Library A](#)\n" +
+                               "* **AI/Software Automation?** [Asset Library B](#)";
                 break;
 
             case "Negotiation":
-                eggyResponse = "🤝 **The Home Stretch!** Check out our **[Short Battlecard](assets/Eggplant_Battlecard.pdf)**. \n\n" +
-                               "Also, I highly recommend this **60 sec Executive Pitch video** to share with your customer: \n\n" +
-                               "<a href='assets/Eggplant_Pitch.mp4' target='_blank' " +
-                               "style='display: inline-block; padding: 10px 15px; background: #E11A22; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;'>" +
-                               "▶️ Watch 60 sec Pitch</a>";
+                eggyResponse = "🤝 **The Home Stretch!** Check out the **[Short Battlecard](assets/Battlecard.pdf)** and this **60 sec pitch video** for your customer: \n\n" +
+                               "<a href='assets/Pitch.mp4' target='_blank' class='eggy-btn-video'>▶️ Watch Executive Pitch</a>";
                 break;
 
             case "Closed Won":
-                eggyResponse = "🏆 **Huge Congratulations!** Ensuring this deal is registered correctly now secures your commission. I'll make sure the hand-off to the fulfillment team is seamless!";
+                eggyResponse = "🏆 **Huge Congratulations!** Ensuring this deal is registered correctly now secures your commission protection. Great work!";
+                break;
+
+            case "Closed Lost":
+                eggyResponse = "📉 **Strategic Review:** Sorry to hear this. Please ensure you've selected a **Loss Reason** so we can improve our support for your future deals.";
+                break;
+
+            case "Denied":
+                eggyResponse = "🚫 **Policy Note:** If a deal is denied, it's usually due to a pre-existing registration or a threshold violation. Check the **[Appeals Process](#)** or contact your PAM.";
                 break;
         }
 
