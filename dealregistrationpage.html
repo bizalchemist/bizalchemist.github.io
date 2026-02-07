@@ -174,20 +174,40 @@
         font-family: 'DM Sans', sans-serif;
     }
 
+/* --- MOBILE SPECIFIC FIXES --- */
     @media (max-width: 480px) { 
         #chatbot-launcher { 
-            width: 75px; 
-            height: 75px; 
+            width: 65px;         /* Shrink from 75px to 65px */
+            height: 65px; 
             bottom: 20px; 
-            right: 20px; 
+            right: 15px;         /* Move closer to edge to save space */
         } 
+
+        #chatbot-launcher img { 
+            width: 38px;         /* Shrink image ONLY on mobile */
+            height: 38px; 
+        }
+
         #chatbot-launcher::after {
             font-size: 9px;
             padding: 3px 8px;
+            bottom: -20px;
+        }
+
+        /*  THE STABILIZER: Pulls red icons in so they don't push the screen edge */
+        .required {
+            right: -10px !important; 
         }
     }
-    
-    #chatbot-launcher img { width: 52px; height: 52px; object-fit: contain; } /* 🆕 BIGGER IMAGE */
+
+    /* --- DESKTOP SIZING (Keeps it big for Dan) --- */
+    @media (min-width: 481px) {
+        #chatbot-launcher img { 
+            width: 52px; 
+            height: 52px; 
+        }
+    }
+
 
     /* 🆕 CHANGE #2: NEW TOOLTIP STYLES */
     /* ============================================== */
