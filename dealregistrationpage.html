@@ -493,6 +493,26 @@
     transform: translateY(-2px);
 }
 
+/* Style for the Currency Info Icon */
+.currency-info i {
+    font-size: 12px;
+    cursor: help;
+    transition: transform 0.2s;
+}
+
+.currency-info i:hover {
+    transform: scale(1.2);
+    color: var(--primary-dark); /* Turns purple on hover to match Eggy */
+}
+
+/* Ensure the label doesn't clip the icon when it floats up */
+input:focus + label .currency-info, 
+input:not(:placeholder-shown) + label .currency-info,
+select:focus + label .currency-info, 
+select:not([data-value=""]) + label .currency-info {
+    display: inline-block;
+}
+
 </style>
 </head>
 <body>
@@ -584,9 +604,17 @@
                         <option value="DKK">DKK - Danish Krone</option>
                         <option value="SEK">SEK - Swedish Krone</option>
                     </select>
-                    <label>Currency</label><span class="required">*</span>
+                    <label>Currency</label>
+                    <span class="required" style="right: -20px;">
+                        <a href="https://fiscaldata.treasury.gov/currency-exchange-rates-converter/" 
+                           target="_blank" 
+                           title="Use U.S. Treasury official rates to verify $25k threshold"
+                           style="color: var(--ks-red); text-decoration: none;">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </span>
                 </div>
-                
+
                 <div class="col-1 field-wrapper">
                     <select id="type" required data-value="">
                         <option value="" disabled selected hidden></option>
@@ -832,7 +860,7 @@
             return "🌍 **Global Deal?** Since we require a **$25,000 USD minimum**, I recommend using the **U.S. Treasury's Official Converter** to ensure accuracy: \n\n" +
            "<a href='https://fiscaldata.treasury.gov/currency-exchange-rates-converter/' target='_blank' class='eggy-btn-alt'>🏦 Open Treasury Converter</a>";
         }       
-        
+
         // 4. Extensions (Quick Action Support)
         if (input.includes("extension") || input.includes("expire") || input.includes("long") || input.includes("90") || input.includes("midpoint") || input.includes("check")) {
             return "Deals are protected for **180 days**. However, the **90-day midpoint check** is mandatory: you must conduct a customer evaluation and demonstrate progress to keep protection active. Failing to show progress leads to the deal being 'unregistered'.";
@@ -1103,7 +1131,39 @@ if (stageSelect) {
     });
 }
 
-/* --- PART 8: SUBMIT BUTTON GOVERNANCE --- */
+/* --- PART 8: SMART CURRENCY MONITORING --- */
+const currencyField = document.getElementById('currency');
+
+if (currencyField) {
+    currencyField.addEventListener('change', function() {
+        const selectedCurrency = this.value;
+        const chatWindow = document.getElementById('chatbot-window');
+        
+        // Trigger only if a currency is selected and it's NOT USD
+        if (selectedCurrency !== "" && selectedCurrency !== "USD") {
+            const eggyCurrencyAlert = "🌍 **International Deal Detected!** \n\n" +
+                `Since you are registering in **${selectedCurrency}**, please ensure the total value meets the mandatory **$25,000 USD** threshold. \n\n` +
+                "I recommend verifying the current rate via the **U.S. Treasury Official Converter** to avoid registration rejection: \n\n" +
+                "<a href='https://fiscaldata.treasury.gov/currency-exchange-rates-converter/' target='_blank' class='eggy-btn-alt'>🏦 Open Treasury Converter</a>";
+
+            // Force open Eggy to provide the tool
+            chatWindow.style.display = 'flex';
+            chatOpened = true;
+            
+            // Clear notification if it exists
+            const notif = document.getElementById('chat-notif');
+            if (notif) notif.style.display = 'none';
+
+            addMessage(eggyCurrencyAlert, false);
+            
+            // Make Eggy wave!
+            const eggyImg = document.getElementById('eggy-img');
+            if (eggyImg) eggyImg.classList.add('wave-animate');
+        }
+    });
+}
+
+/* --- PART 9: SUBMIT BUTTON GOVERNANCE --- */
 const submitBtn = document.querySelector('.btn-submit');
 
 // We add a 'pointer-events' check or a simple flag
