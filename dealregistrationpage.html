@@ -50,12 +50,21 @@
 
     @media (max-width: 600px) { 
         .form-row { flex-direction: column; gap: 25px; margin-bottom: 25px; } 
-        .page-content { padding: 20px 5%; }
+        .page-content { 
+            padding: 20px 15px !important; /* 🛡️ CHANGED from 5% to 15px for stability */
+            box-sizing: border-box; 
+        }
+        .btn-submit { width: 100%; }
     }
 
     .col-1 { flex: 1; position: relative; }
     .col-2 { flex: 2; position: relative; }
-    .field-wrapper { position: relative; width: 100%; }
+    .field-wrapper { 
+        position: relative; 
+        width: 100%; 
+        box-sizing: border-box; /* Ensures the wrapper doesn't grow with padding */
+    }
+
     input, select, textarea { width: 100%; padding: 22px 12px 6px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; background: white; box-sizing: border-box; outline: none; }
     label { position: absolute; left: 12px; top: 16px; color: var(--ks-gray); font-size: 14px; transition: all 0.2s ease-out; pointer-events: none; background: white; padding: 0 4px; }
     
@@ -85,9 +94,18 @@
 
     .prob-container { display: flex; border: 1px solid #ccc; background: white; border-radius: 4px; overflow: hidden; }
     .prob-container input { border: none; flex: 1; border-radius: 0; }
-    .suffix { padding: 22px 10px 6px; background: #f4f4f4; border-left: 1px solid #ccc; color: #666; }
-    .required { color: var(--ks-red); position: absolute; right: -15px; top: 16px; font-weight: bold; }
-    
+    .suffix { padding: 22px 10px 6px; background: #f4f4f4; border-left: 1px solid #ccc; color: #666; }  
+    .required { 
+        color: var(--ks-red); 
+        position: absolute; 
+        right: 10px; /* 🛡️ CHANGED from -15px to 10px */
+        top: 16px; 
+        font-weight: bold; 
+        z-index: 5;
+        display: flex;
+        align-items: center;
+    }
+
     #referral-upload-container { display: none; margin-bottom: 30px; padding: 40px; border: 2px dashed #ccc; background: #fafafa; text-align: center; transition: all 0.3s ease; opacity: 0; max-height: 0; overflow: hidden; border-radius: 12px; cursor: pointer; }
     #referral-upload-container.show { display: block; opacity: 1; max-height: 200px; }
     .btn-submit { background-color: var(--ks-red); color: white; padding: 15px 80px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 4px; }
