@@ -853,25 +853,42 @@ if (stageSelect) {
         const chatWindow = document.getElementById('chatbot-window');
         let eggyResponse = "";
 
-        if (stage === "Closed Won") {
-            // Keep it clean for the winner
-            eggyResponse = "🏆 **Huge Congratulations!** Ensuring this deal is registered correctly now secures your commission. I'll make sure the hand-off to the fulfillment team is seamless!";
-        } 
-        
-        else if (stage === "Negotiation") {
-            eggyResponse = "🤝 **The Home Stretch!** To help you cross the finish line, check out our **[Short Battlecard](assets/Eggplant_Battlecard.pdf)**. \n\n" +
-                           "Also, I highly recommend this **1.5 min Executive Pitch video** to share with your customer's procurement lead: \n\n" +
-                           "<a href='assets/Eggplant_Pitch.mp4' target='_blank' style='display: inline-block; padding: 10px 15px; background: #E11A22; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;'>▶️ Watch 1.5m Pitch</a>";
-        } 
-        
-        else if (stage === "Evaluating") {
-            eggyResponse = "🔍 **Technical Deep Dive!** To give you the best resources, which sector is this customer focused on? \n\n" +
-                           "* **Core Test & Measurement?** [View Asset Library A](#)\n" +
-                           "* **AI/Software Automation?** [View Asset Library B](#)\n\n" +
-                           "Knowing the sector helps me align the right Solution Architect to your deal!";
+        switch(stage) {
+            case "Prospecting":
+                eggyResponse = "🚀 **Ready to Pitch?** To move this lead to Discovery, your team needs to know the 'Big 4' Eggplant solutions. \n\n" +
+                               "I've pulled the **Presales Training** modules for our core product suite. Get your team up to speed here: \n\n" +
+                               "<a href='https://eggplantpartners.keysight.com/prm/English/s/training-user/trainings' target='_blank' " +
+                               "style='display: inline-block; padding: 10px 15px; border: 2px solid #E11A22; color: #ffffff; background: #E11A22; border-radius: 5px; text-decoration: none; font-weight: bold;'>" +
+                               "📑 Access Presales Training</a>";
+                break;
+            case "Discovery":
+                eggyResponse = "🎖️ **Technical Mastery:** Strong discovery is the foundation of a $25k+ win. \n\n" +
+                               "Have your technical leads completed their **Eggplant Mastery**? I recommend these 4 core certification courses on **Skilljar** to ensure your team is ready for deep-dive sessions: \n\n" +
+                               "<a href='https://support.eggplantsoftware.com/training-and-certifications' target='_blank' " +
+                               "style='display: inline-block; padding: 10px 15px; border: 2px solid #a855f7; color: #d8b4fe; border-radius: 5px; text-decoration: none; font-weight: bold;'>" +
+                               "🎓 Open Skilljar LMS</a>";
+                break;
+
+            case "Evaluating":
+                eggyResponse = "🔍 **Technical Deep Dive!** To give you the best resources, which sector is this customer focused on? \n\n" +
+                               "* **Core Test & Measurement?** [View Asset Library A](#)\n" +
+                               "* **AI/Software Automation?** [View Asset Library B](#)\n\n" +
+                               "Knowing the sector helps me align the right Solution Architect to your deal!";
+                break;
+
+            case "Negotiation":
+                eggyResponse = "🤝 **The Home Stretch!** Check out our **[Short Battlecard](assets/Eggplant_Battlecard.pdf)**. \n\n" +
+                               "Also, I highly recommend this **60 sec Executive Pitch video** to share with your customer: \n\n" +
+                               "<a href='assets/Eggplant_Pitch.mp4' target='_blank' " +
+                               "style='display: inline-block; padding: 10px 15px; background: #E11A22; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;'>" +
+                               "▶️ Watch 60 sec Pitch</a>";
+                break;
+
+            case "Closed Won":
+                eggyResponse = "🏆 **Huge Congratulations!** Ensuring this deal is registered correctly now secures your commission. I'll make sure the hand-off to the fulfillment team is seamless!";
+                break;
         }
 
-        // Trigger Eggy if we have a specific response
         if (eggyResponse) {
             chatWindow.style.display = 'flex';
             addMessage(eggyResponse, false);
