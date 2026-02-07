@@ -337,6 +337,38 @@
         scroll-behavior: smooth;
     }
 
+.eggy-btn, .eggy-btn-alt {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.eggy-btn {
+    background: rgba(216, 180, 254, 0.3);
+    color: #d8b4fe;
+    border: 1px solid #d8b4fe;
+}
+
+.eggy-btn:hover {
+    background: rgba(216, 180, 254, 0.5);
+    transform: translateY(-2px);
+}
+
+.eggy-btn-alt {
+    background: rgba(168, 85, 247, 0.3);
+    color: #a855f7;
+    border: 1px solid #a855f7;
+}
+
+.eggy-btn-alt:hover {
+    background: rgba(168, 85, 247, 0.5);
+    transform: translateY(-2px);
+}
+
 </style>
 </head>
 <body>
@@ -855,10 +887,11 @@ if (stageSelect) {
 
         switch(stage) {
             case "New Deal":
-    eggyResponse = "🌟 **Let's get started!** I'm Eggy, but I was built by **Mashenka**—a Senior Enablement Architect who specializes in: \n\n" +
-                   "1. **Bridging the Gap** between technical mastery and revenue.\n" +
-                   "2. **Automating Governance** to save Channel Managers hours of manual work.\n" +
-                   "3. **Scaling Ecosystems** through data-driven AI tools.";
+                eggyResponse = "🌟 **Welcome!** I'm Eggy, your AI deal assistant—built by **Masha Harness**, a Senior Enablement Architect who specializes in:\n\n" +
+                            "✨ Bridging technical expertise and revenue outcomes\n" +
+                            "🤖 Automating partner governance to save Channel Managers hours\n" +
+                            "📊 Scaling ecosystems through data-driven AI\n\n" +
+                            "Let's get this deal registered! Need help with requirements?";
                 break;
 
             case "Prospecting":
@@ -897,10 +930,14 @@ if (stageSelect) {
 
         if (eggyResponse) {
             chatWindow.style.display = 'flex';
+            chatOpened = true; // ← Add this
+            const notif = document.getElementById('chat-notif'); // ← Add this
+            if (notif) notif.style.display = 'none'; // ← Add this
             addMessage(eggyResponse, false);
             const eggyImg = document.getElementById('eggy-img');
             if (eggyImg) eggyImg.classList.add('wave-animate');
         }
+
     });
 }
 
