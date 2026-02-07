@@ -85,9 +85,25 @@
 
     .prob-container { display: flex; border: 1px solid #ccc; background: white; border-radius: 4px; overflow: hidden; }
     .prob-container input { border: none; flex: 1; border-radius: 0; }
-    .suffix { padding: 22px 10px 6px; background: #f4f4f4; border-left: 1px solid #ccc; color: #666; }
-    .required { color: var(--ks-red); position: absolute; right: -15px; top: 16px; font-weight: bold; }
-    
+    .suffix { padding: 22px 10px 6px; background: #f4f4f4; border-left: 1px solid #ccc; color: #666; } 
+    .required { 
+        color: var(--ks-red); 
+        position: absolute; 
+        right: -20px; /* Moves it outside the box */
+        top: 16px; 
+        font-weight: bold; 
+    }
+
+    /*  STABILIZE FOR IPHONE PORTRAIT */
+    @media (max-width: 600px) { 
+        .page-content { 
+            padding: 20px 35px !important; /* Extra padding creates a 'gutter' for the * and i */
+            box-sizing: border-box; 
+        }
+        .form-row { flex-direction: column; gap: 25px; margin-bottom: 25px; } 
+        .btn-submit { width: 100%; }
+    }
+
     #referral-upload-container { display: none; margin-bottom: 30px; padding: 40px; border: 2px dashed #ccc; background: #fafafa; text-align: center; transition: all 0.3s ease; opacity: 0; max-height: 0; overflow: hidden; border-radius: 12px; cursor: pointer; }
     #referral-upload-container.show { display: block; opacity: 1; max-height: 200px; }
     .btn-submit { background-color: var(--ks-red); color: white; padding: 15px 80px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 4px; }
@@ -607,7 +623,7 @@ select:not([data-value=""]) + label .currency-info {
                         <option value="SEK">SEK - Swedish Krone</option>
                     </select>
                     <label>Currency</label>
-                    <span class="required" style="right: -20px;">
+                    <span class="required">
                         <a href="https://fiscaldata.treasury.gov/currency-exchange-rates-converter/" 
                            target="_blank" 
                            title="Use U.S. Treasury official rates to verify $25k threshold"
