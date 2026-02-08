@@ -86,22 +86,31 @@
     .prob-container { display: flex; border: 1px solid #ccc; background: white; border-radius: 4px; overflow: hidden; }
     .prob-container input { border: none; flex: 1; border-radius: 0; }
     .suffix { padding: 22px 10px 6px; background: #f4f4f4; border-left: 1px solid #ccc; color: #666; } 
+
+/* 1. Only for the Currency Info Icon (i) */
     .required { 
         color: var(--ks-red); 
         position: absolute; 
-        right: -20px; /* Moves it outside the box */
+        right: 12px; /* 🛡️ INSIDE the box: Perfectly safe for iPhone */
         top: 16px; 
         font-weight: bold; 
+        z-index: 5;
     }
 
-    /*  STABILIZE FOR IPHONE PORTRAIT */
+    /* 2. Standard Mobile Styling */
     @media (max-width: 600px) { 
         .page-content { 
-            padding: 20px 35px !important; /* Extra padding creates a 'gutter' for the * and i */
+            padding: 20px 20px !important; 
             box-sizing: border-box; 
         }
-        .form-row { flex-direction: column; gap: 25px; margin-bottom: 25px; } 
-        .btn-submit { width: 100%; }
+        .form-row { 
+            flex-direction: column; 
+            gap: 25px; 
+            margin-bottom: 25px; 
+        } 
+        .btn-submit { 
+            width: 100%; 
+        }
     }
 
     #referral-upload-container { display: none; margin-bottom: 30px; padding: 40px; border: 2px dashed #ccc; background: #fafafa; text-align: center; transition: all 0.3s ease; opacity: 0; max-height: 0; overflow: hidden; border-radius: 12px; cursor: pointer; }
@@ -192,11 +201,6 @@
             font-size: 9px;
             padding: 3px 8px;
             bottom: -20px;
-        }
-
-        /*  THE STABILIZER: Pulls red icons in so they don't push the screen edge */
-        .required {
-            right: -10px !important; 
         }
     }
 
@@ -571,11 +575,13 @@ select:not([data-value=""]) + label .currency-info {
 <section class="page-content">
 
     <h1>Register New Deal</h1>
-    <p class="instruction-text">To register a new deal, fill out the form below. Fields with an asterisk (<span style="color:var(--ks-red)">*</span>) are required.</p>
+    <p class="instruction-text">
+        All fields in the form below are <strong style="color: var(--ks-red);">MANDATORY</strong> to ensure valid deal registration and protection.
+    </p>
 
     <h1>Deal Information</h1>
     <p class="instruction-text">
-        Please enter the information required for this deal. For a deal referral, it is mandatory to attach an invoice with the final referral fee after the closed won stage. This invoice must include the final referral fee amount, contact First and Last name, contact email, and should be uploaded in a timely manner.
+        Please enter the information required for this deal. For a deal referral, it is mandatory to attach an invoice with the final referral fee after the closed won stage...
     </p>
 
     <!-- ============================================== -->
@@ -596,10 +602,10 @@ select:not([data-value=""]) + label .currency-info {
     <div class="form-container">
         <form id="dealForm">
             <div class="form-row">
-                <div class="col-1 field-wrapper"><input type="text" id="dealName" placeholder=" " required><label>Deal Name</label><span class="required">*</span></div>
+                <div class="col-1 field-wrapper"><input type="text" id="dealName" placeholder=" " required><label>Deal Name</label></div>
                 <div class="col-2 field-wrapper">
                     <input type="text" id="customer" list="customer-list" placeholder=" " required>
-                    <label>End Customer (Company, Country, Website)</label><span class="required">*</span>
+                    <label>End Customer (Company, Country, Website)</label>
                     <datalist id="customer-list">
                         <option value="New_AwesomeCompany | Estonia | www.newawesomecompany.com">
                         <option value="Quantum Dynamics | Finland | www.quantum-dyn.fi">
@@ -614,7 +620,6 @@ select:not([data-value=""]) + label .currency-info {
                 <div class="col-1 field-wrapper">
                     <input type="number" id="amount" placeholder=" " required min="25000">
                     <label>Min: $25k USD equiv.</label>
-                    <span class="required">*</span>
                 </div>
                 
                 <div class="col-1 field-wrapper">
@@ -659,7 +664,7 @@ select:not([data-value=""]) + label .currency-info {
                         <option value="Deal">Deal</option>
                         <option value="Referral">Referral</option>
                     </select>
-                    <label>Type</label><span class="required">*</span>
+                    <label>Type</label>
                 </div>
             </div>
 
@@ -671,7 +676,7 @@ select:not([data-value=""]) + label .currency-info {
                         <option>Evaluating</option><option>Negotiation</option><option>Closed Won</option>
                         <option>Denied</option><option>Closed Lost</option>
                     </select>
-                    <label>Stage</label><span class="required">*</span>
+                    <label>Stage</label>
                 </div>
 
                 <div class="col-1 field-wrapper">
@@ -686,7 +691,6 @@ select:not([data-value=""]) + label .currency-info {
                         <label>Probability</label>
                         <div class="suffix">%</div>
                     </div>
-                    <span class="required">*</span>
                 </div>
 
         <div class="col-1 field-wrapper" style="padding-right: 15px; box-sizing: border-box;">
@@ -698,13 +702,12 @@ select:not([data-value=""]) + label .currency-info {
                 max="2035-12-31"
                 style="width: 100% !important; padding: 22px 12px 6px 12px !important;">
             <label>Close Date</label>
-            <span class="required" style="position: absolute; right: 0; top: 16px;">*</span>
         </div>
         </div>
             <div class="form-row">
                 <div class="col-2 field-wrapper">
                     <textarea id="briefDesc" placeholder="Please add additional details: project's overview, key decision makers, use case, key competitors and primary drivers to win the deal, new or existing end customer, etc." style="resize: vertical; min-height: 120px;" required></textarea>
-                    <label>Brief Description</label><span class="required">*</span>
+                    <label>Brief Description</label>
                 </div>
                 <div class="col-1 field-wrapper">
                     <select id="source" required data-value="">
@@ -717,7 +720,7 @@ select:not([data-value=""]) + label .currency-info {
                         <option value="Trade Show">Trade Show</option>
                         <option value="Web Syndication">Web Syndication</option>
                     </select>
-                    <label>Source</label><span class="required">*</span>
+                    <label>Source</label>
                 </div>
             </div>
 
