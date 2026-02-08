@@ -432,27 +432,26 @@
 
 /* --- 2. THE SKILLJAR-STYLE BUTTONS (PURPLE BORDER BOX) --- */
 /* Used for Asset Library A/B, Skilljar, and Browser Review */
-.eggy-btn-alt {
+/* Unifying both classes to look EXACTLY the same */
+.eggy-btn, .eggy-btn-alt {
     display: inline-block !important;
-    padding: 12px 20px !important; /* Increased padding slightly to match the Red button height */
-    margin: 10px 0 !important;    /* This creates the uniform "gap" between stacked buttons */
+    width: fit-content !important;
+    padding: 10px 18px !important;
+    margin: 12px 0 !important; /* Unified margin for consistent gaps */
     border-radius: 8px !important;
     text-decoration: none !important;
     font-weight: bold !important;
-    background: rgba(168, 85, 247, 0.2) !important; 
-    color: #d8b4fe !important; 
-    border: 1.5px solid #a855f7 !important; 
+    background: rgba(168, 85, 247, 0.2) !important; /* Unified Purple Tint */
+    color: #d8b4fe !important; /* Unified High-Vis Purple */
+    border: 1.5px solid #a855f7 !important; /* Unified Border Color */
     transition: all 0.3s ease !important;
-    cursor: pointer;
-    text-align: center;
-    min-width: 200px; /* Optional: ensures buttons are similar widths */
+    box-sizing: border-box !important;
 }
 
-.eggy-btn-alt:hover {
+.eggy-btn:hover, .eggy-btn-alt:hover {
     background: rgba(168, 85, 247, 0.6) !important;
     color: #ffffff !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 5px 15px rgba(168, 85, 247, 0.4) !important;
 }
 
 /* --- 3. THE RED DOWNLOAD BUTTON (STAYS KEYSIGHT RED) --- */
@@ -522,17 +521,6 @@
     #chatbot-messages {
         scroll-behavior: smooth;
     }
-
-.eggy-btn {
-    background: rgba(216, 180, 254, 0.3);
-    color: #d8b4fe;
-    border: 1px solid #d8b4fe;
-}
-
-.eggy-btn:hover {
-    background: rgba(216, 180, 254, 0.5);
-    transform: translateY(-2px);
-}
 
 /* Style for the Currency Info Icon */
 .currency-info i {
@@ -1126,13 +1114,13 @@ if (stageSelect) {
                 break;
 
             case "Prospecting":
-                eggyResponse = "🚀 **Ready to Pitch?** To move this lead to Discovery, get your team up to speed on the 'Big 4' Eggplant solutions: \n\n" +
-                               "<a href='https://eggplantpartners.keysight.com/prm/English/s/training-user/trainings' target='_blank' class='eggy-btn'>📑 Access Presales Training</a>";
+                eggyResponse = "🚀 **Ready to Pitch?** To move this lead to Discovery... \n\n" +
+                            "<a href='#' class='eggy-btn-alt'>📑 Access Presales Training</a>"; // Use -alt here
                 break;
 
             case "Discovery":
-                eggyResponse = "🎖️ **Technical Mastery:** Strong discovery starts with certified expertise. I recommend these 4 core courses on **Skilljar** for your technical leads: \n\n" +
-                               "<a href='https://keysight.skilljar.com' target='_blank' class='eggy-btn-alt'>🎓 Access Skilljar Training</a>";
+                eggyResponse = "🎖️ **Technical Mastery:** Strong discovery starts with certified expertise... \n\n" +
+                            "<a href='#' class='eggy-btn-alt'>🎓 Open Skilljar LMS</a>"; // Use -alt here
                 break;
 
             case "Evaluating":
