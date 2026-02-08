@@ -312,13 +312,13 @@
 
     @media (max-height: 500px) and (orientation: landscape) {
         .chat-container { 
-            height: 95vh !important; 
+            height: 92vh !important; /* Decrease this if it's hitting the top status bar */
             width: 350px !important; 
-            bottom: 10px !important; 
+            bottom: 5px !important;  /* Keep it low to maximize visible text area */
             right: 15px !important;
         }
     }
-
+    
     .chat-header { padding: 0 1.5rem; background: linear-gradient(180deg, #d8b4fe 0%, #a855f7 100%); color: #ffffff; display: flex; justify-content: space-between; align-items: center; height: 55px; }
     
     /* Header Logo & Status Transparency Fix */
