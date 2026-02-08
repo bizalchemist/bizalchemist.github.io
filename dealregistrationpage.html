@@ -409,63 +409,83 @@
         box-shadow: none !important;
     }
 
-/* Styling the links inside Eggy's responses */
-.message a {
-    color: #FF0000; /* Keysight Red */
-    text-decoration: underline;
-    font-weight: bold;
+/* Styling the links inside Eggy's responses. Standard State: Purple, Bold, No Underscore  */
+/* --- 1. REGULAR TEXT LINKS (STAYS PURPLE, TURNS RED ON HOVER) --- */
+/* We use :not() to make sure these rules DON'T touch our buttons */
+.message a:not(.eggy-btn-alt):not([href*="pdf"]), 
+.assistant a:not(.eggy-btn-alt):not([href*="pdf"]) {
+    color: #d8b4fe !important; 
+    text-decoration: none !important;
+    font-weight: bold !important;
     padding: 2px 4px;
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle highlight */
+    background-color: rgba(216, 180, 254, 0.1);
     border-radius: 4px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
-      /* Update this specific section in CSS */
+.message a:not(.eggy-btn-alt):not([href*="pdf"]):hover, 
+.assistant a:not(.eggy-btn-alt):not([href*="pdf"]):hover {
+    color: #FFFFFF !important;
+    background-color: var(--ks-red) !important; 
+    transform: translateY(-1px);
+}
+
+/* --- 2. THE SKILLJAR-STYLE BUTTONS (PURPLE BORDER BOX) --- */
+/* Used for Asset Library A/B, Skilljar, and Browser Review */
+.eggy-btn-alt {
+    display: inline-block !important;
+    padding: 12px 20px !important; /* Increased padding slightly to match the Red button height */
+    margin: 10px 0 !important;    /* This creates the uniform "gap" between stacked buttons */
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+    background: rgba(168, 85, 247, 0.2) !important; 
+    color: #d8b4fe !important; 
+    border: 1.5px solid #a855f7 !important; 
+    transition: all 0.3s ease !important;
+    cursor: pointer;
+    text-align: center;
+    min-width: 200px; /* Optional: ensures buttons are similar widths */
+}
+
+.eggy-btn-alt:hover {
+    background: rgba(168, 85, 247, 0.6) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(168, 85, 247, 0.4) !important;
+}
+
+/* --- 3. THE RED DOWNLOAD BUTTON (STAYS KEYSIGHT RED) --- */
+.assistant a[href*="DealRegistrationPlaybook.pdf"]:not(.eggy-btn-alt) {
+    display: inline-block !important;
+    margin-top: 10px !important;
+    padding: 12px 24px !important;
+    background-color: #E11A22 !important;
+    color: #FFFFFF !important;
+    border-radius: 6px !important;
+    font-weight: bold !important;
+}
+
+/* Update this specific section in CSS. Fix for URL wrapping to prevent jiggle */
 .message div {
     word-wrap: break-word;       /* Older browsers */
     overflow-wrap: break-word;   /* Modern browsers */
     word-break: break-word;      /* Forces the URL to snap to a new line */
 }
       
-.message a:hover {
-    color: #FFFFFF;
-    background-color: #FF0000; /* Inverts colors when hovered */
-    text-decoration: none;
+/* Update */
+.message a:hover, .assistant a[href*="DealRegistrationPlaybook.pdf"]:hover {
+    color: #FFFFFF !important;
+    background-color: var(--ks-red) !important; 
+    text-decoration: none !important;
+    transform: translateY(-1px);
+    display: inline-block; /* Ensures the red box wraps correctly */
 }
-
-/* Style for links inside Eggy's bubbles */
-.assistant a {
-    color: #FF0000; /* Keysight Red */
-    font-weight: bold;
-    text-decoration: underline;
-}
-      
+   
 /* Fix for lists that might lose their bullets */
 .assistant ul {
     margin-left: 20px;
     padding-bottom: 10px;
-}
-
-/* Style for the Red Playbook Button */
-.assistant a[href*="DealRegistrationPlaybook.pdf"] {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #E11A22 !important; /* Force Keysight Red */
-    color: #FFFFFF !important;
-    text-decoration: none !important;
-    border-radius: 5px;
-    font-weight: bold;
-    font-family: 'Space Mono', monospace;
-    transition: all 0.3s ease; /* Smooth transition for color and movement */
-}
-
-/* Hover effect: Now forcing the color change */
-.assistant a[href*="DealRegistrationPlaybook.pdf"]:hover {
-    background-color: #000000 !important; /* Changes to Black or Darker Red */
-    color: #FFFFFF !important;
-    transform: translateY(-3px); /* The movement you already see */
-    box-shadow: 0 5px 15px rgba(225, 26, 34, 0.4); /* Glow effect */
 }
 
 .quick-btn:active {
@@ -503,16 +523,6 @@
         scroll-behavior: smooth;
     }
 
-.eggy-btn, .eggy-btn-alt {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px 0;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
 .eggy-btn {
     background: rgba(216, 180, 254, 0.3);
     color: #d8b4fe;
@@ -521,17 +531,6 @@
 
 .eggy-btn:hover {
     background: rgba(216, 180, 254, 0.5);
-    transform: translateY(-2px);
-}
-
-.eggy-btn-alt {
-    background: rgba(168, 85, 247, 0.3);
-    color: #a855f7;
-    border: 1px solid #a855f7;
-}
-
-.eggy-btn-alt:hover {
-    background: rgba(168, 85, 247, 0.5);
     transform: translateY(-2px);
 }
 
@@ -884,7 +883,8 @@ select:not([data-value=""]) + label .currency-info {
                 "* **Timing:** Register at least **14 days** before the expected close.\n" +
                 "* **Exclusions:** Renewals and RFPs are not eligible for registration protection.\n\n" +
                 "Would you like to **preview the strategy** now, or save it for later?\n\n" +
-                "📄 <b><a href='assets/DealRegistrationPlaybook.pdf' target='_blank' style='display: inline !important; background: none !important; color: #d8b4fe !important; padding: 0 !important; border: none !important; font-weight: bold;'>Review in Browser</a></b> (Live View)\n\n" +
+              // 📄 Review in Browser Button
+                "<a href='assets/DealRegistrationPlaybook.pdf' target='_blank' class='eggy-btn-alt'>📄 Review in Browser</a>\n\n" +
                 "You can download it below:\n\n" +
                 "<a href='assets/DealRegistrationPlaybook.pdf' download='DealRegistrationPlaybook.pdf' target='_blank' " +
                 "style='display: inline-block; padding: 12px 24px; background-color: #E11A22; color: white; " +
@@ -1132,13 +1132,13 @@ if (stageSelect) {
 
             case "Discovery":
                 eggyResponse = "🎖️ **Technical Mastery:** Strong discovery starts with certified expertise. I recommend these 4 core courses on **Skilljar** for your technical leads: \n\n" +
-                               "<a href='https://support.eggplantsoftware.com/training-and-certifications' target='_blank' class='eggy-btn-alt'>🎓 Open Skilljar LMS</a>";
+                               "<a href='https://keysight.skilljar.com' target='_blank' class='eggy-btn-alt'>🎓 Access Skilljar Training</a>";
                 break;
 
             case "Evaluating":
                 eggyResponse = "🔍 **Technical Deep Dive!** To provide the right assets, which sector is this customer focused on? \n\n" +
-                               "* **Core Test & Measurement?** [Asset Library A](#)\n" +
-                               "* **AI/Software Automation?** [Asset Library B](#)";
+                            "<a href='#' class='eggy-btn-alt'>📂 Asset Library A: Core Test</a> \n" +
+                            "<a href='#' class='eggy-btn-alt'>📂 Asset Library B: AI Automation</a>";
                 break;
 
             case "Negotiation":
