@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eggy AI Architecture | Masha Harness Portfolio</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#a855f7',
+                edgeLabelBackground: '#0f172a',
+                tertiaryColor: '#1e293b'
+            },
+            /* Changed useMaxWidth to true for better centering response */
+            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+        });
+    </script>
+    <style>
+        :root {
+            --ks-red: #E11A22;
+            --wizard-purple: #a855f7;
+            --bg-dark: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --text-main: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b 0%, #000000 100%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            padding: 50px 40px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .eggy-avatar {
+            width: 80px;
+            height: 80px;
+            background: url('assets/images/EggySmall.png') no-repeat center center;
+            background-size: 90%; /* Adjust this % to control the space (70% = more space) */
+            background-color: rgba(255, 255, 255, 0.05); /* Optional: slight inner glow */
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            border: 2px solid var(--wizard-purple);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(to right, #fff, var(--wizard-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        /* CENTER ALIGNMENT LOGIC */
+        .diagram-section { 
+            padding: 40px; 
+            background: rgba(0,0,0,0.2); 
+            display: flex;
+            justify-content: center; /* Centers the card */
+        }
+        
+        .diagram-card {
+            background: #000;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            width: 100%;
+            max-width: 900px; /* Keeps the flowchart from stretching too wide */
+            overflow-x: auto; /* Scroll for iPhone portrait */
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center; /* Centers the actual SVG inside the card */
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        /* Buttons & Grid maintained from your source */
+        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
+        .btn { padding: 12px 24px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.3s; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); }
+        .btn:hover { background: var(--wizard-purple); transform: translateY(-2px); }
+
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 40px; }
+        .info-box { background: rgba(255,255,255,0.02); padding: 25px; border-radius: 16px; border-left: 4px solid var(--wizard-purple); }
+        .info-box h2 { font-size: 1.2rem; color: var(--wizard-purple); margin-bottom: 15px; }
+        .info-box ul { list-style: none; padding: 0; color: #cbd5e1; font-size: 0.95rem; }
+        .info-box li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; }
+        .info-box li::before { content: "▹"; color: var(--wizard-purple); }
+
+        .footer { padding: 40px; text-align: center; font-size: 0.9rem; color: #64748b; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        @media (max-width: 768px) { 
+            .info-grid { grid-template-columns: 1fr; } 
+            .header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="eggy-avatar"></div>
+        <h1>Eggy AI System Architecture</h1>
+        <p>A deterministic, state-based enablement engine designed to automate global partner compliance.</p>
+        
+        <div class="btn-group">
+            <a href="index.html" class="btn">← Back to Portfolio</a>
+            <a href="dealregistrationpage.html" class="btn" style="border-color: var(--ks-red);">View Live Demo</a>
+        </div>
+    </div>
+
+    <div class="diagram-section">
+        <div class="diagram-card">
+            <div class="mermaid">
+                flowchart TD
+                    Start([Page Load]) --> Init[Initialize: chatOpened = false]
+                    Init --> Timer{4s Delay}
+                    Timer -->|Unopened| Open[Auto-Open & Welcome]
+                    
+                    Open --> Interaction[User Form Interaction]
+                    Interaction --> Logic{Trigger Event?}
+                    
+                    Logic -->|Stage Change| Stage[Stage-Based Enablement]
+                    Logic -->|Keyword| NLP[Pattern-Matching Engine]
+                    Logic -->|Validation| Gov[Governance Rules]
+                    
+                    Stage -->|Logic| Response[AI Prompt Injection]
+                    NLP -->|Match| Response
+                    Gov -->|Alert| Response
+                    
+                    Response --> Render[Marked.js Markdown Render]
+                    Render --> Success{Submit Success?}
+                    Success -->|Yes| Confetti[Confetti.js Celebration]
+                    Confetti --> End([Revenue Velocity Achieved])
+
+                    style Start fill:#1e293b,stroke:#a855f7
+                    style End fill:#E11A22,stroke:#fff
+                    style Response fill:#a855f7,color:#fff
+            </div>
+        </div>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-box">
+            <h2>Core AI Logic</h2>
+            <ul>
+                <li>Pattern-matching for 13 specific knowledge domains.</li>
+                <li>Zero-latency response via client-side processing.</li>
+                <li>Context-aware RAG logic for technical documentation.</li>
+            </ul>
+        </div>
+        <div class="info-box">
+            <h2>Governance Framework</h2>
+            <ul>
+                <li>$25k threshold enforcement logic.</li>
+                <li>Real-time currency conversion (Treasury API).</li>
+                <li>RFP & Government bid exclusion compliance.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 Masha Harness | Sr. Enablement Architect | UC Berkeley TPM</p>
+    </div>
+</div>
+
+</body>
+</html>
