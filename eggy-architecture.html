@@ -3,190 +3,566 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eggy AI Architecture | Masha Harness Portfolio</title>
+    <title>Eggy AI Chatbot - System Architecture | Masha Harness Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ 
             startOnLoad: true,
-            theme: 'dark',
-            themeVariables: {
-                primaryColor: '#a855f7',
-                edgeLabelBackground: '#0f172a',
-                tertiaryColor: '#1e293b'
-            },
-            /* Changed useMaxWidth to true for better centering response */
-            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
         });
     </script>
     <style>
         :root {
-            --ks-red: #E11A22;
-            --wizard-purple: #a855f7;
-            --bg-dark: #050505;
-            --glass: rgba(255, 255, 255, 0.03);
+            --bg-deep: #0f172a;
+            --accent-blue: #38bdf8;
+            --accent-red: #e11d48;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
             --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top right, #1e1b4b 0%, #000000 100%);
-            color: var(--text-main);
-            margin: 0;
+            font-family: "Montserrat", sans-serif;
+            background: radial-gradient(circle at center, #0f172a 0%, #000000 100%);
+            color: #f8fafc;
+            min-height: 100vh;
             padding: 20px;
-            line-height: 1.6;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            border-radius: 24px;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .header {
-            padding: 50px 40px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(225, 29, 72, 0.15));
+            border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--text-main);
+            padding: 40px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .eggy-avatar {
-            width: 80px;
-            height: 80px;
-            background: url('assets/images/EggySmall.png') no-repeat center center;
-            background-size: 90%; /* Adjust this % to control the space (70% = more space) */
-            background-color: rgba(255, 255, 255, 0.05); /* Optional: slight inner glow */
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            border: 2px solid var(--wizard-purple);
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
         }
 
         .header h1 {
-            font-size: 2.8rem;
-            background: linear-gradient(to right, #fff, var(--wizard-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
             margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
         }
 
-        /* CENTER ALIGNMENT LOGIC */
-        .diagram-section { 
-            padding: 40px; 
-            background: rgba(0,0,0,0.2); 
-            display: flex;
-            justify-content: center; /* Centers the card */
+        .header p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
-        
-        .diagram-card {
-            background: #000;
+
+        .author {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .author a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.5);
+            transition: all 0.3s;
+        }
+
+        .author a:hover {
+            color: #fff;
+            border-bottom-color: var(--accent-blue);
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(90deg, var(--accent-blue), #0ea5e9);
+            color: white !important;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: none;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .info-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--accent-blue);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+        }
+
+        .info-section:hover {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: rgba(56, 189, 248, 0.9);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .info-section h2 {
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        }
+
+        .info-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-dim);
+        }
+
+        .info-section li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .diagram-container {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 30px;
-            border-radius: 16px;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            width: 100%;
-            max-width: 900px; /* Keeps the flowchart from stretching too wide */
-            overflow-x: auto; /* Scroll for iPhone portrait */
+            border-radius: 12px;
+            overflow-x: auto;
         }
 
         .mermaid {
             display: flex;
-            justify-content: center; /* Centers the actual SVG inside the card */
-            align-items: center;
-            margin: 0 auto;
+            justify-content: center;
+            min-height: 400px;
         }
 
-        /* Buttons & Grid maintained from your source */
-        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
-        .btn { padding: 12px 24px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.3s; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); }
-        .btn:hover { background: var(--wizard-purple); transform: translateY(-2px); }
-
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 40px; }
-        .info-box { background: rgba(255,255,255,0.02); padding: 25px; border-radius: 16px; border-left: 4px solid var(--wizard-purple); }
-        .info-box h2 { font-size: 1.2rem; color: var(--wizard-purple); margin-bottom: 15px; }
-        .info-box ul { list-style: none; padding: 0; color: #cbd5e1; font-size: 0.95rem; }
-        .info-box li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; }
-        .info-box li::before { content: "▹"; color: var(--wizard-purple); }
-
-        .footer { padding: 40px; text-align: center; font-size: 0.9rem; color: #64748b; border-top: 1px solid rgba(255,255,255,0.1); }
-
-        @media (max-width: 768px) { 
-            .info-grid { grid-template-columns: 1fr; } 
-            .header h1 { font-size: 2rem; }
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
+
+        .control-btn {
+            background: linear-gradient(90deg, var(--accent-blue), #0ea5e9);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            font-size: 13px;       /* Forces all text to be the same size */
+            line-height: 1;        /* Keeps the text centered vertically */
+            font-family: inherit;  /* Ensures the link doesn't use a different font */
+        }
+
+        .control-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+        }
+
+        .control-btn:visited {
+            color: white;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            text-align: center;
+            color: var(--text-dim);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .footer a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .diagram-container {
+                padding: 15px;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-dim);
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--accent-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- Header -->
     <div class="header">
-        <div class="eggy-avatar"></div>
-        <h1>Eggy AI System Architecture</h1>
-        <p>A deterministic, state-based enablement engine designed to automate global partner compliance.</p>
-        
-        <div class="btn-group">
-            <a href="index.html" class="btn">← Back to Portfolio</a>
-            <a href="dealregistrationpage.html" class="btn" style="border-color: var(--ks-red);">View Live Demo</a>
+    <h1><img src="assets/images/EggySmall.png" alt="Eggy" style="width: 34px; height: 34px; vertical-align: middle; margin-right: 2px;">
+        Eggy AI Chatbot - System Architecture</h1>
+        <p>
+            Stage-based enablement engine with proactive governance validation.<br/> 
+            Built for the Keysight Eggplant Partner Portal to automate deal registration compliance 
+            and provide contextual training recommendations.
+        </p>
+        <p class="author">
+            Designed & Developed by <a href="https://bizalchemist.github.io" target="_blank">Masha Harness</a> 
+            | Senior Enablement Architect
+        </p>
+        <div class="nav-buttons">
+            <a href="dealregistrationpage.html" class="btn">Live Demo</a>
+            <a href="https://www.linkedin.com/in/mashaharness/" class="btn" target="_blank">LinkedIn</a>
         </div>
     </div>
 
-    <div class="diagram-section">
-        <div class="diagram-card">
-            <div class="mermaid">
-                flowchart TD
-                    Start([Page Load]) --> Init[Initialize: chatOpened = false]
-                    Init --> Timer{4s Delay}
-                    Timer -->|Unopened| Open[Auto-Open & Welcome]
-                    
-                    Open --> Interaction[User Form Interaction]
-                    Interaction --> Logic{Trigger Event?}
-                    
-                    Logic -->|Stage Change| Stage[Stage-Based Enablement]
-                    Logic -->|Keyword| NLP[Pattern-Matching Engine]
-                    Logic -->|Validation| Gov[Governance Rules]
-                    
-                    Stage -->|Logic| Response[AI Prompt Injection]
-                    NLP -->|Match| Response
-                    Gov -->|Alert| Response
-                    
-                    Response --> Render[Marked.js Markdown Render]
-                    Render --> Success{Submit Success?}
-                    Success -->|Yes| Confetti[Confetti.js Celebration]
-                    Confetti --> End([Revenue Velocity Achieved])
+    <!-- Content -->
+    <div class="content">
+        <!-- Info Section -->
+        <div class="info-section">
+            <h2>Key System Features</h2>
+            <ul>
+                <li><strong>Pattern-Matching AI:</strong> 13 knowledge domains with instant responses (no API costs)</li>
+                <li><strong>Proactive Governance:</strong> Auto-validates $25k threshold, 14-day timing, currency conversion</li>
+                <li><strong>Stage-Based Triggers:</strong> Discovery → Skilljar training, Negotiation → Battlecards</li>
+                <li><strong>Auto-Open Intelligence:</strong> 4-second delay with personalized welcome message</li>
+                <li><strong>Real-Time Alerts:</strong> Forces chatbot open when user makes validation errors</li>
+                <li><strong>Multi-Stage Enablement:</strong> 8 sales stages with contextual resources</li>
+                <li><strong>Currency Monitor:</strong> Detects non-USD currencies, prompts Treasury converter</li>
+                <li><strong>Confetti Celebration:</strong> Success UX with Keysight-branded animation</li>
+            </ul>
+        </div>
 
-                    style Start fill:#1e293b,stroke:#a855f7
-                    style End fill:#E11A22,stroke:#fff
-                    style Response fill:#a855f7,color:#fff
+        <div class="info-section">
+            <h2>Business Impact</h2>
+            <ul>
+                <li><strong>Reduces Channel Manager workload:</strong> Automated compliance checking saves hours/week</li>
+                <li><strong>Increases approval rates:</strong> Proactive validation prevents common rejection reasons</li>
+                <li><strong>Scales enablement delivery:</strong> Stage-based training links at point of need</li>
+                <li><strong>Proves certification-to-revenue correlation:</strong> Tracks training completion → deal outcomes</li>
+                <li><strong>Portable architecture:</strong> Same logic works for Salesforce, HubSpot, or any CRM</li>
+            </ul>
+        </div>
+
+        <!-- Technical Details -->
+        <div class="info-section" style="margin-top: 30px;">
+            <h2>Technical Implementation</h2>
+            <ul>
+                <li><strong>Frontend:</strong> Vanilla JavaScript (no frameworks), HTML5, CSS3</li>
+                <li><strong>Libraries:</strong> Marked.js (Markdown parsing), Canvas Confetti (celebrations)</li>
+                <li><strong>Architecture:</strong> Event-driven with state management (chatOpened flag)</li>
+                <li><strong>Validation:</strong> Client-side with real-time feedback via blur events</li>
+                <li><strong>Response Time:</strong> 1.2s artificial delay for "thinking" UX</li>
+                <li><strong>Knowledge Base:</strong> 13 hardcoded response patterns (no LLM API calls)</li>
+                <li><strong>Integration Points:</strong> Skilljar LMS, Treasury.gov converter, PDF playbook</li>
+                <li><strong>Accessibility:</strong> Keyboard navigation, ARIA labels, mobile responsive</li>
+            </ul>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="control-btn" onclick="zoomIn()"> Zoom In</button>
+            <button class="control-btn" onclick="zoomOut()"> Zoom Out</button>
+            <button class="control-btn" onclick="resetZoom()"> Reset</button>
+            <a href="assets/images/eggy-ai-diagram.png" download="Masha-Harness-Eggy-Architecture.png" 
+            class="control-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; vertical-align: middle;">
+                <i class="fa fa-download"></i> Download PNG
+            </a>
+        </div>
+
+        <!-- Diagram -->
+        <div class="diagram-container" id="diagramContainer">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Rendering architecture diagram...</p>
             </div>
-        </div>
+ <div class="mermaid" id="mermaidDiagram">
+  flowchart TD
+    Start([Page Load]) --> Init["Initialize chatbot state: chatOpened = false"]
+    Init --> AutoOpen{Wait 4 seconds}
+    AutoOpen -->|Timer fires| CheckOpened{"chatOpened == false?"}
+    CheckOpened -->|Yes| OpenChat[Auto-open chatbot, Show welcome message]
+    CheckOpened -->|No| Wait[Continue waiting]
+    
+    OpenChat --> UserInteract[User interacts with form]
+    Wait --> UserInteract
+    
+    UserInteract --> FormAction{User action?}
+    
+    FormAction -->|Clicks Eggy icon| Toggle[toggleChat: Show/hide chatbot]
+    FormAction -->|Clicks quick button| QuickMsg[Copy button text to input, Call sendMessage]
+    FormAction -->|Types message + Enter| SendMsg[sendMessage]
+    FormAction -->|Clicks SEND button| SendMsg
+    FormAction -->|Changes Stage dropdown| StageLogic[Stage-Based Enablement]
+    FormAction -->|Changes Currency dropdown| CurrencyLogic[Currency Monitor]
+    FormAction -->|Blur on Amount field| AmountCheck[Threshold Validation]
+    FormAction -->|Blur on Date field| DateCheck[Timing Validation]
+    FormAction -->|Selects Referral type| ShowUpload[Show invoice upload box]
+    
+    SendMsg --> AddUserMsg[addMessage: text, isUser=true]
+    AddUserMsg --> ShowTyping[Show Eggy is thinking...]
+    ShowTyping --> GetAI[getAIResponse: message]
+    
+    GetAI --> Wait1200[Wait 1200ms delay]
+    Wait1200 --> ParseInput[Convert to lowercase, Pattern matching]
+    
+    ParseInput --> Match{Keyword match?}
+    Match -->|playbook/guide/rule| RespPlaybook[Return playbook response + PDF download links]
+    Match -->|limit/amount/25| RespThreshold[Return $25k threshold info]
+    Match -->|currency/convert| RespCurrency[Return Treasury converter link]
+    Match -->|extension/expire/90| RespExtension[Return 180-day + 90-day rule]
+    Match -->|requirement/need| RespRequirements[Return registration requirements]
+    Match -->|new deal/start| RespNewDeal[Return getting started guide]
+    Match -->|reject/denied| RespRejection[Return rejection reasons]
+    Match -->|referral| RespReferral[Return referral vs deal info]
+    Match -->|government/rfp| RespGov[Return RFP/bid rules]
+    Match -->|effort/proof| RespEffort[Return presales effort requirements]
+    Match -->|notification/after| RespTimeline[Return post-submission timeline]
+    Match -->|audit/compliance| RespAudit[Return audit & ethics rules]
+    Match -->|hello/hi/eggy| RespGreeting[Return Eggy intro]
+    Match -->|No match| RespDefault[Return default fallback]
+    
+    RespPlaybook --> RemoveTyping[Remove typing indicator]
+    RespThreshold --> RemoveTyping
+    RespCurrency --> RemoveTyping
+    RespExtension --> RemoveTyping
+    RespRequirements --> RemoveTyping
+    RespNewDeal --> RemoveTyping
+    RespRejection --> RemoveTyping
+    RespReferral --> RemoveTyping
+    RespGov --> RemoveTyping
+    RespEffort --> RemoveTyping
+    RespTimeline --> RemoveTyping
+    RespAudit --> RemoveTyping
+    RespGreeting --> RemoveTyping
+    RespDefault --> RemoveTyping
+    
+    RemoveTyping --> AddBotMsg[addMessage: response, isUser=false, Parse with marked.js]
+    AddBotMsg --> ScrollChat[Auto-scroll to bottom]
+    ScrollChat --> UserInteract
+    
+    StageLogic --> StageSwitch{Stage value?}
+    StageSwitch -->|New Deal| StageNew[Show Masha intro + enablement architect pitch]
+    StageSwitch -->|Prospecting| StageProsp[Show presales training link]
+    StageSwitch -->|Discovery| StageDisc[Show Skilljar LMS link + API sync explanation]
+    StageSwitch -->|Evaluating| StageEval[Show asset library links]
+    StageSwitch -->|Negotiation| StageNeg[Show battlecard note + demo disclaimer]
+    StageSwitch -->|Closed Won| StageWon[Show congratulations]
+    StageSwitch -->|Closed Lost| StageLost[Show strategic review prompt]
+    StageSwitch -->|Denied| StageDenied[Show appeals process link]
+    
+    StageNew --> ForceOpen[Force open chatbot, chatOpened = true]
+    StageProsp --> ForceOpen
+    StageDisc --> ForceOpen
+    StageEval --> ForceOpen
+    StageNeg --> ForceOpen
+    StageWon --> ForceOpen
+    StageLost --> ForceOpen
+    StageDenied --> ForceOpen
+    
+    ForceOpen --> HideNotif[Hide notification badge]
+    HideNotif --> AddStageMsg[addMessage: eggyResponse]
+    AddStageMsg --> WaveEggy[Trigger wave animation]
+    WaveEggy --> UserInteract
+    
+    CurrencyLogic --> CheckCurrency{Currency != USD?}
+    CheckCurrency -->|Yes| CurrAlert[Force open chatbot, Show Treasury converter link]
+    CheckCurrency -->|No| UserInteract
+    CurrAlert --> UserInteract
+    
+    AmountCheck --> CheckAmount{Amount < $25k?}
+    CheckAmount -->|Yes| AmountAlert[Force open chatbot, Show threshold warning]
+    CheckAmount -->|No| UserInteract
+    AmountAlert --> UserInteract
+    
+    DateCheck --> CheckDate{Days to close < 14?}
+    CheckDate -->|Yes| DateAlert[Force open chatbot, Show timing warning]
+    CheckDate -->|No| CheckYear{Year < 2026?}
+    DateAlert --> UserInteract
+    CheckYear -->|Yes| YearAlert[Force open chatbot, Show year validation error]
+    CheckYear -->|No| UserInteract
+    YearAlert --> UserInteract
+    
+    ShowUpload --> UploadVisible[Upload container visible: opacity 1, max-height 200px]
+    UploadVisible --> UserInteract
+    
+    Toggle --> UserInteract
+    QuickMsg --> UserInteract
+    
+    UserInteract --> Submit{User clicks Submit?}
+    Submit -->|Form valid| HideForm[Hide form + headers + banner]
+    Submit -->|Invalid| UserInteract
+    HideForm --> ShowSuccess[Show success message]
+    ShowSuccess --> Confetti[Trigger confetti animation]
+    Confetti --> End([End])
+    
+    style Start fill:#d8b4fe
+    style End fill:#22c55e
+    style GetAI fill:#a855f7,color:#fff
+    style ForceOpen fill:#E11A22,color:#fff
+    style Match fill:#fcd34d
+    style StageSwitch fill:#fcd34d
+</div>
+
+
     </div>
 
-    <div class="info-grid">
-        <div class="info-box">
-            <h2>Core AI Logic</h2>
-            <ul>
-                <li>Pattern-matching for 13 specific knowledge domains.</li>
-                <li>Zero-latency response via client-side processing.</li>
-                <li>Context-aware RAG logic for technical documentation.</li>
-            </ul>
-        </div>
-        <div class="info-box">
-            <h2>Governance Framework</h2>
-            <ul>
-                <li>$25k threshold enforcement logic.</li>
-                <li>Real-time currency conversion (Treasury API).</li>
-                <li>RFP & Government bid exclusion compliance.</li>
-            </ul>
-        </div>
-    </div>
-
+    <!-- Footer -->
     <div class="footer">
-        <p>© 2026 Masha Harness | Sr. Enablement Architect | UC Berkeley TPM</p>
+        <p>
+            <strong>Eggy AI Chatbot</strong> | Built by <a href="https://bizalchemist.github.io" target="_blank">Masha Harness</a>
+        </p>
+        <p style="margin-top: 10px;">
+            Portfolio Project demonstrating Sales Enablement Architecture & AI-Powered Governance
+        </p>
+        <p style="margin-top: 15px; font-size: 0.9rem;">
+            © 2026 Masha Harness | BizAlchemist
+        </p>
     </div>
 </div>
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Wait for mermaid to render, then hide loading
+    setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('mermaidDiagram').style.display = 'block';
+    }, 2000);
+
+    // Zoom controls
+    let currentZoom = 1;
+
+    function zoomIn() {
+        currentZoom += 0.2;
+        applyZoom();
+    }
+
+    function zoomOut() {
+        if (currentZoom > 0.4) {
+            currentZoom -= 0.2;
+            applyZoom();
+        }
+    }
+
+    function resetZoom() {
+        currentZoom = 1;
+        applyZoom();
+    }
+
+    function applyZoom() {
+        const diagram = document.getElementById('mermaidDiagram');
+        diagram.style.transform = `scale(${currentZoom})`;
+        diagram.style.transformOrigin = 'top center';
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        if (e.key === '+' || e.key === '=') {
+            e.preventDefault();
+            zoomIn();
+        } else if (e.key === '-') {
+            e.preventDefault();
+            zoomOut();
+        } else if (e.key === '0') {
+            e.preventDefault();
+            resetZoom();
+        }
+    });
+</script>
+
 </body>
 </html>
+        
