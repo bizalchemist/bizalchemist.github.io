@@ -1170,6 +1170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = document.getElementById(field.id);
         if (!el) return;
 
+        // 1. BLUR: Validates when they LEAVE the field
         el.addEventListener('blur', (e) => {
             let val = e.target.value.trim();
             if (!val) return;
@@ -1179,7 +1180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const chatWindow = document.getElementById('chatbot-window');
                 chatWindow.style.display = 'flex'; 
 
-                const keyboardMessage = `🌍 **Global Match:** I noticed the **${field.label}** uses local characters.\n\n` +
+        const keyboardMessage = `🌍 **Global Match:** I noticed the **${field.label}** uses local characters.\n\n` +
                     `To ensure our global systems sync correctly, please use Latin/English. If you don't have a Latin keyboard active, you can use this tool:\n\n` +
                     `<a href="https://www.google.com/inputtools/try/" target="_blank" class="eggy-btn-alt">` +
                     `<i class="fas fa-keyboard"></i> Open Global Keyboard</a>\n\n` +
@@ -1192,13 +1193,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Formatting Path
                 el.classList.remove('integrity-error');
                 e.target.value = val.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-                
                 // Final Check to see if we can unlock the button
                 const remainingErrors = document.querySelectorAll('.integrity-error').length;
                 if (remainingErrors === 0) updateSubmitState(false);
             }
-        });
-    });
+        }); // <-- Close Blur here
+
+        // 2. FOCUS: Reactive wave when they click BACK in
+        el.addEventListener('focus', () => {
+            if (el.classList.contains('integrity-error')) {
+                const eggyImg = document.getElementById('eggy-img');
+                if (eggyImg) eggyImg.classList.add('wave-animate');
+            }
+        }); // <-- Close Focus here
+    }); // <-- Close forEach here
 });
 
 /* --- THE RECOVERY ENGINE --- */
