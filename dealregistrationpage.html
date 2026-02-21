@@ -1078,39 +1078,116 @@ select:not([data-value=""]) + label .currency-info {
         });
     });
 
-/* --- REFINED PART 6: ACTIVE GOVERNANCE MODULE --- */
+/* --- PART 6: ACTIVE GOVERNANCE (Rules & Timing) --- */
 document.querySelectorAll('input, select').forEach(field => {
     field.addEventListener('blur', async (e) => {
         const value = e.target.value;
         const fieldId = e.target.id;
+        const el = e.target;
         const chatWindow = document.getElementById('chatbot-window');
         let alertMessage = "";
         
-        // SMART LOGIC 1: Threshold Validation
+        // 1. Threshold Validation
         if (fieldId === 'amount' && value !== "" && parseFloat(value) < 25000) {
-            alertMessage = "Hey! 👋 Just a heads up - the minimum deal size is <strong>$25,000 USD</strong>. You entered <strong>$" + value + "</strong>. Want to double-check that amount?";
-        }
+            el.classList.add('integrity-error');
+            alertMessage = `💰 **Minimum Threshold:** The deal size of $${value} is below the mandatory **$25k USD minimum**.`;
+        } 
         
-        // SMART LOGIC 2: Timing Validation
-        if (fieldId === 'date' && value !== "") {
-            const daysToClose = (new Date(value) - new Date()) / (1000 * 60 * 60 * 24);
-            if (daysToClose < 14 && daysToClose > 0) {
-                alertMessage = "⏰ Close date is in <strong>" + Math.floor(daysToClose) + " days</strong> - we need <strong>14+ days</strong> to process. Adjust the date, or contact your PAM if urgent!";
-            } 
+        // 2. Precision Date Validation (SOX + 14-Day Enablement)
+        else if (fieldId === 'date' && value !== "") {
+            const inputDate = new Date(value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const daysToClose = Math.ceil((inputDate - today) / (1000 * 60 * 60 * 24));
+
+            if (inputDate < today) {
+                // CRITICAL SOX VIOLATION (Back-date)
+                el.classList.add('integrity-error');
+                alertMessage = `🚫 **Data Integrity Alert (SOX):** The close date cannot be in the past. Please select a valid current or future date.`;
+                el.value = ''; 
+            } else if (daysToClose < 14) {
+                // ENABLEMENT WARNING (Process timing)
+                el.classList.add('integrity-error'); // Still locks submit to ensure PAM approval
+                alertMessage = `⏰ **Process Note:** While this is a valid date, it's only **${daysToClose} days** away. Our teams need **14+ days** for full processing. Please adjust or contact your PAM.`;
+            } else {
+                el.classList.remove('integrity-error');
+            }
         }
-        
-        // ACTION: If an alert exists, FORCE the chat to open and speak
+
+        // --- EXECUTION ---
         if (alertMessage) {
             chatWindow.style.display = 'flex';
             chatOpened = true;
-            const notif = document.getElementById('chat-notif');
-            if (notif) notif.style.display = 'none';
             addMessage(alertMessage, false);
-            const eggy = document.getElementById('eggy-img');
-            if (eggy) eggy.classList.add('wave-animate');
+            updateSubmitState(true); 
+            
+            const eggyImg = document.getElementById('eggy-img');
+            if (eggyImg) eggyImg.classList.add('wave-animate');
+        } else {
+            if (fieldId === 'amount' || fieldId === 'date') el.classList.remove('integrity-error');
+            const remainingErrors = document.querySelectorAll('.integrity-error').length;
+            if (remainingErrors === 0) updateSubmitState(false);
         }
     });
 });
+
+/* --- PART 6.1: DATA INTEGRITY (Linguistic Gate) --- */
+document.addEventListener('DOMContentLoaded', () => {
+    const textFields = [
+        { id: 'dealName', label: 'Deal Name' },
+        { id: 'customer', label: 'End Customer' }
+    ];
+    const latinRegex = /^[a-zA-Z0-9\s.,&#\-\/\(\)|]+$/;
+
+    textFields.forEach(field => {
+        const el = document.getElementById(field.id);
+        if (!el) return;
+
+        el.addEventListener('blur', (e) => {
+            let val = e.target.value.trim();
+            if (!val) return;
+
+            if (!latinRegex.test(val)) {
+                el.classList.add('integrity-error');
+                const chatWindow = document.getElementById('chatbot-window');
+                chatWindow.style.display = 'flex'; 
+
+                const keyboardMessage = `🌍 **Global Match:** I noticed the **${field.label}** uses local characters.\n\n` +
+                    `To ensure our global systems sync correctly, please use Latin/English. If you don't have a Latin keyboard active, you can use this tool:\n\n` +
+                    `<a href="https://www.google.com/inputtools/try/" target="_blank" class="eggy-btn-alt">` +
+                    `<i class="fas fa-keyboard"></i> Open Global Keyboard</a>\n\n` +
+                    `Or, click below to let me optimize it for you:\n\n` +
+                    `<button class="eggy-btn-alt" onclick="runDemoTranslation('${field.id}')">✨ Auto-Optimize</button>`;
+
+                addMessage(keyboardMessage, false);
+                updateSubmitState(true);
+            } else {
+                // Formatting Path
+                el.classList.remove('integrity-error');
+                e.target.value = val.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+                
+                // Final Check to see if we can unlock the button
+                const remainingErrors = document.querySelectorAll('.integrity-error').length;
+                if (remainingErrors === 0) updateSubmitState(false);
+            }
+        });
+    });
+});
+
+/* --- THE RECOVERY ENGINE --- */
+
+function runDemoTranslation(fieldId) {
+const el = document.getElementById(fieldId);
+if (!el) return;
+// Demo Mapping
+const translations = { "キーサイト": "Keysight Technologies" };
+const newValue = translations[el.value] || "Project Quantum";
+el.value = newValue;
+el.classList.remove('integrity-error');
+addMessage(`✅ **Field Optimized:** I've updated it to **"${newValue}"**. Global match confirmed!`, false);
+
+}
 
 /* --- PART 7: STAGE-BASED SALES ENABLEMENT --- */
 const stageSelect = document.getElementById('stage');
@@ -1231,20 +1308,7 @@ function updateSubmitState(isViolated) {
     }
 }
 
-// Now, inside your blur event (Part 7), just call this!
-// If alertMessage is not empty, updateSubmitState(true);
-// Else, updateSubmitState(false);
-
-    document.getElementById('date').addEventListener('blur', function() {
-        const year = new Date(this.value).getFullYear();
-        if (year < 2026) {
-            const chatWindow = document.getElementById('chatbot-window');
-            chatWindow.style.display = 'flex';
-            addMessage("⏰ Oops! The close date shows <strong>" + year + "</strong>. Deals must close in <strong>2026 or later</strong>. Can you update that date?", false);
-            this.value = '';
-        }
-    });
-
+/* --- PART 10: CLOSING & FUN --- */
     document.querySelector('.btn-submit').addEventListener('click', function(e) {
         const form = this.closest('form') || document.querySelector('form');
         const successDiv = document.getElementById('success-message');
@@ -1281,89 +1345,6 @@ function updateSubmitState(isViolated) {
             });
         }
     });
-
-   /**
- * DEV-NOTE: Global Partner Program Data Integrity Script
- * ------------------------------------------------------
- * AUTHOR: Masha Harness (Admin/Dev)
- * PURPOSE: Enforces data standardization for the merger of NAS, Eggplant, and ESI.
- * LOGIC:
- * 1. LINGUISTIC GATE: Strictly prohibits non-Latin characters.
- * 2. CASE SANITATION: Auto-converts to 'Title Case'.
- * 3. AI-ACTION: Triggers Eggy for translation help instead of legacy alerts.
- */
-
-document.addEventListener('DOMContentLoaded', () => {
-    const fields = [
-        { id: 'dealName', label: 'Deal Name' },
-        { id: 'customer', label: 'End Customer' },
-        { id: 'amount', label: 'Amount' }, // Added to catch threshold logic
-        { id: 'date', label: 'Close Date' } // Added to catch timing logic
-    ];
-
-    const latinRegex = /^[a-zA-Z0-9\s.,&#\-\/\(\)|]+$/;
-
-    fields.forEach(field => {
-        const el = document.getElementById(field.id);
-        if (!el) return;
-
-        el.addEventListener('blur', (e) => {
-            let val = e.target.value.trim();
-            if (!val) return;
-
-            // --- 1. LINGUISTIC GATE (Deal Name & Customer Only) ---
-            if (field.id === 'dealName' || field.id === 'customer') {
-                if (!latinRegex.test(val)) {
-                    el.classList.add('integrity-error');
-                    
-                    const chatWindow = document.getElementById('chatbot-window');
-                    chatWindow.style.display = 'flex';
-                    chatOpened = true;
-
-                    addMessage(`🌍 **Global Match:** I noticed the **${field.label}** uses local characters. To ensure our global systems can sync this deal, let's use Latin/English. \n\n` +
-                               `<button class="eggy-btn-alt" onclick="runDemoTranslation('${field.id}')">✨ Yes, Optimize it</button>`, false);
-                    
-                    const eggyImg = document.getElementById('eggy-img');
-                    if (eggyImg) eggyImg.classList.add('wave-animate');
-                    return; 
-                }
-                // Case Normalization (Title Case)
-                e.target.value = val.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-                el.classList.remove('integrity-error');
-            }
-
-            // --- 2. THRESHOLD LOGIC (Amount) ---
-            if (field.id === 'amount' && parseFloat(val) < 25000) {
-                addMessage(`💰 **Minimum Threshold:** The deal size is $${val}. Just a reminder, the minimum for registration is **$25k USD equiv.**`, false);
-            }
-
-            // --- 3. TIMING LOGIC (Date) ---
-            if (field.id === 'date') {
-                const daysToClose = (new Date(val) - new Date()) / (1000 * 60 * 60 * 24);
-                if (daysToClose < 14 && daysToClose > 0) {
-                    addMessage(`⏰ **Quick Note:** This close date is only ${Math.floor(daysToClose)} days away. We usually need **14+ days** for full processing!`, false);
-                }
-            }
-            
-            el.style.borderBottom = ""; 
-        });
-    });
-});
-
-/* --- THE RECOVERY ENGINE --- */
-function runDemoTranslation(fieldId) {
-    const el = document.getElementById(fieldId);
-    if (!el) return;
-
-    // Demo Mapping
-    const translations = { "キーサイト": "Keysight Technologies" };
-    const newValue = translations[el.value] || "Project Quantum";
-
-    el.value = newValue; 
-    el.classList.remove('integrity-error');
-    
-    addMessage(`✅ **Field Optimized:** I've updated it to **"${newValue}"**. Global match confirmed!`, false);
-}
 
 </script>
 
