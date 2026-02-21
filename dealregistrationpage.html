@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/currency.js@2.0.4/dist/currency.min.js"></script>
   <style>
     /* --- ROOT & CORE STYLES --- */
     :root {
@@ -1078,7 +1079,7 @@ select:not([data-value=""]) + label .currency-info {
         });
     });
 
-/* --- PART 6: ACTIVE GOVERNANCE (Rules & Timing) --- */
+/* --- PART 6: ACTIVE GOVERNANCE (SOX & Global Currency) --- */
 document.querySelectorAll('input, select').forEach(field => {
     field.addEventListener('blur', async (e) => {
         const value = e.target.value;
@@ -1087,62 +1088,61 @@ document.querySelectorAll('input, select').forEach(field => {
         const chatWindow = document.getElementById('chatbot-window');
         let alertMessage = "";
         
-        // 1. Threshold Validation        
-        if (fieldId === 'amount' && value !== "") {
-            if (value.includes('e') || value.includes('E')) {
-                el.classList.add('integrity-error');
-                alertMessage = "🚫 **Format Error:** Please enter the amount using standard numbers only (no scientific notation).";
-                el.value = ""; // Wipe the bad data
-            } else if (parseFloat(value) < 25000) {
-                el.classList.add('integrity-error');
-                alertMessage = `💰 **Minimum Threshold:** The deal size of $${value} is below the mandatory **$25k USD minimum**.`;
-            }
-        }
+        // 1. Threshold & Currency Logic
+        if (fieldId === 'amount' || fieldId === 'currency') {
+            const amtEl = document.getElementById('amount');
+            const curEl = document.getElementById('currency');
+            const amtVal = amtEl.value;
+            const curVal = curEl.value;
 
-        /* --- ANTI-EXPONENT SHIELD --- */
-        const amountField = document.getElementById('amount');
-        if (amountField) {
-            amountField.addEventListener('keydown', (e) => {
-                // Block 'e', 'E', '+', and '-'
-                if (['e', 'E', '+', '-'].includes(e.key)) {
-                    e.preventDefault();
+            if (amtVal !== "" && curVal !== "") {
+                // Shield: Block scientific notation (the "E" bug)
+                if (amtVal.toLowerCase().includes('e')) {
+                    amtEl.classList.add('integrity-error');
+                    alertMessage = "🚫 **Format Error:** Scientific notation (e) is not permitted. Please enter a standard number.";
+                    amtEl.value = "";
+                } else {
+                    // DEMO RATE TABLE (Mocking the conversion library logic)
+                    const rates = { "USD": 1.0, "EUR": 1.08, "GBP": 1.26, "CAD": 0.74, "AUD": 0.65 };
+                    const rate = rates[curVal] || 1.0; 
+                    const usdEquiv = parseFloat(amtVal) * rate;
+
+                    if (usdEquiv < 25000) {
+                        amtEl.classList.add('integrity-error');
+                        // No-Bluff Verbiage: Explaining the conversion gap
+                        alertMessage = `💰 **Minimum Threshold:** $${amtVal} ${curVal} is approximately **$${Math.round(usdEquiv)} USD**. \n\nThis falls below our mandatory **$25k USD minimum**.`;
+                    } else {
+                        amtEl.classList.remove('integrity-error');
+                    }
                 }
-            });
-        }
-
-        // 2. Precision Date Validation (SOX + 14-Day Enablement)
+            }
+        } 
+        
+        // 2. Precision Date Validation (Rest unchanged)
         else if (fieldId === 'date' && value !== "") {
             const inputDate = new Date(value);
             const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
+            today.setHours(0,0,0,0);
             const daysToClose = Math.ceil((inputDate - today) / (1000 * 60 * 60 * 24));
 
             if (inputDate < today) {
-                // CRITICAL: Prevent falsified audit trails (SOX Compliance)
                 el.classList.add('integrity-error');
-                alertMessage = `🚫 **Data Integrity Alert (SOX):** Back-dating is not permitted for compliance reasons. Please enter the actual expected close date.`;
+                alertMessage = `🚫 **Data Integrity Alert (SOX):** Back-dating is not permitted for compliance.`;
                 el.value = ''; 
             } else if (daysToClose < 14) {
-                // WARNING: Protect PAM workload (Business Policy)
                 el.classList.add('integrity-error'); 
-                alertMessage = `⏰ **Process Note:** This date is valid, but since it's only **${daysToClose} days** away, we need PAM approval to expedite. Please adjust to 14+ days if possible.`;
+                alertMessage = `⏰ **Process Note:** This date is valid, but we need **14+ days** for PAM approval.`;
             } else {
-                 el.classList.remove('integrity-error');
+                el.classList.remove('integrity-error');
             }
         }
 
         // --- EXECUTION ---
         if (alertMessage) {
             chatWindow.style.display = 'flex';
-            chatOpened = true;
             addMessage(alertMessage, false);
-            updateSubmitState(true); 
-            
-            const eggyImg = document.getElementById('eggy-img');
-            if (eggyImg) eggyImg.classList.add('wave-animate');
+            updateSubmitState(true);
         } else {
-            if (fieldId === 'amount' || fieldId === 'date') el.classList.remove('integrity-error');
             const remainingErrors = document.querySelectorAll('.integrity-error').length;
             if (remainingErrors === 0) updateSubmitState(false);
         }
