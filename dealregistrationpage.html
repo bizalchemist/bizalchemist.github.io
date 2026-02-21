@@ -1269,50 +1269,88 @@ function updateSubmitState(isViolated) {
         }
     });
 
-    /**
-     * DEV-NOTE: Global Partner Program Data Integrity Script
-     * ------------------------------------------------------
-     * AUTHOR: Masha Harness (Admin/Dev)
-     * PURPOSE: Enforces data standardization for the merger of NAS, Eggplant, and ESI.
-     * * LOGIC:
-     * 1. LINGUISTIC GATE: Strictly prohibits non-Latin characters to ensure 
-     * compatibility with Oracle OPRD and global SQL revenue dashboards.
-     * 2. CASE SANITATION: Automatically converts 'ALL CAPS' or 'lowercase' entries
-     * into 'Title Case' to maintain professional reporting standards.
-     * 3. TRIGGER: Execution occurs on 'blur' to provide real-time feedback without
-     * interrupting active typing flow.
-     */
+   /**
+ * DEV-NOTE: Global Partner Program Data Integrity Script
+ * ------------------------------------------------------
+ * AUTHOR: Masha Harness (Admin/Dev)
+ * PURPOSE: Enforces data standardization for the merger of NAS, Eggplant, and ESI.
+ * LOGIC:
+ * 1. LINGUISTIC GATE: Strictly prohibits non-Latin characters.
+ * 2. CASE SANITATION: Auto-converts to 'Title Case'.
+ * 3. AI-ACTION: Triggers Eggy for translation help instead of legacy alerts.
+ */
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const fields = [
-            { id: 'dealName', label: 'Deal Name' },
-            { id: 'customer', label: 'End Customer' }
-        ];
+document.addEventListener('DOMContentLoaded', () => {
+    const fields = [
+        { id: 'dealName', label: 'Deal Name' },
+        { id: 'customer', label: 'End Customer' },
+        { id: 'amount', label: 'Amount' }, // Added to catch threshold logic
+        { id: 'date', label: 'Close Date' } // Added to catch timing logic
+    ];
 
-        // RegEx allows Latin Alpha-Numeric and standard business punctuation
-        const latinRegex = /^[a-zA-Z0-9\s.,&#\-\/\(\)|]+$/;
+    const latinRegex = /^[a-zA-Z0-9\s.,&#\-\/\(\)|]+$/;
 
-        fields.forEach(field => {
-            const el = document.getElementById(field.id);
-            if (!el) return;
+    fields.forEach(field => {
+        const el = document.getElementById(field.id);
+        if (!el) return;
 
-            el.addEventListener('blur', (e) => {
-                let val = e.target.value.trim();
-                if (!val) return;
+        el.addEventListener('blur', (e) => {
+            let val = e.target.value.trim();
+            if (!val) return;
 
-                // Step 1: Linguistic Validation
+            // --- 1. LINGUISTIC GATE (Deal Name & Customer Only) ---
+            if (field.id === 'dealName' || field.id === 'customer') {
                 if (!latinRegex.test(val)) {
-                    alert(`DATA INTEGRITY ALERT: ${field.label} must be in English/Latin characters for Global HQ matching.`);
-                    e.target.style.borderBottom = "2px solid #EF3340"; // Keysight Red highlight
-                    return;
-                }
+                    el.classList.add('integrity-error');
+                    
+                    const chatWindow = document.getElementById('chatbot-window');
+                    chatWindow.style.display = 'flex';
+                    chatOpened = true;
 
-                // Step 2: Case Normalization (Kill ALL CAPS)
+                    addMessage(`🌍 **Global Match:** I noticed the **${field.label}** uses local characters. To ensure our global systems can sync this deal, let's use Latin/English. \n\n` +
+                               `<button class="eggy-btn-alt" onclick="runDemoTranslation('${field.id}')">✨ Yes, Optimize it</button>`, false);
+                    
+                    const eggyImg = document.getElementById('eggy-img');
+                    if (eggyImg) eggyImg.classList.add('wave-animate');
+                    return; 
+                }
+                // Case Normalization (Title Case)
                 e.target.value = val.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-                e.target.style.borderBottom = ""; // Clear error state
-            });
+                el.classList.remove('integrity-error');
+            }
+
+            // --- 2. THRESHOLD LOGIC (Amount) ---
+            if (field.id === 'amount' && parseFloat(val) < 25000) {
+                addMessage(`💰 **Minimum Threshold:** The deal size is $${val}. Just a reminder, the minimum for registration is **$25k USD equiv.**`, false);
+            }
+
+            // --- 3. TIMING LOGIC (Date) ---
+            if (field.id === 'date') {
+                const daysToClose = (new Date(val) - new Date()) / (1000 * 60 * 60 * 24);
+                if (daysToClose < 14 && daysToClose > 0) {
+                    addMessage(`⏰ **Quick Note:** This close date is only ${Math.floor(daysToClose)} days away. We usually need **14+ days** for full processing!`, false);
+                }
+            }
+            
+            el.style.borderBottom = ""; 
         });
     });
+});
+
+/* --- THE RECOVERY ENGINE --- */
+function runDemoTranslation(fieldId) {
+    const el = document.getElementById(fieldId);
+    if (!el) return;
+
+    // Demo Mapping
+    const translations = { "キーサイト": "Keysight Technologies" };
+    const newValue = translations[el.value] || "Project Quantum";
+
+    el.value = newValue; 
+    el.classList.remove('integrity-error');
+    
+    addMessage(`✅ **Field Optimized:** I've updated it to **"${newValue}"**. Global match confirmed!`, false);
+}
 
 </script>
 
