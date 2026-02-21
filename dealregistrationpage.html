@@ -1087,12 +1087,29 @@ document.querySelectorAll('input, select').forEach(field => {
         const chatWindow = document.getElementById('chatbot-window');
         let alertMessage = "";
         
-        // 1. Threshold Validation
-        if (fieldId === 'amount' && value !== "" && parseFloat(value) < 25000) {
-            el.classList.add('integrity-error');
-            alertMessage = `💰 **Minimum Threshold:** The deal size of $${value} is below the mandatory **$25k USD minimum**.`;
-        } 
-        
+        // 1. Threshold Validation        
+        if (fieldId === 'amount' && value !== "") {
+            if (value.includes('e') || value.includes('E')) {
+                el.classList.add('integrity-error');
+                alertMessage = "🚫 **Format Error:** Please enter the amount using standard numbers only (no scientific notation).";
+                el.value = ""; // Wipe the bad data
+            } else if (parseFloat(value) < 25000) {
+                el.classList.add('integrity-error');
+                alertMessage = `💰 **Minimum Threshold:** The deal size of $${value} is below the mandatory **$25k USD minimum**.`;
+            }
+        }
+
+        /* --- ANTI-EXPONENT SHIELD --- */
+        const amountField = document.getElementById('amount');
+        if (amountField) {
+            amountField.addEventListener('keydown', (e) => {
+                // Block 'e', 'E', '+', and '-'
+                if (['e', 'E', '+', '-'].includes(e.key)) {
+                    e.preventDefault();
+                }
+            });
+        }
+
         // 2. Precision Date Validation (SOX + 14-Day Enablement)
         else if (fieldId === 'date' && value !== "") {
             const inputDate = new Date(value);
@@ -1335,14 +1352,15 @@ function updateSubmitState(isViolated) {
                 particleCount: 150,
                 spread: 70,
                 origin: { y: 0.6 },
-                colors: [
-                    '#E11A22', // Keysight Red (Keeping it for brand pop!)
-                    '#22c55e', // Success Green
-                    '#6366f1', // Electric Indigo
-                    '#a855f7', // Cyber Purple
-                    '#fcd34d'  // Golden Sparkle
-                ]
+                colors: ['#E11A22', '#22c55e', '#6366f1', '#a855f7', '#fcd34d']
             });
+
+            // ✅ EGGY CELEBRATION ADDED HERE:
+            addMessage("🏆 **Huge Congratulations!** Your deal has been submitted successfully. I'll keep an eye on the approval status for you!", false);
+            
+            // Force Eggy to wave!
+            const eggyImg = document.getElementById('eggy-img');
+            if (eggyImg) eggyImg.classList.add('wave-animate');
         }
     });
 
