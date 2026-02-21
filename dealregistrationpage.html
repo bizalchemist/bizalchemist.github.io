@@ -1102,16 +1102,16 @@ document.querySelectorAll('input, select').forEach(field => {
             const daysToClose = Math.ceil((inputDate - today) / (1000 * 60 * 60 * 24));
 
             if (inputDate < today) {
-                // CRITICAL SOX VIOLATION (Back-date)
+                // CRITICAL: Prevent falsified audit trails (SOX Compliance)
                 el.classList.add('integrity-error');
-                alertMessage = `🚫 **Data Integrity Alert (SOX):** The close date cannot be in the past. Please select a valid current or future date.`;
+                alertMessage = `🚫 **Data Integrity Alert (SOX):** Back-dating is not permitted for compliance reasons. Please enter the actual expected close date.`;
                 el.value = ''; 
             } else if (daysToClose < 14) {
-                // ENABLEMENT WARNING (Process timing)
-                el.classList.add('integrity-error'); // Still locks submit to ensure PAM approval
-                alertMessage = `⏰ **Process Note:** While this is a valid date, it's only **${daysToClose} days** away. Our teams need **14+ days** for full processing. Please adjust or contact your PAM.`;
+                // WARNING: Protect PAM workload (Business Policy)
+                el.classList.add('integrity-error'); 
+                alertMessage = `⏰ **Process Note:** This date is valid, but since it's only **${daysToClose} days** away, we need PAM approval to expedite. Please adjust to 14+ days if possible.`;
             } else {
-                el.classList.remove('integrity-error');
+                 el.classList.remove('integrity-error');
             }
         }
 
