@@ -546,6 +546,19 @@ select:not([data-value=""]) + label .currency-info {
     display: inline-block;
 }
 
+/* --- DATA INTEGRITY ERROR PULSE --- */
+.integrity-error {
+    border: 1px solid var(--ks-red) !important;
+    box-shadow: 0 0 10px rgba(233, 0, 41, 0.5);
+    animation: integrity-pulse 1.5s infinite;
+}
+
+@keyframes integrity-pulse {
+    0% { box-shadow: 0 0 0px rgba(233, 0, 41, 0.4); }
+    50% { box-shadow: 0 0 15px rgba(233, 0, 41, 0.8); }
+    100% { box-shadow: 0 0 0px rgba(233, 0, 41, 0.4); }
+}
+
 </style>
 </head>
 <body>
