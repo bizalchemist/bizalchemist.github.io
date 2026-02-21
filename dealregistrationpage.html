@@ -1079,7 +1079,7 @@ select:not([data-value=""]) + label .currency-info {
         });
     });
 
-/* --- PART 6: ACTIVE GOVERNANCE (SOX & Global Currency) --- */
+/* --- PART 6: ACTIVE GOVERNANCE (SOX & 21-Currency Global Anchor) --- */
 document.querySelectorAll('input, select').forEach(field => {
     field.addEventListener('blur', async (e) => {
         const value = e.target.value;
@@ -1088,7 +1088,7 @@ document.querySelectorAll('input, select').forEach(field => {
         const chatWindow = document.getElementById('chatbot-window');
         let alertMessage = "";
         
-        // 1. Threshold & Currency Logic
+        // 1. Threshold & Global Currency Logic
         if (fieldId === 'amount' || fieldId === 'currency') {
             const amtEl = document.getElementById('amount');
             const curEl = document.getElementById('currency');
@@ -1102,15 +1102,22 @@ document.querySelectorAll('input, select').forEach(field => {
                     alertMessage = "🚫 **Format Error:** Scientific notation (e) is not permitted. Please enter a standard number.";
                     amtEl.value = "";
                 } else {
-                    // DEMO RATE TABLE (Mocking the conversion library logic)
-                    const rates = { "USD": 1.0, "EUR": 1.08, "GBP": 1.26, "CAD": 0.74, "AUD": 0.65 };
+                    // FULL DEMO RATE TABLE (USD Base)
+                    const rates = {
+                        "USD": 1.0, "EUR": 1.08, "GBP": 1.27, "JPY": 0.0066, 
+                        "AUD": 0.65, "CAD": 0.74, "CHF": 1.14, "CNY": 0.14,
+                        "INR": 0.012, "SGD": 0.74, "TWD": 0.031, "KRW": 0.00075,
+                        "MYR": 0.21, "MXN": 0.058, "BRL": 0.20, "VND": 0.000041,
+                        "THB": 0.028, "ILS": 0.27, "HKD": 0.13, "DKK": 0.15, "SEK": 0.096
+                    };
+
                     const rate = rates[curVal] || 1.0; 
                     const usdEquiv = parseFloat(amtVal) * rate;
 
                     if (usdEquiv < 25000) {
                         amtEl.classList.add('integrity-error');
-                        // No-Bluff Verbiage: Explaining the conversion gap
-                        alertMessage = `💰 **Minimum Threshold:** $${amtVal} ${curVal} is approximately **$${Math.round(usdEquiv)} USD**. \n\nThis falls below our mandatory **$25k USD minimum**.`;
+                        // Precision verbiage for the partner
+                        alertMessage = `💰 **Minimum Threshold:** $${parseFloat(amtVal).toLocaleString()} ${curVal} is approximately **$${Math.round(usdEquiv).toLocaleString()} USD**. \n\nThis is below the mandatory **$25k USD minimum** required for deal protection.`;
                     } else {
                         amtEl.classList.remove('integrity-error');
                     }
@@ -1118,7 +1125,7 @@ document.querySelectorAll('input, select').forEach(field => {
             }
         } 
         
-        // 2. Precision Date Validation (Rest unchanged)
+        // 2. Precision Date Validation (SOX & 14-Day Rule)
         else if (fieldId === 'date' && value !== "") {
             const inputDate = new Date(value);
             const today = new Date();
@@ -1127,21 +1134,23 @@ document.querySelectorAll('input, select').forEach(field => {
 
             if (inputDate < today) {
                 el.classList.add('integrity-error');
-                alertMessage = `🚫 **Data Integrity Alert (SOX):** Back-dating is not permitted for compliance.`;
+                alertMessage = `🚫 **Data Integrity Alert (SOX):** Back-dating is not permitted for compliance reasons.`;
                 el.value = ''; 
             } else if (daysToClose < 14) {
                 el.classList.add('integrity-error'); 
-                alertMessage = `⏰ **Process Note:** This date is valid, but we need **14+ days** for PAM approval.`;
+                alertMessage = `⏰ **Process Note:** This date is valid, but since it's only **${daysToClose} days** away, we need PAM approval to expedite.`;
             } else {
                 el.classList.remove('integrity-error');
             }
         }
 
-        // --- EXECUTION ---
+        // --- EXECUTION: Trigger Eggy ---
         if (alertMessage) {
             chatWindow.style.display = 'flex';
             addMessage(alertMessage, false);
             updateSubmitState(true);
+            const eggyImg = document.getElementById('eggy-img');
+            if (eggyImg) eggyImg.classList.add('wave-animate');
         } else {
             const remainingErrors = document.querySelectorAll('.integrity-error').length;
             if (remainingErrors === 0) updateSubmitState(false);
