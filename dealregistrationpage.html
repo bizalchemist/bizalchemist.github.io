@@ -1373,8 +1373,9 @@ function updateSubmitState(isViolated) {
             });
 
             // ✅ EGGY CELEBRATION ADDED HERE:
-            addMessage("🏆 **Huge Congratulations!** Your deal has been submitted successfully. I'll keep an eye on the approval status for you!", false);
-            
+            addMessage("🏆 **Huge Congratulations!**🎉\n\n" +
+            "Your deal has been submitted successfully. I'll keep an eye on the approval status for you!. \n\n" +
+            "Your dedicated PAM will review this within 48 hours. Need to reach them sooner?", false);
             // Force Eggy to wave!
             const eggyImg = document.getElementById('eggy-img');
             if (eggyImg) eggyImg.classList.add('wave-animate');
