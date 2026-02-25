@@ -324,6 +324,9 @@
                 <li><strong>Multi-Stage Enablement:</strong> 8 sales stages with contextual resources</li>
                 <li><strong>Currency Monitor:</strong> Detects non-USD currencies, prompts Treasury converter</li>
                 <li><strong>Confetti Celebration:</strong> Success UX with Keysight-branded animation</li>
+                <li><strong>🆕 Linguistic Gate:</strong> Detects non-Latin characters in Deal Name &amp; Customer fields; offers Google Input Tools + Auto-Optimize button</li>
+                <li><strong>🆕 Scientific Notation Blocker:</strong> Catches "E-notation" amounts (e.g. 1e5), clears field and fires Eggy alert</li>
+                <li><strong>🆕 Submit Button Governance:</strong> Dynamically disables submit with "Fix Errors First" state until all integrity errors are resolved</li>
             </ul>
         </div>
 
@@ -343,12 +346,15 @@
             <h2>Technical Implementation</h2>
             <ul>
                 <li><strong>Frontend:</strong> Vanilla JavaScript (no frameworks), HTML5, CSS3</li>
-                <li><strong>Libraries:</strong> Marked.js (Markdown parsing), Canvas Confetti (celebrations)</li>
-                <li><strong>Architecture:</strong> Event-driven with state management (chatOpened flag)</li>
-                <li><strong>Validation:</strong> Client-side with real-time feedback via blur events</li>
+                <li><strong>Libraries:</strong> Marked.js (Markdown parsing), Canvas Confetti (celebrations), Currency.js (amount formatting)</li>
+                <li><strong>Architecture:</strong> Event-driven with state management (chatOpened flag + hasCriticalViolation flag)</li>
+                <li><strong>Validation:</strong> Client-side with real-time feedback via blur/focus events; updateSubmitState() controls form submission gate</li>
                 <li><strong>Response Time:</strong> 1.2s artificial delay for "thinking" UX</li>
                 <li><strong>Knowledge Base:</strong> 13 hardcoded response patterns (no LLM API calls)</li>
-                <li><strong>Integration Points:</strong> Skilljar LMS, Treasury.gov converter, PDF playbook</li>
+                <li><strong>Integration Points:</strong> Skilljar LMS, Treasury.gov converter, PDF playbook, Google Input Tools</li>
+                <li><strong>🆕 Linguistic Gate:</strong> Latin character regex validation on blur; runDemoTranslation() auto-corrects flagged fields; wave animation re-triggers on focus-back</li>
+                <li><strong>🆕 E-Notation Shield:</strong> String check for "e" in amount value before rate calculation; field cleared + error pulsed on detection</li>
+                <li><strong>🆕 Submit Governance:</strong> hasCriticalViolation flag + updateSubmitState() disables/re-enables submit button dynamically based on remaining .integrity-error count</li>
                 <li><strong>Accessibility:</strong> Keyboard navigation, ARIA labels, mobile responsive</li>
             </ul>
         </div>
@@ -392,6 +398,7 @@
     FormAction -->|Blur on Amount field| AmountCheck[Threshold Validation]
     FormAction -->|Blur on Date field| DateCheck[Timing Validation]
     FormAction -->|Selects Referral type| ShowUpload[Show invoice upload box]
+    FormAction -->|Blur on Deal Name or Customer| LingCheck[Linguistic Gate]
     
     SendMsg --> AddUserMsg[addMessage: text, isUser=true]
     AddUserMsg --> ShowTyping[Show Eggy is thinking...]
@@ -464,10 +471,21 @@
     CheckCurrency -->|No| UserInteract
     CurrAlert --> UserInteract
     
-    AmountCheck --> CheckAmount{Amount < $25k?}
-    CheckAmount -->|Yes| AmountAlert[Force open chatbot, Show threshold warning]
+    AmountCheck --> CheckENotation{Contains E-notation?}
+    CheckENotation -->|Yes| ENotationAlert[Clear field, Add integrity-error, Show format alert]
+    CheckENotation -->|No| CheckAmount{Amount + Currency both set?}
+    CheckAmount -->|Yes, below $25k USD equiv| AmountAlert[Force open chatbot, Show threshold warning + USD calc]
+    CheckAmount -->|Yes, meets threshold| ClearAmountErr[Remove integrity-error]
     CheckAmount -->|No| UserInteract
-    AmountAlert --> UserInteract
+    ENotationAlert --> UpdateSubmit1[updateSubmitState: violated = true]
+    AmountAlert --> UpdateSubmit1
+    UpdateSubmit1 --> SubmitLocked[Submit btn: 50% opacity, Fix Errors First]
+    SubmitLocked --> UserInteract
+    ClearAmountErr --> CheckRemaining{Any .integrity-error left?}
+    CheckRemaining -->|No| UpdateSubmit2[updateSubmitState: violated = false]
+    CheckRemaining -->|Yes| UserInteract
+    UpdateSubmit2 --> SubmitUnlocked[Submit btn: re-enabled, Submit Registration]
+    SubmitUnlocked --> UserInteract
     
     DateCheck --> CheckDate{Days to close < 14?}
     CheckDate -->|Yes| DateAlert[Force open chatbot, Show timing warning]
@@ -479,6 +497,22 @@
     
     ShowUpload --> UploadVisible[Upload container visible: opacity 1, max-height 200px]
     UploadVisible --> UserInteract
+    
+    LingCheck --> LingRegex{Latin charset valid?}
+    LingRegex -->|No| LingError[Add integrity-error pulse, Open Eggy]
+    LingError --> LingMsg["Show: Google Input Tools link + Auto-Optimize button"]
+    LingMsg --> UpdateSubmitL[updateSubmitState: violated = true]
+    UpdateSubmitL --> SubmitLocked
+    LingRegex -->|Yes| TitleCase[Auto-format to Title Case, Remove integrity-error]
+    TitleCase --> CheckRemaining
+    
+    LingCheck --> FocusBack{User focuses back into errored field?}
+    FocusBack -->|Field has integrity-error| WaveOnFocus[Trigger Eggy wave animation]
+    WaveOnFocus --> UserInteract
+    
+    LingError --> AutoOpt{User clicks Auto-Optimize?}
+    AutoOpt -->|Yes| RunTranslation[runDemoTranslation: replace with Latin value, Remove integrity-error, Confirm in chat]
+    RunTranslation --> CheckRemaining
     
     Toggle --> UserInteract
     QuickMsg --> UserInteract
@@ -496,6 +530,10 @@
     style ForceOpen fill:#E11A22,color:#fff
     style Match fill:#fcd34d
     style StageSwitch fill:#fcd34d
+    style LingCheck fill:#fb923c,color:#fff
+    style CheckENotation fill:#fb923c,color:#fff
+    style SubmitLocked fill:#E11A22,color:#fff
+    style SubmitUnlocked fill:#22c55e,color:#fff
 </div>
 
 
