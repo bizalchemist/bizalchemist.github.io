@@ -1223,24 +1223,45 @@ document.querySelectorAll('input, select').forEach(field => {
             }
         } 
         
-        // 2. Precision Date Validation (SOX & 14-Day Rule)
-        else if (fieldId === 'date' && value !== "") {
-            const inputDate = new Date(value);
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            const daysToClose = Math.ceil((inputDate - today) / (1000 * 60 * 60 * 24));
+/* --- 2. Precision Date Validation (SOX & 14-Day Rule) --- */
+else if (fieldId === 'date' && value !== "") {
+    const inputDate = new Date(value);
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const daysToClose = Math.ceil((inputDate - today) / (1000 * 60 * 60 * 24));
+    
+    // Get deal name for the email subject (fallback to 'This Deal')
+    const dealName = document.getElementById('deal-name')?.value || 'New Registration';
 
-            if (inputDate < today) {
-                el.classList.add('integrity-error');
-                alertMessage = `🚫 **Data Integrity Alert (SOX):** Back-dating is not permitted for compliance reasons.`;
-                el.value = ''; 
-            } else if (daysToClose < 14) {
-                el.classList.add('integrity-error'); 
-                alertMessage = `⏰ **Process Note:** This date is valid, but since it's only **${daysToClose} days** away, we need PAM approval to expedite.`;
-            } else {
-                el.classList.remove('integrity-error');
-            }
-        }
+    if (inputDate < today) {
+        el.classList.add('integrity-error');
+        alertMessage = `🚫 **Data Integrity Alert (SOX):** Back-dating is not permitted for compliance reasons. **Please select a valid future date.**`;
+        el.value = ''; 
+    } 
+    else if (daysToClose < 14) {
+        el.classList.add('integrity-error'); 
+        
+        // Construct the mailto link dynamically
+        const mailSubject = encodeURIComponent(`URGENT — Close Date Escalation: ${dealName}`);
+        const mailBody = encodeURIComponent(
+            `Dear PAM,\n\n` +
+            `This deal requires urgent review because it falls within the 14-day rule window.\n\n` +
+            `Deal Name: ${dealName}\n` +
+            `Requested Close Date: ${value}\n` +
+            `Days Remaining: ${daysToClose}\n\n` +
+            `Please expedite approval. Thank you.`
+        );
+    // The "14-Day Process" instruction
+        alertMessage = `⏰ **Process Note:** You only have **${daysToClose} days** until close. Our PAMs require a **14-day window** to process and approve registrations. \n\n` + 
+                   `Please adjust your close date to allow for this review period, or use the button below to request an emergency exception.\n\n` +
+                       `<a href="mailto:pam@example.com?subject=${mailSubject}&body=${mailBody}" ` +
+                       `class="eggy-btn-alt" style="display:block; text-align:center; margin-top:10px;">` +
+                       `📧 Escalate to PAM</a>`;
+    } 
+    else {
+        el.classList.remove('integrity-error');
+    }
+}
 
         // --- EXECUTION: Trigger Eggy ---
         if (alertMessage) {
@@ -1493,7 +1514,7 @@ function updateSubmitState(isViolated) {
         const MIN_CHARS      = 4;
         const DEMO_BLACKLIST = [
             "rosneft", "iran electronics", "tehran", "pyongyang",
-            "north korea", "sberbank", "gazprom", "wagner group"
+            "north korea", "sberbank", "china mobile", "gazprom", "china telecom", "wagner group"
         ];
 
         const customerInput   = document.getElementById('customer');
@@ -1569,7 +1590,15 @@ function updateSubmitState(isViolated) {
                         '* Contact your **Regional Compliance Officer** immediately.\n' +
                         '* Do **not** communicate deal intent to the end customer until cleared.\n' +
                         '* Screening record has been **logged** with timestamp for audit trail.\n\n' +
-                        '<a href="' + result.url + '" target="_blank" class="eggy-btn-alt">🔍 View Sanctions Record</a>',
+                        '<a href="' + result.url + '" target="_blank" class="eggy-btn-alt">🔍 View Sanctions Record</a>\n\n' +
+                        '<a href="mailto:pam@example.com' +
+                            '?subject=COMPLIANCE ESCALATION — ' + encodeURIComponent(companyName) + 
+                            '&body=Dear PAM,%0A%0AThis deal registration requires immediate compliance review.%0A%0A' +
+                            'End Customer: ' + encodeURIComponent(companyName) + '%0A' +
+                            'Sanctions List: ' + encodeURIComponent(result.list) + '%0A' +
+                            'Confidence Score: ' + (result.score * 100).toFixed(0) + '%25%0A%0A' +
+                            'Please advise on next steps before this deal can proceed.%0A%0ARegistered by Partner Portal" ' +
+                            'class="eggy-btn-alt">📧 Escalate to PAM</a>',
                         false
                     );
                     const eggyImg = document.getElementById('eggy-img');
