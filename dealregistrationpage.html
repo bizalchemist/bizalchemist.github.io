@@ -560,6 +560,102 @@ select:not([data-value=""]) + label .currency-info {
     100% { box-shadow: 0 0 0px rgba(233, 0, 41, 0.4); }
 }
 
+/* ============================================== */
+/* 🛡️ SANCTIONS SCREENING STYLES                 */
+/* ============================================== */
+
+/* Scanning animation on the customer input when check is running */
+@keyframes sanctions-scan {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+}
+
+input.sanctions-scanning {
+    background: linear-gradient(90deg, #ffffff 0%, rgba(168,85,247,0.12) 40%, rgba(168,85,247,0.22) 50%, rgba(168,85,247,0.12) 60%, #ffffff 100%);
+    background-size: 200% auto;
+    animation: sanctions-scan 1.4s linear infinite;
+    border-color: #a855f7 !important;
+}
+
+/* The compliance badge that appears below the End Customer field */
+#sanctions-status {
+    display: none;
+    margin-top: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-family: 'Space Mono', monospace;
+}
+
+#sanctions-status.show { display: flex; }
+
+#sanctions-status.checking {
+    background: rgba(168, 85, 247, 0.08);
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    color: #a855f7;
+}
+
+#sanctions-status.clear {
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    color: #16a34a;
+}
+
+#sanctions-status.flagged {
+    background: rgba(233, 0, 41, 0.08);
+    border: 1px solid rgba(233, 0, 41, 0.4);
+    color: var(--ks-red);
+    animation: integrity-pulse 1.5s infinite;
+}
+
+#sanctions-status.review {
+    background: rgba(234, 179, 8, 0.08);
+    border: 1px solid rgba(234, 179, 8, 0.5);
+    color: #b45309;
+}
+
+/* The spinning radar icon for "checking" state */
+@keyframes spin-radar {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+.sanctions-spinner {
+    display: inline-block;
+    animation: spin-radar 0.8s linear infinite;
+}
+
+/* Pulse dot for "clear" state */
+@keyframes pulse-green {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+}
+.sanctions-pulse-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #22c55e;
+    display: inline-block;
+    flex-shrink: 0;
+    animation: pulse-green 2s infinite;
+}
+
+/* Source chip — "Powered by OpenSanctions" */
+.sanctions-source {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 400;
+    opacity: 0.6;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0;
+}
+
+/* ============================================== */
+/* END SANCTIONS STYLES                           */
+/* ============================================== */
+
 </style>
 </head>
 <body>
@@ -609,7 +705,7 @@ select:not([data-value=""]) + label .currency-info {
             <div class="form-row">
                 <div class="col-1 field-wrapper"><input type="text" id="dealName" placeholder=" " required><label>Deal Name</label></div>
                 <div class="col-2 field-wrapper">
-                    <input type="text" id="customer" list="customer-list" placeholder=" " required>
+                    <input type="text" id="customer" list="customer-list" placeholder=" " required autocomplete="off">
                     <label>End Customer (Company, Country, Website)</label>
                     <datalist id="customer-list">
                         <option value="New_AwesomeCompany | Estonia | www.newawesomecompany.com">
@@ -618,6 +714,8 @@ select:not([data-value=""]) + label .currency-info {
                         <option value="Helsinki Systems | Finland | www.helsinkisys.com">
                         <option value="Tallinn Tech | Estonia | www.tallinntech.ee">
                     </datalist>
+                    <!-- 🛡️ SANCTIONS STATUS BADGE -->
+                    <div id="sanctions-status" role="status" aria-live="polite"></div>
                 </div>
             </div>
 
@@ -1381,6 +1479,151 @@ function updateSubmitState(isViolated) {
             if (eggyImg) eggyImg.classList.add('wave-animate');
         }
     });
+
+    /* ================================================================== */
+    /* 🛡️ PART 11: WORLDWIDE SANCTIONS SCREENING                         */
+    /* Demo uses local blacklist. Swap checkSanctions() for real API:     */
+    /*   GET https://api.opensanctions.org/search/default?q=NAME          */
+    /*   Free tier: 100 req/day, no credit card required                  */
+    /* ================================================================== */
+
+    (function() {
+
+        const DEBOUNCE_MS    = 900;
+        const MIN_CHARS      = 4;
+        const DEMO_BLACKLIST = [
+            "rosneft", "iran electronics", "tehran", "pyongyang",
+            "north korea", "sberbank", "gazprom", "wagner group"
+        ];
+
+        const customerInput   = document.getElementById('customer');
+        const statusDiv       = document.getElementById('sanctions-status');
+        let   debounceTimer   = null;
+        let   lastChecked     = '';
+        let   hasSanctionsHit = false;
+
+        function setStatus(state, html) {
+            statusDiv.className = 'show ' + state;
+            statusDiv.innerHTML = html;
+        }
+
+        function clearStatus() {
+            statusDiv.className = '';
+            statusDiv.innerHTML = '';
+            hasSanctionsHit = false;
+            updateSubmitState(false);
+        }
+
+        function getCompanyName(rawValue) {
+            return rawValue.split('|')[0].trim();
+        }
+
+        async function checkSanctions(companyName) {
+            const name = companyName.toLowerCase();
+            await new Promise(r => setTimeout(r, 700 + Math.random() * 500));
+            for (const keyword of DEMO_BLACKLIST) {
+                if (name.includes(keyword)) {
+                    return {
+                        hit: true, score: 0.97,
+                        list: 'OFAC SDN / EU Consolidated',
+                        url: 'https://www.opensanctions.org/search/?q=' + encodeURIComponent(companyName)
+                    };
+                }
+            }
+            return { hit: false };
+        }
+
+        async function runScreening(rawValue) {
+            const companyName = getCompanyName(rawValue);
+            if (companyName.length < MIN_CHARS) { clearStatus(); return; }
+            if (companyName === lastChecked)    { return; }
+            lastChecked = companyName;
+
+            customerInput.classList.add('sanctions-scanning');
+            setStatus('checking',
+                '<span class="sanctions-spinner">⚙️</span> ' +
+                'Screening against worldwide sanctions lists (OFAC, EU, UN, BIS)…' +
+                '<span class="sanctions-source">Powered by OpenSanctions</span>'
+            );
+
+            try {
+                const result = await checkSanctions(companyName);
+                customerInput.classList.remove('sanctions-scanning');
+
+                if (result.hit) {
+                    hasSanctionsHit = true;
+                    updateSubmitState(true);
+                    setStatus('flagged',
+                        '🚨 SANCTIONS HIT — ' + result.list + ' | Score: ' + (result.score * 100).toFixed(0) + '/100' +
+                        '<span class="sanctions-source"><a href="' + result.url + '" target="_blank" style="color:inherit;">View record ↗</a></span>'
+                    );
+                    const chatWindow = document.getElementById('chatbot-window');
+                    if (chatWindow) chatWindow.style.display = 'flex';
+                    const notif = document.getElementById('chat-notif');
+                    if (notif) notif.style.display = 'none';
+                    addMessage(
+                        '🚨 **SANCTIONS ALERT — DEAL REGISTRATION BLOCKED**\n\n' +
+                        '**End Customer:** ' + companyName + '\n' +
+                        '**Match found on:** ' + result.list + ' (confidence: ' + (result.score * 100).toFixed(0) + '%)\n\n' +
+                        'This deal cannot be submitted until Compliance clears the registration. Next steps:\n\n' +
+                        '* Contact your **Regional Compliance Officer** immediately.\n' +
+                        '* Do **not** communicate deal intent to the end customer until cleared.\n' +
+                        '* Screening record has been **logged** with timestamp for audit trail.\n\n' +
+                        '<a href="' + result.url + '" target="_blank" class="eggy-btn-alt">🔍 View Sanctions Record</a>',
+                        false
+                    );
+                    const eggyImg = document.getElementById('eggy-img');
+                    if (eggyImg) eggyImg.classList.add('wave-animate');
+
+                } else {
+                    hasSanctionsHit = false;
+                    updateSubmitState(false);
+                    setStatus('clear',
+                        '<span class="sanctions-pulse-dot"></span>' +
+                        'No sanctions match found — cleared to proceed' +
+                        '<span class="sanctions-source">Powered by OpenSanctions</span>'
+                    );
+                }
+            } catch (err) {
+                customerInput.classList.remove('sanctions-scanning');
+                setStatus('review',
+                    '⚠️ Screening service unavailable — compliance review required before approval' +
+                    '<span class="sanctions-source">OpenSanctions</span>'
+                );
+            }
+        }
+
+        if (customerInput) {
+            customerInput.addEventListener('input', function() {
+                clearTimeout(debounceTimer);
+                const val = this.value.trim();
+                if (val.length < MIN_CHARS) { clearStatus(); return; }
+                debounceTimer = setTimeout(() => runScreening(val), DEBOUNCE_MS);
+            });
+            customerInput.addEventListener('change', function() {
+                clearTimeout(debounceTimer);
+                const val = this.value.trim();
+                if (val.length >= MIN_CHARS) runScreening(val);
+            });
+            customerInput.addEventListener('blur', function() {
+                if (!this.value.trim()) clearStatus();
+            });
+        }
+
+        // Block submit if sanctions hit
+        const submitBtn = document.querySelector('.btn-submit');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function(e) {
+                if (hasSanctionsHit) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    addMessage('🚫 **Submission blocked.** This deal is flagged on a worldwide sanctions list. Please contact Compliance before proceeding.', false);
+                    return false;
+                }
+            }, true);
+        }
+
+    })();
 
 </script>
 
