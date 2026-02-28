@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XCelerate Partner Global Program — PRM Flowchart</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #253047;
+    --accent: #00A1E0;
+    --gold: #FFB75E;
+    --green: #4bca81;
+    --orange: #FF6B35;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --text3: #4a5568;
+    --sf-dark: #032D60;
+    --sf-blue: #0070d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    height: 52px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    gap: 12px;
+    flex-shrink: 0;
+    z-index: 50;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 800; font-size: 0.95rem; letter-spacing: -0.3px;
+    color: var(--text); white-space: nowrap;
+  }
+  .logo-icon {
+    width: 28px; height: 28px; background: var(--accent);
+    border-radius: 7px; display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .divider { width: 1px; height: 28px; background: var(--border); margin: 0 6px; }
+  .doc-title {
+    font-size: 0.82rem; font-weight: 600; color: var(--text2);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .spacer { flex: 1; }
+  .toolbar-group {
+    display: flex; align-items: center; gap: 4px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 4px;
+  }
+  .tb-btn {
+    padding: 5px 10px; border-radius: 5px; border: none;
+    background: transparent; color: var(--text2); font-size: 0.75rem;
+    font-family: 'Sora', sans-serif; font-weight: 600;
+    cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .tb-btn:hover { background: var(--border); color: var(--text); }
+  .tb-btn.active { background: var(--accent); color: white; }
+  .tb-btn.danger { color: var(--orange); }
+  .zoom-display {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+    color: var(--text2); min-width: 42px; text-align: center;
+  }
+
+  /* ── LEGEND PANEL ── */
+  .legend {
+    position: absolute;
+    top: 68px; right: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    z-index: 40;
+    min-width: 200px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .legend-title {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text2); margin-bottom: 10px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.72rem; color: var(--text2); margin-bottom: 6px;
+  }
+  .legend-dot {
+    width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0;
+  }
+
+  /* ── MINI MAP ── */
+  .minimap {
+    position: absolute;
+    bottom: 16px; right: 16px;
+    width: 160px; height: 100px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 40;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .minimap-label {
+    position: absolute; bottom: 4px; left: 6px;
+    font-size: 0.60rem; color: var(--text3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── STATUS BAR ── */
+  .statusbar {
+    height: 28px; background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 16px; gap: 20px;
+    flex-shrink: 0;
+  }
+  .status-item {
+    font-size: 0.65rem; color: var(--text3);
+    font-family: 'JetBrains Mono', monospace;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  /* ── CANVAS ── */
+  #canvas-wrap {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    cursor: grab;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(0,161,224,0.04) 0%, transparent 60%),
+      radial-gradient(circle at 80% 20%, rgba(139,92,246,0.04) 0%, transparent 60%),
+      var(--bg);
+  }
+  #canvas-wrap:active { cursor: grabbing; }
+  #canvas-wrap.panning { cursor: grabbing; }
+
+  /* dot grid */
+  #canvas-wrap::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, #253047 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  #svg-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    transform-origin: 0 0;
+  }
+
+  /* ── NODES ── */
+  .node { cursor: pointer; }
+  .node rect, .node ellipse, .node polygon, .node path {
+    transition: filter 0.15s;
+  }
+  .node:hover rect, .node:hover ellipse, .node:hover polygon {
+    filter: brightness(1.15) drop-shadow(0 0 8px currentColor);
+  }
+  .node.selected rect, .node.selected ellipse, .node.selected polygon {
+    filter: brightness(1.2) drop-shadow(0 0 12px currentColor);
+    stroke-width: 3;
+  }
+  .node-label {
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    pointer-events: none;
+    user-select: none;
+  }
+  .node-sublabel {
+    font-family: 'Sora', sans-serif;
+    font-weight: 400;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── TOOLTIP ── */
+  #tooltip {
+    position: fixed;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.78rem;
+    color: var(--text);
+    max-width: 240px;
+    pointer-events: none;
+    z-index: 100;
+    display: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    line-height: 1.5;
+  }
+  #tooltip strong { color: var(--accent); display: block; margin-bottom: 4px; }
+  #tooltip .tip-tag {
+    display: inline-block; font-size: 0.65rem; font-weight: 700;
+    padding: 2px 7px; border-radius: 10px; margin-top: 6px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  /* ── DETAIL PANEL ── */
+  #detail-panel {
+    position: absolute;
+    top: 68px; left: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    width: 230px;
+    z-index: 40;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    display: none;
+    animation: slideIn 0.2s ease;
+  }
+  @keyframes slideIn {
+    from { opacity:0; transform: translateX(-8px); }
+    to   { opacity:1; transform: translateX(0); }
+  }
+  #detail-panel .dp-title {
+    font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px;
+  }
+  #detail-panel .dp-type {
+    font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 10px;
+  }
+  #detail-panel .dp-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 5px 0; border-bottom: 1px solid var(--border);
+    font-size: 0.72rem;
+  }
+  #detail-panel .dp-row:last-of-type { border-bottom: none; }
+  #detail-panel .dp-key { color: var(--text2); }
+  #detail-panel .dp-val { color: var(--text); font-weight: 600; text-align: right; max-width: 130px; }
+  .close-btn {
+    float: right; background: none; border: none; color: var(--text2);
+    cursor: pointer; font-size: 1rem; line-height: 1; padding: 0;
+    margin-top: -2px;
+  }
+  .close-btn:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-icon">⚡</div>
+    XCelerate PRM
+  </div>
+  <div class="divider"></div>
+  <div class="doc-title">Partner_Global_Program_Flow_v2026.xml</div>
+  <div class="spacer"></div>
+
+  <div class="toolbar-group">
+    <button class="tb-btn" onclick="resetView()">⊡ Fit</button>
+    <button class="tb-btn" onclick="zoomIn()">＋</button>
+    <div class="zoom-display" id="zoom-display">100%</div>
+    <button class="tb-btn" onclick="zoomOut()">－</button>
+  </div>
+
+  <div class="toolbar-group">
+    <button class="tb-btn active" id="btn-flow" onclick="setView('flow')">🗺 Full Flow</button>
+    <button class="tb-btn" id="btn-deal" onclick="setView('deal')">💼 Deal Path</button>
+    <button class="tb-btn" id="btn-enable" onclick="setView('enable')">🎓 Enablement</button>
+  </div>
+
+  <div class="toolbar-group">
+    <button class="tb-btn" onclick="exportSVG()">⬇ Export SVG</button>
+    <button class="tb-btn" onclick="openDrawIO()">↗ Open draw.io</button>
+  </div>
+</div>
+
+<!-- CANVAS -->
+<div id="canvas-wrap" onwheel="onWheel(event)" onmousedown="startPan(event)" onmousemove="doPan(event)" onmouseup="endPan()" onmouseleave="endPan()">
+  <svg id="svg-canvas" width="2800" height="2000" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Arrow markers -->
+      <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="#00A1E0"/>
+      </marker>
+      <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="#4bca81"/>
+      </marker>
+      <marker id="arrow-gold" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="#FFB75E"/>
+      </marker>
+      <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="#FF6B35"/>
+      </marker>
+      <marker id="arrow-purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="#8b5cf6"/>
+      </marker>
+      <marker id="arrow-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="#4a5568"/>
+      </marker>
+
+      <!-- Glow filters -->
+      <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="glow-gold" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="4" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="shadow" x="-10%" y="-10%" width="120%" height="140%">
+        <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.4"/>
+      </filter>
+
+      <!-- Gradient fills -->
+      <linearGradient id="grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a2a4a"/>
+        <stop offset="100%" style="stop-color:#0d3d6b"/>
+      </linearGradient>
+      <linearGradient id="grad-green" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#0a2e1e"/>
+        <stop offset="100%" style="stop-color:#0d4a2e"/>
+      </linearGradient>
+      <linearGradient id="grad-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#2a1e06"/>
+        <stop offset="100%" style="stop-color:#3d2d0a"/>
+      </linearGradient>
+      <linearGradient id="grad-purple" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#1a0a3d"/>
+        <stop offset="100%" style="stop-color:#2d1560"/>
+      </linearGradient>
+      <linearGradient id="grad-orange" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#2a0e04"/>
+        <stop offset="100%" style="stop-color:#3d1a08"/>
+      </linearGradient>
+      <linearGradient id="grad-pink" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#2a0a1a"/>
+        <stop offset="100%" style="stop-color:#3d1030"/>
+      </linearGradient>
+      <linearGradient id="grad-header" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#032D60"/>
+        <stop offset="100%" style="stop-color:#0a4a8a"/>
+      </linearGradient>
+    </defs>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  SWIM LANE BACKGROUNDS                       -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <!-- Lane: Partner Journey -->
+    <rect x="40" y="120" width="2720" height="230" rx="8" fill="#111827" stroke="#1e2d45" stroke-width="1" opacity="0.8"/>
+    <rect x="40" y="120" width="180" height="230" rx="8" fill="#0a1628" stroke="#1e2d45" stroke-width="1"/>
+    <text x="130" y="248" font-family="Sora,sans-serif" font-size="11" font-weight="700" fill="#4a6080" text-anchor="middle" transform="rotate(-90,130,248)">PARTNER JOURNEY</text>
+
+    <!-- Lane: Deal Flow -->
+    <rect x="40" y="370" width="2720" height="230" rx="8" fill="#111827" stroke="#1e2d45" stroke-width="1" opacity="0.8"/>
+    <rect x="40" y="370" width="180" height="230" rx="8" fill="#0a1628" stroke="#1e2d45" stroke-width="1"/>
+    <text x="130" y="500" font-family="Sora,sans-serif" font-size="11" font-weight="700" fill="#4a6080" text-anchor="middle" transform="rotate(-90,130,500)">DEAL REGISTRATION</text>
+
+    <!-- Lane: Enablement -->
+    <rect x="40" y="620" width="2720" height="230" rx="8" fill="#111827" stroke="#1e2d45" stroke-width="1" opacity="0.8"/>
+    <rect x="40" y="620" width="180" height="230" rx="8" fill="#0a1628" stroke="#1e2d45" stroke-width="1"/>
+    <text x="130" y="752" font-family="Sora,sans-serif" font-size="11" font-weight="700" fill="#4a6080" text-anchor="middle" transform="rotate(-90,130,752)">ENABLEMENT &amp; CERT</text>
+
+    <!-- Lane: MDF & Incentives -->
+    <rect x="40" y="870" width="2720" height="220" rx="8" fill="#111827" stroke="#1e2d45" stroke-width="1" opacity="0.8"/>
+    <rect x="40" y="870" width="180" height="220" rx="8" fill="#0a1628" stroke="#1e2d45" stroke-width="1"/>
+    <text x="130" y="1000" font-family="Sora,sans-serif" font-size="11" font-weight="700" fill="#4a6080" text-anchor="middle" transform="rotate(-90,130,1000)">MDF &amp; INCENTIVES</text>
+
+    <!-- Lane: Analytics/Outcome -->
+    <rect x="40" y="1110" width="2720" height="200" rx="8" fill="#111827" stroke="#1e2d45" stroke-width="1" opacity="0.8"/>
+    <rect x="40" y="1110" width="180" height="200" rx="8" fill="#0a1628" stroke="#1e2d45" stroke-width="1"/>
+    <text x="130" y="1230" font-family="Sora,sans-serif" font-size="11" font-weight="700" fill="#4a6080" text-anchor="middle" transform="rotate(-90,130,1230)">ANALYTICS &amp; OUTCOMES</text>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- HEADER TITLE BLOCK                          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <rect x="40" y="20" width="2720" height="82" rx="10" fill="url(#grad-header)" stroke="#0070d2" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="80" y="52" font-family="Sora,sans-serif" font-size="22" font-weight="800" fill="white">XCelerate Partner Global Program</text>
+    <text x="80" y="76" font-family="Sora,sans-serif" font-size="12" font-weight="400" fill="#94a3b8">Salesforce PRM 2026 · Full Enablement Flow · Alteryx SaaS Model (99.7% Accuracy) · 4,218 Partners · 68 Countries · $2.4B ARR</text>
+    <rect x="2480" y="32" width="260" height="56" rx="8" fill="rgba(0,161,224,0.15)" stroke="#00A1E0" stroke-width="1"/>
+    <text x="2610" y="56" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600" fill="#00A1E0" text-anchor="middle">XCelerate v2026.1</text>
+    <text x="2610" y="74" font-family="JetBrains Mono,monospace" font-size="10" fill="#4a6080" text-anchor="middle">FY2026 · Q1 · GLOBAL</text>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ROW 1: PARTNER JOURNEY                      -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <!-- START: Prospect -->
+    <g class="node" id="n-prospect" data-title="Partner Prospect" data-type="Entry Point" data-info="New partner identified via inbound, referral, or sales-sourced. XCelerate program eligibility screened automatically by Einstein AI." data-tag="Entry" data-tag-color="#00A1E0" onclick="selectNode(this)" transform="translate(240,145)">
+      <ellipse cx="76" cy="90" rx="70" ry="38" fill="url(#grad-blue)" stroke="#00A1E0" stroke-width="1.5"/>
+      <text x="76" y="85" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">🌐 Prospect</text>
+      <text x="76" y="102" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Inbound / Referral</text>
+    </g>
+
+    <!-- APPLICATION -->
+    <g class="node" id="n-apply" data-title="Partner Application" data-type="Process" data-info="Partner submits application via XCelerate Partner Portal. Automated eligibility check: revenue, certifications, territory fit. Avg processing: 24h." data-tag="Portal" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(430,140)">
+      <rect x="0" y="62" width="130" height="56" rx="8" fill="url(#grad-blue)" stroke="#00A1E0" stroke-width="1.5"/>
+      <text x="65" y="88" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">📝 Application</text>
+      <text x="65" y="104" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">XCelerate Portal</text>
+    </g>
+
+    <!-- DECISION: APPROVED? -->
+    <g class="node" id="n-decision1" data-title="Eligibility Review" data-type="Decision" data-info="Automated Einstein AI screen + manual PAM review. Checks: business fit, geography, existing partner conflicts, revenue potential. SLA: 48h." data-tag="Decision" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(620,138)">
+      <polygon points="70,56 130,92 70,128 10,92" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="70" y="88" class="node-label" font-size="10" fill="#FFB75E" text-anchor="middle">Approved?</text>
+      <text x="70" y="103" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Einstein AI Screen</text>
+    </g>
+
+    <!-- REJECT branch (small) -->
+    <g transform="translate(622,268)">
+      <rect x="0" y="0" width="96" height="34" rx="6" fill="#1a0e0e" stroke="#FF6B35" stroke-width="1" stroke-dasharray="4,2"/>
+      <text x="48" y="14" font-family="Sora,sans-serif" font-size="9" fill="#FF6B35" text-anchor="middle" font-weight="600">❌ Rejected</text>
+      <text x="48" y="26" font-family="Sora,sans-serif" font-size="8" fill="#4a5568" text-anchor="middle">Nurture / Reapply</text>
+    </g>
+
+    <!-- ONBOARDING -->
+    <g class="node" id="n-onboard" data-title="Partner Onboarding" data-type="Process" data-info="Automated 5-step onboarding: SSO setup, profile completion, NDA signing, training assignment, PAM introduction. Avg completion: 3 days." data-tag="Automated" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(820,140)">
+      <rect x="0" y="62" width="140" height="56" rx="8" fill="url(#grad-green)" stroke="#4bca81" stroke-width="1.5"/>
+      <text x="70" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">🚀 Onboarding</text>
+      <text x="70" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Auto 5-Step Wizard</text>
+    </g>
+
+    <!-- TIER ASSIGNMENT -->
+    <g class="node" id="n-tier" data-title="Tier Assignment" data-type="Process" data-info="Automated tier assignment based on onboarding score. New partners start as Registered. Tier upgrades triggered quarterly by Einstein analytics." data-tag="Auto-Assign" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(1020,140)">
+      <rect x="0" y="62" width="150" height="56" rx="8" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="75" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">⭐ Tier Assignment</text>
+      <text x="75" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Registered → Elite</text>
+    </g>
+
+    <!-- PAM ASSIGNED -->
+    <g class="node" id="n-pam" data-title="PAM Assignment" data-type="Process" data-info="Partner Account Manager assigned based on tier, region, vertical. Gold+ gets dedicated PAM. Silver gets ISR coverage. Registered gets digital-only." data-tag="CRM" data-tag-color="#8b5cf6" onclick="selectNode(this)" transform="translate(1240,140)">
+      <rect x="0" y="62" width="150" height="56" rx="8" fill="url(#grad-purple)" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="75" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">👤 PAM Assigned</text>
+      <text x="75" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Territory / Vertical</text>
+    </g>
+
+    <!-- ACTIVE PARTNER -->
+    <g class="node" id="n-active" data-title="Active Partner" data-type="State" data-info="Partner is fully active. Portal access enabled, deal registration open, MDF eligible (Gold+), training library unlocked, co-sell team assigned." data-tag="Active" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(1460,140)">
+      <rect x="0" y="62" width="140" height="56" rx="8" fill="url(#grad-green)" stroke="#4bca81" stroke-width="2"/>
+      <text x="70" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">✅ Active Partner</text>
+      <text x="70" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Full Portal Access</text>
+    </g>
+
+    <!-- QBR -->
+    <g class="node" id="n-qbr" data-title="Quarterly Business Review" data-type="Process" data-info="QBR conducted each quarter. Reviews pipeline attainment, MDF usage, certification status, upcoming renewal. Tier review triggered if thresholds met." data-tag="Quarterly" data-tag-color="#00A1E0" onclick="selectNode(this)" transform="translate(1680,140)">
+      <rect x="0" y="62" width="150" height="56" rx="8" fill="url(#grad-blue)" stroke="#00A1E0" stroke-width="1.5"/>
+      <text x="75" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">📊 QBR</text>
+      <text x="75" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Quarterly Review</text>
+    </g>
+
+    <!-- TIER UPGRADE DECISION -->
+    <g class="node" id="n-tierup" data-title="Tier Upgrade Eligible?" data-type="Decision" data-info="Einstein auto-evaluates: ARR attainment, cert count, deal velocity, customer satisfaction. Upgrade proposal auto-generated if thresholds exceeded." data-tag="Decision" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(1900,138)">
+      <polygon points="70,56 130,92 70,128 10,92" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="70" y="88" class="node-label" font-size="10" fill="#FFB75E" text-anchor="middle">Tier Up?</text>
+      <text x="70" y="103" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Einstein Eval</text>
+    </g>
+
+    <!-- PINNACLE ELITE -->
+    <g class="node" id="n-elite" data-title="Pinnacle Elite Tier" data-type="Outcome" data-info="Top 48 partners globally. $50M+ ARR, 12+ certs, invite-only. Benefits: $500K MDF, 35% rebate, executive sponsor, co-marketing, NFR licenses, priority co-sell." data-tag="Elite" data-tag-color="#8b5cf6" onclick="selectNode(this)" transform="translate(2100,128)">
+      <rect x="0" y="50" width="160" height="70" rx="10" fill="url(#grad-purple)" stroke="#8b5cf6" stroke-width="2" filter="url(#glow-blue)"/>
+      <text x="80" y="78" class="node-label" font-size="12" fill="#e2e8f0" text-anchor="middle">🏆 Pinnacle Elite</text>
+      <text x="80" y="96" class="node-sublabel" font-size="9" fill="#c4b5fd" text-anchor="middle">$500K MDF · 35% Rebate</text>
+      <text x="80" y="110" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">48 partners globally</text>
+    </g>
+
+    <!-- RENEWAL -->
+    <g class="node" id="n-renew" data-title="Annual Renewal" data-type="Process" data-info="Annual program renewal. Auto-generated renewal packet 90 days before anniversary. Tier maintained if performance benchmarks met." data-tag="Annual" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(2340,140)">
+      <ellipse cx="80" cy="90" rx="74" ry="38" fill="url(#grad-green)" stroke="#4bca81" stroke-width="1.5"/>
+      <text x="80" y="85" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">🔄 Renewal</text>
+      <text x="80" y="102" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">92% Retention Rate</text>
+    </g>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ROW 2: DEAL REGISTRATION FLOW               -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <!-- OPPORTUNITY IDENTIFIED -->
+    <g class="node" id="n-opp" data-title="Opportunity Identified" data-type="Entry Point" data-info="Partner identifies new sales opportunity. Can be self-sourced, XCelerate lead-distributed, or co-developed with PAM during account planning." data-tag="Entry" data-tag-color="#00A1E0" onclick="selectNode(this)" transform="translate(240,390)">
+      <ellipse cx="76" cy="90" rx="70" ry="38" fill="url(#grad-blue)" stroke="#00A1E0" stroke-width="1.5"/>
+      <text x="76" y="85" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">🎯 Opportunity</text>
+      <text x="76" y="102" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Identified</text>
+    </g>
+
+    <!-- DEAL REGISTRATION -->
+    <g class="node" id="n-deakreg" data-title="Deal Registration" data-type="Process" data-info="Partner registers deal in Salesforce PRM. Captures: account, deal size, close date, competition, use case. Einstein assigns initial deal score." data-tag="PRM" data-tag-color="#00A1E0" onclick="selectNode(this)" transform="translate(430,388)">
+      <rect x="0" y="62" width="140" height="56" rx="8" fill="url(#grad-blue)" stroke="#00A1E0" stroke-width="1.5"/>
+      <text x="70" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">📋 Register Deal</text>
+      <text x="70" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Salesforce PRM Form</text>
+    </g>
+
+    <!-- AI SCORE -->
+    <g class="node" id="n-score" data-title="AI Deal Scoring" data-type="Process" data-info="Einstein AI scores deals 0-100 using MEDDPICC framework. Factors: deal size, partner cert level, account history, competitive landscape, close date realism." data-tag="Einstein AI" data-tag-color="#8b5cf6" onclick="selectNode(this)" transform="translate(630,388)">
+      <rect x="0" y="62" width="150" height="56" rx="8" fill="url(#grad-purple)" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="75" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">🤖 AI Deal Score</text>
+      <text x="75" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">MEDDPICC 0–100</text>
+    </g>
+
+    <!-- CONFLICT CHECK -->
+    <g class="node" id="n-conflict" data-title="Conflict Check" data-type="Decision" data-info="Automated check for duplicate registrations, territory conflicts, direct sales overlap. Resolved within 4h by Deal Desk team using priority rules." data-tag="Decision" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(840,386)">
+      <polygon points="70,56 130,92 70,128 10,92" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="70" y="88" class="node-label" font-size="10" fill="#FFB75E" text-anchor="middle">Conflict?</text>
+      <text x="70" y="103" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Auto-Check</text>
+    </g>
+
+    <!-- DISCOVERY -->
+    <g class="node" id="n-disco" data-title="Discovery Stage" data-type="Stage" data-info="Partner conducts discovery with the prospect. XCelerate provides: battle cards, discovery question templates, ROI calculator, competitive intel. 30-day protection." data-tag="Stage 2" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(1040,388)">
+      <rect x="0" y="62" width="140" height="56" rx="8" fill="url(#grad-green)" stroke="#4bca81" stroke-width="1.5"/>
+      <text x="70" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">🔍 Discovery</text>
+      <text x="70" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">30-day Protection</text>
+    </g>
+
+    <!-- PROPOSAL -->
+    <g class="node" id="n-prop" data-title="Proposal / Demo" data-type="Stage" data-info="Partner delivers XCelerate platform demo and tailored proposal. SE assist available for Gold+. POC sandbox provisioned. Co-sell team engaged." data-tag="Stage 3" data-tag-color="#00A1E0" onclick="selectNode(this)" transform="translate(1240,388)">
+      <rect x="0" y="62" width="140" height="56" rx="8" fill="url(#grad-blue)" stroke="#00A1E0" stroke-width="1.5"/>
+      <text x="70" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">🎯 Proposal/Demo</text>
+      <text x="70" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">SE Assist · POC</text>
+    </g>
+
+    <!-- NEGOTIATION -->
+    <g class="node" id="n-nego" data-title="Negotiation" data-type="Stage" data-info="Commercial negotiation stage. Deal Desk available for discount approval (>20% requires VP approval). Legal review auto-triggered for $1M+ deals." data-tag="Stage 4" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(1440,388)">
+      <rect x="0" y="62" width="140" height="56" rx="8" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="70" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">🤝 Negotiation</text>
+      <text x="70" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Deal Desk · Legal</text>
+    </g>
+
+    <!-- CLOSING -->
+    <g class="node" id="n-close" data-title="Closing Stage" data-type="Stage" data-info="Final closing stage. Contract execution, order management, license provisioning. Avg close time from registration: 94 days. Win rate: 31%." data-tag="Stage 5" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(1640,388)">
+      <rect x="0" y="62" width="140" height="56" rx="8" fill="url(#grad-green)" stroke="#4bca81" stroke-width="1.5"/>
+      <text x="70" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">⚡ Closing</text>
+      <text x="70" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Contract + Order</text>
+    </g>
+
+    <!-- CLOSED WON -->
+    <g class="node" id="n-won" data-title="Closed Won! 🎉" data-type="Outcome" data-info="Deal won. Triggers: rebate calculation, SPIFF payout, customer success handoff, renewal schedule creation, partner scorecard update, MDF eligibility review." data-tag="Won" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(1850,382)">
+      <rect x="0" y="56" width="150" height="68" rx="10" fill="url(#grad-green)" stroke="#4bca81" stroke-width="2.5" filter="url(#glow-blue)"/>
+      <text x="75" y="84" class="node-label" font-size="13" fill="#4bca81" text-anchor="middle">✅ WON!</text>
+      <text x="75" y="102" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Rebate + SPIFF Triggered</text>
+      <text x="75" y="115" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">CS Handoff · Renewal Sched.</text>
+    </g>
+
+    <!-- CLOSED LOST -->
+    <g class="node" id="n-lost" data-title="Closed Lost" data-type="Outcome" data-info="Deal lost. Triggers: win/loss analysis survey, competitive intelligence capture, next-step recommendation from Einstein. Partner notified automatically." data-tag="Lost" data-tag-color="#FF6B35" onclick="selectNode(this)" transform="translate(2080,392)">
+      <rect x="0" y="62" width="130" height="52" rx="8" fill="url(#grad-orange)" stroke="#FF6B35" stroke-width="1.5" stroke-dasharray="5,2"/>
+      <text x="65" y="85" class="node-label" font-size="11" fill="#FF6B35" text-anchor="middle">❌ Closed Lost</text>
+      <text x="65" y="101" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Win/Loss Analysis</text>
+    </g>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ROW 3: ENABLEMENT FLOW                      -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <!-- FOUNDATIONS -->
+    <g class="node" id="n-found" data-title="XCelerate Foundations" data-type="Course" data-info="Mandatory for all new partners. 8h self-paced. Covers: XCelerate platform overview, business model, value proposition, pricing, competitive positioning. Passing score: 80%." data-tag="Mandatory" data-tag-color="#FF6B35" onclick="selectNode(this)" transform="translate(240,642)">
+      <rect x="0" y="62" width="150" height="56" rx="8" fill="url(#grad-orange)" stroke="#FF6B35" stroke-width="1.5"/>
+      <text x="75" y="84" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">📚 Foundations</text>
+      <text x="75" y="99" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">8h · All Partners</text>
+      <text x="75" y="112" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Mandatory</text>
+    </g>
+
+    <!-- SALES TRACK -->
+    <g class="node" id="n-salestrack" data-title="Sales Specialist Track" data-type="Course" data-info="12h sales-focused training. MEDDPICC methodology, XCelerate value selling, demo best practices, competitive battle cards, objection handling. Cert: XCelerate Sales Specialist." data-tag="Sales" data-tag-color="#8b5cf6" onclick="selectNode(this)" transform="translate(460,642)">
+      <rect x="0" y="62" width="150" height="56" rx="8" fill="url(#grad-purple)" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="75" y="84" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">🎯 Sales Track</text>
+      <text x="75" y="99" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">12h · MEDDPICC</text>
+      <text x="75" y="112" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Sales Specialist Cert</text>
+    </g>
+
+    <!-- SE TRACK -->
+    <g class="node" id="n-setrack" data-title="SE / Technical Track" data-type="Course" data-info="20h technical deep-dive. Platform architecture, API integration, demo environments, POC delivery, Snowflake/Databricks patterns, cloud deployments. Cert: XCelerate SE." data-tag="Technical" data-tag-color="#00A1E0" onclick="selectNode(this)" transform="translate(680,642)">
+      <rect x="0" y="62" width="150" height="56" rx="8" fill="url(#grad-blue)" stroke="#00A1E0" stroke-width="1.5"/>
+      <text x="75" y="84" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">🔬 SE / Tech Track</text>
+      <text x="75" y="99" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">20h · Architecture</text>
+      <text x="75" y="112" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">AiPlatform SE Cert</text>
+    </g>
+
+    <!-- ML TRACK -->
+    <g class="node" id="n-mltrack" data-title="AI / ML Expert Track" data-type="Course" data-info="Advanced 24h AI/ML track. XCelerate Intelligence, AutoML, model building, MLOps integration, responsible AI. Cert: XCelerate Intelligence ML." data-tag="Advanced" data-tag-color="#ec4899" onclick="selectNode(this)" transform="translate(900,642)">
+      <rect x="0" y="62" width="150" height="56" rx="8" fill="url(#grad-pink)" stroke="#ec4899" stroke-width="1.5"/>
+      <text x="75" y="84" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">🤖 AI/ML Track</text>
+      <text x="75" y="99" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">24h · AutoML</text>
+      <text x="75" y="112" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Intelligence ML Cert</text>
+    </g>
+
+    <!-- CLOUD TRACK -->
+    <g class="node" id="n-cloudtrack" data-title="Cloud Architect Track" data-type="Course" data-info="18h cloud architecture track. AWS, Azure, GCP deployment patterns, hybrid architectures, Snowflake/Databricks integration, cloud security. Cert: Cloud Architect." data-tag="Advanced" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(1120,642)">
+      <rect x="0" y="62" width="150" height="56" rx="8" fill="url(#grad-green)" stroke="#4bca81" stroke-width="1.5"/>
+      <text x="75" y="84" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">☁ Cloud Track</text>
+      <text x="75" y="99" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">18h · AWS/Azure/GCP</text>
+      <text x="75" y="112" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Cloud Architect Cert</text>
+    </g>
+
+    <!-- EXAM -->
+    <g class="node" id="n-exam" data-title="Certification Exam" data-type="Process" data-info="Proctored online exam. 90-min, 60 questions. 80% passing threshold. 3 attempts allowed. Einstein AI adapts question difficulty in real time. 94% global pass rate." data-tag="Assessment" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(1360,642)">
+      <rect x="0" y="62" width="150" height="56" rx="8" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="75" y="84" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">📝 Cert Exam</text>
+      <text x="75" y="99" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">90min · 80% Pass Req.</text>
+      <text x="75" y="112" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">AI-Adaptive · 3 Attempts</text>
+    </g>
+
+    <!-- PASS/FAIL -->
+    <g class="node" id="n-examdec" data-title="Exam Pass?" data-type="Decision" data-info="Pass: Certificate issued immediately, badge added to partner profile, tier recalculated. Fail: Remediation content auto-assigned, re-sit scheduled in 14 days." data-tag="Decision" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(1578,640)">
+      <polygon points="70,56 130,92 70,128 10,92" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="70" y="88" class="node-label" font-size="10" fill="#FFB75E" text-anchor="middle">Pass?</text>
+      <text x="70" y="103" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">≥80%</text>
+    </g>
+
+    <!-- CERT ISSUED -->
+    <g class="node" id="n-cert" data-title="Certificate Issued" data-type="Outcome" data-info="Digital certificate + badge issued instantly. Added to Salesforce partner profile, Credly badge, LinkedIn share prompt. 8,420 certs issued globally in FY2026." data-tag="Achievement" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(1780,640)">
+      <rect x="0" y="56" width="150" height="70" rx="10" fill="url(#grad-green)" stroke="#4bca81" stroke-width="2" filter="url(#glow-blue)"/>
+      <text x="75" y="82" class="node-label" font-size="12" fill="#4bca81" text-anchor="middle">🎖️ Cert Issued!</text>
+      <text x="75" y="100" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Digital Badge · Credly</text>
+      <text x="75" y="116" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Tier Score Updated</text>
+    </g>
+
+    <!-- REMEDIATION -->
+    <g transform="translate(1580,770)">
+      <rect x="0" y="0" width="130" height="40" rx="6" fill="#1a0e0e" stroke="#FF6B35" stroke-width="1" stroke-dasharray="4,2"/>
+      <text x="65" y="16" font-family="Sora,sans-serif" font-size="9" fill="#FF6B35" text-anchor="middle" font-weight="600">📚 Remediation</text>
+      <text x="65" y="30" font-family="Sora,sans-serif" font-size="8" fill="#4a5568" text-anchor="middle">Re-sit in 14 days</text>
+    </g>
+
+    <!-- TIER IMPACT -->
+    <g class="node" id="n-tierimpact" data-title="Tier Score Updated" data-type="Process" data-info="Each certification adds to the partner's tier score. 3 certs = Silver eligible. 6 certs = Gold eligible. 12 certs = Pinnacle Elite eligible. Auto-recalculated nightly." data-tag="Automated" data-tag-color="#8b5cf6" onclick="selectNode(this)" transform="translate(2020,642)">
+      <rect x="0" y="62" width="160" height="56" rx="8" fill="url(#grad-purple)" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="80" y="86" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">⭐ Tier Score +</text>
+      <text x="80" y="103" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">Auto Recalc Nightly</text>
+    </g>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ROW 4: MDF & INCENTIVES FLOW                -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <!-- MDF REQUEST -->
+    <g class="node" id="n-mdfq" data-title="MDF Request Submitted" data-type="Entry Point" data-info="Gold+ partners submit MDF requests in Salesforce PRM. Required: activity type, projected ROI, supporting materials, expected reach. Max $500K/year for Pinnacle Elite." data-tag="Entry" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(240,892)">
+      <rect x="0" y="50" width="150" height="60" rx="8" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="75" y="76" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">💰 MDF Request</text>
+      <text x="75" y="92" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Gold+ Only</text>
+      <text x="75" y="104" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Up to $500K</text>
+    </g>
+
+    <!-- AUTO SCREEN -->
+    <g class="node" id="n-autoscreen" data-title="Automated Eligibility Screen" data-type="Process" data-info="System checks: partner tier, remaining MDF budget, activity type eligibility, prior claim completion rate, minimum performance thresholds. Instant result." data-tag="Auto" data-tag-color="#8b5cf6" onclick="selectNode(this)" transform="translate(460,892)">
+      <rect x="0" y="50" width="150" height="60" rx="8" fill="url(#grad-purple)" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="75" y="76" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">🤖 Auto Screen</text>
+      <text x="75" y="92" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Budget + Eligibility</text>
+      <text x="75" y="104" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Instant</text>
+    </g>
+
+    <!-- PAM REVIEW -->
+    <g class="node" id="n-pamrev" data-title="PAM Review" data-type="Process" data-info="PAM reviews request for strategic alignment. Checks: campaign plan quality, ROI projection realism, alignment with XCelerate GTM priorities. SLA: 48h." data-tag="Manual Review" data-tag-color="#00A1E0" onclick="selectNode(this)" transform="translate(680,892)">
+      <rect x="0" y="50" width="150" height="60" rx="8" fill="url(#grad-blue)" stroke="#00A1E0" stroke-width="1.5"/>
+      <text x="75" y="76" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">👤 PAM Review</text>
+      <text x="75" y="92" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Strategic Alignment</text>
+      <text x="75" y="104" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">48h SLA</text>
+    </g>
+
+    <!-- APPROVED? -->
+    <g class="node" id="n-mdfappr" data-title="MDF Approved?" data-type="Decision" data-info="Final approval: <$50K = PAM auto-approves. $50K-$200K = Channel Manager. $200K+ = VP Channel. Approval triggers PO generation and finance notification." data-tag="Decision" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(898,890)">
+      <polygon points="70,56 130,92 70,128 10,92" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="70" y="88" class="node-label" font-size="10" fill="#FFB75E" text-anchor="middle">Approved?</text>
+      <text x="70" y="103" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Tier-based Auth</text>
+    </g>
+
+    <!-- CAMPAIGN EXECUTION -->
+    <g class="node" id="n-campaign" data-title="Campaign Execution" data-type="Process" data-info="Partner executes approved campaign. Access to XCelerate brand assets, demand gen playbooks, co-branded templates, Marketo integration for tracking." data-tag="Execution" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(1100,892)">
+      <rect x="0" y="50" width="150" height="60" rx="8" fill="url(#grad-green)" stroke="#4bca81" stroke-width="1.5"/>
+      <text x="75" y="76" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">📣 Campaign Run</text>
+      <text x="75" y="92" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Brand Assets · Marketo</text>
+      <text x="75" y="104" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Co-branded</text>
+    </g>
+
+    <!-- CLAIM + AUDIT -->
+    <g class="node" id="n-claim" data-title="MDF Claim + Audit" data-type="Process" data-info="Post-campaign claim submission with proof of execution (receipts, attendee lists, MQLs generated). Automated audit against pre-approved plan. 14-day processing." data-tag="Finance" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(1320,892)">
+      <rect x="0" y="50" width="150" height="60" rx="8" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="75" y="76" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">📋 Claim + Audit</text>
+      <text x="75" y="92" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Proof of Execution</text>
+      <text x="75" y="104" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">14-day Process</text>
+    </g>
+
+    <!-- DISBURSEMENT -->
+    <g class="node" id="n-disb" data-title="MDF Disbursement" data-type="Outcome" data-info="Funds disbursed via wire transfer or credit note. Performance tracked in Einstein analytics. ROI measured: leads generated, pipeline created, deals influenced." data-tag="Payment" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(1540,890)">
+      <rect x="0" y="50" width="150" height="70" rx="10" fill="url(#grad-green)" stroke="#4bca81" stroke-width="2"/>
+      <text x="75" y="76" class="node-label" font-size="11" fill="#4bca81" text-anchor="middle">💵 Disbursed</text>
+      <text x="75" y="93" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Wire / Credit Note</text>
+      <text x="75" y="107" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">ROI Tracked</text>
+    </g>
+
+    <!-- SPIFF -->
+    <g class="node" id="n-spiff" data-title="SPIFF Programs" data-type="Process" data-info="Quarterly SPIFF incentives for deal closure. Current Q1 2026: $5K/deal for new logo cloud migration, $10K for $1M+ platform deals, 2x multiplier for certified partners." data-tag="Incentive" data-tag-color="#ec4899" onclick="selectNode(this)" transform="translate(1770,892)">
+      <rect x="0" y="50" width="150" height="60" rx="8" fill="url(#grad-pink)" stroke="#ec4899" stroke-width="1.5"/>
+      <text x="75" y="76" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">⚡ SPIFF Programs</text>
+      <text x="75" y="92" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">$5K-$10K per deal</text>
+      <text x="75" y="104" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">2x cert multiplier</text>
+    </g>
+
+    <!-- REBATE ENGINE -->
+    <g class="node" id="n-rebate" data-title="Back-End Rebate Engine" data-type="Process" data-info="Annual back-end rebates: Pinnacle Elite 35%, Gold 25%, Silver 15%. Calculated on net ARR. Paid annually. Einstein auto-calculates accruals quarterly." data-tag="Annual" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(1990,892)">
+      <rect x="0" y="50" width="160" height="60" rx="8" fill="url(#grad-gold)" stroke="#FFB75E" stroke-width="1.5"/>
+      <text x="80" y="76" class="node-label" font-size="10" fill="#e2e8f0" text-anchor="middle">🔁 Rebate Engine</text>
+      <text x="80" y="92" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">15–35% Back-End</text>
+      <text x="80" y="104" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Annual Payout</text>
+    </g>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ROW 5: ANALYTICS & OUTCOMES                 -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <!-- EINSTEIN ANALYTICS -->
+    <g class="node" id="n-einstein" data-title="Einstein Analytics Engine" data-type="System" data-info="Core analytics engine powering all XCelerate intelligence. Processes: deal scores, tier progression, MDF ROI, partner health scores, renewal risk, revenue forecasting." data-tag="Platform" data-tag-color="#8b5cf6" onclick="selectNode(this)" transform="translate(240,1130)">
+      <rect x="0" y="50" width="170" height="68" rx="10" fill="url(#grad-purple)" stroke="#8b5cf6" stroke-width="2" filter="url(#glow-blue)"/>
+      <text x="85" y="80" class="node-label" font-size="12" fill="#e2e8f0" text-anchor="middle">🧠 Einstein AI</text>
+      <text x="85" y="97" class="node-sublabel" font-size="9" fill="#c4b5fd" text-anchor="middle">Analytics Engine</text>
+      <text x="85" y="111" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Real-time · Predictive</text>
+    </g>
+
+    <!-- PARTNER HEALTH SCORE -->
+    <g class="node" id="n-health" data-title="Partner Health Score" data-type="Metric" data-info="Composite health score 0-100: pipeline activity (30%), certification recency (25%), MDF utilization (20%), customer NPS (15%), portal engagement (10%). Updated daily." data-tag="KPI" data-tag-color="#4bca81" onclick="selectNode(this)" transform="translate(490,1130)">
+      <rect x="0" y="50" width="150" height="68" rx="8" fill="url(#grad-green)" stroke="#4bca81" stroke-width="1.5"/>
+      <text x="75" y="78" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">💚 Health Score</text>
+      <text x="75" y="95" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Pipeline · Certs</text>
+      <text x="75" y="109" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">MDF · NPS · Engage</text>
+    </g>
+
+    <!-- REVENUE DASHBOARD -->
+    <g class="node" id="n-revdash" data-title="Revenue Intelligence Dashboard" data-type="Report" data-info="Real-time revenue dashboard: partner ARR by tier/region/vertical, pipeline velocity, quota attainment, forecast accuracy, YoY growth. Embedded in Salesforce PRM." data-tag="Dashboard" data-tag-color="#00A1E0" onclick="selectNode(this)" transform="translate(720,1130)">
+      <rect x="0" y="50" width="160" height="68" rx="8" fill="url(#grad-blue)" stroke="#00A1E0" stroke-width="1.5"/>
+      <text x="80" y="78" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">📊 Revenue Dash</text>
+      <text x="80" y="95" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">$2.4B ARR · 68 Countries</text>
+      <text x="80" y="109" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Real-time Embedded</text>
+    </g>
+
+    <!-- RENEWAL RISK -->
+    <g class="node" id="n-risk" data-title="Renewal Risk Prediction" data-type="Alert" data-info="AI-powered renewal risk model. Factors: health score trend, deal activity, cert expiry, executive sponsor changes, competitive threats. 90-day early warning system." data-tag="Predictive AI" data-tag-color="#FF6B35" onclick="selectNode(this)" transform="translate(960,1130)">
+      <rect x="0" y="50" width="160" height="68" rx="8" fill="url(#grad-orange)" stroke="#FF6B35" stroke-width="1.5"/>
+      <text x="80" y="78" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">⚠ Renewal Risk AI</text>
+      <text x="80" y="95" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">90-day Early Warning</text>
+      <text x="80" y="109" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">92% Retention Rate</text>
+    </g>
+
+    <!-- FORECAST ENGINE -->
+    <g class="node" id="n-forecast" data-title="Partner Revenue Forecast" data-type="Report" data-info="Einstein revenue forecast: partner-sourced ARR projections, pipeline-to-close modeling, seasonal adjustments. 94% forecast accuracy. Board-ready reporting." data-tag="Forecast" data-tag-color="#8b5cf6" onclick="selectNode(this)" transform="translate(1200,1130)">
+      <rect x="0" y="50" width="160" height="68" rx="8" fill="url(#grad-purple)" stroke="#8b5cf6" stroke-width="1.5"/>
+      <text x="80" y="78" class="node-label" font-size="11" fill="#e2e8f0" text-anchor="middle">📈 Forecast Engine</text>
+      <text x="80" y="95" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">94% Accuracy</text>
+      <text x="80" y="109" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">Board-ready Reports</text>
+    </g>
+
+    <!-- GLOBAL OUTCOME -->
+    <g class="node" id="n-outcome" data-title="XCelerate Global Outcome" data-type="Final Outcome" data-info="FY2026 program outcomes: $2.4B partner ARR, 4,218 certified partners, 68 countries, 92% renewal rate, 71.4% partner attach rate, 34% YoY growth, 2.1x certified partner revenue multiplier." data-tag="Program KPIs" data-tag-color="#FFB75E" onclick="selectNode(this)" transform="translate(1470,1118)">
+      <rect x="0" y="40" width="220" height="90" rx="12" fill="url(#grad-header)" stroke="#FFB75E" stroke-width="2.5" filter="url(#glow-gold)"/>
+      <text x="110" y="72" class="node-label" font-size="13" fill="#FFB75E" text-anchor="middle">🌍 Global Outcomes</text>
+      <text x="110" y="92" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">$2.4B ARR · 4,218 Partners</text>
+      <text x="110" y="107" class="node-sublabel" font-size="9" fill="#94a3b8" text-anchor="middle">92% Retention · 34% Growth</text>
+      <text x="110" y="122" class="node-sublabel" font-size="8" fill="#94a3b8" text-anchor="middle">2.1x Cert Revenue Multiplier</text>
+    </g>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  CONNECTOR ARROWS                           -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <!-- Row 1 connections -->
+    <path d="M386,235 L430,196" stroke="#00A1E0" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)" stroke-dasharray="0"/>
+    <path d="M560,196 L620,196" stroke="#00A1E0" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+    <path d="M750,230 L820,196" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M690,230 L690,280 L622,280" stroke="#FF6B35" stroke-width="1" fill="none" marker-end="url(#arrow-orange)" stroke-dasharray="4,3" opacity="0.6"/>
+    <path d="M960,196 L1020,196" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M1170,196 L1240,196" stroke="#8b5cf6" stroke-width="1.5" fill="none" marker-end="url(#arrow-purple)"/>
+    <path d="M1390,196 L1460,196" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M1600,196 L1680,196" stroke="#00A1E0" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+    <path d="M1830,196 L1900,230" stroke="#FFB75E" stroke-width="1.5" fill="none" marker-end="url(#arrow-gold)"/>
+    <path d="M2030,230 L2100,198" stroke="#8b5cf6" stroke-width="1.5" fill="none" marker-end="url(#arrow-purple)"/>
+    <path d="M1970,230 L1830,196" stroke="#4bca81" stroke-width="1" fill="none" marker-end="url(#arrow-green)" stroke-dasharray="5,3" opacity="0.5"/>
+    <path d="M2260,196 L2340,218" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <!-- renewal loop back -->
+    <path d="M2420,252 C2420,340 400,340 390,265" stroke="#4bca81" stroke-width="1" fill="none" marker-end="url(#arrow-green)" stroke-dasharray="6,4" opacity="0.35"/>
+
+    <!-- Row 2 connections -->
+    <path d="M386,480 L430,478" stroke="#00A1E0" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+    <path d="M570,480 L630,480" stroke="#8b5cf6" stroke-width="1.5" fill="none" marker-end="url(#arrow-purple)"/>
+    <path d="M780,480 L840,478" stroke="#FFB75E" stroke-width="1.5" fill="none" marker-end="url(#arrow-gold)"/>
+    <path d="M970,480 L1040,480" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M1180,480 L1240,480" stroke="#00A1E0" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+    <path d="M1380,480 L1440,480" stroke="#FFB75E" stroke-width="1.5" fill="none" marker-end="url(#arrow-gold)"/>
+    <path d="M1580,480 L1640,480" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M1780,480 L1850,480" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M2000,480 L2080,480" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <!-- conflict reject -->
+    <path d="M908,516 C908,558 1060,558 1040,516" stroke="#FF6B35" stroke-width="1" fill="none" marker-end="url(#arrow-orange)" stroke-dasharray="4,3" opacity="0.5"/>
+
+    <!-- Row 3 connections -->
+    <path d="M390,706 L460,706" stroke="#FF6B35" stroke-width="1.5" fill="none" marker-end="url(#arrow-orange)"/>
+    <path d="M610,706 L680,706" stroke="#8b5cf6" stroke-width="1.5" fill="none" marker-end="url(#arrow-purple)"/>
+    <path d="M830,706 L900,706" stroke="#00A1E0" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+    <path d="M1050,706 L1120,706" stroke="#ec4899" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+    <path d="M1270,706 L1360,706" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M1510,706 L1578,732" stroke="#FFB75E" stroke-width="1.5" fill="none" marker-end="url(#arrow-gold)"/>
+    <path d="M1708,732 L1780,694" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <!-- fail path -->
+    <path d="M1648,770 L1580,810 L1580,770" stroke="#FF6B35" stroke-width="1" fill="none" marker-end="url(#arrow-orange)" stroke-dasharray="4,3" opacity="0.6"/>
+    <path d="M1930,698 L2020,698" stroke="#8b5cf6" stroke-width="1.5" fill="none" marker-end="url(#arrow-purple)"/>
+
+    <!-- Row 4 connections -->
+    <path d="M390,952 L460,952" stroke="#FFB75E" stroke-width="1.5" fill="none" marker-end="url(#arrow-gold)"/>
+    <path d="M610,952 L680,952" stroke="#8b5cf6" stroke-width="1.5" fill="none" marker-end="url(#arrow-purple)"/>
+    <path d="M830,952 L898,952" stroke="#00A1E0" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+    <path d="M1028,952 L1100,952" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M1250,952 L1320,952" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M1470,952 L1540,952" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M1690,952 L1770,952" stroke="#ec4899" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+    <path d="M1920,952 L1990,952" stroke="#FFB75E" stroke-width="1.5" fill="none" marker-end="url(#arrow-gold)"/>
+
+    <!-- Row 5 connections -->
+    <path d="M410,1196 L490,1196" stroke="#8b5cf6" stroke-width="1.5" fill="none" marker-end="url(#arrow-purple)"/>
+    <path d="M640,1196 L720,1196" stroke="#4bca81" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+    <path d="M880,1196 L960,1196" stroke="#00A1E0" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+    <path d="M1120,1196 L1200,1196" stroke="#FF6B35" stroke-width="1.5" fill="none" marker-end="url(#arrow-orange)"/>
+    <path d="M1360,1196 L1470,1196" stroke="#8b5cf6" stroke-width="1.5" fill="none" marker-end="url(#arrow-purple)"/>
+
+    <!-- Cross-lane connections (vertical) -->
+    <!-- Won deal → Analytics -->
+    <path d="M1925,514 C1925,560 1580,1060 1580,1130" stroke="#4bca81" stroke-width="1" fill="none" marker-end="url(#arrow-green)" stroke-dasharray="5,4" opacity="0.4"/>
+    <!-- Cert → Tier Impact → Partner Journey -->
+    <path d="M2100,698 C2100,850 1970,1050 1710,1155" stroke="#8b5cf6" stroke-width="1" fill="none" marker-end="url(#arrow-purple)" stroke-dasharray="5,4" opacity="0.3"/>
+    <!-- Einstein → all rows -->
+    <path d="M325,1130 C325,900 690,850 700,760" stroke="#8b5cf6" stroke-width="1" fill="none" marker-end="url(#arrow-purple)" stroke-dasharray="4,4" opacity="0.25"/>
+    <path d="M325,1130 C280,850 700,600 700,530" stroke="#00A1E0" stroke-width="1" fill="none" marker-end="url(#arrow-blue)" stroke-dasharray="4,4" opacity="0.25"/>
+    <!-- Disbursed → Outcome -->
+    <path d="M1615,1014 C1615,1060 1580,1080 1580,1118" stroke="#4bca81" stroke-width="1" fill="none" marker-end="url(#arrow-green)" stroke-dasharray="4,4" opacity="0.4"/>
+
+  </svg>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-title">Node Types</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#00A1E0;"></div>Entry / Process</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#FFB75E; transform:rotate(45deg);"></div>Decision Gate</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4bca81;"></div>Outcome / Won</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6;"></div>AI / System</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#FF6B35;"></div>Alert / Rejected</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ec4899;"></div>Incentive / SPIFF</div>
+  <div style="margin-top:10px; padding-top:8px; border-top:1px solid var(--border);">
+    <div class="legend-title">Swim Lanes</div>
+    <div class="legend-item"><div style="width:16px;height:3px;background:#253047;"></div>Partner Journey</div>
+    <div class="legend-item"><div style="width:16px;height:3px;background:#253047;"></div>Deal Registration</div>
+    <div class="legend-item"><div style="width:16px;height:3px;background:#253047;"></div>Enablement &amp; Cert</div>
+    <div class="legend-item"><div style="width:16px;height:3px;background:#253047;"></div>MDF &amp; Incentives</div>
+    <div class="legend-item"><div style="width:16px;height:3px;background:#253047;"></div>Analytics &amp; Outcomes</div>
+  </div>
+  <div style="margin-top:10px; padding-top:8px; border-top:1px solid var(--border); font-size:0.65rem; color:var(--text3);">
+    💡 Click any node for details<br>Scroll to zoom · Drag to pan
+  </div>
+</div>
+
+<!-- DETAIL PANEL -->
+<div id="detail-panel">
+  <button class="close-btn" onclick="closeDetail()">✕</button>
+  <div class="dp-title" id="dp-title">—</div>
+  <div class="dp-type" id="dp-type">—</div>
+  <div id="dp-rows"></div>
+</div>
+
+<!-- TOOLTIP -->
+<div id="tooltip"></div>
+
+<!-- STATUS BAR -->
+<div class="statusbar">
+  <div class="status-item"><div class="status-dot"></div> XCelerate PRM 2026 · Live</div>
+  <div class="status-item">📌 36 nodes · 5 swim lanes</div>
+  <div class="status-item">🔀 42 connectors</div>
+  <div class="status-item" id="status-xy">x:0 y:0</div>
+  <div class="status-item" id="status-sel">No selection</div>
+  <div style="flex:1;"></div>
+  <div class="status-item" style="font-family:'JetBrains Mono',monospace; color:#253047;">Alteryx SaaS Model · 99.7% Fidelity</div>
+</div>
+
+<script>
+// ── State ──
+let scale = 0.62, tx = -80, ty = -30;
+let isPanning = false, startX, startY, startTx, startTy;
+const wrap = document.getElementById('canvas-wrap');
+const svg = document.getElementById('svg-canvas');
+let selectedNode = null;
+
+// ── Transform ──
+function applyTransform() {
+  svg.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
+  document.getElementById('zoom-display').textContent = Math.round(scale * 100) + '%';
+}
+applyTransform();
+
+function zoomIn()  { scale = Math.min(scale * 1.2, 3);   applyTransform(); }
+function zoomOut() { scale = Math.max(scale / 1.2, 0.15); applyTransform(); }
+
+function onWheel(e) {
+  e.preventDefault();
+  const delta = e.deltaY < 0 ? 1.12 : 0.89;
+  const rect = wrap.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  tx = mx - (mx - tx) * delta;
+  ty = my - (my - ty) * delta;
+  scale *= delta;
+  scale = Math.max(0.15, Math.min(3, scale));
+  applyTransform();
+}
+
+// ── Pan ──
+function startPan(e) {
+  if (e.target.closest('.node') || e.target.closest('#detail-panel') || e.target.closest('.legend') || e.target.closest('.minimap')) return;
+  isPanning = true;
+  startX = e.clientX; startY = e.clientY;
+  startTx = tx; startTy = ty;
+  wrap.classList.add('panning');
+  document.getElementById('status-xy').textContent = `x:${Math.round(-tx/scale)} y:${Math.round(-ty/scale)}`;
+}
+function doPan(e) {
+  if (!isPanning) return;
+  tx = startTx + (e.clientX - startX);
+  ty = startTy + (e.clientY - startY);
+  applyTransform();
+  document.getElementById('status-xy').textContent = `x:${Math.round(-tx/scale)} y:${Math.round(-ty/scale)}`;
+}
+function endPan() { isPanning = false; wrap.classList.remove('panning'); }
+
+// ── Views / Presets ──
+const views = {
+  flow:   { s: 0.62, x: -80,  y: -30 },
+  deal:   { s: 0.9,  x: -160, y: -330 },
+  enable: { s: 0.9,  x: -160, y: -580 },
+};
+function setView(name) {
+  const v = views[name];
+  scale = v.s; tx = v.x; ty = v.y;
+  applyTransform();
+  document.querySelectorAll('[id^="btn-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + name)?.classList.add('active');
+}
+
+function resetView() { setView('flow'); }
+
+// ── Node interaction ──
+function selectNode(el) {
+  if (selectedNode) selectedNode.classList.remove('selected');
+  selectedNode = el;
+  el.classList.add('selected');
+
+  const title = el.dataset.title || '—';
+  const type  = el.dataset.type  || '—';
+  const info  = el.dataset.info  || '';
+  const tag   = el.dataset.tag   || '';
+  const color = el.dataset.tagColor || '#00A1E0';
+
+  document.getElementById('dp-title').textContent = title;
+  const dt = document.getElementById('dp-type');
+  dt.textContent = type;
+  dt.style.color = color;
+
+  // Build info rows
+  const sentences = info.split('. ').filter(Boolean);
+  let html = '';
+  sentences.forEach(s => {
+    html += `<div class="dp-row"><span class="dp-val" style="min-width:100%;text-align:left;color:#94a3b8;font-weight:400;">${s.trim()}.</span></div>`;
+  });
+  if (tag) {
+    html += `<div style="margin-top:10px;"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:0.65rem;font-weight:700;background:${color}22;color:${color};text-transform:uppercase;letter-spacing:0.5px;">${tag}</span></div>`;
+  }
+  document.getElementById('dp-rows').innerHTML = html;
+  document.getElementById('detail-panel').style.display = 'block';
+  document.getElementById('status-sel').textContent = title;
+}
+
+function closeDetail() {
+  document.getElementById('detail-panel').style.display = 'none';
+  if (selectedNode) selectedNode.classList.remove('selected');
+  selectedNode = null;
+  document.getElementById('status-sel').textContent = 'No selection';
+}
+
+// ── Export SVG ──
+function exportSVG() {
+  const svgEl = document.getElementById('svg-canvas');
+  const data = new XMLSerializer().serializeToString(svgEl);
+  const blob = new Blob([data], {type: 'image/svg+xml'});
+  const url  = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'xcelerate-prm-flowchart.svg'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Open in draw.io ──
+function openDrawIO() {
+  window.open('https://app.diagrams.net/', '_blank');
+}
+
+// ── Hover tooltip ──
+document.querySelectorAll('.node').forEach(node => {
+  node.addEventListener('mouseenter', e => {
+    const tip = document.getElementById('tooltip');
+    tip.innerHTML = `<strong>${node.dataset.title}</strong>${node.dataset.info ? node.dataset.info.substring(0,80) + '…' : ''}`;
+    tip.style.display = 'block';
+  });
+  node.addEventListener('mousemove', e => {
+    const tip = document.getElementById('tooltip');
+    tip.style.left = (e.clientX + 14) + 'px';
+    tip.style.top  = (e.clientY - 10) + 'px';
+  });
+  node.addEventListener('mouseleave', () => {
+    document.getElementById('tooltip').style.display = 'none';
+  });
+});
+</script>
+</body>
+</html>
