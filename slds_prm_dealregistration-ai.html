@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deal Registration — Partner Portal · Powered by Salesforce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Salesforce+Sans:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   SALESFORCE LIGHTNING DESIGN SYSTEM (SLDS) TOKENS
+   Aligned with Experience Cloud / PRM Portal standards
+   ═══════════════════════════════════════════════════ */
+:root {
+    /* Brand — Salesforce Blue primary with vendor accent */
+    --slds-brand:          #0176D3;
+    --slds-brand-dark:     #014486;
+    --slds-brand-light:    #EAF4FF;
+    --slds-brand-border:   #0176D3;
+
+    /* Vendor accent — Keysight red preserved as secondary */
+    --vendor-accent:       #E90029;
+    --vendor-accent-light: #FFF0F2;
+
+    /* Neutrals — SLDS spec */
+    --slds-neutral-1:  #FFFFFF;
+    --slds-neutral-2:  #F3F3F3;
+    --slds-neutral-3:  #DDDBDA;
+    --slds-neutral-4:  #B0ADAB;
+    --slds-neutral-5:  #706E6B;
+    --slds-neutral-6:  #3E3E3C;
+    --slds-neutral-7:  #181818;
+
+    /* Semantic */
+    --slds-success:    #2E844A;
+    --slds-success-bg: #EEF6EE;
+    --slds-warning:    #DD7A01;
+    --slds-warning-bg: #FFF8ED;
+    --slds-error:      #BA0517;
+    --slds-error-bg:   #FEF1EE;
+    --slds-info:       #0176D3;
+    --slds-info-bg:    #EAF4FF;
+
+    /* AI Assistant — Eggy signature violet, kept intentionally */
+    --eggy-primary:    #7B61FF;
+    --eggy-light:      #F5F3FF;
+    --eggy-border:     #C4B5FD;
+
+    /* Typography */
+    --font-body:       'Inter', 'Salesforce Sans', -apple-system, sans-serif;
+    --font-mono:       'SF Mono', 'Fira Code', monospace;
+
+    /* Elevation */
+    --shadow-sm:       0 1px 2px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05);
+    --shadow-md:       0 4px 12px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-lg:       0 8px 24px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.06);
+    --shadow-floating: 0 20px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.10);
+
+    /* Layout */
+    --radius-sm:  4px;
+    --radius-md:  8px;
+    --radius-lg:  12px;
+    --radius-xl:  16px;
+    --radius-pill: 99px;
+    --page-max:   1100px;
+    --page-gutter: clamp(16px, 4%, 40px);
+}
+
+/* ═══════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 14px; } /* SLDS base = 14px */
+body {
+    font-family: var(--font-body);
+    font-size: 0.875rem; /* 14px SLDS base */
+    line-height: 1.5;
+    color: var(--slds-neutral-6);
+    background: var(--slds-neutral-2);
+    margin: 0; padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════════════
+   SALESFORCE GLOBAL HEADER (Experience Cloud pattern)
+   ═══════════════════════════════════════════════════ */
+.slds-global-header {
+    background: var(--slds-neutral-7);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--page-gutter);
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 9000;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.slds-global-header__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+.slds-global-header__logo svg { width: 100px; height: 22px; }
+.slds-global-header__divider {
+    width: 1px;
+    height: 18px;
+    background: rgba(255,255,255,0.2);
+}
+.slds-global-header__portal-name {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+.slds-global-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.slds-global-header__action-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.15s, color 0.15s;
+}
+.slds-global-header__action-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+.slds-global-header__avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--slds-brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════════════════
+   NAVIGATION BAR (Experience Cloud nav)
+   ═══════════════════════════════════════════════════ */
+.slds-nav {
+    background: var(--slds-neutral-1);
+    border-bottom: 1px solid var(--slds-neutral-3);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--page-gutter);
+    height: 52px;
+    gap: 0;
+    position: sticky;
+    top: 40px;
+    z-index: 8999;
+    box-shadow: 0 1px 0 var(--slds-neutral-3);
+}
+.slds-nav__brand {
+    margin-right: 24px;
+    display: flex;
+    align-items: center;
+}
+.slds-nav__brand img {
+    height: 28px;
+    width: auto;
+}
+.slds-nav__divider {
+    width: 1px;
+    height: 24px;
+    background: var(--slds-neutral-3);
+    margin-right: 4px;
+}
+.slds-nav__items {
+    display: flex;
+    align-items: stretch;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    gap: 2px;
+}
+.slds-nav__item {
+    display: flex;
+    align-items: center;
+}
+.slds-nav__link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 14px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--slds-neutral-5);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.slds-nav__link:hover { color: var(--slds-brand); }
+.slds-nav__link.active {
+    color: var(--slds-brand);
+    border-bottom-color: var(--slds-brand);
+    font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════
+   BREADCRUMB (SLDS pattern)
+   ═══════════════════════════════════════════════════ */
+.slds-breadcrumb-bar {
+    background: var(--slds-neutral-1);
+    border-bottom: 1px solid var(--slds-neutral-3);
+    padding: 8px var(--page-gutter);
+}
+.slds-breadcrumb-bar__inner {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.slds-breadcrumb__item {
+    font-size: 0.75rem;
+    color: var(--slds-neutral-5);
+    cursor: pointer;
+    transition: color 0.15s;
+}
+.slds-breadcrumb__item:hover { color: var(--slds-brand); }
+.slds-breadcrumb__item.current { color: var(--slds-neutral-6); font-weight: 500; cursor: default; }
+.slds-breadcrumb__sep {
+    color: var(--slds-neutral-4);
+    font-size: 0.65rem;
+}
+
+/* ═══════════════════════════════════════════════════
+   PAGE LAYOUT
+   ═══════════════════════════════════════════════════ */
+.slds-page {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 24px var(--page-gutter) 80px;
+}
+
+/* Page header */
+.slds-page-header {
+    background: var(--slds-neutral-1);
+    border: 1px solid var(--slds-neutral-3);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: var(--shadow-sm);
+}
+.slds-page-header__icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--slds-brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+.slds-page-header__meta {
+    flex: 1;
+}
+.slds-page-header__object-type {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--slds-neutral-5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+}
+.slds-page-header__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--slds-neutral-7);
+    margin: 0 0 4px;
+    line-height: 1.3;
+}
+.slds-page-header__subtitle {
+    font-size: 0.8rem;
+    color: var(--slds-neutral-5);
+    margin: 0;
+}
+.slds-page-header__actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   SLDS CARDS (the main container pattern)
+   ═══════════════════════════════════════════════════ */
+.slds-card {
+    background: var(--slds-neutral-1);
+    border: 1px solid var(--slds-neutral-3);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+.slds-card__header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--slds-neutral-3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--slds-neutral-2);
+}
+.slds-card__header-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--slds-neutral-6);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.slds-card__header-title i {
+    color: var(--slds-brand);
+    font-size: 0.875rem;
+}
+.slds-card__body {
+    padding: 20px;
+}
+
+/* ═══════════════════════════════════════════════════
+   SLDS FORM FIELDS (Lightning-accurate)
+   ═══════════════════════════════════════════════════ */
+.slds-form-grid {
+    display: grid;
+    gap: 16px;
+}
+.slds-form-grid--2 { grid-template-columns: 1fr 1fr; }
+.slds-form-grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+.slds-form-grid--1-2 { grid-template-columns: 1fr 2fr; }
+.slds-form-grid--2-1 { grid-template-columns: 2fr 1fr; }
+
+.slds-form-element {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+}
+.slds-form-element__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--slds-neutral-6);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.slds-form-element__label .required-mark {
+    color: var(--slds-error);
+    font-size: 0.8rem;
+}
+.slds-form-element__control {
+    position: relative;
+}
+.slds-input,
+.slds-select,
+.slds-textarea {
+    width: 100%;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid var(--slds-neutral-3);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-family: var(--font-body);
+    color: var(--slds-neutral-6);
+    background: var(--slds-neutral-1);
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.slds-textarea {
+    height: auto;
+    min-height: 100px;
+    padding: 8px 12px;
+    resize: vertical;
+    line-height: 1.5;
+}
+.slds-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23706E6B' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 32px;
+    cursor: pointer;
+}
+.slds-input:focus,
+.slds-select:focus,
+.slds-textarea:focus {
+    border-color: var(--slds-brand);
+    box-shadow: 0 0 0 3px rgba(1,118,211,0.15);
+}
+.slds-input::placeholder { color: var(--slds-neutral-4); }
+.slds-textarea::placeholder { color: var(--slds-neutral-4); font-size: 0.8125rem; }
+
+/* Input with icon/addon */
+.slds-input-has-icon {
+    position: relative;
+}
+.slds-input-has-icon .slds-icon-position {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--slds-neutral-4);
+    font-size: 0.8rem;
+    pointer-events: none;
+}
+.slds-input-has-icon .slds-input { padding-right: 32px; }
+.slds-input-has-icon .slds-icon-position a { pointer-events: all; }
+
+/* Inline addon (% suffix) */
+.slds-input-addon {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--slds-neutral-3);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.slds-input-addon:focus-within {
+    border-color: var(--slds-brand);
+    box-shadow: 0 0 0 3px rgba(1,118,211,0.15);
+}
+.slds-input-addon .slds-input {
+    border: none;
+    border-radius: 0;
+    box-shadow: none !important;
+    flex: 1;
+}
+.slds-input-addon__suffix {
+    padding: 0 12px;
+    background: var(--slds-neutral-2);
+    border-left: 1px solid var(--slds-neutral-3);
+    display: flex;
+    align-items: center;
+    color: var(--slds-neutral-5);
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Field state: error */
+.slds-has-error .slds-input,
+.slds-has-error .slds-select,
+.slds-has-error .slds-textarea {
+    border-color: var(--slds-error);
+    box-shadow: 0 0 0 3px rgba(186,5,23,0.10);
+}
+.slds-form-element__error {
+    font-size: 0.7rem;
+    color: var(--slds-error);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+.slds-input.integrity-error {
+    border-color: var(--slds-error) !important;
+    animation: integrity-pulse 1.5s infinite;
+}
+@keyframes integrity-pulse {
+    0%,100% { box-shadow: 0 0 0 2px rgba(186,5,23,0.15); }
+    50%      { box-shadow: 0 0 0 4px rgba(186,5,23,0.30); }
+}
+
+/* Scanning animation for sanctions */
+.slds-input.sanctions-scanning {
+    background: linear-gradient(90deg, #fff 0%, rgba(1,118,211,0.06) 40%, rgba(1,118,211,0.12) 50%, rgba(1,118,211,0.06) 60%, #fff 100%);
+    background-size: 200% auto;
+    animation: sanctions-scan 1.4s linear infinite;
+    border-color: var(--slds-brand) !important;
+}
+@keyframes sanctions-scan {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+}
+
+/* ═══════════════════════════════════════════════════
+   SLDS BADGES & STATUS INDICATORS
+   ═══════════════════════════════════════════════════ */
+.slds-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+.slds-badge--brand   { background: var(--slds-brand-light); color: var(--slds-brand-dark); }
+.slds-badge--success { background: var(--slds-success-bg); color: var(--slds-success); }
+.slds-badge--warning { background: var(--slds-warning-bg); color: var(--slds-warning); }
+.slds-badge--error   { background: var(--slds-error-bg);   color: var(--slds-error); }
+.slds-badge--neutral { background: var(--slds-neutral-2);  color: var(--slds-neutral-5); }
+.slds-badge--ai      { background: var(--eggy-light); color: var(--eggy-primary); }
+
+/* Compliance status row */
+#sanctions-status {
+    display: none;
+    margin-top: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-weight: 600;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    transition: all 0.2s;
+}
+#sanctions-status.show { display: flex; }
+#sanctions-status.checking { background: var(--slds-info-bg); border: 1px solid #c2ddf5; color: var(--slds-brand); }
+#sanctions-status.clear    { background: var(--slds-success-bg); border: 1px solid #c4e3c8; color: var(--slds-success); }
+#sanctions-status.flagged  { background: var(--slds-error-bg);   border: 1px solid #f5b9b5; color: var(--slds-error); }
+#sanctions-status.review   { background: var(--slds-warning-bg); border: 1px solid #f5d9a4; color: var(--slds-warning); }
+.sanctions-source { margin-left: auto; font-size: 0.65rem; opacity: 0.55; font-weight: 400; }
+.sanctions-spinner { animation: spin 1s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.pulse-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--slds-success);
+    animation: pulse-green 2s infinite;
+    display: inline-block;
+    flex-shrink: 0;
+}
+@keyframes pulse-green {
+    0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(46,132,74,0.4); }
+    50%      { opacity: 0.85; box-shadow: 0 0 0 4px rgba(46,132,74,0); }
+}
+
+/* ═══════════════════════════════════════════════════
+   SLDS BUTTONS
+   ═══════════════════════════════════════════════════ */
+.slds-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 16px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+.slds-button:active { transform: scale(0.98); }
+.slds-button--brand {
+    background: var(--slds-brand);
+    color: white;
+    border-color: var(--slds-brand);
+}
+.slds-button--brand:hover { background: var(--slds-brand-dark); border-color: var(--slds-brand-dark); }
+.slds-button--neutral {
+    background: var(--slds-neutral-1);
+    color: var(--slds-neutral-6);
+    border-color: var(--slds-neutral-3);
+}
+.slds-button--neutral:hover { background: var(--slds-neutral-2); border-color: var(--slds-neutral-4); }
+.slds-button--destructive {
+    background: var(--slds-error);
+    color: white;
+    border-color: var(--slds-error);
+}
+.slds-button--icon {
+    width: 32px; height: 32px; padding: 0;
+    background: none; border: 1px solid var(--slds-neutral-3);
+    border-radius: var(--radius-sm);
+    color: var(--slds-neutral-5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem;
+}
+.slds-button--icon:hover { background: var(--slds-neutral-2); color: var(--slds-neutral-6); }
+
+/* Submit button — full width, prominent */
+.slds-button--submit {
+    background: var(--slds-brand);
+    color: white;
+    border-color: var(--slds-brand);
+    height: 44px;
+    font-size: 0.9rem;
+    padding: 0 40px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 8px rgba(1,118,211,0.30);
+}
+.slds-button--submit:hover {
+    background: var(--slds-brand-dark);
+    box-shadow: 0 4px 16px rgba(1,118,211,0.40);
+}
+
+/* ═══════════════════════════════════════════════════
+   SLDS NOTIFICATION / INLINE HELP BANNER
+   ═══════════════════════════════════════════════════ */
+.slds-notify {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 16px;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+.slds-notify--info    { background: var(--slds-info-bg);    border: 1px solid #c2ddf5; }
+.slds-notify--ai      { background: var(--eggy-light);      border: 1px solid var(--eggy-border); }
+.slds-notify__icon    { flex-shrink: 0; margin-top: 1px; font-size: 0.875rem; }
+.slds-notify--info .slds-notify__icon    { color: var(--slds-brand); }
+.slds-notify--ai .slds-notify__icon      { color: var(--eggy-primary); }
+.slds-notify__body    { flex: 1; }
+.slds-notify__title   { font-weight: 700; margin-bottom: 2px; color: var(--slds-neutral-7); }
+.slds-notify__text    { color: var(--slds-neutral-5); }
+
+/* ═══════════════════════════════════════════════════
+   FILE UPLOAD ZONE
+   ═══════════════════════════════════════════════════ */
+#referral-upload-container {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s, max-height 0.3s;
+    margin-bottom: 16px;
+}
+#referral-upload-container.show {
+    display: block;
+    opacity: 1;
+    max-height: 160px;
+}
+.slds-file-drop {
+    border: 1.5px dashed var(--slds-neutral-3);
+    border-radius: var(--radius-md);
+    padding: 32px 20px;
+    text-align: center;
+    background: var(--slds-neutral-2);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+.slds-file-drop:hover {
+    border-color: var(--slds-brand);
+    background: var(--slds-brand-light);
+}
+.slds-file-drop__icon { color: var(--slds-neutral-4); font-size: 1.5rem; margin-bottom: 8px; }
+.slds-file-drop__text { font-size: 0.8rem; color: var(--slds-neutral-5); }
+.slds-file-drop__link { color: var(--slds-brand); font-weight: 600; text-decoration: none; }
+
+/* ═══════════════════════════════════════════════════
+   SUCCESS STATE
+   ═══════════════════════════════════════════════════ */
+#success-message {
+    display: none;
+    text-align: center;
+    padding: 60px 40px;
+}
+.success-check {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--slds-success-bg);
+    border: 2px solid var(--slds-success);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--slds-success);
+    font-size: 1.8rem;
+}
+#success-message h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--slds-neutral-7);
+    margin: 0 0 8px;
+}
+#success-message p { color: var(--slds-neutral-5); font-size: 0.875rem; }
+
+/* ═══════════════════════════════════════════════════
+   EGGY AI ASSISTANT — SLDS-INTEGRATED DESIGN
+   The chatbot keeps its violet identity but with
+   SLDS-compliant geometry and type scale
+   ═══════════════════════════════════════════════════ */
+
+/* Launcher FAB */
+#eggy-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--eggy-primary);
+    box-shadow: 0 8px 24px rgba(123,97,255,0.45);
+    cursor: pointer;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid rgba(255,255,255,0.3);
+    animation: fab-enter 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes fab-enter {
+    from { transform: scale(0) rotate(-45deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+#eggy-fab:hover { transform: scale(1.08); box-shadow: 0 12px 32px rgba(123,97,255,0.55); }
+#eggy-fab img { width: 32px; height: 32px; object-fit: contain; border-radius: 50%; }
+#eggy-fab-label {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--eggy-primary);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+}
+#eggy-notif {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--vendor-accent);
+    border: 2px solid white;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+}
+
+/* Tooltip */
+#eggy-tooltip {
+    position: fixed;
+    bottom: 92px;
+    right: 24px;
+    background: var(--slds-neutral-7);
+    color: white;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-md);
+    z-index: 9998;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: tooltip-bounce 2s ease-in-out 1s infinite;
+    white-space: nowrap;
+}
+#eggy-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: 22px;
+    width: 12px; height: 12px;
+    background: var(--slds-neutral-7);
+    transform: rotate(45deg);
+    border-radius: 2px;
+}
+@keyframes tooltip-bounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-4px); }
+}
+.eggy-tip-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #6EE7B7;
+    animation: pulse-green 2s infinite;
+}
+
+/* Chat Panel — SLDS card geometry */
+#chatbot-window {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    bottom: 92px;
+    right: 24px;
+    width: 380px;
+    height: 74vh;
+    max-height: 640px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    z-index: 10000;
+    box-shadow: var(--shadow-floating);
+    border: 1px solid rgba(255,255,255,0.15);
+    animation: panel-in 0.3s cubic-bezier(0.34,1.25,0.64,1) both;
+}
+@keyframes panel-in {
+    from { transform: translateY(20px) scale(0.97); opacity: 0; }
+    to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Chat header */
+.eggy-header {
+    padding: 0 16px;
+    height: 52px;
+    background: linear-gradient(135deg, #5B4CF5 0%, var(--eggy-primary) 50%, #9B7BFF 100%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.eggy-header__avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.4);
+    overflow: hidden;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.eggy-header__avatar img { width: 26px; height: 26px; object-fit: contain; }
+.eggy-header__info { flex: 1; }
+.eggy-header__name {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+}
+.eggy-header__status {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.eggy-header__online {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #6EE7B7;
+    box-shadow: 0 0 6px #6EE7B7;
+}
+.eggy-header__badge {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 2px 7px;
+    border-radius: var(--radius-pill);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+.eggy-header__close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    transition: color 0.15s, background 0.15s;
+}
+.eggy-header__close:hover { color: white; background: rgba(255,255,255,0.15); }
+
+/* Quick actions */
+.eggy-quick-actions {
+    padding: 10px 14px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    background: rgba(15,10,40,0.9);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+}
+.eggy-quick-btn {
+    padding: 4px 10px;
+    background: rgba(123,97,255,0.2);
+    border: 1px solid rgba(123,97,255,0.4);
+    border-radius: var(--radius-pill);
+    color: #C4B5FD;
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+    font-family: var(--font-body);
+}
+.eggy-quick-btn:hover { background: rgba(123,97,255,0.4); color: white; }
+
+/* Messages area */
+.eggy-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background: rgba(12,8,32,0.92);
+    backdrop-filter: blur(20px);
+    scroll-behavior: smooth;
+}
+.eggy-messages::-webkit-scrollbar { width: 4px; }
+.eggy-messages::-webkit-scrollbar-thumb { background: rgba(123,97,255,0.3); border-radius: 4px; }
+
+/* Welcome screen */
+.eggy-welcome {
+    padding: 20px 0;
+}
+.eggy-welcome h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 6px;
+}
+.eggy-welcome p {
+    font-size: 0.775rem;
+    color: rgba(255,255,255,0.5);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Message bubbles */
+.eggy-msg {
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+}
+.eggy-msg--user { align-items: flex-end; }
+.eggy-msg--bot  { align-items: flex-start; }
+.eggy-msg__meta {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 4px;
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.eggy-msg__meta img { width: 14px; height: 14px; border-radius: 50%; }
+.eggy-msg__bubble {
+    padding: 10px 14px;
+    border-radius: 14px;
+    max-width: 88%;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.92);
+}
+.eggy-msg--user .eggy-msg__bubble {
+    background: rgba(123,97,255,0.35);
+    border: 1px solid rgba(123,97,255,0.5);
+    border-radius: 14px 14px 4px 14px;
+}
+.eggy-msg--bot .eggy-msg__bubble {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px 14px 14px 4px;
+}
+/* Markdown inside bot bubbles */
+.eggy-msg--bot .eggy-msg__bubble strong { color: #C4B5FD; }
+.eggy-msg--bot .eggy-msg__bubble ul { margin: 6px 0 6px 18px; padding: 0; }
+.eggy-msg--bot .eggy-msg__bubble li { margin-bottom: 2px; }
+.eggy-msg--bot .eggy-msg__bubble a {
+    color: #93C5FD;
+    text-decoration: none;
+    font-weight: 600;
+}
+.eggy-msg--bot .eggy-msg__bubble a:hover { text-decoration: underline; }
+
+/* Eggy action buttons inside messages */
+.eggy-btn-alt {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0 0 !important;
+    padding: 7px 14px !important;
+    background: rgba(123,97,255,0.2) !important;
+    border: 1px solid rgba(123,97,255,0.5) !important;
+    border-radius: var(--radius-sm) !important;
+    color: #C4B5FD !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: background 0.15s !important;
+    cursor: pointer;
+}
+.eggy-btn-alt:hover { background: rgba(123,97,255,0.45) !important; color: white !important; }
+
+/* Typing indicator */
+.eggy-typing {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px 14px 14px 4px;
+    width: fit-content;
+    margin-bottom: 14px;
+}
+.eggy-typing span {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(196,181,253,0.6);
+    animation: typing-dot 1.2s infinite;
+}
+.eggy-typing span:nth-child(2) { animation-delay: 0.2s; }
+.eggy-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-dot {
+    0%,80%,100% { transform: scale(0.6); opacity: 0.4; }
+    40%         { transform: scale(1.1); opacity: 1; }
+}
+
+/* Input area */
+.eggy-input-area {
+    padding: 12px;
+    background: rgba(12,8,32,0.96);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+}
+.eggy-input-row {
+    display: flex;
+    gap: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 6px 6px 6px 14px;
+    align-items: center;
+    transition: border-color 0.2s;
+}
+.eggy-input-row:focus-within { border-color: rgba(123,97,255,0.5); }
+#messageInput {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 0.8125rem;
+    font-family: var(--font-body);
+}
+#messageInput::placeholder { color: rgba(255,255,255,0.3); }
+.eggy-send-btn {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--eggy-primary);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    transition: background 0.15s, transform 0.1s;
+}
+.eggy-send-btn:hover { background: #6252E0; }
+.eggy-send-btn:active { transform: scale(0.92); }
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    #chatbot-window {
+        width: calc(100vw - 32px);
+        right: 16px;
+        bottom: 88px;
+        height: 70vh;
+    }
+    .slds-form-grid--2,
+    .slds-form-grid--3,
+    .slds-form-grid--1-2,
+    .slds-form-grid--2-1 {
+        grid-template-columns: 1fr;
+    }
+    .slds-page { padding: 16px var(--page-gutter) 80px; }
+    .slds-page-header { flex-direction: column; }
+    .slds-nav__items { display: none; }
+}
+
+/* Date input */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
+    cursor: pointer;
+}
+input[type="date"]:invalid {
+    border-color: var(--slds-error);
+}
+
+/* Progress stepper */
+.slds-progress-bar {
+    background: var(--slds-neutral-3);
+    height: 4px;
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+.slds-progress-bar__fill {
+    height: 100%;
+    background: var(--slds-brand);
+    border-radius: var(--radius-pill);
+    transition: width 0.4s ease;
+    width: 0%;
+}
+.slds-progress-label {
+    font-size: 0.7rem;
+    color: var(--slds-neutral-5);
+    text-align: right;
+}
+
+/* Section divider */
+.slds-section-divider {
+    height: 1px;
+    background: var(--slds-neutral-3);
+    margin: 8px 0 16px;
+}
+
+/* Utility */
+.slds-text-muted { color: var(--slds-neutral-5); }
+.slds-text-small { font-size: 0.75rem; }
+</style>
+</head>
+
+<body>
+
+<!-- ══════════════════════════════════════════
+     SALESFORCE GLOBAL HEADER
+     ══════════════════════════════════════════ -->
+<header class="slds-global-header">
+    <div class="slds-global-header__logo">
+        <!-- Salesforce cloud icon in white -->
+        <svg viewBox="0 0 100 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="17" font-family="sans-serif" font-size="14" font-weight="700" fill="white">⚡ Salesforce</text>
+        </svg>
+        <div class="slds-global-header__divider"></div>
+        <span class="slds-global-header__portal-name">Partner Community</span>
+    </div>
+    <div class="slds-global-header__actions">
+        <button class="slds-global-header__action-btn" title="Search"><i class="fas fa-search"></i></button>
+        <button class="slds-global-header__action-btn" title="Notifications">
+            <i class="fas fa-bell"></i>
+        </button>
+        <button class="slds-global-header__action-btn" title="Help"><i class="fas fa-question-circle"></i></button>
+        <div class="slds-global-header__avatar" title="Partner User">JD</div>
+    </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     NAVIGATION BAR
+     ══════════════════════════════════════════ -->
+<nav class="slds-nav" aria-label="Main navigation">
+    <div class="slds-nav__brand">
+        <img src="https://eggplantpartners.keysight.com/images/logos/logo.png" alt="Keysight">
+    </div>
+    <div class="slds-nav__divider"></div>
+    <ul class="slds-nav__items">
+        <li class="slds-nav__item"><a class="slds-nav__link">Home</a></li>
+        <li class="slds-nav__item"><a class="slds-nav__link">Asset Library</a></li>
+        <li class="slds-nav__item"><a class="slds-nav__link active">Deals</a></li>
+        <li class="slds-nav__item"><a class="slds-nav__link">Journey</a></li>
+        <li class="slds-nav__item"><a class="slds-nav__link">Training</a></li>
+        <li class="slds-nav__item"><a class="slds-nav__link">Events</a></li>
+        <li class="slds-nav__item"><a class="slds-nav__link">Insignias</a></li>
+    </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     BREADCRUMB
+     ══════════════════════════════════════════ -->
+<div class="slds-breadcrumb-bar">
+    <div class="slds-breadcrumb-bar__inner">
+        <span class="slds-breadcrumb__item"><i class="fas fa-home" style="font-size:0.7rem"></i></span>
+        <span class="slds-breadcrumb__sep"><i class="fas fa-chevron-right"></i></span>
+        <span class="slds-breadcrumb__item">Deals</span>
+        <span class="slds-breadcrumb__sep"><i class="fas fa-chevron-right"></i></span>
+        <span class="slds-breadcrumb__item current">Register New Deal</span>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE CONTENT
+     ══════════════════════════════════════════ -->
+<main class="slds-page">
+
+    <!-- Page Header -->
+    <div class="slds-page-header">
+        <div style="display:flex;align-items:flex-start;gap:16px;flex:1">
+            <div class="slds-page-header__icon-wrap">
+                <i class="fas fa-handshake"></i>
+            </div>
+            <div class="slds-page-header__meta">
+                <p class="slds-page-header__object-type">Deal Registration</p>
+                <h1 class="slds-page-header__title">Register New Deal</h1>
+                <p class="slds-page-header__subtitle">Complete all required fields to submit for approval. Your PAM will respond within 2 business days.</p>
+            </div>
+        </div>
+        <div class="slds-page-header__actions">
+            <span class="slds-badge slds-badge--warning"><i class="fas fa-clock"></i> Draft</span>
+            <button class="slds-button slds-button--neutral" style="font-size:0.75rem">
+                <i class="fas fa-save"></i> Save Draft
+            </button>
+        </div>
+    </div>
+
+    <!-- Completion progress -->
+    <div style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <span class="slds-text-small slds-text-muted">Form completion</span>
+            <span class="slds-text-small slds-text-muted" id="completion-pct">0%</span>
+        </div>
+        <div class="slds-progress-bar">
+            <div class="slds-progress-bar__fill" id="progress-bar-fill"></div>
+        </div>
+    </div>
+
+    <!-- AI Assistant Notice -->
+    <div class="slds-notify slds-notify--ai">
+        <i class="slds-notify__icon fas fa-sparkles"></i>
+        <div class="slds-notify__body">
+            <div class="slds-notify__title">
+                Eggy AI Assistant is active
+                <span class="slds-badge slds-badge--ai" style="margin-left:8px;font-size:0.62rem">RAG · Context-Aware</span>
+            </div>
+            <div class="slds-notify__text">Eggy monitors your form in real-time, catches compliance issues, and answers deal registration questions. Click <strong>Ask Eggy →</strong> below right.</div>
+        </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="slds-card" id="form-card">
+        <div class="slds-card__header">
+            <span class="slds-card__header-title">
+                <i class="fas fa-file-contract"></i>
+                Deal Information
+            </span>
+            <span class="slds-text-small slds-text-muted">All fields are <strong style="color:var(--slds-error)">required</strong></span>
+        </div>
+        <div class="slds-card__body">
+            <form id="dealForm" novalidate>
+
+                <!-- Row 1: Deal Name + End Customer -->
+                <div class="slds-form-grid slds-form-grid--1-2" style="margin-bottom:16px">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="dealName">
+                            Deal Name <span class="required-mark">*</span>
+                        </label>
+                        <div class="slds-form-element__control">
+                            <input class="slds-input" type="text" id="dealName" placeholder="e.g. Project Quantum – Eggplant AI" required>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="customer">
+                            End Customer (Company · Country · Website) <span class="required-mark">*</span>
+                        </label>
+                        <div class="slds-form-element__control">
+                            <input class="slds-input" type="text" id="customer" list="customer-list" placeholder="Type company name…" required autocomplete="off">
+                            <datalist id="customer-list">
+                                <option value="New AwesomeCompany | Estonia | www.newawesomecompany.com">
+                                <option value="Quantum Dynamics | Finland | www.quantum-dyn.fi">
+                                <option value="Baltic Logistics | Latvia | www.baltic-log.lv">
+                                <option value="Helsinki Systems | Finland | www.helsinkisys.com">
+                                <option value="Tallinn Tech | Estonia | www.tallinntech.ee">
+                            </datalist>
+                            <div id="sanctions-status" role="status" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Amount + Currency + Type -->
+                <div class="slds-form-grid slds-form-grid--3" style="margin-bottom:16px">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="amount">
+                            Deal Amount <span class="required-mark">*</span>
+                            <span class="slds-badge slds-badge--neutral" style="margin-left:4px;">min $25k USD</span>
+                        </label>
+                        <div class="slds-form-element__control slds-input-has-icon">
+                            <input class="slds-input" type="number" id="amount" placeholder="25000" required min="25000">
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="currency">
+                            Currency <span class="required-mark">*</span>
+                            <a href="https://fiscaldata.treasury.gov/currency-exchange-rates-converter/" target="_blank" title="US Treasury official FX converter" style="color:var(--slds-brand);margin-left:4px;font-size:0.7rem">
+                                <i class="fas fa-calculator"></i> FX check
+                            </a>
+                        </label>
+                        <div class="slds-form-element__control">
+                            <select class="slds-select" id="currency" required>
+                                <option value="" disabled selected>Select currency…</option>
+                                <option value="USD">USD – US Dollar</option>
+                                <option value="EUR">EUR – Euro</option>
+                                <option value="GBP">GBP – British Pound</option>
+                                <option value="JPY">JPY – Japanese Yen</option>
+                                <option value="AUD">AUD – Australian Dollar</option>
+                                <option value="CAD">CAD – Canadian Dollar</option>
+                                <option value="CHF">CHF – Swiss Franc</option>
+                                <option value="CNY">CNY – Chinese Yuan</option>
+                                <option value="INR">INR – Indian Rupee</option>
+                                <option value="SGD">SGD – Singapore Dollar</option>
+                                <option value="TWD">TWD – Taiwan Dollar</option>
+                                <option value="KRW">KRW – Korean Won</option>
+                                <option value="MYR">MYR – Malaysian Ringgit</option>
+                                <option value="MXN">MXN – Mexican Peso</option>
+                                <option value="BRL">BRL – Brazilian Real</option>
+                                <option value="SEK">SEK – Swedish Krona</option>
+                                <option value="DKK">DKK – Danish Krone</option>
+                                <option value="ILS">ILS – Israeli Shekel</option>
+                                <option value="HKD">HKD – Hong Kong Dollar</option>
+                                <option value="VND">VND – Vietnamese Dong</option>
+                                <option value="THB">THB – Thai Baht</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="type">
+                            Registration Type <span class="required-mark">*</span>
+                        </label>
+                        <div class="slds-form-element__control">
+                            <select class="slds-select" id="type" required>
+                                <option value="" disabled selected>Select type…</option>
+                                <option value="Deal">Deal Registration</option>
+                                <option value="Referral">Referral</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3: Stage + Probability + Close Date -->
+                <div class="slds-form-grid slds-form-grid--3" style="margin-bottom:16px">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="stage">
+                            Deal Stage <span class="required-mark">*</span>
+                        </label>
+                        <div class="slds-form-element__control">
+                            <select class="slds-select" id="stage" required>
+                                <option value="" disabled selected>Select stage…</option>
+                                <option>New Deal</option>
+                                <option>Prospecting</option>
+                                <option>Discovery</option>
+                                <option>Evaluating</option>
+                                <option>Negotiation</option>
+                                <option>Closed Won</option>
+                                <option>Denied</option>
+                                <option>Closed Lost</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="prob">
+                            Win Probability <span class="required-mark">*</span>
+                        </label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-input-addon">
+                                <input class="slds-input" type="number" id="prob" placeholder="e.g. 70" required min="1" max="100"
+                                    oninput="this.value = Math.min(100, Math.max(1, Math.round(this.value)))">
+                                <span class="slds-input-addon__suffix">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="date">
+                            Expected Close Date <span class="required-mark">*</span>
+                        </label>
+                        <div class="slds-form-element__control">
+                            <input class="slds-input" type="date" id="date" required min="2026-01-01" max="2035-12-31">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 4: Description + Source -->
+                <div class="slds-form-grid slds-form-grid--2-1" style="margin-bottom:16px">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="briefDesc">
+                            Deal Description <span class="required-mark">*</span>
+                        </label>
+                        <div class="slds-form-element__control">
+                            <textarea class="slds-textarea" id="briefDesc" required
+                                placeholder="Include: project overview, key decision makers, use case, key competitors, primary win drivers, and whether this is a new or existing customer…"></textarea>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="source">
+                            Lead Source <span class="required-mark">*</span>
+                        </label>
+                        <div class="slds-form-element__control">
+                            <select class="slds-select" id="source" required>
+                                <option value="" disabled selected>Select source…</option>
+                                <option>Deal Registration</option>
+                                <option>Referral</option>
+                                <option>Email Campaign</option>
+                                <option>Partner Locator</option>
+                                <option>Social Campaign</option>
+                                <option>Trade Show</option>
+                                <option>Web Syndication</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Referral upload (conditional) -->
+                <div id="referral-upload-container">
+                    <div class="slds-file-drop" onclick="document.getElementById('file-input').click()">
+                        <input type="file" id="file-input" style="display:none" multiple accept=".pdf">
+                        <div class="slds-file-drop__icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <div class="slds-file-drop__text">
+                            <a class="slds-file-drop__link">Upload PDF invoice</a> or drag & drop
+                            <br><span style="font-size:0.7rem;color:var(--slds-neutral-4)">Required at Closed Won stage · PDF only · Max 23.8 MB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-section-divider"></div>
+
+                <!-- Submit row -->
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+                    <p class="slds-text-small slds-text-muted" style="margin:0">
+                        <i class="fas fa-shield-alt" style="color:var(--slds-brand)"></i>
+                        All submissions are compliance-screened and logged for audit.
+                    </p>
+                    <div style="display:flex;gap:8px;">
+                        <button type="button" class="slds-button slds-button--neutral">Cancel</button>
+                        <button type="submit" class="slds-button slds-button--submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit for Approval
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- Success State -->
+            <div id="success-message">
+                <div class="success-check"><i class="fas fa-check"></i></div>
+                <h2>Deal Registration Submitted!</h2>
+                <p>Your registration is under review. Your Keysight Regional Partner Account Manager will respond within <strong>2 business days</strong>.</p>
+                <br>
+                <button class="slds-button slds-button--brand" onclick="location.reload()">
+                    <i class="fas fa-plus"></i> Register Another Deal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info cards row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px;">
+        <div style="background:var(--slds-neutral-1);border:1px solid var(--slds-neutral-3);border-radius:var(--radius-md);padding:14px 16px;border-top:3px solid var(--slds-brand);">
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--slds-neutral-5);margin-bottom:6px;"><i class="fas fa-dollar-sign" style="color:var(--slds-brand)"></i> Threshold</div>
+            <div style="font-size:0.9rem;font-weight:700;color:var(--slds-neutral-7)">$25,000 USD</div>
+            <div style="font-size:0.75rem;color:var(--slds-neutral-5)">Minimum deal value</div>
+        </div>
+        <div style="background:var(--slds-neutral-1);border:1px solid var(--slds-neutral-3);border-radius:var(--radius-md);padding:14px 16px;border-top:3px solid var(--slds-success);">
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--slds-neutral-5);margin-bottom:6px;"><i class="fas fa-calendar" style="color:var(--slds-success)"></i> Protection</div>
+            <div style="font-size:0.9rem;font-weight:700;color:var(--slds-neutral-7)">180 Days</div>
+            <div style="font-size:0.75rem;color:var(--slds-neutral-5)">With 90-day midpoint check</div>
+        </div>
+        <div style="background:var(--slds-neutral-1);border:1px solid var(--slds-neutral-3);border-radius:var(--radius-md);padding:14px 16px;border-top:3px solid var(--slds-warning);">
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--slds-neutral-5);margin-bottom:6px;"><i class="fas fa-clock" style="color:var(--slds-warning)"></i> Response SLA</div>
+            <div style="font-size:0.9rem;font-weight:700;color:var(--slds-neutral-7)">2 Business Days</div>
+            <div style="font-size:0.75rem;color:var(--slds-neutral-5)">PAM review &amp; approval</div>
+        </div>
+    </div>
+
+</main>
+
+<!-- ══════════════════════════════════════════
+     EGGY AI ASSISTANT
+     ══════════════════════════════════════════ -->
+
+<!-- Tooltip -->
+<div id="eggy-tooltip" onclick="toggleChat(); this.style.display='none'">
+    <div class="eggy-tip-dot"></div>
+    Ask Eggy — AI Deal Assistant →
+</div>
+
+<!-- FAB Launcher -->
+<div id="eggy-fab" onclick="toggleChat()">
+    <div id="eggy-notif">1</div>
+    <img src="https://bizalchemist.github.io/assets/images/EggySmall.png" 
+         alt="Eggy" 
+         id="eggy-img"
+         onerror="this.style.display='none';this.parentElement.innerHTML='<span style=&quot;font-size:1.4rem&quot;>🤖</span>'">
+    <span id="eggy-fab-label">ASK EGGY</span>
+</div>
+
+<!-- Chat Panel -->
+<div id="chatbot-window">
+    <div class="eggy-header">
+        <div class="eggy-header__avatar">
+            <img src="https://bizalchemist.github.io/assets/images/EggySmall.png" alt="Eggy"
+                 onerror="this.style.display='none'">
+        </div>
+        <div class="eggy-header__info">
+            <div class="eggy-header__name">Eggy</div>
+            <div class="eggy-header__status">
+                <div class="eggy-header__online"></div>
+                Deal Registration AI
+            </div>
+        </div>
+        <span class="eggy-header__badge">RAG</span>
+        <button class="eggy-header__close" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="eggy-quick-actions">
+        <button class="eggy-quick-btn">New Deal Help</button>
+        <button class="eggy-quick-btn">Requirements</button>
+        <button class="eggy-quick-btn">Extensions</button>
+        <button class="eggy-quick-btn">Deal Reg Guide</button>
+    </div>
+
+    <div class="eggy-messages" id="messages">
+        <div class="eggy-welcome" id="eggy-welcome">
+            <h3>Hi! I'm Eggy 👋</h3>
+            <p>Your AI deal registration assistant. I know the Keysight partner rules inside and out — ask me anything about requirements, timelines, or the approval process.</p>
+        </div>
+    </div>
+
+    <div class="eggy-input-area">
+        <div class="eggy-input-row">
+            <input type="text" id="messageInput" placeholder="Ask about requirements, rules, status…">
+            <button class="eggy-send-btn" id="sendButton">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+        <p style="text-align:center;font-size:0.6rem;color:rgba(255,255,255,0.2);margin:6px 0 0;font-family:var(--font-mono)">
+            Powered by RAG · Keysight Deal Playbook v2.1
+        </p>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+     ══════════════════════════════════════════ -->
+<script>
+/* ================================================================
+   PART 1: FORM LOGIC — Upload toggle + select states
+   ================================================================ */
+const typeSelect = document.getElementById('type');
+const uploadBox  = document.getElementById('referral-upload-container');
+if (typeSelect) {
+    typeSelect.addEventListener('change', function () {
+        if (this.value === 'Referral') uploadBox.classList.add('show');
+        else uploadBox.classList.remove('show');
+    });
+}
+
+/* ================================================================
+   PART 2: FORM COMPLETION PROGRESS
+   ================================================================ */
+function updateProgress() {
+    const required = document.querySelectorAll('#dealForm [required]');
+    let filled = 0;
+    required.forEach(el => {
+        if (el.value && el.value.trim() !== '') filled++;
+    });
+    const pct = Math.round((filled / required.length) * 100);
+    document.getElementById('progress-bar-fill').style.width = pct + '%';
+    document.getElementById('completion-pct').textContent = pct + '%';
+}
+document.querySelectorAll('#dealForm input, #dealForm select, #dealForm textarea')
+    .forEach(el => el.addEventListener('input', updateProgress));
+
+/* ================================================================
+   PART 3: CHATBOT UI
+   ================================================================ */
+let chatOpened = false;
+function toggleChat() {
+    const win = document.getElementById('chatbot-window');
+    const notif = document.getElementById('eggy-notif');
+    chatOpened = true;
+    win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+    if (notif) notif.style.display = 'none';
+}
+
+/* ================================================================
+   PART 4: MESSAGE RENDERING
+   ================================================================ */
+function addMessage(content, isUser) {
+    const container = document.getElementById('messages');
+    if (!container) return;
+    const welcome = document.getElementById('eggy-welcome');
+    if (welcome) welcome.remove();
+
+    const div = document.createElement('div');
+    div.className = 'eggy-msg eggy-msg--' + (isUser ? 'user' : 'bot');
+
+    const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    const meta = isUser
+        ? `<div class="eggy-msg__meta">${time} · You</div>`
+        : `<div class="eggy-msg__meta"><img src="https://bizalchemist.github.io/assets/images/EggySmall.png" alt="" onerror="this.style.display='none'"> Eggy · ${time}</div>`;
+
+    div.innerHTML = meta + `<div class="eggy-msg__bubble">${isUser ? content : marked.parse(content)}</div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+/* ================================================================
+   PART 5: AI RESPONSE ENGINE (RAG Pattern Matcher)
+   Upgrade path: replace getAIResponse() body with Anthropic API call
+   keeping all other logic identical
+   ================================================================ */
+async function getAIResponse(userMessage) {
+    await new Promise(r => setTimeout(r, 1100 + Math.random() * 400));
+    const input = userMessage.toLowerCase();
+
+    if (input.includes("rule") || input.includes("playbook") || input.includes("guide"))
+        return "As the architect of the **Deal Registration Playbook**, here are the core rules:\n\n* **Threshold:** Minimum deal size is **$25,000 USD** equivalent.\n* **Timing:** Register at least **14 days** before expected close.\n* **Exclusions:** Renewals and RFPs are not eligible.\n\n<a href='#' class='eggy-btn-alt'>📄 Download Playbook PDF</a>";
+
+    if (input.includes("limit") || input.includes("amount") || input.includes("25") || input.includes("money"))
+        return "The **$25,000 USD threshold** is a hard rule. Use the FX check link next to the Currency field to verify equivalency using official US Treasury rates.";
+
+    if (input.includes("currency") || input.includes("convert") || input.includes("euro") || input.includes("gbp"))
+        return "🌍 **Global deal?** Use the official US Treasury converter to verify you meet the $25k USD equivalent:\n\n<a href='https://fiscaldata.treasury.gov/currency-exchange-rates-converter/' target='_blank' class='eggy-btn-alt'>🏦 Open Treasury Converter</a>";
+
+    if (input.includes("extension") || input.includes("expire") || input.includes("long") || input.includes("90") || input.includes("180"))
+        return "Deals are protected for **180 days**. The **90-day midpoint check** is mandatory — you must demonstrate active progress or the deal loses protection status.";
+
+    if (input.includes("requirement") || input.includes("need") || input.includes("step"))
+        return "To register successfully, you need:\n1. **End Customer** legal name & website\n2. **Project overview** and key win drivers\n3. **Technical discovery** confirmation\n\nI'll flag issues as you complete the form.";
+
+    if (input.includes("new deal") || input.includes("new") || input.includes("start"))
+        return "Start with **Deal Name** and **End Customer** — I recommend descriptive names like *'Project Quantum – Eggplant AI Enablement'*.";
+
+    if (input.includes("reject") || input.includes("denied") || input.includes("lose") || input.includes("remove"))
+        return "🧐 **Why deals get rejected:**\n\n* Keysight is obligated to bid directly\n* Partner not actively working the deal\n* Another partner registered first\n* Partner is promoting competitive products";
+
+    if (input.includes("referral") || input.includes("refer") || input.includes("hand-off"))
+        return "**Deal Registration vs Referral:**\n\n* **Deal Registration:** You lead the sales cycle. Requires $25k min.\n* **Referral:** You identify the opportunity and hand off to Keysight. Mandatory PDF invoice required at Closed Won stage.";
+
+    if (input.includes("government") || input.includes("bid") || input.includes("rfp"))
+        return "**Government / Open Bids:**\n\n* **RFPs:** Not eligible for standard deal registration protection.\n* **Contract Awards:** Full protected discount goes to the partner who wins the contract.";
+
+    if (input.includes("effort") || input.includes("proof") || input.includes("presales"))
+        return "To qualify for protection, document **significant presales effort**:\n\n* Meetings with decision-makers\n* Quantified project budget\n* Qualified technical requirements\n\nKeysight may audit these records at any time.";
+
+    if (input.includes("after") || input.includes("next steps") || input.includes("notification") || input.includes("wait"))
+        return "**Post-submission timeline:**\n\n* **2 business days** — PAM accepts or declines\n* **If accepted** — Dedicated Sales Executive + Solution Architect assigned\n\nYou'll receive email notification automatically.";
+
+    if (input.includes("audit") || input.includes("compliance") || input.includes("integrity"))
+        return "**Compliance rules:**\n\n* Keysight may audit deals at any time\n* Registrations can be rescinded for inaccurate or fraudulent info\n* Partners must **not** discuss deal registration details with the end customer\n* Keysight's interpretation is final";
+
+    if (input.includes("hello") || input.includes("hi") || input.includes("eggy") || input.includes("hey"))
+        return "Hey there! 👋 I'm **Eggy** — the Eggplant AI mascot and your deal registration guide. I know the Keysight partner rules inside and out. What can I help you with?";
+
+    if (input.includes("sanctions") || input.includes("blocked") || input.includes("ofac") || input.includes("compliance"))
+        return "🛡️ **Sanctions screening** runs automatically on the End Customer field. If a match is found:\n\n1. The form submission is **blocked**\n2. You must contact your **Regional Compliance Officer**\n3. The screening is **logged** with a timestamp for audit\n\nDo not communicate deal intent to the customer until cleared.";
+
+    return "Good question. I'm focused on the **Deal Registration Playbook** rules. Try asking about: *Requirements, Extensions, the $25k Threshold, Referral vs Deal, or Compliance*.";
+}
+
+async function sendMessage() {
+    const inputEl = document.getElementById('messageInput');
+    if (!inputEl || !inputEl.value.trim()) return;
+    const msg = inputEl.value.trim();
+    inputEl.disabled = true;
+    addMessage(msg, true);
+    inputEl.value = '';
+
+    // Typing indicator
+    const container = document.getElementById('messages');
+    const typing = document.createElement('div');
+    typing.id = 'typing-indicator';
+    typing.className = 'eggy-typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    container.appendChild(typing);
+    container.scrollTop = container.scrollHeight;
+
+    const response = await getAIResponse(msg);
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+    addMessage(response, false);
+    inputEl.disabled = false;
+    inputEl.focus();
+}
+
+/* ================================================================
+   PART 6: EVENT LISTENERS
+   ================================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    // Quick action buttons
+    document.querySelectorAll('.eggy-quick-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.getElementById('messageInput').value = btn.innerText;
+            sendMessage();
+        });
+    });
+
+    const msgInput = document.getElementById('messageInput');
+    if (msgInput) msgInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+    const sendBtn = document.getElementById('sendButton');
+    if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+
+    // Auto-open Eggy after 4 seconds with welcome message
+    setTimeout(() => {
+        if (!chatOpened) {
+            const tooltip = document.getElementById('eggy-tooltip');
+            if (tooltip) tooltip.style.display = 'none';
+            toggleChat();
+            addMessage("Hi! I'm **Eggy**, your AI deal assistant. I can help with requirements, timelines, compliance, and approval questions. What would you like to know?", false);
+        }
+    }, 4000);
+});
+
+/* ================================================================
+   PART 7: AGENTIC FIELD OBSERVER
+   Eggy proactively surfaces tips when partner focuses a key field
+   ================================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    const fieldTips = {
+        'dealName':   'new deal',
+        'customer':   'requirement',
+        'amount':     'limit',
+        'type':       'referral',
+        'date':       'extension'
+    };
+    Object.entries(fieldTips).forEach(([fieldId, keyword]) => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            let tipped = false;
+            field.addEventListener('focus', async () => {
+                if (tipped) return;
+                const win = document.getElementById('chatbot-window');
+                if (!win || win.style.display !== 'flex') return;
+                tipped = true;
+                const tip = await getAIResponse(keyword);
+                addMessage('💡 **Pro tip:** ' + tip, false);
+            });
+        }
+    });
+});
+
+/* ================================================================
+   PART 8: ACTIVE GOVERNANCE — Amount, Currency, Date Integrity
+   ================================================================ */
+document.querySelectorAll('input, select').forEach(field => {
+    field.addEventListener('blur', async e => {
+        const el = e.target;
+        const fieldId = el.id;
+        const value = el.value;
+        const win = document.getElementById('chatbot-window');
+        let alertMsg = '';
+
+        if (fieldId === 'amount' || fieldId === 'currency') {
+            const amtEl = document.getElementById('amount');
+            const curEl = document.getElementById('currency');
+            const amt = parseFloat(amtEl?.value || 0);
+            const cur = curEl?.value;
+
+            if (amtEl?.value && amtEl.value.toLowerCase().includes('e')) {
+                amtEl.classList.add('integrity-error');
+                alertMsg = '🚫 **Format Error:** Scientific notation is not permitted. Enter a standard number.';
+            } else if (amt > 0 && amt < 25000 && cur === 'USD') {
+                amtEl.classList.add('integrity-error');
+                alertMsg = `⚠️ **Below Threshold:** $${amt.toLocaleString()} USD is below the $25,000 minimum. This deal cannot be registered at this value.`;
+            } else if (amt > 0 && amt >= 25000) {
+                amtEl.classList.remove('integrity-error');
+            }
+        }
+
+        if (fieldId === 'date' && value) {
+            const selected = new Date(value);
+            const today = new Date();
+            const daysToClose = Math.ceil((selected - today) / (1000 * 60 * 60 * 24));
+            if (daysToClose < 14) {
+                el.classList.add('integrity-error');
+                alertMsg = `⚠️ **Timing Alert:** ${daysToClose} days to close date. Deal Registration requires **at least 14 days** lead time for approval processing.`;
+            } else {
+                el.classList.remove('integrity-error');
+            }
+        }
+
+        if (alertMsg) {
+            if (win && win.style.display !== 'flex') toggleChat();
+            addMessage(alertMsg, false);
+        }
+    });
+});
+
+/* ================================================================
+   PART 9: FORM SUBMISSION + CONFETTI
+   ================================================================ */
+document.getElementById('dealForm').addEventListener('submit', e => {
+    e.preventDefault();
+    if (hasSanctionsHit) {
+        if (document.getElementById('chatbot-window').style.display !== 'flex') toggleChat();
+        addMessage('🚫 **Submission blocked.** This deal is flagged on a worldwide sanctions list. Contact Compliance before proceeding.', false);
+        return;
+    }
+    document.getElementById('dealForm').style.display = 'none';
+    document.getElementById('success-message').style.display = 'block';
+    if (typeof confetti !== 'undefined') {
+        confetti({ particleCount: 80, spread: 60, colors: ['#0176D3', '#7B61FF', '#22c55e'] });
+    }
+});
+
+/* ================================================================
+   PART 10: WORLDWIDE SANCTIONS SCREENING
+   Demo uses local blacklist.
+   Production: swap checkSanctions() for OpenSanctions API
+   GET https://api.opensanctions.org/search/default?q=NAME
+   ================================================================ */
+(function () {
+    const DEBOUNCE_MS = 900;
+    const MIN_CHARS = 4;
+    const DEMO_BLACKLIST = [
+        "rosneft", "iran electronics", "tehran", "pyongyang",
+        "north korea", "sberbank", "china mobile", "gazprom",
+        "china telecom", "wagner group"
+    ];
+
+    const customerInput = document.getElementById('customer');
+    const statusDiv = document.getElementById('sanctions-status');
+    let debounceTimer = null;
+    let lastChecked = '';
+
+    function setStatus(state, html) {
+        statusDiv.className = 'show ' + state;
+        statusDiv.innerHTML = html;
+    }
+    function clearStatus() {
+        statusDiv.className = '';
+        statusDiv.innerHTML = '';
+        hasSanctionsHit = false;
+    }
+    function getCompanyName(raw) { return raw.split('|')[0].trim(); }
+
+    async function checkSanctions(name) {
+        await new Promise(r => setTimeout(r, 700 + Math.random() * 400));
+        const n = name.toLowerCase();
+        for (const k of DEMO_BLACKLIST) {
+            if (n.includes(k)) return { hit: true, score: 0.97, list: 'OFAC SDN / EU Consolidated', url: 'https://www.opensanctions.org/search/?q=' + encodeURIComponent(name) };
+        }
+        return { hit: false };
+    }
+
+    async function runScreening(raw) {
+        const name = getCompanyName(raw);
+        if (name.length < MIN_CHARS) { clearStatus(); return; }
+        if (name === lastChecked) return;
+        lastChecked = name;
+
+        customerInput.classList.add('sanctions-scanning');
+        setStatus('checking',
+            '<span class="sanctions-spinner">⚙</span> Screening against OFAC · EU · UN · BIS…' +
+            '<span class="sanctions-source">OpenSanctions</span>');
+
+        try {
+            const result = await checkSanctions(name);
+            customerInput.classList.remove('sanctions-scanning');
+            if (result.hit) {
+                hasSanctionsHit = true;
+                setStatus('flagged',
+                    '🚨 SANCTIONS HIT — ' + result.list + ' | Score: ' + Math.round(result.score * 100) + '/100' +
+                    '<span class="sanctions-source"><a href="' + result.url + '" target="_blank" style="color:inherit">View record ↗</a></span>');
+                if (document.getElementById('chatbot-window').style.display !== 'flex') toggleChat();
+                addMessage(
+                    '🚨 **SANCTIONS ALERT — DEAL BLOCKED**\n\n' +
+                    '**End Customer:** ' + name + '\n' +
+                    '**Match:** ' + result.list + ' (confidence: ' + Math.round(result.score * 100) + '%)\n\n' +
+                    'This deal **cannot be submitted** until Compliance clears it.\n\n' +
+                    '* Contact your **Regional Compliance Officer** immediately\n' +
+                    '* Do **not** communicate deal intent to the customer\n' +
+                    '* Screening record logged with timestamp for audit\n\n' +
+                    '<a href="' + result.url + '" target="_blank" class="eggy-btn-alt">🔍 View Sanctions Record</a>\n\n' +
+                    '<a href="mailto:pam@example.com?subject=COMPLIANCE ESCALATION — ' + encodeURIComponent(name) + '" class="eggy-btn-alt">📧 Escalate to PAM</a>',
+                    false);
+            } else {
+                hasSanctionsHit = false;
+                setStatus('clear',
+                    '<span class="pulse-dot"></span> No match found — cleared to proceed' +
+                    '<span class="sanctions-source">OpenSanctions</span>');
+            }
+        } catch {
+            customerInput.classList.remove('sanctions-scanning');
+            setStatus('review', '⚠ Screening service unavailable — compliance review required<span class="sanctions-source">OpenSanctions</span>');
+        }
+    }
+
+    if (customerInput) {
+        customerInput.addEventListener('input', function () {
+            clearTimeout(debounceTimer);
+            const v = this.value.trim();
+            if (v.length < MIN_CHARS) { clearStatus(); return; }
+            debounceTimer = setTimeout(() => runScreening(v), DEBOUNCE_MS);
+        });
+        customerInput.addEventListener('blur', function () {
+            if (!this.value.trim()) clearStatus();
+        });
+    }
+})();
+
+// hasSanctionsHit needs to be in outer scope for submit handler
+var hasSanctionsHit = false;
+</script>
+
+</body>
+</html>
