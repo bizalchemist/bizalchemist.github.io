@@ -1752,8 +1752,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ================================================================
    PART 8: ACTIVE GOVERNANCE — Amount, Currency, Date Integrity
+   Full FX rate table + SOX back-date guard + 14-day rule
    ================================================================ */
-document.querySelectorAll('input, select').forEach(field => {
+
+// FX rate table (USD base) — matches original
+const FX_RATES = {
+    "USD":1.0,"EUR":1.08,"GBP":1.27,"JPY":0.0066,
+    "AUD":0.65,"CAD":0.74,"CHF":1.14,"CNY":0.14,
+    "INR":0.012,"SGD":0.74,"TWD":0.031,"KRW":0.00075,
+    "MYR":0.21,"MXN":0.058,"BRL":0.20,"VND":0.000041,
+    "THB":0.028,"ILS":0.27,"HKD":0.13,"DKK":0.15,"SEK":0.096
+};
+
+// Submit state controller
+let hasCriticalViolation = false;
+function updateSubmitState(isViolated) {
+    hasCriticalViolation = isViolated;
+    const btn = document.querySelector('.slds-button--submit');
+    if (!btn) return;
+    if (isViolated) {
+        btn.style.opacity = '0.5';
+        btn.style.cursor = 'not-allowed';
+        btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Fix Errors First';
+    } else {
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit for Approval';
+    }
+}
+
+document.querySelectorAll('#dealForm input, #dealForm select, #dealForm textarea').forEach(field => {
     field.addEventListener('blur', async e => {
         const el = e.target;
         const fieldId = el.id;
@@ -1761,32 +1789,65 @@ document.querySelectorAll('input, select').forEach(field => {
         const win = document.getElementById('chatbot-window');
         let alertMsg = '';
 
+        // ── 1. Amount + Currency — full FX threshold check ──
         if (fieldId === 'amount' || fieldId === 'currency') {
             const amtEl = document.getElementById('amount');
             const curEl = document.getElementById('currency');
-            const amt = parseFloat(amtEl?.value || 0);
-            const cur = curEl?.value;
+            const amtVal = amtEl?.value || '';
+            const curVal = curEl?.value || '';
 
-            if (amtEl?.value && amtEl.value.toLowerCase().includes('e')) {
-                amtEl.classList.add('integrity-error');
-                alertMsg = '🚫 **Format Error:** Scientific notation is not permitted. Enter a standard number.';
-            } else if (amt > 0 && amt < 25000 && cur === 'USD') {
-                amtEl.classList.add('integrity-error');
-                alertMsg = `⚠️ **Below Threshold:** $${amt.toLocaleString()} USD is below the $25,000 minimum. This deal cannot be registered at this value.`;
-            } else if (amt > 0 && amt >= 25000) {
-                amtEl.classList.remove('integrity-error');
+            if (amtVal !== '' && curVal !== '') {
+                if (amtVal.toLowerCase().includes('e')) {
+                    amtEl.classList.add('integrity-error');
+                    amtEl.value = '';
+                    alertMsg = '🚫 **Format Error:** Scientific notation (e) is not permitted. Please enter a standard number.';
+                    updateSubmitState(true);
+                } else {
+                    const rate = FX_RATES[curVal] || 1.0;
+                    const usdEquiv = parseFloat(amtVal) * rate;
+                    if (usdEquiv < 25000) {
+                        amtEl.classList.add('integrity-error');
+                        alertMsg = `💰 **Minimum Threshold:** ${parseFloat(amtVal).toLocaleString()} ${curVal} is approximately **$${Math.round(usdEquiv).toLocaleString()} USD**.\n\nThis is below the mandatory **$25,000 USD minimum** required for deal protection.`;
+                        updateSubmitState(true);
+                    } else {
+                        amtEl.classList.remove('integrity-error');
+                        const remaining = document.querySelectorAll('.integrity-error').length;
+                        if (remaining === 0) updateSubmitState(false);
+                    }
+                }
             }
         }
 
+        // ── 2. Currency change — non-USD alert ──
+        if (fieldId === 'currency' && value && value !== 'USD') {
+            const currAlert = `🌍 **International Deal Detected!**\n\nSince you are registering in **${value}**, please ensure the total value meets the mandatory **$25,000 USD** threshold.\n\n<a href='https://fiscaldata.treasury.gov/currency-exchange-rates-converter/' target='_blank' class='eggy-btn-alt'>🏦 Open Treasury Converter</a>`;
+            if (win && win.style.display !== 'flex') toggleChat();
+            addMessage(currAlert, false);
+        }
+
+        // ── 3. Date — SOX back-date guard + 14-day rule ──
         if (fieldId === 'date' && value) {
-            const selected = new Date(value);
+            const inputDate = new Date(value);
             const today = new Date();
-            const daysToClose = Math.ceil((selected - today) / (1000 * 60 * 60 * 24));
-            if (daysToClose < 14) {
+            today.setHours(0, 0, 0, 0);
+            const daysToClose = Math.ceil((inputDate - today) / (1000 * 60 * 60 * 24));
+            const dealName = document.getElementById('dealName')?.value || 'New Registration';
+
+            if (inputDate < today) {
                 el.classList.add('integrity-error');
-                alertMsg = `⚠️ **Timing Alert:** ${daysToClose} days to close date. Deal Registration requires **at least 14 days** lead time for approval processing.`;
+                el.value = '';
+                alertMsg = '🚫 **Data Integrity Alert (SOX):** Back-dating is not permitted for compliance reasons. Please select a valid future date.';
+                updateSubmitState(true);
+            } else if (daysToClose < 14) {
+                el.classList.add('integrity-error');
+                const mailSubject = encodeURIComponent(`URGENT — Close Date Escalation: ${dealName}`);
+                const mailBody = encodeURIComponent(`Dear PAM,\n\nThis deal requires urgent review — it falls within the 14-day rule window.\n\nDeal Name: ${dealName}\nRequested Close Date: ${value}\nDays Remaining: ${daysToClose}\n\nPlease expedite approval. Thank you.`);
+                alertMsg = `⏰ **Process Note:** You only have **${daysToClose} days** until close. PAMs require a **14-day window** to approve registrations.\n\nPlease adjust your close date, or escalate:\n\n<a href="mailto:pam@example.com?subject=${mailSubject}&body=${mailBody}" class="eggy-btn-alt">📧 Escalate to PAM</a>`;
+                updateSubmitState(true);
             } else {
                 el.classList.remove('integrity-error');
+                const remaining = document.querySelectorAll('.integrity-error').length;
+                if (remaining === 0) updateSubmitState(false);
             }
         }
 
@@ -1798,20 +1859,151 @@ document.querySelectorAll('input, select').forEach(field => {
 });
 
 /* ================================================================
-   PART 9: FORM SUBMISSION + CONFETTI
+   PART 8.1: LINGUISTIC GATE — Latin/ASCII validation
+   Deal Name and End Customer must use standard characters
    ================================================================ */
-document.getElementById('dealForm').addEventListener('submit', e => {
-    e.preventDefault();
-    if (hasSanctionsHit) {
+document.addEventListener('DOMContentLoaded', () => {
+    const textFields = [
+        { id: 'dealName', label: 'Deal Name' },
+        { id: 'customer', label: 'End Customer' }
+    ];
+    const latinRegex = /^[a-zA-Z0-9\s.,&#\-\/\(\)|]+$/;
+
+    textFields.forEach(({ id, label }) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        el.addEventListener('blur', e => {
+            const val = e.target.value.trim();
+            if (!val) return;
+            const win = document.getElementById('chatbot-window');
+            if (!latinRegex.test(val)) {
+                el.classList.add('integrity-error');
+                if (win && win.style.display !== 'flex') toggleChat();
+                addMessage(`🌍 **Global Match:** The **${label}** uses local characters.\n\nPlease use Latin/English so our global systems sync correctly.\n\n<a href="https://www.google.com/inputtools/try/" target="_blank" class="eggy-btn-alt"><i class="fas fa-keyboard"></i> Open Global Keyboard</a>\n\n<button class="eggy-btn-alt" onclick="runDemoTranslation('${id}')">✨ Auto-Optimize</button>`, false);
+                updateSubmitState(true);
+            } else {
+                el.classList.remove('integrity-error');
+                e.target.value = val.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+                const remaining = document.querySelectorAll('.integrity-error').length;
+                if (remaining === 0) updateSubmitState(false);
+            }
+        });
+
+        el.addEventListener('focus', () => {
+            if (el.classList.contains('integrity-error')) {
+                const img = document.getElementById('eggy-img');
+                if (img) img.classList.add('wave-animate');
+            }
+        });
+    });
+});
+
+function runDemoTranslation(fieldId) {
+    const el = document.getElementById(fieldId);
+    if (!el) return;
+    const translations = { "キーサイト": "Keysight Technologies" };
+    const newValue = translations[el.value] || "Project Quantum";
+    el.value = newValue;
+    el.classList.remove('integrity-error');
+    addMessage(`✅ **Field Optimized:** Updated to **"${newValue}"**. Global match confirmed!`, false);
+    const remaining = document.querySelectorAll('.integrity-error').length;
+    if (remaining === 0) updateSubmitState(false);
+}
+
+/* ================================================================
+   PART 8.2: STAGE-BASED SALES ENABLEMENT
+   Eggy fires contextual guidance on each deal stage change
+   ================================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    const stageSelect = document.getElementById('stage');
+    if (!stageSelect) return;
+
+    stageSelect.addEventListener('change', function () {
+        const win = document.getElementById('chatbot-window');
+        const stageMessages = {
+            'New Deal':     '🌟 **New Deal!** Let\'s get this registered correctly. Fill out all fields carefully — I\'ll flag any issues in real-time. Need help with requirements?',
+            'Prospecting':  '🚀 **Prospecting Stage:** To move to Discovery, ensure you\'ve had initial contact with decision-makers and can document a budget conversation.',
+            'Discovery':    '🎖️ **Discovery Stage:** Strong discovery requires certified technical expertise. Make sure you\'ve completed the relevant Eggplant training: \n\n<a href="https://customertraining.keysight.com/page/eggplant-elearning" target="_blank" class="eggy-btn-alt">🎓 Open Skilljar LMS</a>',
+            'Evaluating':   '🔍 **Evaluation Stage:** Time to bring in the assets. Which sector is this customer focused on?\n\n<a href="#" class="eggy-btn-alt">📂 Asset Library A: Core Test</a>\n<a href="#" class="eggy-btn-alt">📂 Asset Library B: AI Automation</a>',
+            'Negotiation':  '🤝 **The Home Stretch!** Ensure your close date is realistic and you have executive sponsorship confirmed on the customer side.',
+            'Closed Won':   '🏆 **Congratulations on the win!** Ensure the registration is fully submitted to secure your commission protection.',
+            'Closed Lost':  '📉 **Strategic Review:** Please ensure you\'ve noted the loss reason so your PAM can improve support on future deals.',
+            'Denied':       '🚫 **Policy Note:** Denials are usually due to a pre-existing registration or threshold violation. Contact your PAM to discuss an appeal.'
+        };
+        const msg = stageMessages[this.value];
+        if (msg) {
+            if (win && win.style.display !== 'flex') toggleChat();
+            addMessage(msg, false);
+            const img = document.getElementById('eggy-img');
+            if (img) img.classList.add('wave-animate');
+        }
+    });
+});
+
+/* ================================================================
+   PART 9: FORM SUBMISSION — requires ALL fields valid
+   Uses native checkValidity() — no field can be empty or in error
+   ================================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('dealForm');
+    if (!form) return;
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        // Block 1: sanctions hit
+        if (hasSanctionsHit) {
+            if (document.getElementById('chatbot-window').style.display !== 'flex') toggleChat();
+            addMessage('🚫 **Submission blocked.** This deal is flagged on a worldwide sanctions list. Contact Compliance before proceeding.', false);
+            return;
+        }
+
+        // Block 2: any integrity-error fields still active
+        const errorFields = document.querySelectorAll('#dealForm .integrity-error');
+        if (errorFields.length > 0) {
+            if (document.getElementById('chatbot-window').style.display !== 'flex') toggleChat();
+            addMessage(`⚠️ **${errorFields.length} field(s) need your attention** before this deal can be submitted. Please review the highlighted fields above.`, false);
+            errorFields[0].focus();
+            return;
+        }
+
+        // Block 3: native HTML5 validity (all required fields filled)
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            if (document.getElementById('chatbot-window').style.display !== 'flex') toggleChat();
+            addMessage('📋 **Almost there!** Please complete all required fields before submitting.', false);
+            return;
+        }
+
+        // Block 4: critical violation flag from governance engine
+        if (hasCriticalViolation) {
+            if (document.getElementById('chatbot-window').style.display !== 'flex') toggleChat();
+            addMessage('🚫 **Submission blocked.** Please resolve all flagged issues before proceeding.', false);
+            return;
+        }
+
+        // ── ALL CLEAR — show success ──
+        form.style.display = 'none';
+        const pageHeader = document.querySelector('.slds-page-header');
+        if (pageHeader) pageHeader.style.display = 'none';
+        document.getElementById('success-message').style.display = 'block';
+        window.scrollTo(0, 0);
+
+        if (typeof confetti !== 'undefined') {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#0176D3', '#7B61FF', '#22c55e', '#E90029', '#fcd34d']
+            });
+        }
+
         if (document.getElementById('chatbot-window').style.display !== 'flex') toggleChat();
-        addMessage('🚫 **Submission blocked.** This deal is flagged on a worldwide sanctions list. Contact Compliance before proceeding.', false);
-        return;
-    }
-    document.getElementById('dealForm').style.display = 'none';
-    document.getElementById('success-message').style.display = 'block';
-    if (typeof confetti !== 'undefined') {
-        confetti({ particleCount: 80, spread: 60, colors: ['#0176D3', '#7B61FF', '#22c55e'] });
-    }
+        addMessage('🏆 **Congratulations!** 🎉\n\nYour deal has been submitted successfully. Your dedicated PAM will review it within **2 business days**.\n\nNeed to reach them sooner? Reply here and I\'ll help escalate.', false);
+        const img = document.getElementById('eggy-img');
+        if (img) img.classList.add('wave-animate');
+    });
 });
 
 /* ================================================================
