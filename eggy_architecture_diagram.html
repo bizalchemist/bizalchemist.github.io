@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eggy AI Agent — Architecture & Classification</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:       #0A0A0F;
+  --paper:     #F4F2ED;
+  --rule:      #D8D4CC;
+  --eggy:      #7B61FF;
+  --eggy-dim:  #C4B5FD;
+  --eggy-bg:   #F5F3FF;
+  --sf-blue:   #0176D3;
+  --sf-bg:     #EAF4FF;
+  --green:     #059669;
+  --green-bg:  #ECFDF5;
+  --amber:     #D97706;
+  --amber-bg:  #FFFBEB;
+  --red:       #DC2626;
+  --red-bg:    #FEF2F2;
+  --mono:      'IBM Plex Mono', 'Syne Mono', monospace;
+  --sans:      'Syne', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── GRID BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(123,97,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123,97,255,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 24px;
+  margin-bottom: 56px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--ink);
+}
+.masthead__eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--eggy);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.masthead__title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.masthead__title em {
+  font-style: normal;
+  color: var(--eggy);
+}
+.masthead__sub {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 12px;
+  max-width: 520px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+.masthead__meta {
+  text-align: right;
+}
+.masthead__badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  background: white;
+}
+.masthead__badge.eggy { background: var(--eggy); color: white; border-color: var(--eggy); }
+.masthead__date {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: #888;
+  display: block;
+  margin-top: 4px;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ── CAPABILITY LAYER STACK ── */
+.layer-stack {
+  margin-bottom: 48px;
+}
+.layer {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 20px;
+  align-items: start;
+  padding: 20px 24px;
+  border: 1.5px solid var(--rule);
+  border-radius: 4px;
+  margin-bottom: 3px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.layer::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--level-color);
+  transition: width 0.2s;
+}
+.layer:hover {
+  border-color: var(--level-color);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transform: translateX(2px);
+}
+.layer:hover::before { width: 6px; }
+
+.layer--l1 { --level-color: #94A3B8; }
+.layer--l2 { --level-color: var(--sf-blue); }
+.layer--l3 { --level-color: var(--eggy); }
+.layer--l4 { --level-color: var(--green); }
+.layer--compliance { --level-color: var(--red); }
+
+.layer__level {
+  font-family: var(--mono);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--level-color);
+  line-height: 1;
+}
+.layer__level-sub {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: #aaa;
+  display: block;
+  margin-top: 3px;
+}
+.layer__body {}
+.layer__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.layer__desc {
+  font-size: 0.8rem;
+  color: #555;
+  line-height: 1.55;
+  font-weight: 400;
+}
+.layer__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+}
+.tag--code  { background: var(--ink); color: white; }
+.tag--sf    { background: var(--sf-bg); color: var(--sf-blue); border: 1px solid #c2ddf5; }
+.tag--eggy  { background: var(--eggy-bg); color: var(--eggy); border: 1px solid var(--eggy-dim); }
+.tag--green { background: var(--green-bg); color: var(--green); border: 1px solid #A7F3D0; }
+.tag--red   { background: var(--red-bg); color: var(--red); border: 1px solid #FECACA; }
+.tag--amber { background: var(--amber-bg); color: var(--amber); border: 1px solid #FDE68A; }
+
+.layer__status {
+  text-align: right;
+  flex-shrink: 0;
+}
+.status-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.status-pill.live    { background: var(--green-bg); color: var(--green); border: 1px solid #A7F3D0; }
+.status-pill.upgrade { background: var(--amber-bg); color: var(--amber); border: 1px solid #FDE68A; }
+.status-pill.planned { background: #F1F5F9; color: #64748B; border: 1px solid #CBD5E1; }
+
+/* Details panel (expandable) */
+.layer__detail {
+  display: none;
+  grid-column: 1 / -1;
+  background: #FAFAF9;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 16px 18px;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: #444;
+  margin-top: 8px;
+  font-family: var(--mono);
+}
+.layer__detail.open { display: block; }
+.layer__detail code {
+  background: var(--ink);
+  color: #7DD3FC;
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-size: 0.75rem;
+}
+
+/* ── TWO-COL CLASSIFICATION GRID ── */
+.classify-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.classify-card {
+  border: 1.5px solid var(--rule);
+  border-radius: 4px;
+  padding: 20px;
+  background: white;
+  transition: border-color 0.2s;
+}
+.classify-card:hover { border-color: var(--eggy); }
+.classify-card__num {
+  font-family: var(--mono);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--rule);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.classify-card__title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.classify-card__verdict {
+  display: inline-block;
+  background: var(--eggy);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+.classify-card__body {
+  font-size: 0.78rem;
+  color: #555;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* ── UPGRADE ROADMAP ── */
+.roadmap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  margin-bottom: 48px;
+}
+.roadmap__phase {
+  padding: 20px;
+  border: 1.5px solid var(--rule);
+  border-radius: 4px;
+  background: white;
+  position: relative;
+}
+.roadmap__phase--now { border-color: var(--green); background: var(--green-bg); }
+.roadmap__phase--next { border-color: var(--eggy); background: var(--eggy-bg); }
+.roadmap__phase--future { border-color: var(--rule); }
+.roadmap__phase-tag {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.roadmap__phase--now .roadmap__phase-tag    { color: var(--green); }
+.roadmap__phase--next .roadmap__phase-tag   { color: var(--eggy); }
+.roadmap__phase--future .roadmap__phase-tag { color: #94A3B8; }
+.roadmap__phase-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.roadmap__item {
+  font-size: 0.75rem;
+  color: #555;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  line-height: 1.45;
+  font-weight: 400;
+}
+.roadmap__item:last-child { border-bottom: none; }
+.roadmap__item-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.roadmap__phase--now .roadmap__item-dot    { background: var(--green); }
+.roadmap__phase--next .roadmap__item-dot   { background: var(--eggy); }
+.roadmap__phase--future .roadmap__item-dot { background: #CBD5E1; }
+
+/* ── SALESFORCE MAPPING TABLE ── */
+.sf-map {
+  border: 1.5px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 48px;
+  background: white;
+}
+.sf-map__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 120px;
+  background: var(--ink);
+  color: white;
+  padding: 10px 20px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  gap: 16px;
+}
+.sf-map__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 120px;
+  padding: 12px 20px;
+  gap: 16px;
+  border-bottom: 1px solid var(--rule);
+  align-items: center;
+  transition: background 0.15s;
+}
+.sf-map__row:last-child { border-bottom: none; }
+.sf-map__row:hover { background: #FAFAF9; }
+.sf-map__eggy {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.sf-map__sf {
+  font-size: 0.78rem;
+  color: var(--sf-blue);
+  font-weight: 500;
+}
+.sf-map__match {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+}
+.match-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--eggy);
+  flex: 1;
+}
+.match-pct { color: #888; }
+
+/* ── ONE-LINER ── */
+.one-liner {
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  padding: 28px 32px;
+  background: white;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.one-liner::before {
+  content: '"';
+  position: absolute;
+  top: -20px; left: 16px;
+  font-size: 8rem;
+  font-weight: 800;
+  color: var(--eggy);
+  opacity: 0.08;
+  line-height: 1;
+  font-family: var(--sans);
+}
+.one-liner__context {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--eggy);
+  margin-bottom: 10px;
+}
+.one-liner__text {
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  position: relative;
+}
+.one-liner__text em {
+  font-style: normal;
+  color: var(--eggy);
+  border-bottom: 2px solid var(--eggy-dim);
+}
+
+/* ── FOOTER ── */
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: #aaa;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .classify-grid { grid-template-columns: 1fr; }
+  .roadmap { grid-template-columns: 1fr; }
+  .masthead { grid-template-columns: 1fr; }
+  .layer { grid-template-columns: 48px 1fr; }
+  .layer__status { display: none; }
+  .sf-map__header, .sf-map__row { grid-template-columns: 1fr 1fr; }
+  .sf-map__match { display: none; }
+}
+
+/* ── REVEAL ANIMATION ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.layer, .classify-card, .roadmap__phase {
+  animation: fade-up 0.4s ease both;
+}
+.layer:nth-child(1) { animation-delay: 0.05s; }
+.layer:nth-child(2) { animation-delay: 0.10s; }
+.layer:nth-child(3) { animation-delay: 0.15s; }
+.layer:nth-child(4) { animation-delay: 0.20s; }
+.layer:nth-child(5) { animation-delay: 0.25s; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div>
+      <div class="masthead__eyebrow">AI Agent Architecture · Classification Report</div>
+      <h1 class="masthead__title">Eggy<br><em>Deal Registration</em><br>AI Agent</h1>
+      <p class="masthead__sub">A proactive, workflow-embedded agentic AI assistant built for the Keysight Eggplant Partner Portal — classifying its architecture, capability layers, and Salesforce PRM alignment.</p>
+    </div>
+    <div class="masthead__meta">
+      <div class="masthead__badge eggy">RAG Agent · L3–L4</div><br>
+      <div class="masthead__badge">Built: 2023</div>
+      <span class="masthead__date">Updated Feb 2026 · v2.1</span>
+    </div>
+  </div>
+
+  <!-- CAPABILITY LAYERS -->
+  <div class="section-label">01 — Capability Layer Analysis</div>
+  <div class="layer-stack">
+
+    <div class="layer layer--l1" onclick="toggleDetail(this)">
+      <div class="layer__level">L1<span class="layer__level-sub">Reactive</span></div>
+      <div class="layer__body">
+        <div class="layer__title">Conversational Q&amp;A — RAG Knowledge Layer</div>
+        <div class="layer__desc">Responds to partner questions about deal registration rules, thresholds, timelines, and compliance requirements. Intent routed via keyword classifier against curated playbook knowledge.</div>
+        <div class="layer__tech">
+          <span class="tag tag--code">getAIResponse()</span>
+          <span class="tag tag--eggy">Deterministic RAG</span>
+          <span class="tag tag--code">marked.js</span>
+          <span class="tag tag--sf">→ Agentforce Custom Topic</span>
+        </div>
+        <div class="layer__detail">
+          Architecture: <code>userMessage → toLower() → 14-branch intent classifier → curated response string</code><br><br>
+          Upgrade path: Replace function body with <code>fetch('api.anthropic.com/v1/messages')</code> passing the full playbook as system prompt. All other layers remain identical.
+        </div>
+      </div>
+      <div class="layer__status">
+        <div class="status-pill live">✓ LIVE</div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:#aaa;margin-top:6px">14 intents<br>+ fallback</div>
+      </div>
+    </div>
+
+    <div class="layer layer--l2" onclick="toggleDetail(this)">
+      <div class="layer__level">L2<span class="layer__level-sub">Contextual</span></div>
+      <div class="layer__body">
+        <div class="layer__title">Agentic Field Observer — Proactive Tip Engine</div>
+        <div class="layer__desc">Monitors DOM focus events on 5 key form fields. When a partner clicks into a field, Eggy proactively surfaces a contextual tip without being asked — zero friction guidance at the exact moment of need.</div>
+        <div class="layer__tech">
+          <span class="tag tag--code">addEventListener('focus')</span>
+          <span class="tag tag--eggy">Proactive Agent</span>
+          <span class="tag tag--amber">5 Fields Observed</span>
+          <span class="tag tag--sf">→ Agentforce Context Action</span>
+        </div>
+        <div class="layer__detail">
+          Field map: <code>dealName → 'new deal'</code>, <code>customer → 'requirement'</code>, <code>amount → 'limit'</code>, <code>type → 'referral'</code>, <code>date → 'extension'</code><br><br>
+          One-shot guard (<code>if(tipped) return</code>) prevents tip spam. Only fires when chat panel is open.
+        </div>
+      </div>
+      <div class="layer__status">
+        <div class="status-pill live">✓ LIVE</div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:#aaa;margin-top:6px">5 fields<br>observed</div>
+      </div>
+    </div>
+
+    <div class="layer layer--l3" onclick="toggleDetail(this)">
+      <div class="layer__level">L3<span class="layer__level-sub">Agentic</span></div>
+      <div class="layer__body">
+        <div class="layer__title">Active Governance Engine — Real-Time Data Integrity</div>
+        <div class="layer__desc">Listens on blur events for all inputs and selects. Validates against business rules: $25k threshold, 14-day lead time, scientific notation blocking, cross-field consistency. Fires Eggy alerts into chat and highlights fields with SOX-compliant pulse animation.</div>
+        <div class="layer__tech">
+          <span class="tag tag--code">addEventListener('blur')</span>
+          <span class="tag tag--red">SOX-aware</span>
+          <span class="tag tag--eggy">Cross-field Validation</span>
+          <span class="tag tag--sf">→ Einstein Trust Layer analog</span>
+        </div>
+        <div class="layer__detail">
+          Rules enforced: amount &lt; $25k USD → integrity-error pulse; scientific notation (e) → block; close date &lt; 14 days from today → timing alert; all violations auto-open chat panel and inject formatted Eggy message.
+        </div>
+      </div>
+      <div class="layer__status">
+        <div class="status-pill live">✓ LIVE</div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:#aaa;margin-top:6px">4 rules<br>enforced</div>
+      </div>
+    </div>
+
+    <div class="layer layer--l4" onclick="toggleDetail(this)">
+      <div class="layer__level">L4<span class="layer__level-sub">Governance</span></div>
+      <div class="layer__body">
+        <div class="layer__title">Worldwide Sanctions Screening — Compliance Automation Agent</div>
+        <div class="layer__desc">Real-time debounced screening of End Customer field against OFAC SDN, EU Consolidated, UN, and BIS lists via OpenSanctions. On hit: blocks form submission, auto-opens Eggy with escalation CTA, pre-populates PAM email, logs with timestamp for audit trail.</div>
+        <div class="layer__tech">
+          <span class="tag tag--code">OpenSanctions API</span>
+          <span class="tag tag--red">OFAC · EU · UN · BIS</span>
+          <span class="tag tag--code">debounce 900ms</span>
+          <span class="tag tag--green">Audit Logged</span>
+          <span class="tag tag--sf">→ Agentforce Flow Action</span>
+        </div>
+        <div class="layer__detail">
+          Flow: <code>keyup → debounce(900ms) → getCompanyName() → checkSanctions() → {hit: false → clear badge} | {hit: true → hasSanctionsHit=true → block submit → auto-open chat → inject alert + escalation CTAs}</code><br><br>
+          Production swap: replace <code>DEMO_BLACKLIST</code> check with <code>GET https://api.opensanctions.org/search/default?q=NAME</code>
+        </div>
+      </div>
+      <div class="layer__status">
+        <div class="status-pill upgrade">⚡ UPGRADE</div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:#aaa;margin-top:6px">Demo list<br>→ Live API</div>
+      </div>
+    </div>
+
+    <div class="layer layer--compliance" onclick="toggleDetail(this)">
+      <div class="layer__level" style="font-size:1.1rem">UX<span class="layer__level-sub">Orchestration</span></div>
+      <div class="layer__body">
+        <div class="layer__title">Conversational UX Orchestrator — Session State Manager</div>
+        <div class="layer__desc">Auto-open at t+4s, breathing FAB animation, typing indicator, quick-action chips, completion progress bar, confetti on success. Manages chatOpened state, panel visibility, welcome/message switching, and one-shot tip guard across entire session lifecycle.</div>
+        <div class="layer__tech">
+          <span class="tag tag--code">toggleChat()</span>
+          <span class="tag tag--code">addMessage()</span>
+          <span class="tag tag--eggy">Session State</span>
+          <span class="tag tag--amber">canvas-confetti</span>
+        </div>
+        <div class="layer__detail">
+          State variables: <code>chatOpened</code>, <code>hasSanctionsHit</code>, per-field <code>tipped</code> guards. Auto-open timer fires at 4000ms if chat has not been manually triggered. Confetti fires on successful form submission with brand color palette.
+        </div>
+      </div>
+      <div class="layer__status">
+        <div class="status-pill live">✓ LIVE</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CLASSIFICATION GRID -->
+  <div class="section-label">02 — Formal Classification</div>
+  <div class="classify-grid">
+    <div class="classify-card">
+      <div class="classify-card__num">01</div>
+      <div class="classify-card__title">By AI Architecture</div>
+      <div class="classify-card__verdict">Hybrid RAG Agent</div>
+      <div class="classify-card__body">Currently: <strong>Deterministic RAG</strong> — intent routing via curated keyword classifier against a hand-crafted knowledge store. Upgrade path: <strong>Hybrid RAG</strong> — playbook passed as LLM system prompt for probabilistic coverage with deterministic grounding. For compliance-critical outputs, deterministic retrieval is the correct choice.</div>
+    </div>
+    <div class="classify-card">
+      <div class="classify-card__num">02</div>
+      <div class="classify-card__title">By Agent Capability Class</div>
+      <div class="classify-card__verdict">Proactive Agentic AI (L3–L4)</div>
+      <div class="classify-card__body">Spans L1 (reactive Q&amp;A) through L4 (governance + blocking). Most commercial AI assistants stop at L1–L2. Eggy's agentic field observer and compliance engine operate at L3–L4 — the definition of a "full agent" vs a "copilot."</div>
+    </div>
+    <div class="classify-card">
+      <div class="classify-card__num">03</div>
+      <div class="classify-card__title">By Enterprise Software Category</div>
+      <div class="classify-card__verdict">IPA + Compliance Automation</div>
+      <div class="classify-card__body"><strong>Conversational AI</strong> (chat layer) + <strong>Intelligent Process Automation</strong> (field observer + governance) + <strong>RegTech Compliance Agent</strong> (sanctions screening). Three recognized enterprise AI categories in a single embedded widget.</div>
+    </div>
+    <div class="classify-card">
+      <div class="classify-card__num">04</div>
+      <div class="classify-card__title">By Salesforce Taxonomy</div>
+      <div class="classify-card__verdict">Agentforce-Equivalent Agent</div>
+      <div class="classify-card__body">Maps precisely to: Agentforce Custom Topic (Q&amp;A), Agentforce Custom Action/Flow (sanctions), Einstein Trust Layer analog (submission blocking), Prompt Builder (knowledge layer), Experience Cloud surface (PRM portal embed).</div>
+    </div>
+  </div>
+
+  <!-- SALESFORCE MAPPING -->
+  <div class="section-label">03 — Salesforce / Agentforce Mapping</div>
+  <div class="sf-map">
+    <div class="sf-map__header">
+      <div>Eggy Component</div>
+      <div>Salesforce Equivalent</div>
+      <div>Alignment</div>
+    </div>
+    <div class="sf-map__row">
+      <div class="sf-map__eggy">getAIResponse() — RAG Engine</div>
+      <div class="sf-map__sf">Agentforce Custom Topic + Prompt Builder</div>
+      <div class="sf-map__match"><div class="match-bar" style="width:85%"></div><span class="match-pct">85%</span></div>
+    </div>
+    <div class="sf-map__row">
+      <div class="sf-map__eggy">Agentic Field Observer</div>
+      <div class="sf-map__sf">Agentforce Context-Aware Actions</div>
+      <div class="sf-map__match"><div class="match-bar" style="width:75%"></div><span class="match-pct">75%</span></div>
+    </div>
+    <div class="sf-map__row">
+      <div class="sf-map__eggy">Active Governance Engine</div>
+      <div class="sf-map__sf">Einstein Trust Layer + Flow Validation</div>
+      <div class="sf-map__match"><div class="match-bar" style="width:80%"></div><span class="match-pct">80%</span></div>
+    </div>
+    <div class="sf-map__row">
+      <div class="sf-map__eggy">Sanctions Screening Module</div>
+      <div class="sf-map__sf">Agentforce Custom Flow Action (Apex)</div>
+      <div class="sf-map__match"><div class="match-bar" style="width:90%"></div><span class="match-pct">90%</span></div>
+    </div>
+    <div class="sf-map__row">
+      <div class="sf-map__eggy">hasSanctionsHit → block submit</div>
+      <div class="sf-map__sf">Einstein Trust Layer — Guardrails</div>
+      <div class="sf-map__match"><div class="match-bar" style="width:95%"></div><span class="match-pct">95%</span></div>
+    </div>
+    <div class="sf-map__row">
+      <div class="sf-map__eggy">UX Orchestrator + Session State</div>
+      <div class="sf-map__sf">Agentforce Conversation Manager</div>
+      <div class="sf-map__match"><div class="match-bar" style="width:70%"></div><span class="match-pct">70%</span></div>
+    </div>
+  </div>
+
+  <!-- UPGRADE ROADMAP -->
+  <div class="section-label">04 — Upgrade Roadmap</div>
+  <div class="roadmap">
+    <div class="roadmap__phase roadmap__phase--now">
+      <div class="roadmap__phase-tag">Phase 1 · Now</div>
+      <div class="roadmap__phase-title">Production-Ready<br>Demo</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>14-intent deterministic RAG</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Agentic field observer (5 fields)</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Active governance engine</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Demo sanctions blacklist</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>SLDS-aligned UI</div>
+    </div>
+    <div class="roadmap__phase roadmap__phase--next">
+      <div class="roadmap__phase-tag">Phase 2 · Next</div>
+      <div class="roadmap__phase-title">LLM-Powered<br>Hybrid RAG</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Swap getAIResponse() → Anthropic API</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Playbook as system prompt context</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Live OpenSanctions API</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>LWC packaging for Salesforce</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Salesforce record write-back</div>
+    </div>
+    <div class="roadmap__phase roadmap__phase--future">
+      <div class="roadmap__phase-tag">Phase 3 · Future</div>
+      <div class="roadmap__phase-title">Full Agentforce<br>Integration</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Agentforce Topic/Action migration</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Partner tier lookup (Data Cloud)</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>MDF balance & status queries</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Einstein Trust Layer compliance</div>
+      <div class="roadmap__item"><div class="roadmap__item-dot"></div>Multi-portal portability</div>
+    </div>
+  </div>
+
+  <!-- ONE-LINER -->
+  <div class="section-label">05 — The Classification</div>
+  <div class="one-liner">
+    <div class="one-liner__context">Formal one-liner for presentations, proposals & portfolio</div>
+    <div class="one-liner__text">
+      "A <em>context-aware, workflow-embedded RAG compliance agent</em> with proactive agentic observation, real-time governance, and sanctions screening — deployed as a partner-facing AI assistant inside a deal registration workflow, 2 years before Einstein Copilot shipped."
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <span>Eggy AI Agent · Architecture v2.1 · @bizalchemist</span>
+    <span>Built on: Salesforce PRM · Keysight Eggplant Partner Portal · Feb 2026</span>
+  </div>
+
+</div>
+
+<script>
+function toggleDetail(layer) {
+  const detail = layer.querySelector('.layer__detail');
+  if (detail) detail.classList.toggle('open');
+}
+</script>
+</body>
+</html>
