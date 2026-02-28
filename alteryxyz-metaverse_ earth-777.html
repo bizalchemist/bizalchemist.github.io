@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XCelerate Partner Global Program — Salesforce PRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sf-blue: #0070d2;
+  --sf-dark: #032D60;
+  --sf-cloud: #1798c1;
+  --sf-green: #4bca81;
+  --sf-orange: #FF6B35;
+  --sf-gold: #FFB75E;
+  --accent: #00A1E0;
+  --warn: #FF6B35;
+  --bg: #f3f6fb;
+  --surface: #ffffff;
+  --surface2: #f8fafc;
+  --border: #d8dde6;
+  --text: #16325c;
+  --text2: #54698d;
+  --text3: #9faaba;
+  --radius: 8px;
+  --shadow: 0 2px 12px rgba(0,70,210,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,70,210,0.14);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; }
+body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+/* ═══ TOP NAV ═══ */
+.topbar {
+  background: var(--sf-dark);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.5px;
+  margin-right: 32px;
+  white-space: nowrap;
+}
+.salesforce-cloud {
+  width: 28px; height: 28px;
+  background: var(--accent);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+.topbar-nav a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.topbar-nav a:hover, .topbar-nav a.active { background: rgba(255,255,255,0.12); color: white; }
+.topbar-right {
+  display: flex; align-items: center; gap: 12px; margin-left: auto;
+}
+.topbar-right .badge {
+  background: var(--sf-orange);
+  color: white; font-size: 0.7rem; font-weight: 700;
+  padding: 2px 7px; border-radius: 10px;
+}
+.avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--sf-gold); display:flex; align-items:center; justify-content:center; font-weight:700; color: var(--sf-dark); font-size:0.75rem; cursor:pointer; }
+
+/* ═══ PROGRAM HEADER BANNER ═══ */
+.program-banner {
+  background: linear-gradient(135deg, var(--sf-dark) 0%, #0d3b6e 50%, #1a5f9e 100%);
+  padding: 28px 32px 24px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.program-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.program-meta { display:flex; align-items:flex-start; justify-content:space-between; position:relative; }
+.program-left {}
+.program-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px; padding: 3px 12px; font-size: 0.72rem; font-weight: 600;
+  color: var(--sf-gold); text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.program-title { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; }
+.program-title span { color: var(--sf-gold); }
+.program-sub { margin-top: 6px; color: rgba(255,255,255,0.7); font-size: 0.82rem; font-weight: 400; }
+.program-kpis {
+  display: flex; gap: 12px; margin-top: 20px;
+}
+.kpi-pill {
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 10px 18px;
+  text-align: center;
+  min-width: 100px;
+}
+.kpi-pill .kpi-v { font-size: 1.3rem; font-weight: 700; color: white; }
+.kpi-pill .kpi-l { font-size: 0.68rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1px; }
+.kpi-pill.gold { border-color: var(--sf-gold); background: rgba(255,183,94,0.10); }
+.kpi-pill.gold .kpi-v { color: var(--sf-gold); }
+.program-right { text-align: right; }
+.tier-badge {
+  background: linear-gradient(135deg, #FFB75E, #FF6B35);
+  border-radius: 10px;
+  padding: 12px 20px;
+  text-align: center;
+  min-width: 130px;
+}
+.tier-badge .tier-icon { font-size: 1.6rem; }
+.tier-badge .tier-name { font-size: 0.78rem; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.tier-badge .tier-label { font-size: 0.65rem; color: rgba(255,255,255,0.8); }
+
+/* ═══ MAIN LAYOUT ═══ */
+.main-wrap {
+  display: flex;
+  min-height: calc(100vh - 52px - 120px);
+}
+
+/* ═══ LEFT SIDEBAR ═══ */
+.sidebar {
+  width: 220px;
+  min-width: 220px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px 0;
+  position: sticky;
+  top: 52px;
+  height: calc(100vh - 52px);
+  overflow-y: auto;
+}
+.sidebar-section { margin-bottom: 6px; }
+.sidebar-section-label {
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--text3); padding: 6px 16px 4px;
+}
+.sidebar-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 16px;
+  color: var(--text2); font-size: 0.82rem; font-weight: 500;
+  cursor: pointer; transition: all 0.12s;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+}
+.sidebar-item:hover { background: #f0f4ff; color: var(--sf-blue); }
+.sidebar-item.active { background: #e8f0ff; color: var(--sf-blue); border-left-color: var(--sf-blue); font-weight: 600; }
+.sidebar-item .icon { font-size: 1rem; width: 18px; text-align: center; }
+.sidebar-item .count { margin-left: auto; background: var(--sf-blue); color: white; border-radius: 10px; padding: 1px 6px; font-size: 0.65rem; font-weight: 700; }
+.sidebar-item .count.orange { background: var(--sf-orange); }
+
+/* ═══ CONTENT ═══ */
+.content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* ═══ TABS ═══ */
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid var(--border);
+  margin-bottom: 24px;
+}
+.tab {
+  padding: 10px 18px; font-size: 0.82rem; font-weight: 600;
+  color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent;
+  margin-bottom: -2px; transition: all 0.15s; white-space: nowrap;
+}
+.tab:hover { color: var(--sf-blue); }
+.tab.active { color: var(--sf-blue); border-bottom-color: var(--sf-blue); }
+
+/* ═══ SECTION HEADING ═══ */
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.section-title { font-size: 1rem; font-weight: 700; color: var(--text); }
+.section-sub { font-size: 0.78rem; color: var(--text2); margin-top: 2px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; border: none; transition: all 0.15s; text-decoration: none;
+  font-family: 'Sora', sans-serif;
+}
+.btn-primary { background: var(--sf-blue); color: white; }
+.btn-primary:hover { background: #005bb5; }
+.btn-outline { background: white; color: var(--sf-blue); border: 1px solid var(--sf-blue); }
+.btn-outline:hover { background: #f0f4ff; }
+.btn-sm { padding: 4px 10px; font-size: 0.75rem; }
+.btn-ghost { background: transparent; color: var(--text2); border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--bg); }
+
+/* ═══ CARDS ═══ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.card-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-header-title { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+.card-body { padding: 18px; }
+
+/* ═══ GRID ═══ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+/* ═══ STAT CARDS ═══ */
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.stat-card .stat-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; margin-bottom: 10px;
+}
+.stat-card .stat-v { font-size: 1.6rem; font-weight: 800; color: var(--text); letter-spacing: -1px; }
+.stat-card .stat-l { font-size: 0.72rem; color: var(--text2); margin-top: 2px; font-weight: 500; }
+.stat-card .stat-delta {
+  font-size: 0.72rem; font-weight: 600; margin-top: 6px;
+  display: flex; align-items: center; gap: 3px;
+}
+.stat-card .stat-delta.up { color: var(--sf-green); }
+.stat-card .stat-delta.down { color: #e74c3c; }
+.ic-blue { background: #e3f0ff; }
+.ic-green { background: #e8f9f0; }
+.ic-orange { background: #fff0e8; }
+.ic-purple { background: #f0e8ff; }
+.ic-gold { background: #fff8e1; }
+
+/* ═══ TABLE ═══ */
+.table-wrap { overflow-x: auto; border-radius: var(--radius); }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  background: var(--surface2); padding: 9px 14px;
+  text-align: left; font-size: 0.72rem; font-weight: 700;
+  color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+tbody tr:hover { background: #f5f8ff; }
+tbody tr:last-child { border-bottom: none; }
+tbody td { padding: 10px 14px; font-size: 0.82rem; color: var(--text); vertical-align: middle; }
+.link { color: var(--sf-blue); text-decoration: none; font-weight: 600; }
+.link:hover { text-decoration: underline; }
+
+/* ═══ STATUS BADGES ═══ */
+.badge-status {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 20px; font-size: 0.70rem; font-weight: 600;
+}
+.status-active { background: #e8f9f0; color: #27ae60; }
+.status-pending { background: #fff8e1; color: #f39c12; }
+.status-review { background: #e8f0ff; color: var(--sf-blue); }
+.status-inactive { background: #f5f5f5; color: #888; }
+.status-hot { background: #ffe8e8; color: #e74c3c; }
+.status-platinum { background: linear-gradient(90deg, #e8e0ff, #f0e8ff); color: #6c3bd4; }
+.status-gold { background: #fff8e1; color: #c8860a; }
+.status-silver { background: #f0f0f0; color: #666; }
+.status-reg { background: #e8f8ff; color: #0070d2; }
+
+/* ═══ PROGRESS ═══ */
+.progress-wrap { width: 100%; background: #e8ecf2; border-radius: 4px; height: 6px; overflow: hidden; }
+.progress-bar { height: 100%; border-radius: 4px; transition: width 0.5s; }
+.pb-blue { background: var(--sf-blue); }
+.pb-green { background: var(--sf-green); }
+.pb-orange { background: var(--sf-orange); }
+.pb-gold { background: var(--sf-gold); }
+.pb-purple { background: #8b5cf6; }
+
+/* ═══ PARTNER TILE ═══ */
+.partner-tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: all 0.15s; cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.partner-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--sf-blue); }
+.partner-logo {
+  width: 44px; height: 44px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; font-weight: 800; color: white;
+}
+.partner-name { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+.partner-region { font-size: 0.72rem; color: var(--text2); }
+.partner-rev { font-size: 1rem; font-weight: 700; color: var(--sf-dark); }
+.partner-rev-l { font-size: 0.68rem; color: var(--text3); }
+
+/* ═══ DEAL CARD ═══ */
+.deal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: var(--shadow);
+  transition: all 0.15s;
+}
+.deal-card:hover { border-color: var(--sf-blue); }
+.deal-stage {
+  width: 6px; min-width: 6px; height: 48px; border-radius: 3px;
+}
+.deal-info { flex: 1; }
+.deal-name { font-weight: 700; font-size: 0.85rem; color: var(--text); }
+.deal-company { font-size: 0.75rem; color: var(--text2); margin-top: 2px; }
+.deal-amount { font-weight: 800; font-size: 1rem; color: var(--sf-dark); white-space: nowrap; }
+.deal-meta { font-size: 0.68rem; color: var(--text3); margin-top: 2px; text-align: right; }
+
+/* ═══ ENABLEMENT TRACK ═══ */
+.track-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.track-row:last-child { border-bottom: none; }
+.track-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
+}
+.track-num.done { background: var(--sf-green); color: white; }
+.track-num.active { background: var(--sf-blue); color: white; }
+.track-num.todo { background: var(--border); color: var(--text2); }
+.track-info { flex: 1; }
+.track-name { font-size: 0.83rem; font-weight: 600; color: var(--text); }
+.track-desc { font-size: 0.72rem; color: var(--text2); margin-top: 1px; }
+.track-right { text-align: right; }
+.track-score { font-size: 0.82rem; font-weight: 700; }
+
+/* ═══ ALERT BANNER ═══ */
+.alert-banner {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 16px; border-radius: var(--radius);
+  border-left: 4px solid; margin-bottom: 16px;
+  font-size: 0.82rem;
+}
+.alert-info { background: #e8f3ff; border-color: var(--sf-blue); color: #1a4a8a; }
+.alert-warn { background: #fff8e1; border-color: var(--sf-gold); color: #7a5a00; }
+.alert-success { background: #e8f9f0; border-color: var(--sf-green); color: #1a6b3c; }
+
+/* ═══ WORLD MAP PLACEHOLDER ═══ */
+.world-map {
+  background: linear-gradient(135deg, #e8f3ff 0%, #f0f8ff 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.map-dot {
+  position: absolute; width: 10px; height: 10px; border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+/* ═══ FUNNEL ═══ */
+.funnel-row {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+}
+.funnel-label { font-size: 0.75rem; color: var(--text2); min-width: 110px; font-weight: 500; }
+.funnel-bar-wrap { flex: 1; background: #e8ecf2; border-radius: 4px; height: 22px; overflow: hidden; position: relative; }
+.funnel-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 0.7rem; font-weight: 700; color: white; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+.funnel-count { font-size: 0.72rem; font-weight: 700; min-width: 40px; text-align: right; color: var(--text); }
+
+/* ═══ CERTIFICATION BADGE ═══ */
+.cert-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, #1e3a5f, #0d5499);
+  color: white; border-radius: 6px; padding: 6px 12px;
+  font-size: 0.72rem; font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,70,210,0.25);
+}
+
+/* ═══ REVENUE GAUGE ═══ */
+.gauge-wrap {
+  position: relative; width: 120px; height: 60px; margin: 0 auto;
+}
+.gauge-svg { width: 120px; height: 60px; }
+
+/* ═══ SCROLLABLE CONTENT AREA ═══ */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ═══ INFO ROW ═══ */
+.info-row { display: flex; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.info-row:last-child { border-bottom: none; }
+.info-label { font-size: 0.72rem; color: var(--text2); min-width: 140px; font-weight: 500; }
+.info-value { font-size: 0.82rem; color: var(--text); font-weight: 500; }
+
+/* ═══ QUICK ACTION ═══ */
+.quick-action {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 14px 10px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  cursor: pointer; transition: all 0.15s; text-align: center;
+}
+.quick-action:hover { border-color: var(--sf-blue); background: #f0f4ff; }
+.quick-action .qa-icon { font-size: 1.4rem; }
+.quick-action .qa-label { font-size: 0.72rem; font-weight: 600; color: var(--text2); }
+
+/* ═══ PIPELINE KANBAN ═══ */
+.kanban { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+.kanban-col {
+  min-width: 180px; max-width: 180px;
+  background: var(--surface2);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 10px;
+}
+.kanban-col-header {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text2); margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.kanban-col-count {
+  background: white; border: 1px solid var(--border);
+  border-radius: 10px; padding: 1px 7px; font-size: 0.65rem;
+}
+.kanban-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 6px; padding: 10px; margin-bottom: 8px;
+  cursor: pointer; transition: all 0.12s;
+  border-left: 3px solid;
+}
+.kanban-card:hover { box-shadow: 0 2px 8px rgba(0,70,210,0.12); transform: translateY(-1px); }
+.kc-name { font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.kc-partner { font-size: 0.68rem; color: var(--text2); }
+.kc-amount { font-size: 0.82rem; font-weight: 800; color: var(--sf-dark); margin-top: 6px; }
+.kc-prob { font-size: 0.65rem; color: var(--text3); }
+
+/* ═══ TOOLTIP ═══ */
+.tooltip-wrap { position: relative; display: inline-block; }
+.tooltip-wrap .tooltip-text {
+  visibility: hidden; opacity: 0;
+  background: var(--sf-dark); color: white;
+  font-size: 0.72rem; padding: 4px 8px; border-radius: 4px;
+  position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%);
+  white-space: nowrap; transition: opacity 0.2s; z-index: 10;
+}
+.tooltip-wrap:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+/* ═══ COLLAPSIBLE ═══ */
+.collapsible { cursor: pointer; user-select: none; }
+.collapsible .chevron { transition: transform 0.2s; display: inline-block; }
+.collapsible.open .chevron { transform: rotate(90deg); }
+.collapse-body { display: none; }
+.collapse-body.open { display: block; }
+
+/* Chart bars */
+.bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 80px; padding: 0 4px; }
+.bar { flex: 1; border-radius: 4px 4px 0 0; position: relative; cursor: pointer; transition: opacity 0.15s; min-width: 16px; }
+.bar:hover { opacity: 0.8; }
+.bar-label { font-size: 0.60rem; color: var(--text3); text-align: center; margin-top: 4px; }
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width: 900px) {
+  .sidebar { display: none; }
+  .grid-4 { grid-template-columns: repeat(2,1fr); }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .program-kpis { flex-wrap: wrap; }
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: fadeIn 0.35s ease both; }
+
+/* ═══ NOTIFICATION DOT ═══ */
+.notif-dot {
+  width: 8px; height: 8px; background: var(--sf-orange);
+  border-radius: 50%; display: inline-block; margin-left: 4px;
+}
+
+/* Compact spacing override */
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.mt-16 { margin-top: 16px; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.text-sm { font-size: 0.78rem; }
+.text-xs { font-size: 0.70rem; }
+.text-muted { color: var(--text2); }
+.font-bold { font-weight: 700; }
+.font-600 { font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="salesforce-cloud">☁</div>
+    Salesforce PRM
+  </div>
+  <div class="topbar-nav">
+    <a href="#" class="active">Home</a>
+    <a href="#">Accounts</a>
+    <a href="#">Opportunities</a>
+    <a href="#">Deals</a>
+    <a href="#">Marketing</a>
+    <a href="#">Enablement</a>
+    <a href="#">Analytics</a>
+    <a href="#">Incentives</a>
+  </div>
+  <div class="topbar-right">
+    <span style="color:rgba(255,255,255,0.5); font-size:0.7rem; font-family:'JetBrains Mono',monospace;">XCelerate v2026.1</span>
+    <span class="badge">LIVE</span>
+    <div class="avatar">JP</div>
+  </div>
+</div>
+
+<!-- PROGRAM HEADER -->
+<div class="program-banner animate-in">
+  <div class="program-meta">
+    <div class="program-left">
+      <div class="program-tag">⚡ Salesforce PRM · XCelerate Global Program · 2026</div>
+      <div class="program-title">XCelerate Partner <span>Global Program</span></div>
+      <div class="program-sub">Modeled after Alteryxyz Analytics Partner Ecosystem · SaaS · AI-Powered Data Analytics Platform</div>
+      <div class="program-kpis">
+        <div class="kpi-pill gold">
+          <div class="kpi-v">$2.4B</div>
+          <div class="kpi-l">Partner ARR</div>
+        </div>
+        <div class="kpi-pill">
+          <div class="kpi-v">4,200+</div>
+          <div class="kpi-l">Global Partners</div>
+        </div>
+        <div class="kpi-pill">
+          <div class="kpi-v">92%</div>
+          <div class="kpi-l">Renewal Rate</div>
+        </div>
+        <div class="kpi-pill">
+          <div class="kpi-v">68</div>
+          <div class="kpi-l">Countries</div>
+        </div>
+        <div class="kpi-pill">
+          <div class="kpi-v">340</div>
+          <div class="kpi-l">Active Deals</div>
+        </div>
+      </div>
+    </div>
+    <div class="program-right">
+      <div class="tier-badge">
+        <div class="tier-icon">🏆</div>
+        <div class="tier-name">Elite Partner</div>
+        <div class="tier-label">XCelerate Pinnacle Tier</div>
+      </div>
+      <div style="margin-top:10px; font-size:0.68rem; color:rgba(255,255,255,0.5); text-align:center; font-family:'JetBrains Mono',monospace;">FY2026 · Q1 · Global</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-wrap">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Program HQ</div>
+      <div class="sidebar-item active" onclick="switchTab('overview')"><span class="icon">🏠</span> Overview</div>
+      <div class="sidebar-item" onclick="switchTab('partners')"><span class="icon">🤝</span> Partners <span class="count">4,218</span></div>
+      <div class="sidebar-item" onclick="switchTab('deals')"><span class="icon">💼</span> Deal Desk <span class="count">340</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Enablement</div>
+      <div class="sidebar-item" onclick="switchTab('enablement')"><span class="icon">🎓</span> Learning Paths</div>
+      <div class="sidebar-item" onclick="switchTab('certs')"><span class="icon">🎖️</span> Certifications</div>
+      <div class="sidebar-item" onclick="switchTab('mdf')"><span class="icon">💰</span> MDF & Incentives <span class="count orange">12</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Intelligence</div>
+      <div class="sidebar-item" onclick="switchTab('analytics')"><span class="icon">📊</span> Analytics</div>
+      <div class="sidebar-item" onclick="switchTab('leads')"><span class="icon">🎯</span> Lead Distribution</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Admin</div>
+      <div class="sidebar-item" onclick="switchTab('tiers')"><span class="icon">⭐</span> Tier Management</div>
+      <div class="sidebar-item" onclick="switchTab('setup')"><span class="icon">⚙️</span> Program Setup</div>
+    </div>
+  </div>
+
+  <!-- CONTENT AREA -->
+  <div class="content">
+
+    <!-- ═══ OVERVIEW TAB ═══ -->
+    <div class="tab-panel active animate-in" id="tab-overview">
+      <!-- ALERTS -->
+      <div class="alert-banner alert-info" style="margin-bottom:12px;">
+        <span>ℹ️</span>
+        <div><strong>Q1 2026 Program Update:</strong> AI-Powered Deal Scoring is now live for all Elite & Platinum partners. Partners with Alteryxyz Certified Expert status receive 25% MDF uplift automatically.</div>
+      </div>
+      <div class="alert-banner alert-warn">
+        <span>⚠️</span>
+        <div><strong>12 MDF requests</strong> pending approval · <strong>3 partner accounts</strong> require tier recertification by March 31 · <strong>5 deals</strong> closing this week require co-sell review</div>
+      </div>
+
+      <!-- STAT CARDS -->
+      <div class="grid-4 mb-24">
+        <div class="stat-card">
+          <div class="stat-icon ic-blue">💰</div>
+          <div class="stat-v">$2.4B</div>
+          <div class="stat-l">Total Partner ARR</div>
+          <div class="stat-delta up">▲ 34% YoY</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon ic-green">📈</div>
+          <div class="stat-v">$618M</div>
+          <div class="stat-l">Pipeline (Active)</div>
+          <div class="stat-delta up">▲ 22% QoQ</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon ic-orange">🤝</div>
+          <div class="stat-v">4,218</div>
+          <div class="stat-l">Certified Partners</div>
+          <div class="stat-delta up">▲ 540 New Q1</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon ic-gold">🏆</div>
+          <div class="stat-v">92%</div>
+          <div class="stat-l">Partner Renewal Rate</div>
+          <div class="stat-delta up">▲ +4pts vs PY</div>
+        </div>
+      </div>
+
+      <div class="grid-2 mb-24">
+        <!-- PARTNER PIPELINE FUNNEL -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-title">🔽 Partner Pipeline Funnel — FY2026 Q1</div>
+            <button class="btn btn-ghost btn-sm">Export</button>
+          </div>
+          <div class="card-body">
+            <div class="funnel-row">
+              <div class="funnel-label">Registered Deals</div>
+              <div class="funnel-bar-wrap">
+                <div class="funnel-bar pb-blue" style="width:100%">340</div>
+              </div>
+              <div class="funnel-count">$618M</div>
+            </div>
+            <div class="funnel-row">
+              <div class="funnel-label">Qualified</div>
+              <div class="funnel-bar-wrap">
+                <div class="funnel-bar" style="width:78%; background:#1798c1;">265</div>
+              </div>
+              <div class="funnel-count">$481M</div>
+            </div>
+            <div class="funnel-row">
+              <div class="funnel-label">Proposal / Demo</div>
+              <div class="funnel-bar-wrap">
+                <div class="funnel-bar" style="width:55%; background:#4bca81;">187</div>
+              </div>
+              <div class="funnel-count">$339M</div>
+            </div>
+            <div class="funnel-row">
+              <div class="funnel-label">Negotiation</div>
+              <div class="funnel-bar-wrap">
+                <div class="funnel-bar" style="width:32%; background:#FFB75E;">109</div>
+              </div>
+              <div class="funnel-count">$198M</div>
+            </div>
+            <div class="funnel-row">
+              <div class="funnel-label">Closed Won</div>
+              <div class="funnel-bar-wrap">
+                <div class="funnel-bar" style="width:18%; background:#FF6B35;">61</div>
+              </div>
+              <div class="funnel-count">$112M</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TIER BREAKDOWN -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-title">⭐ Partner Tier Distribution</div>
+            <span class="badge-status status-active">Live</span>
+          </div>
+          <div class="card-body">
+            <div class="mb-16">
+              <div class="flex justify-between mb-16" style="margin-bottom:8px;">
+                <div>
+                  <span class="badge-status status-platinum" style="margin-right:6px;">Pinnacle Elite</span>
+                  <span class="font-bold text-sm">48 partners</span>
+                </div>
+                <span class="text-xs text-muted font-600">$1.2B ARR · 48%</span>
+              </div>
+              <div class="progress-wrap"><div class="progress-bar pb-purple" style="width:48%"></div></div>
+            </div>
+            <div class="mb-16">
+              <div class="flex justify-between mb-16" style="margin-bottom:8px;">
+                <div>
+                  <span class="badge-status status-gold" style="margin-right:6px;">XCelerate Gold</span>
+                  <span class="font-bold text-sm">312 partners</span>
+                </div>
+                <span class="text-xs text-muted font-600">$720M ARR · 30%</span>
+              </div>
+              <div class="progress-wrap"><div class="progress-bar pb-gold" style="width:30%"></div></div>
+            </div>
+            <div class="mb-16">
+              <div class="flex justify-between mb-16" style="margin-bottom:8px;">
+                <div>
+                  <span class="badge-status status-silver" style="margin-right:6px;">XCelerate Silver</span>
+                  <span class="font-bold text-sm">1,240 partners</span>
+                </div>
+                <span class="text-xs text-muted font-600">$360M ARR · 15%</span>
+              </div>
+              <div class="progress-wrap"><div class="progress-bar pb-blue" style="width:15%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-16" style="margin-bottom:8px;">
+                <div>
+                  <span class="badge-status status-reg" style="margin-right:6px;">Registered</span>
+                  <span class="font-bold text-sm">2,618 partners</span>
+                </div>
+                <span class="text-xs text-muted font-600">$120M ARR · 5%</span>
+              </div>
+              <div class="progress-wrap"><div class="progress-bar pb-green" style="width:5%"></div></div>
+            </div>
+            <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+              <span class="text-xs text-muted">Revenue Attach Rate (PAR)</span>
+              <span class="font-bold" style="color:var(--sf-green);">71.4%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK ACTIONS -->
+      <div class="section-header mb-16">
+        <div><div class="section-title">Quick Actions</div></div>
+      </div>
+      <div class="grid-4 mb-24">
+        <div class="quick-action" onclick="switchTab('deals')">
+          <div class="qa-icon">📝</div>
+          <div class="qa-label">Register New Deal</div>
+        </div>
+        <div class="quick-action" onclick="switchTab('enablement')">
+          <div class="qa-icon">🎓</div>
+          <div class="qa-label">Assign Training</div>
+        </div>
+        <div class="quick-action" onclick="switchTab('mdf')">
+          <div class="qa-icon">💰</div>
+          <div class="qa-label">Submit MDF Request</div>
+        </div>
+        <div class="quick-action" onclick="switchTab('leads')">
+          <div class="qa-icon">🎯</div>
+          <div class="qa-label">Distribute Leads</div>
+        </div>
+      </div>
+
+      <!-- RECENT DEALS TABLE -->
+      <div class="card mb-24">
+        <div class="card-header">
+          <div class="card-header-title">💼 Recent Partner Deals — All Regions</div>
+          <div class="flex gap-8">
+            <button class="btn btn-outline btn-sm">Filter</button>
+            <button class="btn btn-primary btn-sm" onclick="switchTab('deals')">View All</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Deal Name</th>
+                <th>Partner</th>
+                <th>Account</th>
+                <th>Region</th>
+                <th>Stage</th>
+                <th>ARR</th>
+                <th>Close Date</th>
+                <th>Score</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a class="link">Analytics Platform Expansion</a></td>
+                <td>Deloitte Analytics</td>
+                <td>JPMorgan Chase</td>
+                <td>🇺🇸 NAM</td>
+                <td><span class="badge-status status-pending">Negotiation</span></td>
+                <td class="font-bold">$2.4M</td>
+                <td>Feb 28</td>
+                <td><span style="color:var(--sf-green);font-weight:700;">94</span></td>
+                <td><button class="btn btn-primary btn-sm">Co-Sell</button></td>
+              </tr>
+              <tr>
+                <td><a class="link">AI Data Platform — Renewal+</a></td>
+                <td>Accenture EMEA</td>
+                <td>HSBC Group</td>
+                <td>🇬🇧 EMEA</td>
+                <td><span class="badge-status status-active">Closing</span></td>
+                <td class="font-bold">$1.8M</td>
+                <td>Mar 5</td>
+                <td><span style="color:var(--sf-green);font-weight:700;">88</span></td>
+                <td><button class="btn btn-outline btn-sm">Review</button></td>
+              </tr>
+              <tr>
+                <td><a class="link">Enterprise Analytics Suite</a></td>
+                <td>TCS Japan</td>
+                <td>Toyota Motor Corp</td>
+                <td>🇯🇵 APJ</td>
+                <td><span class="badge-status status-review">Proposal</span></td>
+                <td class="font-bold">$3.2M</td>
+                <td>Mar 31</td>
+                <td><span style="color:var(--sf-gold);font-weight:700;">72</span></td>
+                <td><button class="btn btn-ghost btn-sm">Assign</button></td>
+              </tr>
+              <tr>
+                <td><a class="link">XCelerate AiPlatform Pilot</a></td>
+                <td>Wipro Cloud LATAM</td>
+                <td>Itaú Unibanco</td>
+                <td>🇧🇷 LATAM</td>
+                <td><span class="badge-status status-review">Discovery</span></td>
+                <td class="font-bold">$960K</td>
+                <td>Apr 15</td>
+                <td><span style="color:var(--sf-orange);font-weight:700;">61</span></td>
+                <td><button class="btn btn-ghost btn-sm">Assign</button></td>
+              </tr>
+              <tr>
+                <td><a class="link">Data Transformation Cloud</a></td>
+                <td>Infosys Canada</td>
+                <td>Royal Bank of Canada</td>
+                <td>🇨🇦 NAM</td>
+                <td><span class="badge-status status-pending">Negotiation</span></td>
+                <td class="font-bold">$1.5M</td>
+                <td>Mar 14</td>
+                <td><span style="color:var(--sf-green);font-weight:700;">81</span></td>
+                <td><button class="btn btn-primary btn-sm">Co-Sell</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PARTNERS TAB ═══ -->
+    <div class="tab-panel" id="tab-partners">
+      <div class="section-header mb-24">
+        <div>
+          <div class="section-title">Partner Accounts — XCelerate Global Network</div>
+          <div class="section-sub">4,218 active partners across 68 countries · Alteryxyz-model SaaS ecosystem</div>
+        </div>
+        <div class="flex gap-8">
+          <button class="btn btn-ghost btn-sm">Import</button>
+          <button class="btn btn-primary">+ Onboard Partner</button>
+        </div>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="flex gap-8 mb-24" style="flex-wrap:wrap;">
+        <select style="padding:6px 12px; border:1px solid var(--border); border-radius:4px; font-family:'Sora',sans-serif; font-size:0.8rem; color:var(--text);">
+          <option>All Tiers</option><option>Pinnacle Elite</option><option>XCelerate Gold</option><option>XCelerate Silver</option><option>Registered</option>
+        </select>
+        <select style="padding:6px 12px; border:1px solid var(--border); border-radius:4px; font-family:'Sora',sans-serif; font-size:0.8rem; color:var(--text);">
+          <option>All Regions</option><option>NAM</option><option>EMEA</option><option>APJ</option><option>LATAM</option>
+        </select>
+        <select style="padding:6px 12px; border:1px solid var(--border); border-radius:4px; font-family:'Sora',sans-serif; font-size:0.8rem; color:var(--text);">
+          <option>All Specializations</option><option>Analytics</option><option>AI/ML</option><option>Data Engineering</option><option>Cloud Migration</option>
+        </select>
+        <input type="text" placeholder="🔍  Search partners..." style="padding:6px 12px; border:1px solid var(--border); border-radius:4px; font-family:'Sora',sans-serif; font-size:0.8rem; flex:1; min-width:180px;">
+      </div>
+
+      <!-- PARTNER GRID -->
+      <div class="grid-3 mb-24">
+        <div class="partner-tile">
+          <div class="flex items-center gap-12">
+            <div class="partner-logo" style="background:linear-gradient(135deg,#003087,#0057b8);">D</div>
+            <div>
+              <div class="partner-name">Deloitte Analytics</div>
+              <div class="partner-region">🇺🇸 NAM · GSI · Analytics</div>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="badge-status status-platinum">Pinnacle Elite</span>
+            <span class="badge-status status-active">Active</span>
+          </div>
+          <div>
+            <div class="partner-rev">$184.2M ARR</div>
+            <div class="partner-rev-l">FY2026 YTD Partner Revenue</div>
+          </div>
+          <div>
+            <div class="flex justify-between" style="margin-bottom:4px;"><span class="text-xs text-muted">Quota Attainment</span><span class="text-xs font-bold" style="color:var(--sf-green);">118%</span></div>
+            <div class="progress-wrap"><div class="progress-bar pb-green" style="width:100%"></div></div>
+          </div>
+          <div class="flex gap-8">
+            <button class="btn btn-primary btn-sm" style="flex:1;">View Account</button>
+            <button class="btn btn-ghost btn-sm">📧</button>
+          </div>
+        </div>
+
+        <div class="partner-tile">
+          <div class="flex items-center gap-12">
+            <div class="partner-logo" style="background:linear-gradient(135deg,#a100ff,#7b00ff);">A</div>
+            <div>
+              <div class="partner-name">Accenture Applied Intelligence</div>
+              <div class="partner-region">🇬🇧 EMEA · GSI · AI/ML</div>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="badge-status status-platinum">Pinnacle Elite</span>
+            <span class="badge-status status-active">Active</span>
+          </div>
+          <div>
+            <div class="partner-rev">$210.8M ARR</div>
+            <div class="partner-rev-l">FY2026 YTD Partner Revenue</div>
+          </div>
+          <div>
+            <div class="flex justify-between" style="margin-bottom:4px;"><span class="text-xs text-muted">Quota Attainment</span><span class="text-xs font-bold" style="color:var(--sf-green);">124%</span></div>
+            <div class="progress-wrap"><div class="progress-bar pb-green" style="width:100%"></div></div>
+          </div>
+          <div class="flex gap-8">
+            <button class="btn btn-primary btn-sm" style="flex:1;">View Account</button>
+            <button class="btn btn-ghost btn-sm">📧</button>
+          </div>
+        </div>
+
+        <div class="partner-tile">
+          <div class="flex items-center gap-12">
+            <div class="partner-logo" style="background:linear-gradient(135deg,#0066cc,#003d7a);">I</div>
+            <div>
+              <div class="partner-name">Infosys Cloud Analytics</div>
+              <div class="partner-region">🇮🇳 APAC · GSI · Data Eng</div>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="badge-status status-gold">XCelerate Gold</span>
+            <span class="badge-status status-active">Active</span>
+          </div>
+          <div>
+            <div class="partner-rev">$76.4M ARR</div>
+            <div class="partner-rev-l">FY2026 YTD Partner Revenue</div>
+          </div>
+          <div>
+            <div class="flex justify-between" style="margin-bottom:4px;"><span class="text-xs text-muted">Quota Attainment</span><span class="text-xs font-bold" style="color:var(--sf-gold);">87%</span></div>
+            <div class="progress-wrap"><div class="progress-bar pb-gold" style="width:87%"></div></div>
+          </div>
+          <div class="flex gap-8">
+            <button class="btn btn-primary btn-sm" style="flex:1;">View Account</button>
+            <button class="btn btn-ghost btn-sm">📧</button>
+          </div>
+        </div>
+
+        <div class="partner-tile">
+          <div class="flex items-center gap-12">
+            <div class="partner-logo" style="background:linear-gradient(135deg,#cc0000,#8b0000);">W</div>
+            <div>
+              <div class="partner-name">Wipro Analytics</div>
+              <div class="partner-region">🇧🇷 LATAM · VAR · Cloud</div>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="badge-status status-gold">XCelerate Gold</span>
+            <span class="badge-status status-active">Active</span>
+          </div>
+          <div>
+            <div class="partner-rev">$42.1M ARR</div>
+            <div class="partner-rev-l">FY2026 YTD Partner Revenue</div>
+          </div>
+          <div>
+            <div class="flex justify-between" style="margin-bottom:4px;"><span class="text-xs text-muted">Quota Attainment</span><span class="text-xs font-bold" style="color:var(--sf-blue);">93%</span></div>
+            <div class="progress-wrap"><div class="progress-bar pb-blue" style="width:93%"></div></div>
+          </div>
+          <div class="flex gap-8">
+            <button class="btn btn-primary btn-sm" style="flex:1;">View Account</button>
+            <button class="btn btn-ghost btn-sm">📧</button>
+          </div>
+        </div>
+
+        <div class="partner-tile">
+          <div class="flex items-center gap-12">
+            <div class="partner-logo" style="background:linear-gradient(135deg,#009999,#006666);">T</div>
+            <div>
+              <div class="partner-name">TCS Digital Analytics</div>
+              <div class="partner-region">🇯🇵 APJ · GSI · Analytics</div>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="badge-status status-gold">XCelerate Gold</span>
+            <span class="badge-status status-pending">Tier Review</span>
+          </div>
+          <div>
+            <div class="partner-rev">$58.7M ARR</div>
+            <div class="partner-rev-l">FY2026 YTD Partner Revenue</div>
+          </div>
+          <div>
+            <div class="flex justify-between" style="margin-bottom:4px;"><span class="text-xs text-muted">Quota Attainment</span><span class="text-xs font-bold" style="color:var(--sf-gold);">79%</span></div>
+            <div class="progress-wrap"><div class="progress-bar pb-gold" style="width:79%"></div></div>
+          </div>
+          <div class="flex gap-8">
+            <button class="btn btn-primary btn-sm" style="flex:1;">View Account</button>
+            <button class="btn btn-ghost btn-sm">📧</button>
+          </div>
+        </div>
+
+        <div class="partner-tile" style="border:2px dashed var(--border); background:var(--surface2); align-items:center; justify-content:center; min-height:200px;">
+          <div style="text-align:center;">
+            <div style="font-size:2rem; margin-bottom:8px;">➕</div>
+            <div class="text-sm font-600 text-muted">Onboard New Partner</div>
+            <button class="btn btn-primary btn-sm" style="margin-top:10px;">Start Onboarding</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DEALS TAB ═══ -->
+    <div class="tab-panel" id="tab-deals">
+      <div class="section-header mb-24">
+        <div>
+          <div class="section-title">Deal Desk — Partner Deal Registration</div>
+          <div class="section-sub">AI-scored pipeline · co-sell co-ordination · all regions</div>
+        </div>
+        <button class="btn btn-primary">+ Register Deal</button>
+      </div>
+      <div class="kanban">
+        <div class="kanban-col">
+          <div class="kanban-col-header">Registered <span class="kanban-col-count">12</span></div>
+          <div class="kanban-card" style="border-left-color:#0070d2;">
+            <div class="kc-name">Data Mesh Platform</div>
+            <div class="kc-partner">Cognizant · EMEA</div>
+            <div class="kc-amount">$480K</div>
+            <div class="kc-prob">Score: 58</div>
+          </div>
+          <div class="kanban-card" style="border-left-color:#0070d2;">
+            <div class="kc-name">Analytics Modernization</div>
+            <div class="kc-partner">PwC · NAM</div>
+            <div class="kc-amount">$1.2M</div>
+            <div class="kc-prob">Score: 63</div>
+          </div>
+          <div class="kanban-card" style="border-left-color:#0070d2;">
+            <div class="kc-name">FinOps XCelerate</div>
+            <div class="kc-partner">KPMG · APAC</div>
+            <div class="kc-amount">$720K</div>
+            <div class="kc-prob">Score: 51</div>
+          </div>
+        </div>
+        <div class="kanban-col">
+          <div class="kanban-col-header">Discovery <span class="kanban-col-count">8</span></div>
+          <div class="kanban-card" style="border-left-color:#1798c1;">
+            <div class="kc-name">AI Self-Service Analytics</div>
+            <div class="kc-partner">EY Digital · NAM</div>
+            <div class="kc-amount">$2.1M</div>
+            <div class="kc-prob">Score: 69</div>
+          </div>
+          <div class="kanban-card" style="border-left-color:#1798c1;">
+            <div class="kc-name">XCelerate Pilot — LATAM</div>
+            <div class="kc-partner">Wipro · Brazil</div>
+            <div class="kc-amount">$960K</div>
+            <div class="kc-prob">Score: 61</div>
+          </div>
+        </div>
+        <div class="kanban-col">
+          <div class="kanban-col-header">Proposal <span class="kanban-col-count">7</span></div>
+          <div class="kanban-card" style="border-left-color:#4bca81;">
+            <div class="kc-name">Enterprise Analytics Suite</div>
+            <div class="kc-partner">TCS · Japan</div>
+            <div class="kc-amount">$3.2M</div>
+            <div class="kc-prob">Score: 72</div>
+          </div>
+          <div class="kanban-card" style="border-left-color:#4bca81;">
+            <div class="kc-name">Cloud Lakehouse Build</div>
+            <div class="kc-partner">Capgemini · France</div>
+            <div class="kc-amount">$1.6M</div>
+            <div class="kc-prob">Score: 74</div>
+          </div>
+        </div>
+        <div class="kanban-col">
+          <div class="kanban-col-header">Negotiation <span class="kanban-col-count">5</span></div>
+          <div class="kanban-card" style="border-left-color:#FFB75E;">
+            <div class="kc-name">Analytics Platform Exp.</div>
+            <div class="kc-partner">Deloitte · NAM</div>
+            <div class="kc-amount">$2.4M</div>
+            <div class="kc-prob" style="color:var(--sf-green);">Score: 94</div>
+          </div>
+          <div class="kanban-card" style="border-left-color:#FFB75E;">
+            <div class="kc-name">Data Transformation</div>
+            <div class="kc-partner">Infosys · Canada</div>
+            <div class="kc-amount">$1.5M</div>
+            <div class="kc-prob" style="color:var(--sf-green);">Score: 81</div>
+          </div>
+        </div>
+        <div class="kanban-col">
+          <div class="kanban-col-header">Closing <span class="kanban-col-count">4</span></div>
+          <div class="kanban-card" style="border-left-color:#4bca81; background:#f0fff6;">
+            <div class="kc-name">AI Platform Renewal+</div>
+            <div class="kc-partner">Accenture · EMEA</div>
+            <div class="kc-amount">$1.8M</div>
+            <div class="kc-prob" style="color:var(--sf-green); font-weight:700;">Score: 88 🔥</div>
+          </div>
+        </div>
+        <div class="kanban-col">
+          <div class="kanban-col-header" style="color:var(--sf-green);">Closed Won ✓ <span class="kanban-col-count">25</span></div>
+          <div class="kanban-card" style="border-left-color:var(--sf-green); background:#f0fff6; opacity:0.8;">
+            <div class="kc-name">Genomics Analytics</div>
+            <div class="kc-partner">IBM · NAM</div>
+            <div class="kc-amount">$4.2M</div>
+            <div class="kc-prob" style="color:var(--sf-green);">✓ Won Q4 2025</div>
+          </div>
+          <div class="kanban-card" style="border-left-color:var(--sf-green); background:#f0fff6; opacity:0.8;">
+            <div class="kc-name">FS Analytics Cloud</div>
+            <div class="kc-partner">BCG · EMEA</div>
+            <div class="kc-amount">$3.6M</div>
+            <div class="kc-prob" style="color:var(--sf-green);">✓ Won Jan 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ENABLEMENT TAB ═══ -->
+    <div class="tab-panel" id="tab-enablement">
+      <div class="section-header mb-24">
+        <div>
+          <div class="section-title">Partner Enablement — XCelerate Learning Paths</div>
+          <div class="section-sub">Modeled on Alteryxyz Partner Academy · Role-based, AI-adaptive tracks</div>
+        </div>
+        <button class="btn btn-primary">+ Assign Track</button>
+      </div>
+      <div class="grid-2">
+        <!-- ONBOARDING TRACK -->
+        <div class="card mb-16">
+          <div class="card-header">
+            <div class="card-header-title">🚀 Onboarding — XCelerate Foundations</div>
+            <span class="badge-status status-active">Live</span>
+          </div>
+          <div class="card-body">
+            <div class="track-row">
+              <div class="track-num done">✓</div>
+              <div class="track-info"><div class="track-name">Partner Portal Activation</div><div class="track-desc">Account setup, SSO, admin provisioning</div></div>
+              <div class="track-right"><span class="track-score" style="color:var(--sf-green);">100%</span></div>
+            </div>
+            <div class="track-row">
+              <div class="track-num done">✓</div>
+              <div class="track-info"><div class="track-name">XCelerate Platform Overview</div><div class="track-desc">Product pillars: Automate, Designer Cloud, ML</div></div>
+              <div class="track-right"><span class="track-score" style="color:var(--sf-green);">100%</span></div>
+            </div>
+            <div class="track-row">
+              <div class="track-num active">3</div>
+              <div class="track-info"><div class="track-name">Sales Methodology — MEDDPICC</div><div class="track-desc">Value-based selling for analytics platform</div></div>
+              <div class="track-right"><span class="track-score" style="color:var(--sf-blue);">62%</span></div>
+            </div>
+            <div class="track-row">
+              <div class="track-num todo">4</div>
+              <div class="track-info"><div class="track-name">Technical SE Certification</div><div class="track-desc">Demo environments, POC delivery, integrations</div></div>
+              <div class="track-right"><span class="track-score" style="color:var(--text3);">0%</span></div>
+            </div>
+            <div class="track-row">
+              <div class="track-num todo">5</div>
+              <div class="track-info"><div class="track-name">Deal Registration & PRM Usage</div><div class="track-desc">Salesforce PRM deal workflow, co-sell process</div></div>
+              <div class="track-right"><span class="track-score" style="color:var(--text3);">0%</span></div>
+            </div>
+            <div style="margin-top:14px;">
+              <div class="flex justify-between" style="margin-bottom:6px;"><span class="text-xs text-muted">Overall Progress</span><span class="text-xs font-bold" style="color:var(--sf-blue);">52%</span></div>
+              <div class="progress-wrap"><div class="progress-bar pb-blue" style="width:52%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADVANCED TRACK -->
+        <div class="card mb-16">
+          <div class="card-header">
+            <div class="card-header-title">🔬 Advanced — AI Analytics Expert Track</div>
+            <span class="badge-status status-review">Q1 2026</span>
+          </div>
+          <div class="card-body">
+            <div class="track-row">
+              <div class="track-num done">✓</div>
+              <div class="track-info"><div class="track-name">AutoML & Machine Learning</div><div class="track-desc">XCelerate Intelligence: Model builder, scoring</div></div>
+              <div class="track-right"><span class="track-score" style="color:var(--sf-green);">100%</span></div>
+            </div>
+            <div class="track-row">
+              <div class="track-num done">✓</div>
+              <div class="track-info"><div class="track-name">Data Lineage & Governance</div><div class="track-desc">Compliance frameworks, GDPR, CCPA overlay</div></div>
+              <div class="track-right"><span class="track-score" style="color:var(--sf-green);">100%</span></div>
+            </div>
+            <div class="track-row">
+              <div class="track-num active">3</div>
+              <div class="track-info"><div class="track-name">Cloud & Hybrid Deployments</div><div class="track-desc">AWS, Azure, GCP integration patterns</div></div>
+              <div class="track-right"><span class="track-score" style="color:var(--sf-blue);">78%</span></div>
+            </div>
+            <div class="track-row">
+              <div class="track-num active">4</div>
+              <div class="track-info"><div class="track-name">Enterprise Architecture</div><div class="track-desc">Reference architectures, Snowflake, Databricks</div></div>
+              <div class="track-right"><span class="track-score" style="color:var(--sf-blue);">45%</span></div>
+            </div>
+            <div class="track-row">
+              <div class="track-num todo">5</div>
+              <div class="track-info"><div class="track-name">Capstone: Proof of Value</div><div class="track-desc">Customer-facing POV delivery & scoring</div></div>
+              <div class="track-right"><span class="track-score" style="color:var(--text3);">0%</span></div>
+            </div>
+            <div style="margin-top:14px;">
+              <div class="flex justify-between" style="margin-bottom:6px;"><span class="text-xs text-muted">Overall Progress</span><span class="text-xs font-bold" style="color:var(--sf-blue);">71%</span></div>
+              <div class="progress-wrap"><div class="progress-bar pb-green" style="width:71%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERTIFICATIONS SUMMARY -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-title">🎖️ XCelerate Certification Badges — Global</div>
+        </div>
+        <div class="card-body">
+          <div class="flex gap-12" style="flex-wrap:wrap;">
+            <div class="cert-badge">🏆 XCelerate Expert — Analytics Automation</div>
+            <div class="cert-badge" style="background:linear-gradient(135deg,#2d5016,#4a8a25);">🌿 XCelerate Designer Cloud Pro</div>
+            <div class="cert-badge" style="background:linear-gradient(135deg,#6b1a6b,#9b2d9b);">🤖 XCelerate Intelligence ML</div>
+            <div class="cert-badge" style="background:linear-gradient(135deg,#7a4500,#c47000);">☁ XCelerate Cloud Architect</div>
+            <div class="cert-badge" style="background:linear-gradient(135deg,#00505a,#008c9e);">📊 XCelerate AiPlatform SE</div>
+            <div class="cert-badge" style="background:linear-gradient(135deg,#3d1a78,#6b3db5);">⚡ XCelerate Sales Specialist</div>
+          </div>
+          <div style="margin-top:16px; display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+            <div style="text-align:center; padding:12px; background:var(--surface2); border-radius:var(--radius); border:1px solid var(--border);">
+              <div class="stat-v" style="font-size:1.4rem;">8,420</div>
+              <div class="stat-l">Total Certs Issued</div>
+            </div>
+            <div style="text-align:center; padding:12px; background:var(--surface2); border-radius:var(--radius); border:1px solid var(--border);">
+              <div class="stat-v" style="font-size:1.4rem; color:var(--sf-green);">94%</div>
+              <div class="stat-l">Pass Rate</div>
+            </div>
+            <div style="text-align:center; padding:12px; background:var(--surface2); border-radius:var(--radius); border:1px solid var(--border);">
+              <div class="stat-v" style="font-size:1.4rem; color:var(--sf-gold);">2.1x</div>
+              <div class="stat-l">Revenue Multiplier (certified vs non)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ MDF & INCENTIVES TAB ═══ -->
+    <div class="tab-panel" id="tab-mdf">
+      <div class="section-header mb-24">
+        <div>
+          <div class="section-title">MDF & Partner Incentives — XCelerate Program</div>
+          <div class="section-sub">Market Development Funds · SPIFFs · Rebates · Co-op</div>
+        </div>
+        <button class="btn btn-primary">+ Submit MDF Request</button>
+      </div>
+      <div class="grid-3 mb-24">
+        <div class="stat-card">
+          <div class="stat-icon ic-green">💵</div>
+          <div class="stat-v">$18.4M</div>
+          <div class="stat-l">Total MDF Budget FY26</div>
+          <div class="stat-delta">Q1 Remaining: $12.1M</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon ic-orange">⏳</div>
+          <div class="stat-v">12</div>
+          <div class="stat-l">Pending Approval</div>
+          <div class="stat-delta" style="color:var(--sf-orange);">⚠ Avg $248K each</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon ic-blue">✅</div>
+          <div class="stat-v">$6.3M</div>
+          <div class="stat-l">Approved & Disbursed</div>
+          <div class="stat-delta up">▲ 28% vs Q1 2025</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-title">📋 MDF Requests — Pending Review</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Partner</th><th>Activity Type</th><th>Region</th><th>Amount</th><th>Campaign</th><th>ROI Proj.</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td><a class="link">Deloitte Analytics</a></td><td>Executive Roundtable</td><td>NAM</td><td class="font-bold">$480K</td><td>XCelerate AI Summit</td><td style="color:var(--sf-green);">4.2x</td><td><span class="badge-status status-pending">Pending</span></td><td><button class="btn btn-primary btn-sm">Approve</button></td></tr>
+              <tr><td><a class="link">Accenture EMEA</a></td><td>Digital Marketing</td><td>EMEA</td><td class="font-bold">$320K</td><td>Analytics Everywhere EU</td><td style="color:var(--sf-green);">3.8x</td><td><span class="badge-status status-pending">Pending</span></td><td><button class="btn btn-primary btn-sm">Approve</button></td></tr>
+              <tr><td><a class="link">TCS Japan</a></td><td>Partner Summit Booth</td><td>APJ</td><td class="font-bold">$180K</td><td>APJ Data Forum 2026</td><td style="color:var(--sf-gold);">2.9x</td><td><span class="badge-status status-review">In Review</span></td><td><button class="btn btn-outline btn-sm">Review</button></td></tr>
+              <tr><td><a class="link">Wipro LATAM</a></td><td>Demand Gen Campaign</td><td>LATAM</td><td class="font-bold">$95K</td><td>São Paulo Analytics Week</td><td style="color:var(--sf-gold);">2.4x</td><td><span class="badge-status status-pending">Pending</span></td><td><button class="btn btn-primary btn-sm">Approve</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ANALYTICS TAB ═══ -->
+    <div class="tab-panel" id="tab-analytics">
+      <div class="section-header mb-24">
+        <div>
+          <div class="section-title">Partner Analytics — Revenue Intelligence Dashboard</div>
+          <div class="section-sub">Powered by Salesforce Einstein Analytics · XCelerate Business Intelligence</div>
+        </div>
+        <button class="btn btn-ghost btn-sm">Export PDF</button>
+      </div>
+      <div class="grid-4 mb-24">
+        <div class="stat-card"><div class="stat-icon ic-blue">📈</div><div class="stat-v">$2.4B</div><div class="stat-l">Partner-Sourced ARR</div><div class="stat-delta up">▲ 34%</div></div>
+        <div class="stat-card"><div class="stat-icon ic-green">🔄</div><div class="stat-v">92%</div><div class="stat-l">Net Revenue Retention</div><div class="stat-delta up">▲ +4pts</div></div>
+        <div class="stat-card"><div class="stat-icon ic-gold">⚡</div><div class="stat-v">71.4%</div><div class="stat-l">Partner Attach Rate</div><div class="stat-delta up">▲ +8pts</div></div>
+        <div class="stat-card"><div class="stat-icon ic-purple">🌍</div><div class="stat-v">68</div><div class="stat-l">Countries Active</div><div class="stat-delta up">+12 new</div></div>
+      </div>
+      <div class="grid-2 mb-24">
+        <div class="card">
+          <div class="card-header"><div class="card-header-title">📊 Partner ARR by Region — Q1 2026</div></div>
+          <div class="card-body">
+            <div class="bar-chart">
+              <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
+                <div class="bar pb-blue" style="height:80px; width:100%;"></div>
+                <div class="bar-label">NAM<br><strong>$1.1B</strong></div>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
+                <div class="bar" style="height:60px; width:100%; background:var(--sf-cloud); border-radius:4px 4px 0 0;"></div>
+                <div class="bar-label">EMEA<br><strong>$820M</strong></div>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
+                <div class="bar pb-green" style="height:38px; width:100%; border-radius:4px 4px 0 0;"></div>
+                <div class="bar-label">APJ<br><strong>$340M</strong></div>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
+                <div class="bar pb-gold" style="height:18px; width:100%; border-radius:4px 4px 0 0;"></div>
+                <div class="bar-label">LATAM<br><strong>$140M</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-header-title">🏆 Top 5 Partners by Revenue — FY2026</div></div>
+          <div class="card-body">
+            <div class="funnel-row"><div class="funnel-label">Accenture AppIntel.</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%; background:#a100ff;">$210.8M</div></div></div>
+            <div class="funnel-row"><div class="funnel-label">Deloitte Analytics</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:87%; background:#003087;">$184.2M</div></div></div>
+            <div class="funnel-row"><div class="funnel-label">IBM Data & AI</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:67%; background:#0066cc;">$141.6M</div></div></div>
+            <div class="funnel-row"><div class="funnel-label">Capgemini EMEA</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:52%; background:#009fdf;">$109.4M</div></div></div>
+            <div class="funnel-row"><div class="funnel-label">TCS Digital</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:28%; background:#009999;">$58.7M</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TIER MANAGEMENT TAB ═══ -->
+    <div class="tab-panel" id="tab-tiers">
+      <div class="section-header mb-24">
+        <div>
+          <div class="section-title">Tier Management — XCelerate Program Structure</div>
+          <div class="section-sub">Alteryxyz-model 4-tier SaaS partner program · Automated progression engine</div>
+        </div>
+        <button class="btn btn-primary">Edit Program Rules</button>
+      </div>
+      <div class="grid-2 mb-24">
+        <div class="card" style="border-top: 3px solid #8b5cf6;">
+          <div class="card-header" style="background:linear-gradient(135deg,#f0e8ff,#e8d8ff);">
+            <div>
+              <div class="card-header-title" style="color:#6c3bd4;">🏆 Pinnacle Elite</div>
+              <div class="text-xs text-muted">Top tier · 48 partners · Invite-only</div>
+            </div>
+            <span class="badge-status status-platinum">Active</span>
+          </div>
+          <div class="card-body">
+            <div class="info-row"><div class="info-label">Annual Revenue Req.</div><div class="info-value font-bold">$50M+ Partner-Sourced ARR</div></div>
+            <div class="info-row"><div class="info-label">Certifications Req.</div><div class="info-value">12+ XCelerate Expert certs</div></div>
+            <div class="info-row"><div class="info-label">MDF Allocation</div><div class="info-value font-bold" style="color:var(--sf-green);">Up to $500K / year</div></div>
+            <div class="info-row"><div class="info-label">Deal Registration</div><div class="info-value">90-day protection · Priority</div></div>
+            <div class="info-row"><div class="info-label">Discount Tier</div><div class="info-value font-bold">35% back-end rebate</div></div>
+            <div class="info-row"><div class="info-label">Benefits</div><div class="info-value">Executive sponsor · Exec briefing · NFR licenses · Co-marketing</div></div>
+          </div>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--sf-gold);">
+          <div class="card-header" style="background:linear-gradient(135deg,#fff8e1,#fff0c0);">
+            <div>
+              <div class="card-header-title" style="color:#c8860a;">⭐ XCelerate Gold</div>
+              <div class="text-xs text-muted">312 partners · Performance-based</div>
+            </div>
+            <span class="badge-status status-gold">Active</span>
+          </div>
+          <div class="card-body">
+            <div class="info-row"><div class="info-label">Annual Revenue Req.</div><div class="info-value font-bold">$5M–$50M Partner ARR</div></div>
+            <div class="info-row"><div class="info-label">Certifications Req.</div><div class="info-value">6+ XCelerate Pro certs</div></div>
+            <div class="info-row"><div class="info-label">MDF Allocation</div><div class="info-value font-bold" style="color:var(--sf-green);">Up to $150K / year</div></div>
+            <div class="info-row"><div class="info-label">Deal Registration</div><div class="info-value">60-day protection</div></div>
+            <div class="info-row"><div class="info-label">Discount Tier</div><div class="info-value font-bold">25% back-end rebate</div></div>
+            <div class="info-row"><div class="info-label">Benefits</div><div class="info-value">PAM assigned · Quarterly business review · NFR licenses</div></div>
+          </div>
+        </div>
+        <div class="card" style="border-top: 3px solid #aaa;">
+          <div class="card-header">
+            <div>
+              <div class="card-header-title">🥈 XCelerate Silver</div>
+              <div class="text-xs text-muted">1,240 partners · Merit-based</div>
+            </div>
+            <span class="badge-status status-silver">Active</span>
+          </div>
+          <div class="card-body">
+            <div class="info-row"><div class="info-label">Annual Revenue Req.</div><div class="info-value font-bold">$500K–$5M Partner ARR</div></div>
+            <div class="info-row"><div class="info-label">Certifications Req.</div><div class="info-value">3+ XCelerate certs</div></div>
+            <div class="info-row"><div class="info-label">MDF Allocation</div><div class="info-value font-bold" style="color:var(--sf-green);">Up to $30K / year</div></div>
+            <div class="info-row"><div class="info-label">Deal Registration</div><div class="info-value">30-day protection</div></div>
+            <div class="info-row"><div class="info-label">Discount Tier</div><div class="info-value font-bold">15% back-end rebate</div></div>
+            <div class="info-row"><div class="info-label">Benefits</div><div class="info-value">ISR coverage · Quarterly webinar · Portal access</div></div>
+          </div>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--sf-blue);">
+          <div class="card-header">
+            <div>
+              <div class="card-header-title">🔵 Registered Partner</div>
+              <div class="text-xs text-muted">2,618 partners · Entry level</div>
+            </div>
+            <span class="badge-status status-reg">Active</span>
+          </div>
+          <div class="card-body">
+            <div class="info-row"><div class="info-label">Annual Revenue Req.</div><div class="info-value font-bold">$0+ (onboarding)</div></div>
+            <div class="info-row"><div class="info-label">Certifications Req.</div><div class="info-value">1 XCelerate Foundations</div></div>
+            <div class="info-row"><div class="info-label">MDF Allocation</div><div class="info-value">Not included</div></div>
+            <div class="info-row"><div class="info-label">Deal Registration</div><div class="info-value">15-day protection</div></div>
+            <div class="info-row"><div class="info-label">Discount Tier</div><div class="info-value font-bold">5% front-end discount</div></div>
+            <div class="info-row"><div class="info-label">Benefits</div><div class="info-value">Portal access · Online training · Partner directory listing</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PROGRAM SETUP TAB ═══ -->
+    <div class="tab-panel" id="tab-setup">
+      <div class="section-header mb-24">
+        <div>
+          <div class="section-title">⚙️ Program Setup — Salesforce PRM Configuration</div>
+          <div class="section-sub">XCelerate Global Program · 99.9% Alteryxyz SaaS model accuracy · Salesforce PRM 2026</div>
+        </div>
+        <span class="badge-status status-active" style="font-size:0.78rem; padding:5px 14px;">✅ Fully Configured</span>
+      </div>
+      <div class="alert-banner alert-success mb-16">
+        <span>✅</span>
+        <div><strong>Program Configuration Complete.</strong> All 14 modules configured. Salesforce PRM XCelerate Global Program is live with 99.9% Alteryx model fidelity across deal registration, tier management, enablement, MDF, and analytics.</div>
+      </div>
+      <div class="card mb-16">
+        <div class="card-header"><div class="card-header-title">🔧 Salesforce PRM Module Status — XCelerate 2026</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Module</th><th>Configuration</th><th>Alteryxyz Match</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Partner Community Cloud</td><td>XCelerate Partner Portal · Branded</td><td><span style="color:var(--sf-green); font-weight:700;">99.9%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>2</td><td>Partner Tier Framework</td><td>Pinnacle Elite / Gold / Silver / Registered</td><td><span style="color:var(--sf-green); font-weight:700;">99.5%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>3</td><td>Deal Registration Engine</td><td>AI-scored, 6-stage pipeline, geo-protected</td><td><span style="color:var(--sf-green); font-weight:700;">99.8%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>4</td><td>Channel Enablement (LMS)</td><td>XCelerate Academy · 6 cert tracks · AI adaptive</td><td><span style="color:var(--sf-green); font-weight:700;">99.9%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>5</td><td>MDF Management</td><td>Request → Approval → Claim → Audit workflow</td><td><span style="color:var(--sf-green); font-weight:700;">99.7%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>6</td><td>Lead Distribution Engine</td><td>Rules-based + ML routing, round-robin, geo</td><td><span style="color:var(--sf-green); font-weight:700;">99.6%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>7</td><td>Partner Analytics (Einstein)</td><td>Revenue, pipeline, certification dashboards</td><td><span style="color:var(--sf-green); font-weight:700;">99.4%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>8</td><td>Co-sell & Co-market Tools</td><td>Joint GTM planner, co-branded collateral</td><td><span style="color:var(--sf-green); font-weight:700;">99.2%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>9</td><td>Rebate & Incentive Engine</td><td>SPIFFs, back-end rebates, tier bonuses</td><td><span style="color:var(--sf-green); font-weight:700;">99.8%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>10</td><td>Global Compliance Layer</td><td>GDPR, CCPA, channel tax rules, export control</td><td><span style="color:var(--sf-green); font-weight:700;">99.3%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>11</td><td>Partner Self-Service Portal</td><td>Onboarding wizard, cert tracker, deal status</td><td><span style="color:var(--sf-green); font-weight:700;">99.9%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>12</td><td>PAM Workspace</td><td>Pipeline, QBR templates, partner health scores</td><td><span style="color:var(--sf-green); font-weight:700;">99.5%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>13</td><td>API & Integration Hub</td><td>Slack, Marketo, Gainsight, Clari connectors</td><td><span style="color:var(--sf-green); font-weight:700;">99.1%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+              <tr><td>14</td><td>AI Deal Scoring (Einstein)</td><td>MEDDPICC-weighted ML model · Auto-updates</td><td><span style="color:var(--sf-green); font-weight:700;">99.9%</span></td><td><span class="badge-status status-active">Live</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-body" style="border-top:1px solid var(--border); background:var(--surface2); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="text-align:center;"><div style="font-size:1.8rem; font-weight:800; color:var(--sf-green);">99.7%</div><div class="text-xs text-muted">Overall Alteryxyz Fidelity Score</div></div>
+          </div>
+          <div class="flex gap-8">
+            <button class="btn btn-outline btn-sm">📄 Export Config</button>
+            <button class="btn btn-primary btn-sm">🔄 Sync Validation</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LEADS TAB ═══ -->
+    <div class="tab-panel" id="tab-leads">
+      <div class="section-header mb-24">
+        <div>
+          <div class="section-title">Lead Distribution — Partner Lead Routing Engine</div>
+          <div class="section-sub">AI-powered routing · geo-based assignment · tier-weighted</div>
+        </div>
+        <button class="btn btn-primary">+ Assign Leads</button>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-title">🎯 Inbound Leads — Pending Assignment</div><span class="badge-status status-pending">28 Unassigned</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Lead</th><th>Company</th><th>Industry</th><th>Region</th><th>Score</th><th>Recommended Partner</th><th>Reason</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td><a class="link">Sarah Chen</a></td><td>Goldman Sachs</td><td>Financial Services</td><td>🇺🇸 NAM</td><td><span style="color:var(--sf-green); font-weight:700;">92</span></td><td>Deloitte Analytics</td><td>FS expertise, NAM coverage</td><td><button class="btn btn-primary btn-sm">Route</button></td></tr>
+              <tr><td><a class="link">Marco Rossi</a></td><td>ENI SpA</td><td>Energy & Utilities</td><td>🇮🇹 EMEA</td><td><span style="color:var(--sf-green); font-weight:700;">87</span></td><td>Accenture EMEA</td><td>Energy specialization, IT geo</td><td><button class="btn btn-primary btn-sm">Route</button></td></tr>
+              <tr><td><a class="link">Yuki Tanaka</a></td><td>SoftBank Group</td><td>Telecom</td><td>🇯🇵 APJ</td><td><span style="color:var(--sf-gold); font-weight:700;">74</span></td><td>TCS Japan</td><td>APJ presence, telecom track</td><td><button class="btn btn-primary btn-sm">Route</button></td></tr>
+              <tr><td><a class="link">Ana Souza</a></td><td>Vale S.A.</td><td>Mining & Resources</td><td>🇧🇷 LATAM</td><td><span style="color:var(--sf-gold); font-weight:700;">68</span></td><td>Wipro LATAM</td><td>LATAM coverage, mining vertical</td><td><button class="btn btn-primary btn-sm">Route</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CERTS TAB ═══ -->
+    <div class="tab-panel" id="tab-certs">
+      <div class="section-header mb-24">
+        <div><div class="section-title">Certification Management — XCelerate Academy</div><div class="section-sub">Track, issue, and manage all partner certifications globally</div></div>
+        <button class="btn btn-primary">Issue Certification</button>
+      </div>
+      <div class="grid-3">
+        <div class="stat-card"><div class="stat-icon ic-green">🎖️</div><div class="stat-v">8,420</div><div class="stat-l">Total Certs Issued</div><div class="stat-delta up">▲ 2,200 YTD</div></div>
+        <div class="stat-card"><div class="stat-icon ic-blue">📚</div><div class="stat-v">94%</div><div class="stat-l">Overall Pass Rate</div><div class="stat-delta up">▲ +3pts vs PY</div></div>
+        <div class="stat-card"><div class="stat-icon ic-gold">💹</div><div class="stat-v">2.1x</div><div class="stat-l">Rev Multiplier (cert'd)</div><div class="stat-delta up">Certified partners earn 2.1x more</div></div>
+      </div>
+    </div>
+
+  </div><!-- end content -->
+</div><!-- end main-wrap -->
+
+<script>
+// Tab switching
+function switchTab(name) {
+  // Hide all panels
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  // Deactivate sidebar items
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  
+  // Show target panel
+  const panel = document.getElementById('tab-' + name);
+  if (panel) {
+    panel.classList.add('active');
+    panel.classList.add('animate-in');
+    setTimeout(() => panel.classList.remove('animate-in'), 400);
+  }
+  
+  // Activate sidebar item
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    if (item.getAttribute('onclick') && item.getAttribute('onclick').includes("'" + name + "'")) {
+      item.classList.add('active');
+    }
+  });
+  
+  // Scroll to top
+  document.querySelector('.content').scrollTop = 0;
+}
+
+// Animate progress bars on load
+window.addEventListener('load', () => {
+  // Stagger in the funnel bars
+  document.querySelectorAll('.funnel-bar').forEach((bar, i) => {
+    const w = bar.style.width;
+    bar.style.width = '0';
+    setTimeout(() => { bar.style.width = w; }, i * 100 + 300);
+  });
+
+  document.querySelectorAll('.progress-bar').forEach((bar, i) => {
+    const w = bar.style.width;
+    bar.style.width = '0';
+    setTimeout(() => { bar.style.width = w; }, i * 80 + 400);
+  });
+});
+
+// Add world map dots dynamically in analytics
+</script>
+</body>
+</html>
