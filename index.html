@@ -1,1165 +1,1386 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Masha Harness @bizalchemist Portfolio - Data Scientist & AI integrator</title>
-    <meta name="description" content="Showcasing my projects in software engineering, data science, and machine learning. Explore my portfolio and GitHub repositories.">
-    <meta name="keywords" content="partner channel portal developer, Impartner PRM developer, software engineer, data scientist, AI/ML, Salesforce CPQ, Salesforce CRM, Oracle CPQ, product technical marketing, sales enablement, machine learning, SQL, HTML/CSS, JavaScript, portfolio, GitHub">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="assets/images/favicon-wiz.ico">
-    <style>
-            :root {
-            --bg-deep: #0f172a;
-            --accent-blue: #38bdf8;
-            --accent-red: #e11d48;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
-        }
-    body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-    .w3-row-padding img {margin-bottom: 12px}
-    /* Set the width of the sidebar to 120px */
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0f">
+<title>Masha Harness — Data Scientist & AI Architect</title>
 
-/* Glassmorphic Sidebar - Desktop Only */
-.w3-sidebar {
-    width: 120px;
-    background: rgba(15, 23, 42, 0.4) !important; /* Deep blue-black tint */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(56, 189, 248, 0.3); /* Brighter blue border */
-    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
+<!-- SEO -->
+<meta name="description" content="Masha Harness — Sr. Data Scientist, AI/ML Architect & UC Berkeley TPM. Creator of Eggy AI, $650M+ portfolio, $5M revenue impact. Based in San Francisco Bay Area.">
+<meta name="author" content="Masha Harness">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph (LinkedIn, Slack, iMessage previews) -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://bizalchemist.github.io/">
+<meta property="og:title"       content="Masha Harness — Data Scientist & AI Architect">
+<meta property="og:description" content="Architecting Revenue Velocity — AI/ML systems that turn data into B2B growth. Creator of Eggy AI. $650M+ portfolio. UC Berkeley TPM.">
+<meta property="og:image"       content="https://bizalchemist.github.io/assets/images/Masha_bw.png">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta property="og:locale"      content="en_US">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Masha Harness — Data Scientist & AI Architect">
+<meta name="twitter:description" content="Architecting Revenue Velocity — AI/ML systems that turn data into B2B growth.">
+<meta name="twitter:image"       content="https://bizalchemist.github.io/assets/images/Masha_bw.png">
+
+<!-- Favicon — 3D neon MH monogram -->
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="icon" type="image/png" sizes="64x64"   href="favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32"   href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16"   href="favicon-16.png">
+<link rel="apple-touch-icon"      sizes="180x180" href="favicon-180.png">
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Google Fonts — both preconnects required to eliminate FOUT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ── TOKENS ─────────────────────────────────────── */
+:root {
+  --ink:    #0a0a0f;
+  --paper:  #f2ede6;
+  --acid:   #c8ff00;
+  --ember:  #ff4d1c;
+  --muted:  #7a7a8a;
+  --border: rgba(10,10,15,.12);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-serif:   'DM Serif Display', serif;
+  --font-mono:    'Space Mono', monospace;
 }
 
-/* Nav Link Styling */
-.w3-sidebar .w3-bar-item {
-    color: rgba(148, 163, 184, 0.7) !important; /* Steel gray */
-    background: transparent !important;
-    transition: all 0.4s ease;
-    padding: 20px 0;
+*, *::before, *::after { box-sizing: border-box; }
+html  { scroll-behavior: smooth; }
+body  {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Hover & Active State: Brighter Glow */
-.w3-sidebar .w3-bar-item:hover {
-    color: #fff !important;
-    background: rgba(56, 189, 248, 0.15) !important; /* Brighter glow background */
-    text-shadow: 0 0 15px rgba(56, 189, 248, 1), 
-                 0 0 25px rgba(56, 189, 248, 0.6); /* Double glow - much brighter */
-    border-left: 3px solid #38bdf8; /* Solid bright blue accent */
+/* Safe-area inset for iPhone notch */
+.safe-x {
+  padding-left:  max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
 }
 
-.w3-sidebar .w3-bar-item i {
-    transition: transform 0.3s ease, filter 0.3s ease;
+/* Grain overlay */
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:900; opacity:.22;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
 }
 
-.w3-sidebar .w3-bar-item:hover i {
-    transform: scale(1.2) rotate(5deg);
-    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 1)) 
-            brightness(1.3); /* Brighter icon glow */
+/* ══════════ NAVBAR ══════════ */
+.navbar {
+  background: transparent !important;
+  transition: background .35s, box-shadow .35s;
+  padding-top: .85rem; padding-bottom: .85rem;
+}
+.navbar.scrolled {
+  background: rgba(242,237,230,.93) !important;
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 1px 0 var(--border);
+}
+.navbar-brand {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem,4vw,1.35rem);
+  letter-spacing: .07em;
+  color: var(--ink) !important;
+}
+.navbar-toggler {
+  border: 1.5px solid var(--ink);
+  border-radius: 0; padding: .3rem .55rem;
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(10,10,15,1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+@media (max-width:991.98px){
+  .navbar-collapse {
+    background: rgba(242,237,230,.97);
+    backdrop-filter: blur(12px);
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border);
+    margin-top: .5rem;
+  }
+}
+.nav-link {
+  font-size: .63rem !important;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink) !important;
+  padding: .55rem 1rem !important;
+  position: relative;
+}
+.nav-link::after {
+  content:''; position:absolute; bottom:0; left:1rem; right:1rem;
+  height:1.5px; background:var(--ember);
+  transform:scaleX(0); transform-origin:right;
+  transition:transform .3s ease;
+}
+.nav-link:hover::after { transform:scaleX(1); transform-origin:left; }
+
+/* ══════════ HERO ══════════ */
+.hero {
+  min-height: 100svh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  padding-top: 76px;
 }
 
-/* Sidebar image glow on hover */
-.w3-sidebar img {
-    transition: filter 0.3s ease;
+/* Photo layer */
+.hero-photo {
+  position: absolute; inset: 0; z-index: 0;
+}
+.hero-photo img {
+  width:100%; height:100%;
+  object-fit: cover; object-position: top center;
+  filter: grayscale(15%) contrast(1.08);
+}
+/* Mobile: gradient mask over photo — start at 30% so face is visible */
+.hero-photo::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(
+    to bottom,
+    rgba(242,237,230,.0)  0%,
+    rgba(242,237,230,.15) 30%,
+    rgba(242,237,230,.72) 58%,
+    rgba(242,237,230,1)   80%
+  );
+}
+/* Desktop: photo only on right ~38% */
+@media (min-width:992px){
+  .hero-photo { left:62%; right:0; }
+  .hero-photo::after {
+    background: linear-gradient(to right,
+      var(--paper) 0%, rgba(242,237,230,.25) 65%, transparent 100%
+    );
+  }
 }
 
-.w3-sidebar:hover img {
-    filter: brightness(1.3) drop-shadow(0 0 15px rgba(56, 189, 248, 0.5));
+.hero-body {
+  position:relative; z-index:2;
+  padding-top: 1.5rem;
 }
 
-    /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-    #main {margin-left: 120px}
-    /* Remove margins from "page content" on small screens */
-    @media only screen and (max-width: 600px) {#main {margin-left: 0}}
-
-    /* !-- My Profile Card --> */
-    /* Main background -- DeepBlackBlue Noir Background */
-    body {
-        background: radial-gradient(circle at center, #0f172a 0%, #000000 100%);
-        color: #f8fafc;
-        min-height: 100vh;
-    }
-
-
-    /* Combined Card Style - 3D Tilt Effect + Gradient Card*/
-    .card {
-      /* Original properties */
-      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2);
-      max-width: 400px;
-      margin: auto;
-      text-align: center;
-      font-family: arial;
-      
-      /* New properties for effects */
-      position: relative;
-      border-radius: 8px;
-      transform-style: preserve-3d;
-      transition: transform 0.1s ease;
-      cursor: pointer;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      border-radius: 8px;
-      padding: 3px;
-      background: linear-gradient(45deg, 
-        #ff0080, #ff8c00, #40e0d0, 
-        #7928ca, #00d4ff, #ff0080);
-      background-size: 300% 300%;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, 
-                    linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      animation: gradient-rotate 4s linear infinite;
-      z-index: -1;
-    }
-
-    @keyframes gradient-rotate {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    .title {
-      color: white;
-      font-size: 18px;
-    }
-    button {
-      border: none;
-      outline: 0;
-      display: inline-block;
-      padding: 8px;
-      color: grey;
-      background-color: #FFF;
-      text-align: center;
-      cursor: pointer;
-      width: 100%;
-      font-size: 18px;
-      border-radius: 4px;
-    }
-    button:hover, a:hover {
-      opacity: 0.7;
-    }
-
-    .w3-button a {
-      text-decoration: none;
-    }
-    .portfolio-image-container {
-      position: relative; /* Key for absolute positioning of overlay */
-      width: 100%; 
-    }
-
-    /* Frosted Glass Portfolio Overlays - enhance existing hover overlays with a glassmorphic effect */
-    .portfolio-image-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-       background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(12px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      opacity: 0;          /* Hidden by default */
-      transition: opacity 0.3s ease; /* Smooth fade effect */
-      display: flex;       /* Center the text */
-      align-items: center; 
-      justify-content: center; 
-    }
-
-    .portfolio-image-text {
-      color: white;
-      font-size: 20px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-      letter-spacing: 1px;
-      text-align: center; /* Centers the text */
-    }
-
-    .portfolio-image-container:hover .portfolio-image-overlay {
-      opacity: 1;          /* Visible on hover */
-    }
-
-    .w3-row.w3-center.w3-padding-16.w3-section.w3-light-grey {
-      border-radius: 12px;
-    }
-
-    /* Skill Labels (iPhone & Desktop optimized) */
-    .w3-wide {
-        white-space: nowrap !important;
-        letter-spacing: 0px !important;
-        font-size: 10px !important;
-        line-height: 1.2;
-        display: block;
-        color: #94a3b8 !important; /* Steel-grey for the Noir look */
-        text-transform: uppercase;
-        font-weight: 600;
-        margin-top: 15px !important;
-    }
-
-    /* Progress Bar Components - Glassmorphism Track - Dark Noir Style */
-    .w3-white {
-        background: rgba(255, 255, 255, 0.05) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important; /* Safari support */
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 20px !important;
-        height: 14px !important; /* Thinner for elegant look */
-        overflow: hidden !important;
-        margin-top: 8px;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
-        margin-bottom: 15px !important;
-    }
-
-      /* Progress bar fill with specific relative positioning for the shine effect */
-      .w3-dark-grey {
-          background: linear-gradient(90deg, #38bdf8, #e11d48) !important;
-          box-shadow: 0 0 20px rgba(56, 189, 248, 0.4) !important;
-          height: 100% !important;
-          border-radius: 20px !important;
-          position: relative !important; /* CRITICAL: Allows the glint to anchor here */
-          transition: width 1.5s cubic-bezier(0.1, 0.5, 0.2, 1) !important;
-          overflow: hidden !important; /* Keeps the glint inside the rounded corners */
-          /* Extra inner glow for the "liquid energy" look */
-          box-shadow: 
-              0 0 20px rgba(56, 189, 248, 0.4), /* Outer glow */
-              inset 0 0 8px rgba(255, 255, 255, 0.3) !important; /* Inner light edge */
-      }
-
-      /* The Glass Reflection (Glint) */
-      .w3-dark-grey::after {
-          content: "" !important;
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: 0 !important;
-          height: 50% !important; /* Covers only the top half of the bar */
-          
-          /* Soft white reflection that fades to transparent */
-          background: linear-gradient(
-              to bottom, 
-              rgba(255, 255, 255, 0.25) 0%, 
-              rgba(255, 255, 255, 0.05) 100%
-          ) !important;
-          
-          border-radius: 20px 20px 0 0 !important;
-          pointer-events: none !important; /* EN: Prevents the glint from blocking mouse clicks */
-      }
-
-      @keyframes fillUp {
-          from { width: 0; }
-      }
-      .w3-dark-grey {
-          animation: fillUp 1.5s cubic-bezier(0.1, 0.5, 0.2, 1);
-      }
-
-      /* Unified height for the sleek Glass Tube look */
-      .w3-white, .w3-dark-grey {
-          height: 12px !important; /* Slightly thinner for extra elegance */
-          border-radius: 20px !important; /* Keeps the ends perfectly circular */
-      }
-
-    /* Skill Module Interactive Styling */
-    .skill-module {
-        padding: 15px;
-        margin-bottom: 10px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.05); 
-        background: rgba(30, 41, 59, 0.2);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        cursor: pointer;
-    }
-
-    /* Brighter Neon Border and Glow on Hover */
-    .skill-module:hover {
-        transform: translateY(-5px);
-        background: rgba(56, 189, 248, 0.08);
-        border-color: rgba(56, 189, 248, 0.9) !important; 
-        box-shadow: 
-            0 10px 40px rgba(0, 0, 0, 0.6), 
-            0 0 20px rgba(56, 189, 248, 0.3),
-            inset 0 0 10px rgba(56, 189, 248, 0.1); 
-    }
-
-    .skill-module:hover .w3-wide {
-        color: #fff !important;
-        text-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
-    }
-
-    .skill-module:hover .w3-dark-grey {
-        box-shadow: 0 0 30px rgba(56, 189, 248, 1) !important;
-        filter: brightness(1.3);
-    }
-
-    .w3-quarter:hover {
-      transform: translateY(-5px);
-      transition: 0.3s;
-      color: white !important;
-    }
-
-    /* The Glass Glow Hover Effect */
-    .glass-stats-container:hover {
-        box-shadow: 0 0 30px rgba(56, 189, 248, 0.6) !important; /* Blue glow */
-        border: 1px solid rgba(56, 189, 248, 0.8) !important; /* Border turns blue too */
-        filter: brightness(1.2);
-        transform: translateY(-2px); /* Subtle lift */
-    }
-
-    /* Optional: Make the numbers glow when you hover the box */
-    .glass-stats-container:hover .w3-xlarge {
-        color: #38bdf8 !important; /* Numbers turn sky blue */
-        text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
-        transition: 0.3s;
-    }
-
-        /* Buttons -- Base Desktop Style */
-        .modern-btn {
-            margin: 10px 15px; /* 10px top/bottom, 15px left/right */
-            display: inline-block;
-            background: linear-gradient(90deg, var(--accent-blue), #0ea5e9);
-            color: white !important;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
-            text-decoration: none;
-        }
-      
-        /* Responsive Button iPhone Fix */
-      @media (max-width: 600px) and (orientation: portrait) {
-            /* Portrait Mode (Buttons Stacked) */
-            .modern-btn {
-                display: flex !important;  /* Overrides inline-block */
-                width: 100% !important;  /* Overrides auto-width */
-                margin: 0 0 20px 0 !important; /* Forces 20px space BETWEEN stacked buttons */
-                font-size: 13px !important;
-                padding: 14px 10px !important;
-                white-space: nowrap !important; /* Prevents the 2nd row text slide */
-                justify-content: center;
-                box-sizing: border-box;
-            }
-
-            /* Remove margin from the very last button so it doesn't push the section down too much */
-            .modern-btn:last-child {
-                margin-bottom: 0 !important;
-            }
-        }
- 
-/* iPhone Landscape Fix */
-@media (max-width: 950px) and (orientation: landscape) {
-    /* Target the container specifically */
-    .button-container {
-        display: flex !important;
-        flex-direction: column !important; 
-        align-items: center !important;    /* Centers horizontally in a column */
-        justify-content: center !important;
-        width: 100% !important;
-        text-align: center !important;
-    }
-
-    .modern-btn {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 80% !important;        /* Not quite full width, looks better in landscape */
-        max-width: 400px;             /* Keeps it from looking like a long noodle */
-        margin: 0 auto 20px auto !important; /* "auto" on left/right forces centering */
-        float: none !important;        /* Prevents any old W3.CSS floats from pulling it left */
-    }
+.hero-eyebrow {
+  font-size:.6rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--muted);
+  opacity:0; animation: fadeUp .7s .3s forwards;
 }
-  
-    .modern-btn:last-child {
-        margin-bottom: 0 !important;   /* Clean finish */
-    }
-     
-        .modern-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
-        }
-
-/* Chatbot Container Base - Deep Shadow & Glass */
-#chatbot-container {
-    position: fixed;
-    bottom: 80px; 
-    right: 20px;
-    width: 320px; 
-    height: 480px; 
-    
-    background: rgba(255, 255, 255, 0.15) !important; 
-    backdrop-filter: blur(40px) saturate(200%);
-    -webkit-backdrop-filter: blur(40px) saturate(200%);
-    
-    border: 0.5px solid rgba(255, 255, 255, 0.4);
-    
-    box-shadow: 
-        inset 0 1px 1px rgba(255, 255, 255, 0.5), 
-        0 30px 70px rgba(0, 0, 0, 0.5), 
-        0 10px 20px rgba(0, 0, 0, 0.2);
-    
-    border-radius: 28px;
-    display: flex;
-    flex-direction: column;
-    z-index: 1000;
-    overflow: hidden;
-    transform: translateY(150%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-    opacity: 0;
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(4rem,18vw,13rem);
+  line-height: .88; letter-spacing:-.01em; color:var(--ink);
+  opacity:0; animation: fadeUp .9s .45s forwards;
+}
+.hero-name .outline {
+  color:transparent; -webkit-text-stroke:2px var(--ink);
+  position:relative; display:inline-block;
+}
+.hero-name .outline::after {
+  content:attr(data-text); position:absolute; top:5px; left:5px;
+  color:var(--acid); -webkit-text-stroke:0; z-index:-1;
+}
+.hero-tagline {
+  font-family:var(--font-serif); font-style:italic;
+  font-size: clamp(.95rem,3vw,2rem); color:var(--ember); line-height:1.3;
+  opacity:0; animation: fadeUp .9s .65s forwards;
+}
+.hero-cta-row {
+  opacity:0; animation: fadeUp .8s .85s forwards;
 }
 
-/* Response Links - Extra Bold & Deep Blue */
-#chatbot-messages a {
-    color: #007aff !important;
-    font-weight: 900 !important;
-    text-decoration: underline;
+/* Stats bar */
+.hero-stats {
+  position:relative; z-index:2;
+  border-top:1px solid var(--border);
+  opacity:0; animation: fadeUp .8s 1.05s forwards;
+}
+.stat-num {
+  font-family:var(--font-display);
+  font-size:clamp(1.7rem,5vw,2.8rem); line-height:1; color:var(--ink);
+}
+.stat-label {
+  font-size:.56rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
 }
 
-/* Responsive Logic */
-@media (max-width: 480px) and (orientation: portrait) {
-    #chatbot-container { width: 82vw !important; right: 15px !important; height: 68vh !important; }
+/* ══════════ BUTTONS ══════════ */
+.btn-ink {
+  background:var(--ink); color:var(--paper);
+  font-family:var(--font-mono); font-size:.6rem;
+  letter-spacing:.2em; text-transform:uppercase;
+  border:none; border-radius:0; padding:.82rem 1.7rem;
+  position:relative; overflow:hidden;
+  transition:color .3s; white-space:nowrap; display:inline-block;
+  text-decoration:none;
 }
-@media (max-height: 500px) and (orientation: landscape) {
-    #chatbot-container { height: 85vh !important; width: 350px !important; bottom: 10px !important; /* Kept at 10px to ensure top is visible */
-    }
+.btn-ink::before {
+  content:''; position:absolute; inset:0; background:var(--acid);
+  transform:translateX(-101%); transition:transform .3s ease; z-index:0;
 }
+.btn-ink:hover::before { transform:translateX(0); }
+.btn-ink:hover { color:var(--ink); }
+.btn-ink span { position:relative; z-index:1; }
 
-#chatbot-container.active {
-    transform: translateY(0); 
-    opacity: 1; 
+.btn-ghost-ink {
+  background:transparent; color:var(--ink);
+  font-family:var(--font-mono); font-size:.6rem;
+  letter-spacing:.2em; text-transform:uppercase;
+  border:1.5px solid var(--ink); border-radius:0; padding:.82rem 1.7rem;
+  transition:background .2s,color .2s; white-space:nowrap; display:inline-block;
+  text-decoration:none;
 }
+.btn-ghost-ink:hover { background:var(--ink); color:var(--paper); }
 
-/* Chatbot Header & Title Pulse */
-#chatbot-header {
-    background: linear-gradient(180deg, #5fc9f8 0%, #147efb 100%);
-    color: #f0faff; 
-    padding: 0 20px; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 800; 
-    height: 60px; 
+/* ══════════ TICKER ══════════ */
+.ticker-outer { background:var(--ember); overflow:hidden; padding:.85rem 0; white-space:nowrap; }
+.ticker-track { display:inline-flex; animation:ticker 26s linear infinite; }
+.ticker-item { font-family:var(--font-display); font-size:1rem; letter-spacing:.1em; color:#fff; padding:0 1.6rem; }
+.ticker-sep { color:rgba(255,255,255,.4); }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ══════════ SECTION LABELS ══════════ */
+.sec-label { font-size:.6rem; letter-spacing:.32em; text-transform:uppercase; color:var(--acid); display:block; margin-bottom:.6rem; }
+.sec-num { font-family:var(--font-display); font-size:clamp(2.5rem,8vw,5rem); line-height:1; }
+.sec-title { font-family:var(--font-display); font-size:clamp(2rem,6vw,3.6rem); letter-spacing:.03em; line-height:1; }
+.sec-title-dark  { color:var(--ink); }
+.sec-title-light { color:var(--paper); }
+.sec-num-dim { color:rgba(10,10,15,.08); }
+.sec-num-dimw { color:rgba(255,255,255,.05); }
+
+/* ══════════ DIAGONAL DIVIDERS ══════════ */
+.diag-down { height:3.5rem; background:var(--ink); clip-path:polygon(0 0,100% 55%,100% 100%,0 100%); margin-top:-1px; }
+.diag-up   { height:3.5rem; background:var(--ink); clip-path:polygon(0 0,100% 0,100% 100%,0 42%); margin-bottom:-1px; }
+
+/* ══════════ ABOUT ══════════ */
+.about-section { background:var(--ink); color:var(--paper); position:relative; overflow:hidden; }
+.about-section::before {
+  content:'DATA'; position:absolute; right:-.5rem; top:50%;
+  transform:translateY(-50%) rotate(90deg);
+  font-family:var(--font-display); font-size:clamp(6rem,20vw,16rem);
+  color:rgba(255,255,255,.022); pointer-events:none; white-space:nowrap;
 }
-
-#chatbot-container.active #chatbot-title {
-    animation: titlePulse 2s ease-out;
-}
-
-@keyframes titlePulse {
-    0% { opacity: 0.5; transform: scale(0.95); }
-    50% { opacity: 1; transform: scale(1.02); text-shadow: 0 0 10px rgba(255, 255, 255, 0.6); }
-    100% { opacity: 1; transform: scale(1); }
-}
-
-/* Close Button (X) */
-#chatbot-close-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    width: 34px;
-    height: 34px;
-    color: #f0faff; 
-    font-size: 22px; 
-    cursor: pointer;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    line-height: 0;
-}
-
-#chatbot-close-btn:hover {
-    background: rgba(255, 255, 255, 0.4);
-    transform: scale(1.15) rotate(90deg);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-}
-
-/* Chatbot Messages Area */
-#chatbot-messages {
-    flex-grow: 1;
-    padding: 15px;
-    overflow-y: auto; 
-    background: transparent; 
-    display: flex;
-    flex-direction: column; 
-    gap: 10px;
+.about-title { font-family:var(--font-serif); font-style:italic; font-size:clamp(2rem,7vw,4rem); line-height:1.05; color:var(--paper); }
+.about-title em { color:var(--acid); }
+.about-body { font-size:.87rem; line-height:1.9; color:rgba(242,237,230,.72); }
+.about-body strong { color:var(--acid); }
+.tag-pill {
+  display:inline-block; font-size:.57rem; letter-spacing:.12em; text-transform:uppercase;
+  font-weight:700; color:var(--ink); background:var(--acid);
+  padding:.28rem .75rem; margin:.22rem .18rem 0 0;
 }
 
-.message {
-    padding: 12px 16px;
-    border-radius: 20px;
-    font-size: 16px;
-    font-weight: 600;
+/* ══════════ TIMELINE ══════════ */
+.timeline-wrap { position:relative; }
+.timeline-wrap::before {
+  content:''; position:absolute;
+  left:3.5rem; top:0; bottom:0; width:1px;
+  background:linear-gradient(to bottom,var(--ember),var(--acid));
+}
+@media (max-width:575.98px){
+  .timeline-wrap::before { left:2.5rem; }
+}
+.tl-item {
+  display:grid; grid-template-columns:5rem 1fr; gap:1.3rem;
+  padding:1.6rem 0; border-bottom:1px solid var(--border);
+  position:relative; opacity:0; transform:translateY(20px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.tl-item.visible { opacity:1; transform:translateY(0); }
+.tl-item::before {
+  content:''; position:absolute; left:calc(3.5rem - 5px); top:2rem;
+  width:11px; height:11px; background:var(--ember);
+  outline:1px solid var(--ember); border:2px solid var(--paper);
+  border-radius:50%; z-index:2;
+}
+@media (max-width:575.98px){
+  .tl-item { grid-template-columns:3.8rem 1fr; gap:1rem; }
+  .tl-item::before { left:calc(2.5rem - 5px); }
+}
+.tl-year { font-family:var(--font-display); font-size:clamp(1rem,3vw,1.5rem); color:var(--muted); text-align:right; padding-top:.05rem; }
+.tl-role { font-family:var(--font-serif); font-size:clamp(1rem,2.5vw,1.45rem); color:var(--ink); margin-bottom:.28rem; }
+.tl-meta { font-size:.56rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ember); margin-bottom:.55rem; }
+.tl-desc { font-size:.79rem; line-height:1.8; color:var(--muted); }
+.tl-badge {
+  display:inline-block; margin-top:.6rem;
+  font-size:.55rem; letter-spacing:.13em; text-transform:uppercase;
+  font-weight:700; color:var(--ink); background:var(--acid);
+  padding:.22rem .65rem; text-decoration:none;
+  transition:background .2s,color .2s;
+}
+.tl-badge:hover { background:var(--ember); color:#fff; }
+
+/* ══════════ PORTFOLIO ══════════ */
+.portfolio-section { background:#0f0f18; }
+.p-card {
+  background:#0f0f18; border:1px solid rgba(255,255,255,.055);
+  padding:1.75rem 1.5rem; min-height:190px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  position:relative; overflow:hidden;
+  transition:border-color .3s,background .3s;
+}
+.p-card:hover { border-color:rgba(200,255,0,.28); background:rgba(200,255,0,.03); }
+.p-cat { font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:.65rem; }
+.p-title { font-family:var(--font-serif); font-size:clamp(1.05rem,2.5vw,1.7rem); color:var(--paper); line-height:1.2; flex:1; margin-bottom:1.2rem; }
+.p-card--featured .p-title { font-size:clamp(1.3rem,3.5vw,2.2rem); }
+.p-stack { font-size:.58rem; line-height:1.7; color:var(--muted); }
+.p-ghost-num {
+  position:absolute; bottom:.8rem; right:1.2rem;
+  font-family:var(--font-display); font-size:5.5rem; line-height:1;
+  color:rgba(255,255,255,.03); pointer-events:none; letter-spacing:-.05em;
+}
+.p-arrow {
+  width:34px; height:34px; border:1px solid rgba(255,255,255,.15);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--paper); font-size:.95rem; text-decoration:none; flex-shrink:0;
+  transition:background .2s,border-color .2s;
+}
+.p-arrow:hover { background:var(--acid); border-color:var(--acid); color:var(--ink); }
+.p-soon {
+  font-size:.52rem; letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(255,255,255,.25); line-height:1.5; text-align:right; flex-shrink:0;
 }
 
-.bot-message {
-    background: rgba(255, 255, 255, 0.85); 
-    color: #000;
-    backdrop-filter: blur(10px);
-    align-self: flex-start;
+/* ══════════ TESTIMONIALS ══════════ */
+.testi-card {
+  background:var(--paper); border:1px solid var(--border);
+  padding:1.75rem 1.5rem; opacity:0; transform:translateY(20px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.testi-card.visible { opacity:1; transform:translateY(0); }
+.q-mark { font-family:var(--font-serif); font-size:3.5rem; color:var(--acid); line-height:.5; margin-bottom:1rem; display:block; }
+.testi-text { font-family:var(--font-serif); font-style:italic; font-size:.9rem; line-height:1.75; color:var(--ink); margin-bottom:1.3rem; }
+.testi-author { font-size:.56rem; letter-spacing:.17em; text-transform:uppercase; color:var(--muted); border-top:1px solid var(--border); padding-top:.9rem; }
+.testi-author strong { color:var(--ink); display:block; margin-bottom:.12rem; }
+
+/* ══════════ CONTACT ══════════ */
+.contact-section { background:var(--ink); position:relative; overflow:hidden; }
+.contact-section::before {
+  content:'HIRE'; position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  font-family:var(--font-display); font-size:clamp(6rem,24vw,20rem);
+  color:rgba(255,255,255,.022); pointer-events:none; white-space:nowrap;
+}
+.contact-heading { font-family:var(--font-display); font-size:clamp(3rem,13vw,8.5rem); color:var(--paper); line-height:.9; position:relative; z-index:2; letter-spacing:.02em; }
+/* ══════════ SCROLL PROGRESS BAR ══════════ */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 9997;
+  height: 2px; width: 0%;
+  background: var(--acid);
+  box-shadow: 0 0 8px rgba(200,255,0,.6);
+  transition: width .08s linear;
+  pointer-events: none;
+}
+.contact-sub { font-family:var(--font-serif); font-style:italic; color:rgba(242,237,230,.48); font-size:clamp(.85rem,2vw,1.15rem); position:relative; z-index:2; }
+.btn-contact {
+  background:transparent; color:var(--paper);
+  font-family:var(--font-mono); font-size:.6rem;
+  letter-spacing:.17em; text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.2); border-radius:0;
+  padding:.82rem 1.5rem;
+  position:relative; overflow:hidden;
+  transition:color .3s,border-color .3s; white-space:nowrap;
+  text-decoration:none; display:inline-block;
+  cursor:pointer;
+}
+.btn-contact::before {
+  content:''; position:absolute; inset:0; background:var(--acid);
+  transform:translateY(101%); transition:transform .3s ease; z-index:0;
+}
+.btn-contact:hover::before { transform:translateY(0); }
+.btn-contact:hover { color:var(--ink); border-color:var(--acid); }
+.btn-contact span { position:relative; z-index:1; }
+
+/* ══════════ FOOTER ══════════ */
+footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.06); }
+.footer-copy { font-size:.54rem; letter-spacing:.11em; color:rgba(255,255,255,.24); }
+.footer-mark { font-family:var(--font-display); font-size:1.1rem; color:var(--acid); }
+
+/* ══════════ REVEAL UTILITY ══════════ */
+.reveal { opacity:0; transform:translateY(22px); transition:opacity .65s ease,transform .65s ease; }
+.reveal.visible { opacity:1; transform:none; }
+
+/* ══════════ ANIMATIONS ══════════ */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
 }
 
-.user-message {
-    background: linear-gradient(145deg, #5fc9f8, #147efb);
-    color: #f0faff; 
-    align-self: flex-end; 
-    margin-left: auto; 
+/* ══════════ LANDSCAPE IPHONE FIX ══════════ */
+@media (max-height:500px) and (orientation:landscape) {
+  .hero { min-height:unset; padding-top:56px; padding-bottom:0; }
+  .hero-name { font-size:clamp(2.2rem,10vw,4.5rem); }
+  .hero-tagline { font-size:.82rem; }
+  .hero-photo { display:none; }
+  .hero-body { padding-top:.4rem; padding-bottom:.4rem; }
+  .hero-stats { padding:.25rem 0; }
+  .hero-stats .stat-num { font-size:clamp(1.1rem,4vw,1.5rem); }
+  .hero-stats .stat-label { font-size:.45rem; }
+  .hero-cta-row { padding-bottom:.5rem !important; }
+  /* Chatbot trigger stays bottom-right in landscape — not centered */
+  #chat-trigger { right:1.2rem !important; transform:none !important; bottom:1rem !important; }
+  #chat-panel   { right:1.2rem !important; transform:translateY(16px) scale(.97) !important; width:300px !important; max-height:70vh !important; }
+  #chat-panel.open { transform:translateY(0) scale(1) !important; }
 }
 
-/* Chatbot Input Area & Focus Glow */
-.chatbot-input-area {
-    display: flex;
-    padding: 12px 15px 25px 15px;
-    background: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(20px);
-    border-top: 1.5px solid rgba(255, 255, 255, 0.2);
+/* ══════════ SMALL PHONE POLISH ══════════ */
+@media (max-width:375px) {
+  .hero-name { font-size:clamp(3.4rem,18vw,5rem); }
+  .btn-ink, .btn-ghost-ink { padding:.75rem 1.2rem; font-size:.57rem; }
 }
 
-#chatbot-input {
-    flex-grow: 1; 
-    padding: 12px 15px;
-    border-radius: 22px;
-    border: 1.5px solid rgba(0, 0, 0, 0.1);
-    font-size: 16px; 
-    background: #fff;
-    color: #000;
-    transition: all 0.3s ease;
-    outline: none;
+/* ══════════ MOBILE CHATBOT CLEARANCE ══════════ */
+/* Prevent fixed chatbot button from overlapping footer on mobile */
+@media (max-width:767px) {
+  footer { padding-bottom: calc(4rem + env(safe-area-inset-bottom)) !important; }
+  /* Ensure contact buttons don't sit behind the chatbot trigger */
+  .contact-section { padding-bottom: calc(5rem + env(safe-area-inset-bottom)) !important; }
 }
 
-#chatbot-input:focus {
-    border-color: #5fc9f8;
-    box-shadow: 0 0 12px rgba(95, 201, 248, 0.4);
-    background: #ffffff;
+/* ══════════ CUSTOM CURSOR (desktop only) ══════════ */
+@media (pointer:fine) {
+  body { cursor: none; }
+  a, button, .p-card, .tl-badge, .btn-ink, .btn-ghost-ink, .btn-contact { cursor: none; }
+  #cursor {
+    position:fixed; top:0; left:0; pointer-events:none; z-index:9999;
+    width:12px; height:12px; background:var(--ember); border-radius:50%;
+    transform:translate(-50%,-50%);
+    transition:width .2s ease, height .2s ease, background .2s ease;
+    mix-blend-mode: multiply;
+  }
+  #cursor-ring {
+    position:fixed; top:0; left:0; pointer-events:none; z-index:9998;
+    width:38px; height:38px; border-radius:50%;
+    border:1.5px solid var(--ink);
+    transform:translate(-50%,-50%);
+    transition:width .3s ease, height .3s ease;
+  }
+  body.cursor-hover #cursor        { width:20px; height:20px; background:var(--acid); }
+  body.cursor-hover #cursor-ring   { width:58px; height:58px; }
 }
+</style>
+</head>
+<body>
+<div id="scroll-progress"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-/* Send Button */
-#chatbot-send-btn {
-    margin-left: 12px;
-    background: none;
-    color: #f0faff; 
-    font-weight: 950;
-    border: none;
-    cursor: pointer;
-    font-size: 17px;
-    transition: all 0.3s ease;
-}
-
-#chatbot-send-btn:hover {
-    color: #5fc9f8; 
-    transform: scale(1.15);
-    text-shadow: 0 0 10px rgba(95, 201, 248, 0.8);
-}
-
-    /* --- UPDATED PULSING CHATBOT TOGGLE BUTTON --- */
-    #chatbot-toggle-btn {
-        position: fixed;
-        bottom: 15px;
-        right: 15px;
-        background-color: #59c9f9;
-        color: #fff;
-        border: none;
-        border-radius: 50%;
-        width: 50px; 
-        height: 50px;
-        font-size: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(56, 130, 248, 0.9);
-        z-index: 1001;
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        
-        /* Outer circle breathes normally */
-        animation: magic-pulse 4s ease-in-out infinite; 
-    }
-
-    #chatbot-toggle-btn.hidden {
-        transform: scale(0); 
-        opacity: 0;
-    }
-
-    #chatbot-toggle-btn i {
-        display: inline-block;
-        /* Wizard wand rotates AND surges with glow/size */
-        animation: wizard-spin 4s linear infinite;
-    }
-
-    @keyframes magic-pulse {
-        0% { transform: scale(1); box-shadow: 0 4px 12px rgba(56, 130, 248, 0.9);}
-        50% { transform: scale(1.2); box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); background-color: #048aff;}
-        100% { transform: scale(1); box-shadow: 0 4px 12px rgba(56, 130, 248, 0.9);}
-    }
-
-    /* This animation makes the WIZARD WAND glow and grow independently */
-    @keyframes wizard-spin {
-        0% { 
-            transform: rotate(0deg) scale(1); 
-            filter: drop-shadow(0 0 0px #fff); 
-        }
-        50% { 
-            /* Wand grows larger and gains a bright white glow */
-            transform: rotate(180deg) scale(1.4); 
-            filter: drop-shadow(0 0 15px #fff) brightness(1.8); 
-        }
-        100% { 
-            transform: rotate(360deg) scale(1); 
-            filter: drop-shadow(0 0 0px #fff); 
-        }
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 600px) {
-        #chatbot-container {
-            width: 90%;
-            height: 70vh; 
-            right: 5%;
-            bottom: 10px;
-        }
-      }       
-
-    /* Makes the dashboard links in the chat pop out */
-    .bot-msg a {
-        text-decoration: none;
-        border-bottom: 1px dashed var(--accent-1);
-        transition: all 0.3s ease;
-    }
-
-    .bot-msg a:hover {
-        color: var(--accent-2) !important;
-        border-bottom: 1px solid var(--accent-2);
-    }
-    html {
-    scroll-behavior: smooth;
-    }
-
-        /* Shorten the text specifically for very small screens if needed */
-        #ai-pitch-video::after {
-            content: ""; /* Placeholder for logic if text is still too long */
-        }
-    
-    </style>
-  </head>
-<body class="w3-black">
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <img src="assets/images/Masha_explor_bw.png" style="width:100%">
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
-  </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ABOUT</p>
-  </a>
-  <a href="#portfolio" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-eye w3-xxlarge"></i>
-    <p>PORTFOLIO</p>
-  </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>CONTACT</p>
-  </a>
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar navbar-expand-lg fixed-top safe-x px-2 px-md-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">MH / BIZALCHEMIST</a>
+    <button class="navbar-toggler" type="button"
+      data-bs-toggle="collapse" data-bs-target="#navMenu"
+      aria-controls="navMenu" aria-expanded="false" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#work">Work</a></li>
+        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#testimonials">Endorsements</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
-    <a href="#portfolio" class="w3-bar-item w3-button" style="width:25% !important">PORTFOLIO</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
-  </div>
-</div>
 
-<div class="w3-padding-large" id="main">
-  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    
-    <div class="w3-container" style="max-width: 100%; overflow: hidden;">
-        
-        <h1 style="font-size: clamp(28px, 5vw, 72px); font-weight: 800; margin: 0; white-space: nowrap;">
-            I'm a data wizard<span style="color: red">.</span>
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="hero-photo">
+    <img src="https://bizalchemist.github.io/assets/images/Masha_bw.png" alt="Masha Harness" loading="eager">
+  </div>
+
+  <div class="container-fluid safe-x hero-body">
+    <div class="row">
+      <div class="col-12 col-lg-7 pb-3">
+        <p class="hero-eyebrow mb-2">Sr. Data Scientist · AI Architect · UC Berkeley TPM · MS MMORSE</p>
+        <h1 class="hero-name mb-3">
+          MASHA<br>
+          <span class="outline" data-text="HARNESS">HARNESS</span>
         </h1>
-        <h1 style="font-size: clamp(14px, 2vw, 32px); line-height: 1.4; margin-top: 5px; font-weight: 500; letter-spacing: 0.5px;">
-            <span style="color: #94a3b8; font-size: clamp(16px, 2.2vw, 34px); font-weight: 700;">Architecting Revenue Velocity</span><br/>
-            <span style="color: #fff; display: inline-block;">Unleashing AI to ignite B2B growth!</span>
-        </h1>
-    </div>
-    <p> </p>
-
-<div class="card">
-  <img src="assets/images/Masha_bw.png" alt="Masha Harness" style="width:100%">
-  <h1 class="w3-text-white">Masha Harness</h1>
-  <p class="title">Sr Data Scientist & TPM</p>
-  <p>UC Berkeley</p>
-  <div style="margin: 24px 0;">
-    <a  href="https://www.linkedin.com/in/mashaharness" style="font-size: 24px; color: #00d4ff"><i class="fa fa-linkedin">&nbsp;&nbsp;</i></a>
-    <a  href="https://github.com/bizalchemist" style="font-size: 24px; color: #00d4ff"><i class="fa fa-github">&nbsp;&nbsp;</i></a>  
-    <a  href="https://medium.com/@masha.harness" style="font-size: 24px; color: #00d4ff"><i class="fa fa-medium"></i></a>  
-  </div>
-  <a href="#contact"><p><button>Contact</button></p></a>
-</div>  
-
-  </header>
-
-<div class="w3-content w3-justify w3-text-light-grey w3-padding-64" id="about">
-    <h2 class="w3-text-light-grey">About</h2>
-    <hr style="width:200px" class="w3-opacity">
-    
-    <p style="font-size: 1.1rem; color: #fff;">
-        <strong>Full-Stack Data Scientist | AI/ML Architect | TPM</strong>
-    </p>
-    
- <p style="line-height: 1.8;">
-        I am a <strong>Data Wizard</strong> and <strong>MS in MMORSE</strong> (Mathematical Methods, Operations Research, Statistics, and Econometrics).<br/>
-        I specialize in solving high-stakes business complexity through elegant AI/ML integrations.<br/> 
-        <strong>I am a game-changer</strong> who doesn’t just analyze data — I architect the AI ecosystems that turn latent insights into revenue velocity.
-    </p>
-
-    <h4 class="w3-text-white" style="margin-top: 30px; letter-spacing: 1px;">THE INNOVATION EVOLUTION</h4>
-    
-    <ul style="list-style: none; padding-left: 0;">
-        
-            <li style="margin-bottom: 25px; padding: 15px; background: rgba(56, 189, 248, 0.05); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0;">
-            <span style="color: var(--accent-blue); font-weight: bold; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);"><strong>[2026]</strong> THE EVOLUTION:</span> 
-            Personally engineered <strong>"Eggy" v2.0</strong>, a state-of-the-art <strong>AI/ML Chat Assistant</strong> integrated for the 
-            <i class="fa fa-rocket" style="color: var(--accent-red);"></i><a href="dealregistrationpage.html" target="_blank" style="color: var(--accent-red); font-weight: bold; text-decoration: underline;">
-                Keysight Eggplant Global Partner Ecosystem</a>.<br/> 
-                This modern advancement utilizes the latest LLM logic to automate global compliance and accelerate the Quote-to-Cash cycle.
-        <i class="fa fa-sitemap" style="color: var(--accent-blue);"></i><a href="eggy-architecture.html" target="_blank" style="color: var(--accent-blue); font-weight: bold; text-decoration: underline; margin-right: 15px;">
-                View System Architecture
-            </a>
-            </li>
-
-            <li style="margin-bottom: 25px; padding: 15px; background: rgba(56, 189, 248, 0.05); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0;">
-        <span style="color: var(--accent-blue); font-weight: bold; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);"><strong>[2023→2026]</strong> EGGY AI AGENT:</span>
-        Architected <strong>Eggy</strong> — a proactive RAG compliance agent with real-time sanctions screening, agentic form governance, and context-aware deal guidance — built <strong>2 years before Einstein Copilot shipped</strong>, now aligned to Salesforce PRM.
-        <br/>
-        <i class="fa fa-microchip" style="color: var(--accent-blue);"></i><a href="eggy_architecture_diagram.html" target="_blank" style="color: var(--accent-blue); font-weight: bold; text-decoration: underline; margin-right: 15px;">Eggy AI Architecture</a>
-        <i class="fa fa-rocket" style="color: var(--accent-red);"></i><a href="slds_prm_dealregistration-ai.html" target="_blank" style="color: var(--accent-red); font-weight: bold; text-decoration: underline;">Live Demo</a>
-            </li>
-
-        <li style="margin-bottom: 20px; padding-left: 19px;">
-            <span style="color: var(--accent-blue); font-weight: bold;">[2024] THE IMPACT:</span> 
-            Deployed a first-generation AI framework bridging the "certification-to-revenue" gap, generating <strong>$5M in partner-influenced revenue</strong> in Year 1.
-        </li>
-
-        <li style="margin-bottom: 20px; padding-left: 19px;">
-            <span style="color: var(--accent-blue); font-weight: bold;">[2023] THE VISION:</span> 
-            Architected an AI-driven roadmap that won <strong>3rd Place at the Keysight Santa Rosa HQ Hackathon</strong>. My pitch leveraged <strong>PaLM LLM logic and Neural Speech Synthesis</strong> to redefine corporate partner enablement 
-            <a href="#ai-pitch-video" style="color: var(--accent-blue); text-decoration: underline;">(Watch Pitch below)</a>.
-        </li>
-    </ul>
-
-<div class="w3-row w3-padding-32 w3-section glass-stats-container w3-left-align" 
-     style="background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(10px); 
-            -webkit-backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 20px;
-            padding-left: 32px !important; /* Equal padding for the left */
-            padding-right: 32px !important; /* Equal padding for the right */
-            transition: all 0.4s ease;">
-       
-    <h3 class="w3-text-white" style="margin-top: 0;">
-        <i class="fa fa-code" style="color: var(--accent-blue); margin-right: 10px;"></i> Technical AI Integration Stack
-    </h3>
-    
-    <p style="font-size: 0.95rem; margin-bottom: 15px; line-height: 1.6;">
-        <strong>LLM Engineering:</strong> Custom integration of <strong>Gemini 2.5 Flash</strong> via the Google AI SDK, bypassing standard wrappers to manage model lifecycles and 1M+ token context windows.
-    </p>
-    
-    <p style="font-size: 0.95rem; margin-bottom: 15px; line-height: 1.6;">
-        <strong>System Logic:</strong> Developed a proprietary <strong>System Instruction Framework</strong> to programmatically enforce global compliance ($25k thresholds and RFP exclusion logic).
-    </p>
-    
-    <p style="font-size: 0.95rem; margin: 0; line-height: 1.6;">
-        <strong>Full-Stack Mastery:</strong> Expert at bridging deep-tech engineering telemetry with executive business outcomes using SQL, Python, and modern JS.
-    </p>
-</div>
-
-
-<h3 class="w3-padding-16 w3-text-light-grey">Technical Skill Infrastructure</h3>
-
-  <div class="skill-module">
-      <p class="w3-wide">AI/ML, Robotic Process Automation (SQL / Python)</p>
-      <div class="w3-white">
-          <div class="w3-dark-grey" style="width:93%"></div>
-      </div>
-  </div>
-
-  <div class="skill-module">
-      <p class="w3-wide">Revenue Systems Architecture (SFDC / CPQ / PRM)</p>
-      <div class="w3-white">
-          <div class="w3-dark-grey" style="width:95%"></div>
-      </div>
-  </div>
-
-  <div class="skill-module">
-      <p class="w3-wide">Global Technical Program Management</p>
-      <div class="w3-white">
-          <div class="w3-dark-grey" style="width:92%"></div>
-      </div>
-  </div>
-
-  <div class="skill-module">
-      <p class="w3-wide">Data Science & MMORSE Predictive Modeling</p>
-      <div class="w3-white">
-          <div class="w3-dark-grey" style="width:94%"></div>
-      </div>
-  </div>
-
-  <div class="skill-module">
-      <p class="w3-wide">GTM Strategy & Global Ecosystem Governance</p>
-      <div class="w3-white">
-          <div class="w3-dark-grey" style="width:93%"></div>
-      </div>
-  </div>
-  
-  <div class="w3-row w3-center w3-padding-32 w3-section glass-stats-container" 
-     style="background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(10px); 
-            -webkit-backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 20px;
-            transition: all 0.4s ease;">
-          
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">250+</span><br>
-    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">NPI Launches</span>
-  </div>
-
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">$650M+</span><br>
-    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Portfolio</span>
-  </div>
-  
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">400+</span><br>
-    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">CPQ Configs</span>
-  </div>
-  
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge" style="font-weight: 800; color: #fff;">200+</span><br>
-    <span style="color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Partners</span>
-  </div>
-</div>
-
-<div class="w3-center w3-padding-32 button-container">
-    <a href="assets/MashaHarness_Resume.pdf" download class="modern-btn btn-resume" style="background: var(--accent-red);">
-        <i class="fa fa-download"></i> Download Master Resume
-    </a>
-    <a id="ai-pitch-video" href="assets/videos/hackathon_pitch.mp4" target="_blank" class="modern-btn btn-pitch">
-        <i class="fa fa-play-circle"></i> Watch 2023 AI Strategy Pitch
-    </a>
-</div>
-
-    <h3 class="w3-padding-24 w3-text-light-grey">Executive Endorsements</h3>  
-    <img src="assets/images/Toby.png" alt="TobyAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
-    <p><span class="w3-large w3-margin-right">Toby.</span> VP Global Alliances at Keysight Technologies.</p>
-    <p>Masha is a joy to work with and takes the initiative to fix problems / provide solutions to problems. Masha's development background means she is always looking for ways to automate processes to gain efficiencies and repeatability. Masha has been instrumental in implementing our Impartner implementation, finding ways to improve business processes through using the platform as our Partner Portal.</p><br>
-    
-   <img src="assets/images/Gail.png" alt="GailAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
-    <p><span class="w3-large w3-margin-right">Gail.</span>  Director Worldwide Channels at Keysight Technologies.</p>
-    <p>Masha's background as a data scientist along with understanding our different business processes such as sales and finance, automation of manual tasks, data analysis tools for informed decision-making, tracking and visibility for enhanced operational insight, and compliance and reporting tools for adhering to regulations have been key to her success. Her knowledge in these areas along with her strong customer focus and organizational skills have created a vibrant partner platform for continued success.</p><br>
-   
-    <img src="assets/images/Sam.png" alt="SamAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
-    <p><span class="w3-large w3-margin-right">Sam.</span>  Exec Engineering Advisor at Five9.</p>    
-    <p>Masha is very knowledgeable and reliable specialist, she comes with my best recommendations.</p><br>
-
-    <img src="assets/images/Ethan.png" alt="EthanAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
-    <p><span class="w3-large w3-margin-right">Ethan.</span>  Manager, Digital Transformation at Keysight Technologies.</p>
-    <p>Masha has a versatile skillset centered around systems and data analysis, which brings a lot of value to the Knowledge Engineering team. She works tirelessly to improve process efficiency, and takes ownership of problems within her sphere of influence. She's a great member of the broader Digital Transformation organization</p><br>
-
-    <img src="assets/images/Akihiko.png" alt="AkihikoAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
-    <p><span class="w3-large w3-margin-right">Akihiko.</span> Director Business Development at Keysight Technologies.</p>
-    <p>Masha is the person who has not only an excellent skillset but passion to team's success. Without her, we could not deliver the result so smooth!</p><br>
-
-    <img src="assets/images/Mike.png" alt="MikeAvatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
-    <p><span class="w3-large w3-margin-right">Mike.</span>  Technical Writer at Keysight Technologies.</p>
-    <p>Masha was very engaged and passionate about her work and received the best compliments on her abilities, integrity, focus, and hard work. Hiring Masha would be an excellent opportunity for her to offer her breadth of knowledge, strong people skills, and technical expertise to your organization.</p><br>
-
-  </div>
-
-   <div class="w3-padding-64 w3-content" id="portfolio">
-     <h2 class="w3-text-light-grey">My Portfolio</h2>
-     <hr style="width:200px" class="w3-opacity">
-    <h3 class="w3-padding-8 w3-text-light-grey;" style="text-align:center; margin: 0;">AI Analytics & Enablement</h3>
-    
-    <div class="w3-center w3-padding-32 button-container">
-            <a href="dealregistrationpage.html" target="_blank" class="modern-btn" style="background: var(--accent-blue);">
-                <i class="fa fa-magic"></i> AI Deal Assistant
-            </a>
-            
-            <a href="dashboard.html" target="_blank" class="modern-btn" style="background: var(--accent-blue);">
-                <i class="fa fa-rocket"></i> Launch Live Demo
-            </a>
-
-    </div>
-    
-    <p> </p>
-    
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half">
-       
-        <div class="portfolio-image-container" onclick="window.open('https://eggplantpartners.keysight.com', '_blank');" style="cursor: pointer;">
-           <img src="assets/images/ PortalUI_Login_mockup.png" style="width:100%" alt="Eggplant Partner Portal">
-             <div class="portfolio-image-overlay">
-                <p class="portfolio-image-text"><strong>PRM CLOUD PORTALS</strong><br><br> PORTAL ARCHITECTURE<br>CHANNEL OPS MANAGEMENT<br><br></p> 
-            </div>
+        <p class="hero-tagline mb-4">
+          Architecting Revenue Velocity —<br>
+          Unleashing AI to Ignite B2B Growth
+        </p>
+        <div class="hero-cta-row d-flex flex-wrap gap-2 pb-4">
+          <a href="#portfolio" class="btn-ink"><span>View Portfolio</span></a>
+          <a href="https://bizalchemist.github.io/assets/MashaHarness_Resume.pdf"
+             class="btn-ghost-ink" target="_blank" rel="noopener">Download CV</a>
         </div>
-     
-        <div class="portfolio-image-container" onclick="window.open('assets/PartnerEnablement.pdf', '_blank');" style="cursor: pointer;">
-         <img src="assets/images/ PortalUI_mockup.png" style="width:100%" alt="Full-Stack CMS Development">
-           <div class="portfolio-image-overlay">
-             <p class="portfolio-image-text"><strong>PARTNER ENABLEMENT</strong><br><br>PRM SYSTEM ARCHITECTURE<br>FULL-STACK CMS DEVELOPMENT</p>
-           </div>
-       </div>
-       
-       <div class="portfolio-image-container" onclick="window.open('assets/DealRegistrationPlaybook.pdf', '_blank');" style="cursor: pointer;">
-        <img src="assets/images/DealReg_Playbook.png" style="width:100%" alt="Deal Registration Playbook">
-          <div class="portfolio-image-overlay">
-            <p class="portfolio-image-text"><strong> DEAL REGISTRATION </strong></br></br> PLAYBOOK DEVELOPMENT </br> UI/UX DESIGN </p> 
-          </div>
       </div>
-
-      </div>
-
-      <div class="w3-half">
-      <div class="portfolio-image-container" onclick="window.open('assets/DealReg_PresaleCert.pdf', '_blank');" style="cursor: pointer;">
-          <img src="assets/images/playbook_mockup.png" style="width:100%">
-          <div class="portfolio-image-overlay">
-              <p class="portfolio-image-text"><strong>SALES ENABLEMENT & OPERATIONS</strong><br><br>PRE-SALES READINESS PIPELINE<br>DEAL REGISTRATION GOVERNANCE</p>
-          </div>
-      </div>
-        
-      <div class="portfolio-image-container" onclick="window.open('assets/FinTech_Drip_Campaign.pdf', '_blank');" style="cursor: pointer;">
-          <img src="assets/images/DealReg_eBook_Mockup_NewArrival.png" style="width:100%">
-          <div class="portfolio-image-overlay">
-              <p class="portfolio-image-text">
-                  <strong>DIGITAL CAMPAIGNS</strong><br><br>END-TO-END EXECUTION<br>NURTURE FLOW ARCHITECTURE</p> 
-          </div>
-      </div>
-        <div class="portfolio-image-container" onclick="window.open('assets/FinTech_Asset.pdf', '_blank');" style="cursor: pointer;">
-             <img src="assets/images/eBooks_Mockup.png" style="width:100%" alt="Marketing Playbook">
-          <div class="portfolio-image-overlay">
-            <p class="portfolio-image-text"><strong>MARKETING ENABLEMENT</strong><br><br> ASSET LIBRARY <br> PLAYBOOK ARCHITECTURE <br><br></p> 
-          </div>
-        </div>    
-
-      <div class="portfolio-image-container" onclick="window.location.href='dashboard.html';" style="cursor: pointer;">
-       <img src="assets/images/sales_dashboard_mockup.png" style="width:100%">
-         <div class="portfolio-image-overlay">
-           <p class="portfolio-image-text"><strong> SALES ENABLEMENT </strong></br></br> DASHBOARDS DEVELOPMENT </br> UI/UX DESIGN </p> 
-         </div>
-      </div>
-        
-      <div class="portfolio-image-container" onclick="window.location.href='fintechlandingpage.html';" style="cursor: pointer;">
-       <img src="assets/images/MarketingCampaign.png" style="width:100%">
-         <div class="portfolio-image-overlay">
-           <p class="portfolio-image-text"><strong> MARKETING CAMPAIGNS </strong></br></br> STRATEGY & CONTENT DESIGN </br> AUTOMATION ARCHITECTURE </p> 
-         </div>
-      </div>     
-     </div>      
     </div>
-
-  <div class="w3-padding-64 w3-content w3-text-white" id="contact">
-    <h2 class="w3-text-light-grey">Contact Me</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <div class="w3-section">
-      <p style="white-space: nowrap;"><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>San Francisco Bay Area, California, US</p>
-      <p><i class="fa fa-globe fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>Remote-friendly / Willing to relocate for an exciting opportunity</p>
-    </div><br>
-    <p>Let's get in touch. Send me a message:</p>
-
-    <form style="border:none; padding:0; margin:0;" id="fs-frm" name="simple-contact-form" accept-charset="utf-8" action="https://formspree.io/f/mzbnaqql" method="post">
-      <fieldset style="border:none; padding:0;" id="fs-frm-inputs">
-        <label for="full-name">Full Name</label>
-        <input type="text" name="name" id="full-name" placeholder="First and Last" class="w3-input w3-padding-16" required="">
-        <label for="email-address">Email Address</label>
-        <input type="email" name="_replyto" id="email-address" placeholder="email@domain.tld" class="w3-input w3-padding-16" required="">
-        <label for="message">Message</label>
-        <textarea rows="3" name="message" id="message" placeholder="Enter your message here" class="w3-input w3-padding-16" required=""></textarea>
-        <input type="hidden" name="_subject" id="email-subject" value="Contact Me Form Submission">
-      </fieldset>
-      <p>
-        <button class="w3-button w3-light-grey w3-padding-large" input type="submit">
-          <i class="fa fa-paper-plane"></i> SEND MESSAGE
-        </button>
-      </p>
-    </form>
-    
   </div>
-<footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-  <a  href="https://www.linkedin.com/in/mashaharness"><i class="fa fa-linkedin w3-hover-opacity">&nbsp;&nbsp;</i></a>
-  <a  href="https://github.com/bizalchemist"><i class="fa fa-github w3-hover-opacity">&nbsp;&nbsp;</i></a> 
-  <a  href="https://medium.com/@masha.harness"><i class="fa fa-medium w3-hover-opacity"></i></a>  
+
+  <div class="hero-stats w-100">
+    <div class="container-fluid safe-x py-3">
+      <div class="row g-0 text-center">
+        <div class="col-6 col-sm-3 py-1">
+          <div class="stat-num">250+</div>
+          <div class="stat-label">NPI Launches</div>
+        </div>
+        <div class="col-6 col-sm-3 py-1">
+          <div class="stat-num">$650M+</div>
+          <div class="stat-label">Portfolio</div>
+        </div>
+        <div class="col-6 col-sm-3 py-1">
+          <div class="stat-num">400+</div>
+          <div class="stat-label">CPQ Configs</div>
+        </div>
+        <div class="col-6 col-sm-3 py-1">
+          <div class="stat-num">$5M</div>
+          <div class="stat-label">Revenue Y1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TICKER ══════════ -->
+<div class="ticker-outer" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">AI/ML Engineering</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">RAG Architecture</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Revenue Systems</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Salesforce PRM</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">LLM Engineering</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Python · SQL · JS</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">GTM Strategy</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Partner Ecosystem</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">AI/ML Engineering</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">RAG Architecture</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Revenue Systems</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Salesforce PRM</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">LLM Engineering</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Python · SQL · JS</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">GTM Strategy</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Partner Ecosystem</span><span class="ticker-item ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- ══════════ DIVIDER ══════════ -->
+<div class="diag-down"></div>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section class="about-section py-5" id="about">
+  <div class="container-fluid safe-x py-3">
+    <div class="row g-4 g-lg-5 align-items-start">
+      <div class="col-12 col-md-4 col-lg-3 reveal">
+        <span class="sec-label">About</span>
+        <h2 class="about-title">Data<br><em>Wizard.</em><br>Game<br>Changer.</h2>
+      </div>
+      <div class="col-12 col-md-8 col-lg-9 reveal" style="transition-delay:.15s">
+        <p class="about-body mb-3">
+          I'm a <strong>Full-Stack Data Scientist & AI/ML Architect</strong> with an MS in MMORSE
+          (Mathematical Methods, Operations Research, Statistics, and Econometrics) and a
+          <strong>UC Berkeley Technical Program Management</strong> certification.
+          I don't just analyze data — I architect the AI ecosystems that turn latent insights into
+          <strong>revenue velocity</strong>.
+        </p>
+        <p class="about-body mb-4">
+          My signature work includes <strong>"Eggy"</strong> — a proactive RAG compliance agent with
+          real-time sanctions screening and agentic form governance, built
+          <strong>2 years before Einstein Copilot shipped</strong> and now aligned to Salesforce PRM.
+          I bridge deep-tech engineering with executive outcomes that move the needle.
+        </p>
+        <div>
+          <span class="tag-pill">LLM Engineering</span>
+          <span class="tag-pill">RAG Systems</span>
+          <span class="tag-pill">Gemini 2.5 Flash</span>
+          <span class="tag-pill">SFDC / CPQ / PRM</span>
+          <span class="tag-pill">Python</span>
+          <span class="tag-pill">SQL</span>
+          <span class="tag-pill">Revenue Architecture</span>
+          <span class="tag-pill">GTM Strategy</span>
+          <span class="tag-pill">1M+ Token Context</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="diag-up"></div>
+
+<!-- ══════════ TIMELINE ══════════ -->
+<section class="py-5" id="work" style="background:var(--paper)">
+  <div class="container-fluid safe-x py-3">
+    <div class="d-flex align-items-baseline gap-3 border-bottom pb-3 mb-5" style="border-color:var(--border)!important">
+      <span class="sec-num sec-num-dim">02</span>
+      <h2 class="sec-title sec-title-dark m-0">Innovation<br>Timeline</h2>
+    </div>
+
+    <div class="timeline-wrap">
+
+      <div class="tl-item">
+        <div class="tl-year">2026</div>
+        <div>
+          <h3 class="tl-role">Eggy v2.0 — State-of-the-Art AI Chat Assistant</h3>
+          <p class="tl-meta">Keysight Eggplant Global Partner Ecosystem</p>
+          <p class="tl-desc">Personally engineered a next-generation AI/ML Chat Assistant integrating latest LLM logic to automate global compliance and accelerate the Quote-to-Cash cycle.</p>
+          <a href="https://bizalchemist.github.io/eggy-architecture.html" class="tl-badge" target="_blank">View Architecture →</a>
+        </div>
+      </div>
+
+      <div class="tl-item" style="transition-delay:.12s">
+        <div class="tl-year">2023–26</div>
+        <div>
+          <h3 class="tl-role">Eggy AI Agent — Proactive RAG Compliance System</h3>
+          <p class="tl-meta">Salesforce PRM · Real-time Sanctions Screening · Agentic Form Governance</p>
+          <p class="tl-desc">Architected a proactive RAG compliance agent with context-aware deal guidance — built 2 years before Einstein Copilot shipped, now aligned to Salesforce PRM.</p>
+          <a href="https://bizalchemist.github.io/slds_prm_dealregistration-ai.html" class="tl-badge" target="_blank">Live Demo →</a>
+        </div>
+      </div>
+
+      <div class="tl-item" style="transition-delay:.24s">
+        <div class="tl-year">2024</div>
+        <div>
+          <h3 class="tl-role">$5M Partner-Influenced Revenue</h3>
+          <p class="tl-meta">AI Framework Deployment · Certification-to-Revenue Gap</p>
+          <p class="tl-desc">Deployed first-generation AI framework bridging the certification-to-revenue gap, generating $5M in partner-influenced revenue in Year 1.</p>
+          <span class="tl-badge">$5M Revenue Impact</span>
+        </div>
+      </div>
+
+      <div class="tl-item" style="transition-delay:.36s">
+        <div class="tl-year">2023</div>
+        <div>
+          <h3 class="tl-role">3rd Place — Keysight Santa Rosa HQ Hackathon</h3>
+          <p class="tl-meta">PaLM LLM · Neural Speech Synthesis · Corporate Partner Enablement</p>
+          <p class="tl-desc">Architected an AI-driven roadmap leveraging PaLM LLM logic and Neural Speech Synthesis to redefine corporate partner enablement — before GenAI went mainstream.</p>
+          <a href="https://bizalchemist.github.io/assets/videos/hackathon_pitch.mp4" class="tl-badge" target="_blank">Watch AI Pitch →</a>
+          <a href="https://bizalchemist.github.io/assets/SRS_HACKATHON-2023.pdf" class="tl-badge" target="_blank" style="margin-left:.4rem">Strategy PDF →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PORTFOLIO ══════════ -->
+<section class="portfolio-section py-5" id="portfolio">
+  <div class="container-fluid safe-x py-3">
+    <div class="d-flex align-items-baseline gap-3 border-bottom pb-3 mb-5" style="border-color:rgba(255,255,255,.07)!important">
+      <span class="sec-num sec-num-dimw">03</span>
+      <h2 class="sec-title sec-title-light m-0">Selected<br>Work</h2>
+    </div>
+
+    <div class="row g-2">
+      <div class="col-12 col-md-7">
+        <div class="p-card p-card--featured h-100 reveal">
+          <div>
+            <p class="p-cat">AI Product · Featured</p>
+            <h3 class="p-title">Eggy — AI Deal Assistant & Compliance Agent</h3>
+          </div>
+          <div class="d-flex justify-content-between align-items-end">
+            <div class="p-stack">Gemini 2.5 Flash<br>RAG · Sanctions Screening<br>Salesforce PRM</div>
+            <a href="https://bizalchemist.github.io/dealregistrationpage.html" class="p-arrow ms-3" target="_blank" rel="noopener">↗</a>
+          </div>
+          <div class="p-ghost-num">01</div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-5">
+        <div class="p-card h-100 reveal" style="transition-delay:.1s">
+          <div>
+            <p class="p-cat">Analytics · Revenue</p>
+            <h3 class="p-title">AI Command Center Dashboard</h3>
+          </div>
+          <div class="d-flex justify-content-between align-items-end">
+            <div class="p-stack">Python · SQL<br>Full-Stack JS</div>
+            <a href="https://bizalchemist.github.io/dashboard.html" class="p-arrow ms-3" target="_blank" rel="noopener">↗</a>
+          </div>
+          <div class="p-ghost-num">02</div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="p-card h-100 reveal" style="transition-delay:.2s">
+          <div>
+            <p class="p-cat">Architecture</p>
+            <h3 class="p-title">Eggy v2.0 System Architecture</h3>
+          </div>
+          <div class="d-flex justify-content-between align-items-end">
+            <div class="p-stack">LLM Engineering<br>1M+ Token Context</div>
+            <a href="https://bizalchemist.github.io/eggy-architecture.html" class="p-arrow ms-3" target="_blank" rel="noopener">↗</a>
+          </div>
+          <div class="p-ghost-num">03</div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="p-card h-100 reveal" style="transition-delay:.3s">
+          <div>
+            <p class="p-cat">Portal · CMS</p>
+            <h3 class="p-title">PRM Cloud Partner Portal</h3>
+          </div>
+          <div class="d-flex justify-content-between align-items-end">
+            <div class="p-stack">Impartner · SFDC<br>Channel Ops</div>
+            <span class="p-soon">Case study<br>coming soon</span>
+          </div>
+          <div class="p-ghost-num">04</div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4">
+        <div class="p-card h-100 reveal" style="transition-delay:.4s">
+          <div>
+            <p class="p-cat">Enablement · GTM</p>
+            <h3 class="p-title">Sales & Marketing Enablement Suite</h3>
+          </div>
+          <div class="d-flex justify-content-between align-items-end">
+            <div class="p-stack">Deal Registration<br>Playbooks · eBooks</div>
+            <span class="p-soon">Case study<br>coming soon</span>
+          </div>
+          <div class="p-ghost-num">05</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TESTIMONIALS ══════════ -->
+<section class="py-5" id="testimonials" style="background:var(--paper)">
+  <div class="container-fluid safe-x py-3">
+    <div class="d-flex align-items-baseline gap-3 border-bottom pb-3 mb-5" style="border-color:var(--border)!important">
+      <span class="sec-num sec-num-dim">05</span>
+      <h2 class="sec-title sec-title-dark m-0">Executive<br>Endorsements</h2>
+    </div>
+
+    <div class="row g-2">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="testi-card h-100">
+          <span class="q-mark">“</span>
+          <p class="testi-text">Masha takes initiative to fix problems and provide solutions. Her development background means she always looks for ways to automate processes for efficiency and repeatability. Instrumental in our Impartner implementation.</p>
+          <div class="testi-author"><strong>Toby</strong><br>VP Global Alliances · Keysight Technologies</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="testi-card h-100" style="transition-delay:.15s">
+          <span class="q-mark">“</span>
+          <p class="testi-text">Masha's background as a data scientist combined with her understanding of business processes — sales, finance, automation — has been key to her success. She created a vibrant partner platform for continued growth.</p>
+          <div class="testi-author"><strong>Gail</strong><br>Director Worldwide Channels · Keysight Technologies</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="testi-card h-100" style="transition-delay:.3s">
+          <span class="q-mark">“</span>
+          <p class="testi-text">Masha has a versatile skillset centered around systems and data analysis. She works tirelessly to improve process efficiency and takes ownership of problems within her sphere of influence.</p>
+          <div class="testi-author"><strong>Ethan</strong><br>Manager, Digital Transformation · Keysight Technologies</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="testi-card h-100" style="transition-delay:.45s">
+          <span class="q-mark">“</span>
+          <p class="testi-text">Masha is very knowledgeable and reliable specialist, she comes with my best recommendations.</p>
+          <div class="testi-author"><strong>Sam</strong><br>Executive Engineering Advisor · Five9</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="testi-card h-100" style="transition-delay:.6s">
+          <span class="q-mark">“</span>
+          <p class="testi-text">Masha is the person who has not only an excellent skillset but passion for the team's success. Without her, we could not deliver the result so smooth!</p>
+          <div class="testi-author"><strong>Akihiko</strong><br>Director Business Development · Keysight Technologies</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="testi-card h-100" style="transition-delay:.75s">
+          <span class="q-mark">“</span>
+          <p class="testi-text">Masha was very engaged and passionate about her work and received the best compliments on her abilities, integrity, focus, and hard work. Hiring Masha would be an excellent opportunity for her to offer her breadth of knowledge, strong people skills, and technical expertise.</p>
+          <div class="testi-author"><strong>Mike</strong><br>Technical Writer · Keysight Technologies</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section class="contact-section py-5 text-center" id="contact">
+  <div class="container-fluid safe-x py-4">
+    <span class="sec-label d-block mb-2">Open to Opportunities</span>
+    <h2 class="contact-heading mb-3">LET'S<br>BUILD<br>TOGETHER.</h2>
+    <p class="contact-sub mb-5">San Francisco Bay Area · Remote-friendly · Willing to relocate</p>
+    <div class="d-flex flex-wrap justify-content-center gap-2" style="position:relative;z-index:2">
+      <a href="https://linkedin.com/in/mashaharness" class="btn-contact" target="_blank" rel="noopener"><span>LinkedIn</span></a>
+      <a href="https://github.com/bizalchemist" class="btn-contact" target="_blank" rel="noopener"><span>GitHub</span></a>
+      <a href="https://bizalchemist.github.io/assets/MashaHarness_Resume.pdf" class="btn-contact" target="_blank" rel="noopener"><span>Download CV</span></a>
+      <button type="button" class="btn-contact" data-bs-toggle="modal" data-bs-target="#contactModal" onclick="resetContactForm()"><span>Send Message</span></button>
+      <a href="https://bizalchemist.github.io/dealregistrationpage.html" class="btn-contact" target="_blank" rel="noopener"><span>Meet Eggy AI</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT MODAL ══════════ -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background:var(--ink);border:1px solid rgba(255,255,255,.1);border-radius:0">
+      <div class="modal-header" style="border-bottom:1px solid rgba(255,255,255,.08);padding:1.5rem 1.75rem">
+        <h5 class="modal-title" id="contactModalLabel"
+            style="font-family:var(--font-display);font-size:1.8rem;color:var(--paper);letter-spacing:.05em">
+          GET IN TOUCH
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="padding:1.75rem">
+        <p style="font-size:.68rem;letter-spacing:.12em;color:rgba(242,237,230,.5);text-transform:uppercase;margin-bottom:1.5rem">
+          Send a message directly to Masha
+        </p>
+        <div id="contactForm">
+          <div class="mb-3">
+            <input type="text" id="cf-name" placeholder="Your Name"
+              style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+                     color:var(--paper);font-family:var(--font-mono);font-size:.75rem;padding:.75rem 1rem;
+                     outline:none;transition:border-color .2s"
+              onfocus="this.style.borderColor='var(--acid)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+          </div>
+          <div class="mb-3">
+            <input type="email" id="cf-email" placeholder="Your Email"
+              style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+                     color:var(--paper);font-family:var(--font-mono);font-size:.75rem;padding:.75rem 1rem;
+                     outline:none;transition:border-color .2s"
+              onfocus="this.style.borderColor='var(--acid)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+          </div>
+          <div class="mb-4">
+            <textarea id="cf-msg" rows="4" placeholder="Your Message"
+              style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+                     color:var(--paper);font-family:var(--font-mono);font-size:.75rem;padding:.75rem 1rem;
+                     outline:none;resize:vertical;transition:border-color .2s"
+              onfocus="this.style.borderColor='var(--acid)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'"></textarea>
+          </div>
+          <button id="cf-send" onclick="sendContactEmail()"
+            style="width:100%;background:var(--acid);color:var(--ink);border:none;
+                   font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+                   padding:.9rem;cursor:pointer;transition:background .2s;font-weight:700"
+            onmouseover="this.style.background='var(--ember)';this.style.color='#fff'"
+            onmouseout="this.style.background='var(--acid)';this.style.color='var(--ink)'">
+            Send Message →
+          </button>
+        </div>
+        <div id="contactSuccess" style="display:none;text-align:center;padding:2rem 0">
+          <div style="font-family:var(--font-display);font-size:3rem;color:var(--acid);line-height:1">✓</div>
+          <p style="font-family:var(--font-serif);font-style:italic;color:var(--paper);font-size:1.1rem;margin-top:.75rem">
+            Message sent! Masha will be in touch soon.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="py-2">
+  <div class="container-fluid safe-x">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 py-1">
+      <p class="footer-copy m-0">© 2026 Masha Harness · bizalchemist.github.io</p>
+      <span class="footer-mark">MH</span>
+      <div class="d-flex gap-3 align-items-center">
+        <a href="https://linkedin.com/in/mashaharness" target="_blank" rel="noopener"
+           style="color:rgba(255,255,255,.4);font-size:.75rem;text-decoration:none;letter-spacing:.05em;transition:color .2s"
+           onmouseover="this.style.color='var(--acid)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">LinkedIn</a>
+        <a href="https://github.com/bizalchemist" target="_blank" rel="noopener"
+           style="color:rgba(255,255,255,.4);font-size:.75rem;text-decoration:none;letter-spacing:.05em;transition:color .2s"
+           onmouseover="this.style.color='var(--acid)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">GitHub</a>
+        <a href="https://medium.com/@masha.harness" target="_blank" rel="noopener"
+           style="color:rgba(255,255,255,.4);font-size:.75rem;text-decoration:none;letter-spacing:.05em;transition:color .2s"
+           onmouseover="this.style.color='var(--acid)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Medium</a>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<!-- ══════════ CHATBOT WIDGET ══════════ -->
+<style>
+/* ── Trigger: bottom-right desktop, bottom-center mobile ── */
+#chat-trigger {
+  position: fixed;
+  bottom: 1.75rem; right: 1.75rem;
+  z-index: 8000;
+  width: 58px; height: 58px;
+  background: var(--ink); border: 1.5px solid var(--acid);
+  border-radius: 0;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(200,255,0,.28);
+  transition: background .2s, box-shadow .2s, transform .15s;
+}
+#chat-trigger:hover {
+  background: var(--acid);
+  box-shadow: 0 0 36px rgba(200,255,0,.6);
+  transform: scale(1.06);
+}
+#chat-trigger:hover svg path,
+#chat-trigger:hover svg line { stroke: var(--ink); }
+#chat-trigger.open #icon-chat  { display: none; }
+#chat-trigger.open #icon-close { display: block !important; }
+#chat-trigger #icon-close      { display: none; }
+
+/* Pulse ring */
+#chat-trigger::before {
+  content: ''; position: absolute; inset: -6px;
+  border: 1.5px solid var(--acid); opacity: 0;
+  animation: chatPulse 3s ease-out infinite;
+}
+@keyframes chatPulse {
+  0%   { inset: -6px;  opacity: .7; }
+  100% { inset: -22px; opacity: 0;  }
+}
+
+/* ── Panel: bottom-right desktop, centered mobile ── */
+#chat-panel {
+  position: fixed;
+  bottom: calc(1.75rem + 58px + 12px); right: 1.75rem;
+  z-index: 7999;
+  width: 340px; max-height: 510px;
+  background: var(--ink);
+  border: 1px solid rgba(200,255,0,.22);
+  box-shadow: 0 10px 50px rgba(0,0,0,.75), 0 0 28px rgba(200,255,0,.07);
+  display: flex; flex-direction: column;
+  transform: translateY(16px) scale(.97);
+  opacity: 0; pointer-events: none;
+  transition: transform .28s ease, opacity .28s ease;
+}
+#chat-panel.open {
+  transform: translateY(0) scale(1);
+  opacity: 1; pointer-events: all;
+}
+
+/* Mobile: trigger bottom-center, panel floats above it centered */
+@media (max-width: 767px) {
+  #chat-trigger {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(1.2rem + env(safe-area-inset-bottom));
+  }
+  #chat-trigger:hover { transform: translateX(-50%) scale(1.06); }
+  #chat-trigger.open  { transform: translateX(-50%); }
+  #chat-panel {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) translateY(16px) scale(.97);
+    width: calc(100vw - 2rem); max-width: 380px;
+    bottom: calc(1.2rem + env(safe-area-inset-bottom) + 58px + 10px);
+  }
+  #chat-panel.open {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* ── Header ── */
+#chat-header {
+  background: rgba(200,255,0,.055);
+  border-bottom: 1px solid rgba(200,255,0,.14);
+  padding: .8rem 1.1rem;
+  display: flex; align-items: center; gap: .65rem; flex-shrink: 0;
+}
+.chat-avatar {
+  width: 30px; height: 30px; background: var(--acid);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: .95rem;
+  color: var(--ink); flex-shrink: 0;
+}
+.chat-name {
+  font-family: var(--font-display); font-size: .95rem;
+  letter-spacing: .06em; color: var(--paper); line-height: 1.2;
+}
+.chat-status {
+  font-size: .52rem; letter-spacing: .14em; text-transform: uppercase; color: var(--acid);
+}
+.chat-status::before {
+  content: ''; display: inline-block; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--acid);
+  margin-right: .32rem; vertical-align: middle; box-shadow: 0 0 5px var(--acid);
+}
+
+/* ── Messages ── */
+#chat-messages {
+  flex: 1; overflow-y: auto; padding: .9rem 1rem;
+  display: flex; flex-direction: column; gap: .7rem;
+  scrollbar-width: thin; scrollbar-color: rgba(200,255,0,.18) transparent;
+}
+#chat-messages::-webkit-scrollbar { width: 3px; }
+#chat-messages::-webkit-scrollbar-thumb { background: rgba(200,255,0,.22); }
+
+.msg {
+  max-width: 90%; font-size: .77rem; line-height: 1.65;
+  font-family: var(--font-mono); animation: msgIn .22s ease;
+}
+@keyframes msgIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:none} }
+.msg-bot {
+  align-self: flex-start;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.07);
+  color: rgba(242,237,230,.87); padding: .58rem .82rem;
+}
+.msg-user {
+  align-self: flex-end;
+  background: rgba(200,255,0,.11); border: 1px solid rgba(200,255,0,.22);
+  color: var(--acid); padding: .58rem .82rem;
+}
+
+/* ── Chips ── */
+#chat-chips {
+  padding: .55rem 1rem .3rem;
+  display: flex; flex-wrap: wrap; gap: .38rem; flex-shrink: 0;
+}
+.chip {
+  font-family: var(--font-mono); font-size: .54rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink); background: var(--acid);
+  padding: .26rem .68rem; border: none; cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.chip:hover { background: var(--ember); color: #fff; }
+
+/* ── Input ── */
+#chat-input-row {
+  display: flex; border-top: 1px solid rgba(255,255,255,.07); flex-shrink: 0;
+}
+#chat-input {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: var(--paper); font-family: var(--font-mono); font-size: .74rem;
+  padding: .78rem 1rem; caret-color: var(--acid);
+}
+#chat-input::placeholder { color: rgba(242,237,230,.26); }
+#chat-send {
+  background: transparent; border: none;
+  border-left: 1px solid rgba(255,255,255,.07);
+  color: var(--acid); padding: .78rem 1rem;
+  cursor: pointer; font-size: 1rem;
+  transition: background .15s, color .15s;
+}
+#chat-send:hover { background: var(--acid); color: var(--ink); }
+</style>
+
+<!-- Trigger -->
+<button id="chat-trigger" aria-label="Chat with Masha's AI">
+  <svg id="icon-chat" width="22" height="22" viewBox="0 0 24 24" fill="none"
+       stroke="var(--acid)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <svg id="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none"
+       stroke="var(--acid)" stroke-width="2" stroke-linecap="round">
+    <line x1="18" y1="6" x2="6" y2="18"/>
+    <line x1="6"  y1="6" x2="18" y2="18"/>
+  </svg>
+</button>
+
+<!-- Panel -->
+<div id="chat-panel" role="dialog" aria-label="Masha's AI Assistant">
+  <div id="chat-header">
+    <div class="chat-avatar">M</div>
+    <div>
+      <div class="chat-name">MASHA'S AI</div>
+      <div class="chat-status">Ask me anything</div>
+    </div>
+  </div>
+  <div id="chat-messages"></div>
+  <div id="chat-chips">
+    <button class="chip" onclick="chipSend('Tell me about Eggy AI')">Eggy AI</button>
+    <button class="chip" onclick="chipSend('What is your biggest impact?')">Impact</button>
+    <button class="chip" onclick="chipSend('What is your tech stack?')">Tech Stack</button>
+    <button class="chip" onclick="chipSend('Are you available to hire?')">Hire Masha</button>
+    <button class="chip" onclick="chipSend('Tell me about your hackathon win')">Hackathon</button>
+    <button class="chip" onclick="chipSend('Where are you based?')">Location</button>
+  </div>
+  <div id="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Ask about Masha…"
+           maxlength="200" autocomplete="off"
+           onkeydown="if(event.key==='Enter')sendChat()">
+    <button id="chat-send" onclick="sendChat()" aria-label="Send">→</button>
+  </div>
 </div>
 
-<div id="chatbot-container">
-    <div id="chatbot-header">
-        <span id="chatbot-title">Ask Masha's AI</span>
-        <button id="chatbot-close-btn">&times;</button>
-    </div>
-    <div id="chatbot-messages">
-        <div class="message bot-message">Hello! I'm Masha's digital assistant. I can showcase her <b>AI Deal Assistant</b>, her <b>AI Command Center</b>, her <b>$650M+ portfolio</b>, or her <b>Hackathon '23 winning strategy</b>.</div>
-    </div>
-    
-    <div class="chatbot-input-area">
-        <input type="text" id="chatbot-input" placeholder="Ask about her skills or Berkeley...">
-        <button id="chatbot-send-btn">Send</button>
-    </div>
-</div>
-
-<button id="chatbot-toggle-btn">
-    <i class="fa fa-magic"></i>
-</button> 
-
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const chatbotContainer = document.getElementById('chatbot-container');
-        const chatbotToggleBtn = document.getElementById('chatbot-toggle-btn');
-        const chatbotCloseBtn = document.getElementById('chatbot-close-btn');
-        const chatbotMessages = document.getElementById('chatbot-messages');
-        const chatbotInput = document.getElementById('chatbot-input');
-        const chatbotSendBtn = document.getElementById('chatbot-send-btn');
+// ══════════ CHATBOT — SCRIPTED ══════════
+const RESPONSES = [
+  {
+    keys: ['eggy','deal','compliance','rag','sanctions','agent'],
+    reply: "Eggy is Masha's proactive RAG compliance AI agent — built with real-time sanctions screening, agentic form governance, and context-aware deal guidance. It was architected 2 full years before Salesforce Einstein Copilot shipped and is now aligned to Salesforce PRM. The v2.0 upgrade in 2026 integrates Gemini 2.5 Flash with 1M+ token context windows. 🤖"
+  },
+  {
+    keys: ['impact','revenue','money','result','achieve','5m','650'],
+    reply: "Masha generated $5M in partner-influenced revenue in Year 1 of her AI framework deployment. She oversees a $650M+ portfolio, 250+ NPI launches, 400+ CPQ configurations, and 200+ global partners. That's not just data science — that's revenue architecture at scale. 💰"
+  },
+  {
+    keys: ['stack','tech','tool','python','sql','language','skill','gemini','salesforce','sfdc'],
+    reply: "Masha's stack spans the full spectrum: Gemini 2.5 Flash (1M+ token context), Python, SQL, JavaScript, Salesforce CRM/CPQ/PRM, Impartner, RAG systems, and LLM engineering. She bridges deep-tech telemetry with executive business outcomes — rare combo. ⚡"
+  },
+  {
+    keys: ['hire','available','job','role','opportunity','open','recruit','position'],
+    reply: "Yes! Masha is open to exciting new opportunities. She's based in the San Francisco Bay Area, remote-friendly, and willing to relocate for the right role. Hit the 'Send Message' button above to get in touch directly. 🚀"
+  },
+  {
+    keys: ['hackathon','palm','pitch','2023','neural','speech','keysight','santa rosa'],
+    reply: "In 2023, Masha won 3rd Place at the Keysight Santa Rosa HQ Hackathon with an AI-driven roadmap leveraging PaLM LLM logic and Neural Speech Synthesis — redefining corporate partner enablement before GenAI went mainstream. 🏆"
+  },
+  {
+    keys: ['location','based','where','sf','san francisco','bay area','remote','relocate'],
+    reply: "Masha is based in the San Francisco Bay Area, California. She's remote-friendly and willing to relocate for an exciting opportunity. ☀️"
+  },
+  {
+    keys: ['education','degree','mmorse','berkeley','uc','university','certification','tpm'],
+    reply: "Masha holds an MS in MMORSE — Mathematical Methods, Operations Research, Statistics & Econometrics — and a Technical Program Management certification from UC Berkeley. Heavy on both the math and the execution side. 🎓"
+  },
+  {
+    keys: ['portfolio','project','work','prm','portal','cms','impartner','enablement'],
+    reply: "Masha's portfolio includes Eggy AI, the AI Command Center Dashboard, Eggy v2.0 System Architecture, PRM Cloud Partner Portal (Impartner/SFDC), and a full Sales & Marketing Enablement Suite. All built to drive real business outcomes. 📂"
+  },
+  {
+    keys: ['who','masha','about','introduce','yourself','tell me','background'],
+    reply: "Masha Harness is a Senior Data Scientist, AI/ML Architect, and UC Berkeley TPM. She architects AI ecosystems that turn data into revenue velocity — most notably Eggy, a RAG compliance AI she built years ahead of the competition. She's a data wizard and genuine game-changer. ✨"
+  },
+  {
+    keys: ['contact','email','reach','message','touch','connect','linkedin'],
+    reply: "You can connect with Masha on LinkedIn (linkedin.com/in/mashaharness), via the 'Send Message' button in the contact section, or download her CV. She's actively open to conversations about exciting roles and collaborations. 📬"
+  }
+];
 
-        chatbotToggleBtn.addEventListener('click', () => {
-            chatbotContainer.classList.toggle('active');
-            chatbotToggleBtn.classList.toggle('hidden');
-        });
+const FALLBACK = [
+  "Great question! That's a bit outside my scripted knowledge — hit the 'Send Message' button to ask Masha directly. She loves a good challenge. 💡",
+  "I don't have a specific answer for that, but Masha does! Reach out via the contact section — she's responsive and loves connecting. 📬",
+  "Hmm, try asking me about Eggy AI, her tech stack, impact numbers, or availability to hire. Or just send Masha a direct message! 🚀"
+];
+let fallbackIdx = 0;
 
-        chatbotCloseBtn.addEventListener('click', () => {
-            chatbotContainer.classList.remove('active');
-            chatbotToggleBtn.classList.remove('hidden');
-        });
+function getReply(text) {
+  const lower = text.toLowerCase();
+  for (const r of RESPONSES) {
+    if (r.keys.some(k => lower.includes(k))) return r.reply;
+  }
+  const f = FALLBACK[fallbackIdx % FALLBACK.length];
+  fallbackIdx++;
+  return f;
+}
 
-        // Function to render messages (supports HTML for links)
-        function addMessage(text, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message', `${sender}-message`);
-            messageDiv.innerHTML = text; 
-            chatbotMessages.appendChild(messageDiv);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        }
+// ── DOM refs ──
+let chatOpen = false, chatReady = false;
+const trigger  = document.getElementById('chat-trigger');
+const panel    = document.getElementById('chat-panel');
+const msgs     = document.getElementById('chat-messages');
+const inp      = document.getElementById('chat-input');
+const chipsEl  = document.getElementById('chat-chips');
 
- const responses = {
-    "dashboard": "Masha specializes in translating complex telemetry into revenue-driving insights. <br><br>🚀 <b><a href='dashboard.html' style='color: #38bdf8; font-weight: bold;'>Launch the Interactive AI Command Center</a></b>",
-    
-    // UPDATED: Corrected HFM Portfolio & $10M win
-    "keysight": "At Keysight, Masha managed the <b>$650M+ HFM portfolio</b> (including PNA-X and FieldFox). She applied 'Revenue-First' logic to <b>unblock $10M in stalled deals</b> during supply shortages and saved $800K annually via RPA pricing automation.",
-    
-    // UPDATED: Corrected Eggplant Portfolio & $5M+ revenue
-    "eggplant": "While managing the <b>Global Eggplant AI</b> ecosystem, Masha architected a framework that led to a 90% certification rate and generated <b>$5M+ in partner-influenced revenue</b> in Year 1.",
-    
-    // NEW: Success trigger combining both
-    "success": "Masha's track record includes unblocking $10M in HFM deals and generating $5M+ in revenue for the Eggplant AI portfolio. Would you like to see the <b><a href='dashboard.html' style='color: #38bdf8;'>Interactive Dashboard</a></b> behind this logic?",
-    
-    "sales": "Masha optimizes sales velocity by treating enablement as a leading indicator. Her architecture accelerated the Quote-to-Cash cycle by 20% for global portfolios. <b><a href='dashboard.html' style='color: #38bdf8;'>View Sales Telemetry Demo</a></b>.",
-    "metrics": "Masha focuses on 'meaningful metrics'—correlating seller certification velocity with top-line revenue outcomes. See her logic here: <a href='dashboard.html' style='color: #38bdf8;'>Interactive Dashboard Demo</a>",
-    "services": "Masha is a Technical Program Manager and Data Scientist. She bridges the gap between engineering telemetry and business outcomes through high-fidelity dashboarding and AI automation.",
-    "MMORSE": "Masha holds an <b>MS in MMORSE</b> (Mathematical Methods, Operations Research, Statistics & Econometrics), with a focus on Computer Science & Management. This rigorous quantitative foundation allows her to architect predictive models that transform raw sales telemetry into actionable growth strategy.",
-    "berkeley": "Masha is a <b>UC Berkeley-certified</b> Technical Program Manager (TPM). She specializes in bridging the gap between deep-tech engineering teams and executive business outcomes.",
-    "berkley": "Masha is a <b>UC Berkeley-certified</b> Technical Program Manager (TPM). She specializes in bridging the gap between deep-tech engineering teams and executive business outcomes.", // Safety fallback
-    "hard": "Masha's 'Hard & Smart' philosophy: Engineering deep, reliable data foundations (Hard) while using AI to automate the decision-making layer (Smart).",
-    "smart": "Working 'Smart' means treating Enablement as a leading indicator for revenue, allowing teams to pivot resources before the quarter ends.",
-    "hello": "Hi! I can walk you through Masha's **Hackathon-winning AI Strategy**, her **Interactive Command Center**, or her experience managing **$650M+ portfolios**. What interests you?",
-    "hi": "Hello! I can walk you through Masha's Data Science portfolio or her strategic work unblocking millions in stalled revenue. Where should we start?",
-    "contact": "You can connect with Masha via her <a href='https://linkedin.com/in/mashaharness' target='_blank' style='color: #38bdf8;'>LinkedIn</a> or the contact form below.",
-    "portfolio": "Masha's portfolio includes Interactive Command Centers, UI/UX for Partner Portals, and Global Sales Playbooks. <a href='dashboard.html' style='color: #38bdf8;'>View the latest demo here.</a>",
-    "hackathon": "Masha was the <b>Winner of the Keysight Global Sales Hackathon'23</b>. Her project, 'Innovating to Accelerate Customer Success,' used PaLM LLM to architect an AI-powered Salesforce PRM vision.  <br><br>📽️ <a href='assets/videos/hackathon_pitch.mp4' target='_blank' style='color: #38bdf8;'><b>Click to Watch the AI Pitch</b></a> | 📄 <b><a href='assets/SRS_HACKATHON-2023.pdf' target='_blank' style='color: #38bdf8;'>View Strategy PDF</a></b>",
-    "innovation": "Under the theme 'Innovating to Accelerate Customer Success,' Masha identified 7 critical pain points in partner ops and proposed an AI-driven migration to Salesforce PRM to eliminate manual spreadsheets.",
-    "prm": "Masha's Salesforce PRM architecture focus: automating the partner lifecycle, improving lead routing via AI, and creating a 'Single Source of Truth' for channel analytics. <b><a href='assets/SRS_HACKATHON-2023.pdf' target='_blank' style='color: #38bdf8;'>Download the Roadmap</a></b>",
-    "ai": "Masha architects AI-powered enablement systems that drive measurable business impact. Featured project: <b>AI Deal Registration Assistant</b>—a RAG-based chatbot using <b>PaLM LLM</b> providing 24/7 automated support for 200+ global partners. <b><a href='dealregistrationpage.html' target='_blank' style='color: #38bdf8;'>Try the live demo →</a></b>",
-    "deal": "I can certainly help you with that! I've been designed to streamline the registration process. <br><br>📝 <b><a href='dealregistrationpage.html' style='color: #E90029; font-weight: bold;'>Launch the Deal Registration Assistant</a></b>",
-    "register": "I can certainly help you with that! I've been designed to streamline the registration process. <br><br>📝 <b><a href='dealregistrationpage.html' style='color: #E90029; font-weight: bold;'>Launch the Deal Registration Assistant</a></b>",
+trigger.addEventListener('click', () => {
+  chatOpen = !chatOpen;
+  trigger.classList.toggle('open', chatOpen);
+  panel.classList.toggle('open', chatOpen);
+  if (chatOpen && !chatReady) {
+    chatReady = true;
+    setTimeout(() => addBot("Hello! I'm Masha's digital assistant. I can showcase her AI Deal Assistant, Command Center, $650M+ portfolio, or her Hackathon '23 winning strategy. What would you like to know?"), 180);
+  }
+  if (chatOpen) setTimeout(() => inp.focus(), 300);
+});
 
-};
+function addBot(text) {
+  const el = document.createElement('div');
+  el.className = 'msg msg-bot'; el.textContent = text;
+  msgs.appendChild(el); msgs.scrollTop = msgs.scrollHeight;
+}
+function addUser(text) {
+  const el = document.createElement('div');
+  el.className = 'msg msg-user'; el.textContent = text;
+  msgs.appendChild(el); msgs.scrollTop = msgs.scrollHeight;
+  chipsEl.style.display = 'none';
+}
 
-    // ADD THE ALIASES HERE (Right after the closing bracket of responses)
-    responses["award"] = responses["hackathon"];
-    responses["win"] = responses["hackathon"];
-    responses["pitch"] = responses["hackathon"]; // Optional: good to have if they just type 'pitch'
-    responses["registration"] = responses["deal"];
-    responses["deals"] = responses["deal"];
-    responses["help"] = responses["deal"];
-    responses["form"] = responses["deal"];
+function chipSend(q) { inp.value = q; sendChat(); }
 
-function getBotResponse(userMessage) {
-            const msg = userMessage.toLowerCase();
-            
-            // 1. Contextual Greeting Logic
-            const hours = new Date().getHours();
-            const timeGreeting = hours < 12 ? "Good morning!" : hours < 17 ? "Good afternoon!" : "Good evening!";
+// ══════════════════════════════════════════════════
+// CLAUDE API — SLEEP MODE
+// When you have an API key, set it here and wake up:
+//   const CLAUDE_API_KEY = 'sk-ant-...';
+// That's the only change needed. Leave null to stay
+// on scripted mode (free, works on GitHub Pages).
+// ══════════════════════════════════════════════════
+const CLAUDE_API_KEY = null; // ← paste your key here to activate
 
-            // 2. High-Priority Multi-Match Logic (The "Revenue" Question)
-            if (msg.includes("eggplant") && (msg.includes("revenue") || msg.includes("money"))) {
-                return `${timeGreeting} Masha's architecture for <b>Eggplant AI</b> generated <b>$5M+ in revenue</b> in Year 1 alone. Would you like to see the <a href='dashboard.html' style='color: #38bdf8;'>Telemetry Dashboard</a>?`;
-            }
-            
-            if (msg.includes("keysight") && (msg.includes("deals") || msg.includes("win"))) {
-                return `Impressive catch! Masha unblocked <b>$10M in stalled deals</b> for the HFM portfolio. Her "Revenue-First" strategy is her signature move.`;
-            }
+const CLAUDE_SYSTEM = `You are Masha's AI portfolio assistant on bizalchemist.github.io. Speak on her behalf — confident, warm, sharp.
 
-            // 3. Smart Search through your existing response map
-            for (const keyword in responses) {
-                if (msg.includes(keyword)) {
-                    return responses[keyword];
-                }
-            }
+Facts:
+- Sr. Data Scientist, AI/ML Architect, UC Berkeley TPM. MS in MMORSE.
+- Creator of "Eggy" — proactive RAG compliance AI agent with real-time sanctions screening and agentic form governance. Built 2 years before Salesforce Einstein Copilot shipped. Now aligned to Salesforce PRM.
+- Eggy v2.0 (2026): Gemini 2.5 Flash, 1M+ token context, automates global compliance and Quote-to-Cash for Keysight Eggplant Global Partner Ecosystem.
+- $5M partner-influenced revenue in Year 1. Portfolio: $650M+, 250+ NPI launches, 400+ CPQ configs, 200+ partners.
+- 3rd Place, Keysight Santa Rosa HQ Hackathon 2023 — PaLM LLM + Neural Speech Synthesis.
+- Stack: Gemini 2.5 Flash, Python, SQL, JS, Salesforce CRM/CPQ/PRM, Impartner, RAG, LLM engineering.
+- Based in San Francisco Bay Area. Remote-friendly. Open to exciting opportunities.
 
-            // 4. The "Sophisticated Fallback"
-            return `That's a great question about Masha's strategy. While I process the specifics, I recommend launching the <b><a href='dashboard.html' style='color: #38bdf8;'>AI Command Center</a></b>—it visualizes exactly how she connects data to $15M+ in revenue outcomes.`;
-        }
+Keep replies to 2-4 sentences. Never invent facts. If out of scope, invite them to reach out directly.`;
 
-function sendMessage() {
-            const userText = chatbotInput.value.trim();
-            if (userText === "") return;         
-         
-            // Add user message
-            addMessage(userText, 'user');
-            chatbotInput.value = '';
+const claudeHistory = [];
 
-            // Add a "Thinking..." indicator or just a slightly longer delay
-            setTimeout(() => {
-                const botResponse = getBotResponse(userText);
-                addMessage(botResponse, 'bot');
-            }, 1200); // 1.2 seconds is the "human-like" sweet spot
-        }
+async function sendChat() {
+  const text = inp.value.trim(); if (!text) return;
+  inp.value = ''; addUser(text);
 
-        chatbotSendBtn.addEventListener('click', sendMessage);
-        chatbotInput.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        });
-    });
-
-    // 3D Tilt Effect for Hero Card
-    const card = document.querySelector('.card');
-    if (card) {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 15; // Adjusted sensitivity
-            const rotateY = (centerX - x) / 15;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-        });
+  // ── LIVE MODE: Claude API ──
+  if (CLAUDE_API_KEY) {
+    const typingEl = addTyping();
+    claudeHistory.push({ role: 'user', content: text });
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': CLAUDE_API_KEY,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001', // cheapest + fastest
+          max_tokens: 300,
+          system: CLAUDE_SYSTEM,
+          messages: claudeHistory
+        })
+      });
+      const data = await res.json();
+      const reply = data.content?.[0]?.text
+        || "I'm having a moment — please try again or reach out to Masha directly!";
+      typingEl.remove();
+      claudeHistory.push({ role: 'assistant', content: reply });
+      addBot(reply);
+    } catch(e) {
+      typingEl.remove();
+      addBot("Connection hiccup! Try again or use the contact form above. 📬");
     }
+
+  // ── SLEEP MODE: scripted ──
+  } else {
+    setTimeout(() => addBot(getReply(text)), 420);
+  }
+}
+
+function addTyping() {
+  const el = document.createElement('div');
+  el.className = 'msg msg-bot';
+  el.innerHTML = '<span style="letter-spacing:.15em;color:var(--muted)">· · ·</span>';
+  msgs.appendChild(el); msgs.scrollTop = msgs.scrollHeight;
+  return el;
+}
+
+// Contact form reset (so modal is fresh each time it opens)
+function resetContactForm() {
+  document.getElementById('contactForm').style.display = 'block';
+  document.getElementById('contactSuccess').style.display = 'none';
+  document.getElementById('cf-name').value = '';
+  document.getElementById('cf-email').value = '';
+  document.getElementById('cf-msg').value = '';
+}
+
+// Contact form → mailto fallback
+function sendContactEmail() {
+  const name  = document.getElementById('cf-name').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const msg   = document.getElementById('cf-msg').value.trim();
+  if (!name || !email || !msg) {
+    alert('Please fill in all fields.');
+    return;
+  }
+  const subject = encodeURIComponent('Portfolio Inquiry from ' + name);
+  const body    = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + msg);
+  window.location.href = 'mailto:masha.harness@gmail.com?subject=' + subject + '&body=' + body;
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('contactSuccess').style.display = 'block';
+}
+
+// Custom cursor (desktop only)
+if (window.matchMedia('(pointer:fine)').matches) {
+  const cur = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx=0, my=0, rx=0, ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  (function animate(){
+    cur.style.left = mx+'px'; cur.style.top = my+'px';
+    rx += (mx-rx)*.13; ry += (my-ry)*.13;
+    ring.style.left = rx+'px'; ring.style.top = ry+'px';
+    requestAnimationFrame(animate);
+  })();
+  const hoverEls = 'a,button,.p-card,.tl-badge,.btn-ink,.btn-ghost-ink,.btn-contact,#cf-send';
+  document.querySelectorAll(hoverEls).forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
+}
+
+// Navbar scroll effect + scroll progress bar
+const navbar = document.querySelector('.navbar');
+const progressBar = document.getElementById('scroll-progress');
+const onScroll = () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (docH > 0 ? (window.scrollY / docH * 100) : 0) + '%';
+};
+window.addEventListener('scroll', onScroll, { passive: true });
+
+// Animated stat counters — triggers once when stats bar enters view
+function animateCounter(el, target, prefix, suffix, duration) {
+  const start = performance.now();
+  const update = (now) => {
+    const elapsed = Math.min((now - start) / duration, 1);
+    // easeOutExpo
+    const ease = elapsed === 1 ? 1 : 1 - Math.pow(2, -10 * elapsed);
+    const val = Math.floor(ease * target);
+    el.textContent = prefix + val.toLocaleString() + suffix;
+    if (elapsed < 1) requestAnimationFrame(update);
+    else el.textContent = prefix + target.toLocaleString() + suffix;
+  };
+  requestAnimationFrame(update);
+}
+
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    statsObserver.unobserve(e.target);
+    const stats = [
+      { el: document.querySelector('.stat-num:nth-child(1)'), target: 250, prefix: '', suffix: '+',  label: 'NPI Launches' },
+      { el: document.querySelector('.stat-num:nth-child(2)'), target: 650, prefix: '$', suffix: 'M+', label: 'Portfolio' },
+      { el: document.querySelector('.stat-num:nth-child(3)'), target: 400, prefix: '', suffix: '+',  label: 'CPQ Configs' },
+      { el: document.querySelector('.stat-num:nth-child(4)'), target: 5,   prefix: '$', suffix: 'M',  label: 'Revenue Y1' },
+    ];
+    // Query all stat-num elements in order
+    const allNums = document.querySelectorAll('.stat-num');
+    const targets = [
+      { target: 250, prefix: '',  suffix: '+' },
+      { target: 650, prefix: '$', suffix: 'M+' },
+      { target: 400, prefix: '',  suffix: '+' },
+      { target: 5,   prefix: '$', suffix: 'M' },
+    ];
+    allNums.forEach((el, i) => {
+      if (targets[i]) animateCounter(el, targets[i].target, targets[i].prefix, targets[i].suffix, 1800);
+    });
+  });
+}, { threshold: 0.3 });
+const statsSection = document.querySelector('.hero-stats');
+if (statsSection) statsObserver.observe(statsSection);
+
+// Scroll reveals
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal, .tl-item, .testi-card').forEach(el => io.observe(el));
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    const el = document.getElementById('navMenu');
+    const bsc = bootstrap.Collapse.getInstance(el);
+    if (bsc) bsc.hide();
+  });
+});
 </script>
 </body>
 </html>
