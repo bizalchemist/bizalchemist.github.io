@@ -360,7 +360,28 @@ body::before {
   transition:opacity .6s ease,transform .6s ease;
 }
 .testi-card.visible { opacity:1; transform:translateY(0); }
-.q-mark { font-family:var(--font-serif); font-size:3.5rem; color:var(--acid); line-height:.5; margin-bottom:1rem; display:block; }
+.q-mark { 
+  font-family: var(--font-serif); 
+  font-size: 4rem; 
+  line-height: .5; 
+  margin-bottom: 1.5rem; 
+  display: inline-block;
+
+  /* The "Harness" Effect Logic */
+  color: transparent; 
+  -webkit-text-stroke: 1.5px var(--ink); /* The dark outline */
+  position: relative;
+}
+
+.q-mark::after {
+  content: attr(data-text); /* Pulls the “ from the HTML */
+  position: absolute; 
+  top: 3px; 
+  left: 3px;
+  color: var(--acid); /* The glowing layer */
+  -webkit-text-stroke: 0; 
+  z-index: -1;
+}
 .testi-text { font-family:var(--font-serif); font-style:italic; font-size:.9rem; line-height:1.75; color:var(--ink); margin-bottom:1.3rem; }
 .testi-author { font-size:.56rem; letter-spacing:.17em; text-transform:uppercase; color:var(--muted); border-top:1px solid var(--border); padding-top:.9rem; }
 .testi-author strong { color:var(--ink); display:block; margin-bottom:.12rem; }
@@ -374,6 +395,11 @@ body::before {
   color:rgba(255,255,255,.022); pointer-events:none; white-space:nowrap;
 }
 .contact-heading { font-family:var(--font-display); font-size:clamp(3rem,13vw,8.5rem); color:var(--paper); line-height:.9; position:relative; z-index:2; letter-spacing:.02em; }
+.neon-dot {
+  color: var(--acid);
+  text-shadow: 0 0 12px var(--acid);
+  display: inline-block;
+}
 /* ══════════ SCROLL PROGRESS BAR ══════════ */
 #scroll-progress {
   position: fixed; top: 0; left: 0; z-index: 9997;
@@ -762,42 +788,42 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.06); }
     <div class="row g-2">
       <div class="col-12 col-md-6 col-lg-4">
         <div class="testi-card h-100">
-          <span class="q-mark">“</span>
+          <span class="q-mark" data-text="“">“</span>
           <p class="testi-text">Masha takes initiative to fix problems and provide solutions. Her development background means she always looks for ways to automate processes for efficiency and repeatability. Instrumental in our Impartner implementation.</p>
           <div class="testi-author"><strong>Toby</strong><br>VP Global Alliances · Keysight Technologies</div>
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4">
         <div class="testi-card h-100" style="transition-delay:.15s">
-          <span class="q-mark">“</span>
+          <span class="q-mark" data-text="“">“</span>
           <p class="testi-text">Masha's background as a data scientist combined with her understanding of business processes — sales, finance, automation — has been key to her success. She created a vibrant partner platform for continued growth.</p>
           <div class="testi-author"><strong>Gail</strong><br>Director Worldwide Channels · Keysight Technologies</div>
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4">
         <div class="testi-card h-100" style="transition-delay:.3s">
-          <span class="q-mark">“</span>
+          <span class="q-mark" data-text="“">“</span>
           <p class="testi-text">Masha has a versatile skillset centered around systems and data analysis. She works tirelessly to improve process efficiency and takes ownership of problems within her sphere of influence.</p>
           <div class="testi-author"><strong>Ethan</strong><br>Manager, Digital Transformation · Keysight Technologies</div>
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4">
         <div class="testi-card h-100" style="transition-delay:.45s">
-          <span class="q-mark">“</span>
+          <span class="q-mark" data-text="“">“</span>
           <p class="testi-text">Masha is very knowledgeable and reliable specialist, she comes with my best recommendations.</p>
           <div class="testi-author"><strong>Sam</strong><br>Executive Engineering Advisor · Five9</div>
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4">
         <div class="testi-card h-100" style="transition-delay:.6s">
-          <span class="q-mark">“</span>
+          <span class="q-mark" data-text="“">“</span>
           <p class="testi-text">Masha is the person who has not only an excellent skillset but passion for the team's success. Without her, we could not deliver the result so smooth!</p>
           <div class="testi-author"><strong>Akihiko</strong><br>Director Business Development · Keysight Technologies</div>
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4">
         <div class="testi-card h-100" style="transition-delay:.75s">
-          <span class="q-mark">“</span>
+          <span class="q-mark" data-text="“">“</span>
           <p class="testi-text">Masha was very engaged and passionate about her work and received the best compliments on her abilities, integrity, focus, and hard work. Hiring Masha would be an excellent opportunity for her to offer her breadth of knowledge, strong people skills, and technical expertise.</p>
           <div class="testi-author"><strong>Mike</strong><br>Technical Writer · Keysight Technologies</div>
         </div>
@@ -810,7 +836,7 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.06); }
 <section class="contact-section py-5 text-center" id="contact">
   <div class="container-fluid safe-x py-4">
     <span class="sec-label d-block mb-2">Open to Opportunities</span>
-    <h2 class="contact-heading mb-3">LET'S<br>BUILD<br>TOGETHER.</h2>
+    <h2 class="contact-heading mb-3">LET'S<br>BUILD<br>TOGETHER<span class="neon-dot">.</span></h2>
     <p class="contact-sub mb-5">San Francisco Bay Area · Remote-friendly · Willing to relocate</p>
     <div class="d-flex flex-wrap justify-content-center gap-2" style="position:relative;z-index:2">
       <a href="https://linkedin.com/in/mashaharness" class="btn-contact" target="_blank" rel="noopener"><span>LinkedIn</span></a>
